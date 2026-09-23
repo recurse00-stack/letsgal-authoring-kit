@@ -1,0 +1,20 @@
+# User configuration and project-local overrides never belong in the public kit.
+.letsgal-authoring/
+LETSGAL.md
+user.md
+installer-state.json
+.install-receipt.json
+.letsgal-authoring-backups/
+.env
+.env.*
+*.log
+*.bak
+*.zip
+__pycache__/
+*.pyc
+node_modules/
+work/
+scratch/
+test-results/
+.DS_Store
+Thumbs.db

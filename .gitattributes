@@ -1,0 +1,2 @@
+# Preserve the bytes verified by bundle.json and SHA256SUMS.txt on every checkout.
+* -text

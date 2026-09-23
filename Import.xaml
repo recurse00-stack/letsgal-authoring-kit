@@ -1,0 +1,75 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LetsGal · 技能导入" Width="830" Height="805" MinWidth="680" MinHeight="560" WindowStartupLocation="CenterScreen"
+        Background="#F3F6FA" FontFamily="Microsoft YaHei UI" FontSize="14" Foreground="#18273B">
+  <Window.Resources>
+    <Style TargetType="Button"><Setter Property="Padding" Value="16,9"/><Setter Property="Margin" Value="0,0,8,0"/><Setter Property="Cursor" Value="Hand"/></Style>
+    <Style TargetType="TextBox"><Setter Property="Padding" Value="9,7"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style>
+    <Style TargetType="ComboBox"><Setter Property="Padding" Value="10,8"/><Setter Property="MinHeight" Value="40"/></Style>
+    <Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/></Style>
+  </Window.Resources>
+  <DockPanel Margin="28,22">
+    <StackPanel DockPanel.Dock="Top" Margin="0,0,0,20">
+      <TextBlock Text="LETSGAL  /  COMMUNITY SKILL" FontSize="12" FontWeight="SemiBold" Foreground="#506982"/>
+      <TextBlock Text="把制作技能导入你的 AI" FontSize="27" FontWeight="SemiBold" Margin="0,8,0,7"/>
+      <TextBlock Text="选择你使用的 Agent，导入后在新会话中调用 letsgal-authoring。" Foreground="#506177"/>
+    </StackPanel>
+    <StackPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
+      <ProgressBar Name="Progress" Height="3" IsIndeterminate="True" Visibility="Collapsed" Margin="0,0,0,10"/>
+      <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <TextBlock Name="Footer" Text="个人偏好与作品规则独立保存，更新无需重新特调。" VerticalAlignment="Center" Foreground="#506177" Margin="0,0,18,0"/>
+        <Button Name="ImportButton" Grid.Column="1" Content="导入到 Codex" Background="#2257D7" Foreground="White" BorderBrush="#2257D7" FontWeight="SemiBold" MinWidth="180" Margin="0"/>
+      </Grid>
+    </StackPanel>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+      <StackPanel Margin="0,0,6,0">
+        <Border Background="White" CornerRadius="12" Padding="22">
+          <StackPanel Name="SettingsPanel">
+            <TextBlock Text="1  选择 Agent 与导入范围" FontSize="17" FontWeight="SemiBold" Margin="0,0,0,16"/>
+            <Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="18"/><ColumnDefinition/></Grid.ColumnDefinitions>
+              <StackPanel><TextBlock Text="Agent" Margin="0,0,0,6"/><ComboBox Name="AgentBox" AutomationProperties.Name="选择 Agent"/></StackPanel>
+              <StackPanel Grid.Column="2"><TextBlock Text="使用范围" Margin="0,0,0,6"/><ComboBox Name="ScopeBox" AutomationProperties.Name="使用范围"/></StackPanel>
+            </Grid>
+            <StackPanel Name="ProjectPanel" Visibility="Collapsed" Margin="0,16,0,0">
+              <TextBlock Text="项目文件夹" Margin="0,0,0,6"/>
+              <DockPanel><Button Name="ProjectBrowse" DockPanel.Dock="Right" Content="浏览…" Margin="10,0,0,0"/><TextBox Name="ProjectBox" AutomationProperties.Name="项目文件夹"/></DockPanel>
+            </StackPanel>
+            <StackPanel Name="DshPanel" Visibility="Collapsed" Margin="0,16,0,0">
+              <TextBlock Text="DSH 数据文件夹" Margin="0,0,0,6"/>
+              <DockPanel><Button Name="DshBrowse" DockPanel.Dock="Right" Content="浏览…" Margin="10,0,0,0"/><TextBox Name="DshBox" AutomationProperties.Name="DSH 数据文件夹"/></DockPanel>
+              <TextBlock Name="DshHint" FontSize="12" Foreground="#506177" Margin="0,7,0,0"/>
+            </StackPanel>
+            <StackPanel Name="ManualPanel" Visibility="Collapsed" Margin="0,16,0,0">
+              <TextBlock Text="Agent 的 skills 根目录（不含技能名称）" Margin="0,0,0,6"/>
+              <DockPanel><Button Name="ManualBrowse" DockPanel.Dock="Right" Content="浏览…" Margin="10,0,0,0"/><TextBox Name="ManualBox" AutomationProperties.Name="自选 skills 目录"/></DockPanel>
+            </StackPanel>
+            <TextBlock Text="2  确认导入位置" FontSize="17" FontWeight="SemiBold" Margin="0,23,0,10"/>
+            <Border Background="#EEF4FF" CornerRadius="7" Padding="13">
+              <StackPanel>
+                <TextBox Name="DestinationText" Text="请选择 Agent" IsReadOnly="True" BorderThickness="0" Background="Transparent" Padding="0" TextWrapping="Wrap" FontFamily="Consolas" FontSize="13"/>
+                <TextBlock Name="PathNote" Foreground="#506177" FontSize="12" Margin="0,8,0,0"/>
+              </StackPanel>
+            </Border>
+            <TextBlock Text="导入内容：制作流程、官方教程查找、JSON、安全约束与 Git 协作。" Foreground="#506177" FontSize="12" Margin="0,12,0,0"/>
+          </StackPanel>
+        </Border>
+        <Border Name="ResultPanel" Background="#EAF4EF" CornerRadius="10" Padding="18" Margin="0,14,0,0" Visibility="Collapsed">
+          <StackPanel>
+            <TextBlock Name="ResultTitle" FontSize="17" FontWeight="SemiBold"/>
+            <TextBlock Name="ResultBody" Margin="0,7,0,12"/>
+            <WrapPanel>
+              <Button Name="CopyButton" Content="复制验证提示词" Visibility="Collapsed"/>
+              <Button Name="BackupButton" Content="备份后继续" Visibility="Collapsed"/>
+            </WrapPanel>
+          </StackPanel>
+        </Border>
+        <Expander Header="更多选项 · 检查、卸载与详细信息" Margin="2,18,0,0">
+          <StackPanel Margin="0,12,0,0">
+            <WrapPanel><Button Name="CheckButton" Content="检查安装"/><Button Name="RemoveButton" Content="卸载（保留特调）"/></WrapPanel>
+            <TextBlock Name="ProfileText" Foreground="#506177" FontSize="12" Margin="0,12,0,8"/>
+            <TextBox Name="LogBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MinHeight="65" MaxHeight="180" FontSize="12"/>
+          </StackPanel>
+        </Expander>
+      </StackPanel>
+    </ScrollViewer>
+  </DockPanel>
+</Window>

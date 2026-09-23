@@ -1,0 +1,661 @@
+{
+  "version": "0.1.0-preview.3",
+  "passed": 138,
+  "failed": 0,
+  "suites": [
+    {
+      "suite": "base",
+      "checks": [
+        {
+          "name": "valid-project",
+          "passed": true,
+          "detail": "exit=0; read-only=True; status=partial_static_checks_passed"
+        },
+        {
+          "name": "valid-standalone",
+          "passed": true,
+          "detail": "exit=0; read-only=True; status=partial_static_checks_passed"
+        },
+        {
+          "name": "array-instead-of-json-string",
+          "passed": true,
+          "detail": "exit=1; read-only=True; status=issues_found"
+        },
+        {
+          "name": "broken-fragment-target",
+          "passed": true,
+          "detail": "exit=1; read-only=True; status=issues_found"
+        },
+        {
+          "name": "fragment-cycle",
+          "passed": true,
+          "detail": "exit=1; read-only=True; status=issues_found"
+        },
+        {
+          "name": "duplicate-id",
+          "passed": true,
+          "detail": "exit=1; read-only=True; status=issues_found"
+        },
+        {
+          "name": "unknown-instruction-preserved",
+          "passed": true,
+          "detail": "exit=0; read-only=True; status=partial_static_checks_passed"
+        },
+        {
+          "name": "duplicate-json-keys",
+          "passed": true,
+          "detail": "exit=1; read-only=True; status=issues_found"
+        },
+        {
+          "name": "nonfinite-json",
+          "passed": true,
+          "detail": "exit=1; read-only=True; status=issues_found"
+        },
+        {
+          "name": "wrong-boolean-type",
+          "passed": true,
+          "detail": "exit=1; read-only=True; status=issues_found"
+        },
+        {
+          "name": "malformed-type-does-not-crash",
+          "passed": true,
+          "detail": "exit=1; read-only=True; status=issues_found"
+        },
+        {
+          "name": "unknown-metadata-preserved",
+          "passed": true,
+          "detail": "exit=0; read-only=True; status=partial_static_checks_passed"
+        },
+        {
+          "name": "local-markdown-links",
+          "passed": true,
+          "detail": "[]"
+        },
+        {
+          "name": "no-personal-paths-or-private-project-dependencies",
+          "passed": true,
+          "detail": "[]"
+        },
+        {
+          "name": "powershell fresh-install",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell repeat-is-no-op",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell install-receipt-check",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell edited-skill-blocks-overwrite",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell explicit-replacement-backs-up-edits",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell user-and-project-customizations-preserved",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell original-private-skill-untouched",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell corrupted-bundle-rejected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell manifest-traversal-rejected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell uninstall-retains-skill-backup-and-profile",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell version-upgrade-retains-personal-configuration",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell project-path-Codex",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell project-path-Claude",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell project-path-Cursor",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell project-path-Copilot",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "powershell junction-target-rejected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh fresh-install",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh repeat-is-no-op",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh install-receipt-check",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh edited-skill-blocks-overwrite",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh explicit-replacement-backs-up-edits",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh user-and-project-customizations-preserved",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh original-private-skill-untouched",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh corrupted-bundle-rejected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh manifest-traversal-rejected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh uninstall-retains-skill-backup-and-profile",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh version-upgrade-retains-personal-configuration",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh project-path-Codex",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh project-path-Claude",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh project-path-Cursor",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh project-path-Copilot",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pwsh junction-target-rejected",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "passed": 46,
+      "failed": 0,
+      "scope": "Isolated file, installer and static-checker tests only; no real harness/Studio/UI/workshop acceptance."
+    },
+    {
+      "suite": "dsh",
+      "checks": [
+        {
+          "name": "powershell default DSH home",
+          "passed": true
+        },
+        {
+          "name": "powershell DSH_HOME environment",
+          "passed": true
+        },
+        {
+          "name": "powershell explicit home overrides env",
+          "passed": true
+        },
+        {
+          "name": "powershell Git root and customizations",
+          "passed": true
+        },
+        {
+          "name": "powershell installed official provider discovers project at nearest Git root",
+          "passed": true
+        },
+        {
+          "name": "powershell installed official provider discovers personal skill",
+          "passed": true
+        },
+        {
+          "name": "powershell installed official provider loads workflow and metadata",
+          "passed": true
+        },
+        {
+          "name": "powershell installed relative reference is accessible",
+          "passed": true
+        },
+        {
+          "name": "powershell installed no parsing warnings",
+          "passed": true
+        },
+        {
+          "name": "powershell uninstalled official provider discovers project at nearest Git root",
+          "passed": true
+        },
+        {
+          "name": "powershell uninstalled uninstalled personal copy is not discovered",
+          "passed": true
+        },
+        {
+          "name": "powershell uninstalled no parsing warnings",
+          "passed": true
+        },
+        {
+          "name": "powershell uninstall keeps profile",
+          "passed": true
+        },
+        {
+          "name": "pwsh default DSH home",
+          "passed": true
+        },
+        {
+          "name": "pwsh DSH_HOME environment",
+          "passed": true
+        },
+        {
+          "name": "pwsh explicit home overrides env",
+          "passed": true
+        },
+        {
+          "name": "pwsh Git root and customizations",
+          "passed": true
+        },
+        {
+          "name": "pwsh installed official provider discovers project at nearest Git root",
+          "passed": true
+        },
+        {
+          "name": "pwsh installed official provider discovers personal skill",
+          "passed": true
+        },
+        {
+          "name": "pwsh installed official provider loads workflow and metadata",
+          "passed": true
+        },
+        {
+          "name": "pwsh installed relative reference is accessible",
+          "passed": true
+        },
+        {
+          "name": "pwsh installed no parsing warnings",
+          "passed": true
+        },
+        {
+          "name": "pwsh uninstalled official provider discovers project at nearest Git root",
+          "passed": true
+        },
+        {
+          "name": "pwsh uninstalled uninstalled personal copy is not discovered",
+          "passed": true
+        },
+        {
+          "name": "pwsh uninstalled no parsing warnings",
+          "passed": true
+        },
+        {
+          "name": "pwsh uninstall keeps profile",
+          "passed": true
+        }
+      ],
+      "passed": 26,
+      "failed": 0,
+      "scope": "Isolated official DSH filesystem provider; no live session/model/server acceptance."
+    },
+    {
+      "suite": "ui-powershell",
+      "scope": "In-process WPF events and render; no OS mouse or live Agent acceptance.",
+      "failed": 0,
+      "checks": [
+        {
+          "name": "DSH initial selection and destination",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Codex",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Claude",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Cursor",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Copilot",
+          "passed": true
+        },
+        {
+          "name": "Agent selection DSH",
+          "passed": true
+        },
+        {
+          "name": "Missing project disables import",
+          "passed": true
+        },
+        {
+          "name": "DSH project preview follows Git root",
+          "passed": true
+        },
+        {
+          "name": "GUI import launches hidden child and completes",
+          "passed": true
+        },
+        {
+          "name": "Success offers correct verification prompt",
+          "passed": true
+        },
+        {
+          "name": "GUI repeat import retains preferences",
+          "passed": true
+        },
+        {
+          "name": "GUI read-only check completes",
+          "passed": true
+        },
+        {
+          "name": "Edited skill shows backup choice without changing files",
+          "passed": true
+        },
+        {
+          "name": "No hidden child left running",
+          "passed": true
+        }
+      ],
+      "passed": 14
+    },
+    {
+      "suite": "ui-pwsh",
+      "failed": 0,
+      "checks": [
+        {
+          "name": "DSH initial selection and destination",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Codex",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Claude",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Cursor",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Copilot",
+          "passed": true
+        },
+        {
+          "name": "Agent selection DSH",
+          "passed": true
+        },
+        {
+          "name": "Missing project disables import",
+          "passed": true
+        },
+        {
+          "name": "DSH project preview follows Git root",
+          "passed": true
+        },
+        {
+          "name": "GUI import launches hidden child and completes",
+          "passed": true
+        },
+        {
+          "name": "Success offers correct verification prompt",
+          "passed": true
+        },
+        {
+          "name": "GUI repeat import retains preferences",
+          "passed": true
+        },
+        {
+          "name": "GUI read-only check completes",
+          "passed": true
+        },
+        {
+          "name": "Edited skill shows backup choice without changing files",
+          "passed": true
+        },
+        {
+          "name": "No hidden child left running",
+          "passed": true
+        }
+      ],
+      "passed": 14,
+      "scope": "In-process WPF events and render; no OS mouse or live Agent acceptance."
+    },
+    {
+      "suite": "safety-powershell",
+      "scope": "Isolated path, real cross-process locking and GUI startup regression tests.",
+      "failed": 0,
+      "checks": [
+        {
+          "name": "ambiguous or device path rejected",
+          "passed": true
+        },
+        {
+          "name": "ambiguous or device path rejected",
+          "passed": true
+        },
+        {
+          "name": "ambiguous or device path rejected",
+          "passed": true
+        },
+        {
+          "name": "ambiguous or device path rejected",
+          "passed": true
+        },
+        {
+          "name": "ambiguous or device path rejected",
+          "passed": true
+        },
+        {
+          "name": "initial fixture install",
+          "passed": true
+        },
+        {
+          "name": "concurrent installer refuses target while lock held",
+          "passed": true
+        },
+        {
+          "name": "concurrent attempt preserves installed bytes",
+          "passed": true
+        },
+        {
+          "name": "released lock permits next import",
+          "passed": true
+        },
+        {
+          "name": "directory masquerading as profile is rejected before install",
+          "passed": true
+        },
+        {
+          "name": "invalid DSH path does not prevent Codex GUI startup",
+          "passed": true
+        }
+      ],
+      "passed": 11
+    },
+    {
+      "suite": "safety-pwsh",
+      "scope": "Isolated path, real cross-process locking and GUI startup regression tests.",
+      "passed": 11,
+      "checks": [
+        {
+          "name": "ambiguous or device path rejected",
+          "passed": true
+        },
+        {
+          "name": "ambiguous or device path rejected",
+          "passed": true
+        },
+        {
+          "name": "ambiguous or device path rejected",
+          "passed": true
+        },
+        {
+          "name": "ambiguous or device path rejected",
+          "passed": true
+        },
+        {
+          "name": "ambiguous or device path rejected",
+          "passed": true
+        },
+        {
+          "name": "initial fixture install",
+          "passed": true
+        },
+        {
+          "name": "concurrent installer refuses target while lock held",
+          "passed": true
+        },
+        {
+          "name": "concurrent attempt preserves installed bytes",
+          "passed": true
+        },
+        {
+          "name": "released lock permits next import",
+          "passed": true
+        },
+        {
+          "name": "directory masquerading as profile is rejected before install",
+          "passed": true
+        },
+        {
+          "name": "invalid DSH path does not prevent Codex GUI startup",
+          "passed": true
+        }
+      ],
+      "failed": 0
+    },
+    {
+      "suite": "review",
+      "checks": [
+        {
+          "name": "unknown-chapter-is-not-converted",
+          "passed": true
+        },
+        {
+          "name": "json-only-accepts-unknown-layout",
+          "passed": true
+        },
+        {
+          "name": "explicit-profile-reports-shape-problem",
+          "passed": true
+        },
+        {
+          "name": "unknown-project-index-is-not-called-corrupt",
+          "passed": true
+        },
+        {
+          "name": "json-only-unknown-project",
+          "passed": true
+        },
+        {
+          "name": "unknown-instruction-preserved-and-unverified",
+          "passed": true
+        },
+        {
+          "name": "structural-success-is-not-engine-compatibility",
+          "passed": true
+        },
+        {
+          "name": "unrecognized-instruction-parameters-need-version-evidence",
+          "passed": true
+        },
+        {
+          "name": "privacy-detector-path",
+          "passed": true
+        },
+        {
+          "name": "privacy-detector-token",
+          "passed": true
+        },
+        {
+          "name": "privacy-detector-email",
+          "passed": true
+        },
+        {
+          "name": "privacy-detector-key",
+          "passed": true
+        },
+        {
+          "name": "public-reference-url-not-personal-path",
+          "passed": true
+        },
+        {
+          "name": "explicit-release-list-builds-with-unlisted-local-files",
+          "passed": true
+        },
+        {
+          "name": "archive-contains-only-approved-files",
+          "passed": true
+        },
+        {
+          "name": "archive-has-no-private-fixture-bytes",
+          "passed": true
+        }
+      ],
+      "passed": 16,
+      "failed": 0,
+      "scope": "Version-format handling, privacy detectors and real ZIP whitelist isolation; no host-version runtime acceptance."
+    }
+  ]
+}

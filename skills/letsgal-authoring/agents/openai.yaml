@@ -1,0 +1,4 @@
+interface:
+  display_name: "LetsGal 创作与协作"
+  short_description: "依据官方规范制作 LetsGal 剧情与 JSON，安全协作、管理 Git 并验证作品"
+  default_prompt: "使用 $letsgal-authoring，先识别当前 LetsGal 工程和制作目标，再按官方资料完成本次内容与相关验证。"
