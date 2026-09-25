@@ -1,8 +1,10 @@
 # 维护交接
 
-当前：独立公共技能 letsgal-authoring，0.1.0-preview.4。已加入 DSH 适配与图形导入器。本包是维护源与分发候选，不是任何机器的已注册技能。修改范围是此目录，不能同步覆盖其他个人技能。
+当前：独立公共技能 letsgal-authoring，0.1.0-preview.5。已加入 DSH 适配与图形导入器。本包是维护源与分发候选，不是任何机器的已注册技能。修改范围是此目录，不能同步覆盖其他个人技能。
 
-本轮新增：用户区 preferences/ 与 plugins/ 分离，旧版 user.md 原位兼容；插件 Skill 自动按 ID／版本落位，用户独立维护。安装器只创建缺失用户项，不覆盖现有内容；真实旧版升级及失败保留测试见验证记录。
+本轮复核修复：安装器状态使用原子替换，保护硬链接关联文件；状态／日志保存失败单独提示已完成结果；残缺状态安全回退。检查器 auto 兼容旧分支省略 mode，严格 fragments 模式仍要求新建字段完整。
+
+前轮新增：用户区 preferences/ 与 plugins/ 分离，旧版 user.md 原位兼容；插件 Skill 自动按 ID／版本落位，用户独立维护。安装器只创建缺失用户项，不覆盖现有内容；真实旧版升级及失败保留测试见验证记录。
 
 入口：README.md 面向使用者；skills/letsgal-authoring/SKILL.md 面向 AI；SOURCES.md 保存来源；VALIDATION.md 标记验证层次；WORKSHOP.md 列投稿剩余事项。
 
@@ -20,4 +22,4 @@ maintenance/run_dsh_checks.py 需要显式传入当前安装的官方 provider �
 
 本轮复核：加入项目版本分流、未知格式保留、同目标进程锁、回滚边界、发布文件白名单与隐私检测。MANUAL.md 是用户手册；PRIVACY.md 是实际发布边界。发布文件必须逐项加入 release-files.json，再运行 review_release.py；任何测试目录、截图和安装状态不在清单中。
 
-待发布目标是独立 GitHub 仓库，仓库地址与本机过程仅留在维护会话，不硬编码进公共 Skill。GitHub 上传、真实引擎版本验收和工坊审核分别核实，不能以其中一项替代另一项。
+发布目标是独立 GitHub 仓库，仓库地址与本机过程仅留在维护会话，不硬编码进公共 Skill。GitHub 上传、真实引擎版本验收和工坊审核分别核实，不能以其中一项替代另一项。

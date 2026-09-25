@@ -139,7 +139,9 @@ function Complete-ImportAction {
         $script:ui.BackupButton.Visibility = 'Visible'
     } elseif ($exitCode -eq 0 -and $result -and $result.action -in @('installed','already_current','check')) {
         $title = switch ($result.action) { 'installed' { '导入完成' }; 'already_current' { '已经是此包版本' }; 'check' { '安装文件校验通过' } }
-        Show-ImportResult $title '下一步：打开 Agent 的新会话，粘贴验证提示词。此结果确认文件已就位；AI 是否加载，需要在 Agent 中核对。' $true
+        $body = '下一步：打开 Agent 的新会话，粘贴验证提示词。此结果确认文件已就位；AI 是否加载，需要在 Agent 中核对。'
+        if ($result.PSObject.Properties['backup'] -and $result.backup) { $body += "`n旧技能完整备份：" + $result.backup }
+        Show-ImportResult $title $body $true
         $script:prompt = "使用 letsgal-authoring。只读检查：核对实际读取的技能路径是否为 $($job.Target)；读取个人偏好 $($result.profile) 和工程 LETSGAL.md（不存在就明确说不存在）；插件 Skill 位于 $($result.plugins)，只按当前项目的插件 ID 和实际版本定位相关资料，不默认全部启用。定位当前工程与章节，说明写 JSON 前要查哪一页官方规范。不要修改文件或启动引擎。"
         $script:ui.CopyButton.Visibility = 'Visible'
         $script:ui.CopyButton.Content = '复制验证提示词'
@@ -151,15 +153,20 @@ function Complete-ImportAction {
         $message = if ($result -and $result.action -eq 'error') { $result.message } else { '请展开“详细信息”查看原因；也可按 README 手动导入。' }
         Show-ImportResult '操作未完成' $message $false
     }
+    if ($result -and $result.PSObject.Properties['completion_warnings'] -and $result.completion_warnings) {
+        $script:ui.ResultTitle.Text += '（有提示）'
+        $script:ui.ResultPanel.Background = '#FFF2DE'
+        $script:ui.ResultBody.Text += "`n" + ($result.completion_warnings -join "`n")
+    }
+    $script:window.UpdateLayout()
+    $script:ui.ResultPanel.BringIntoView()
 }
 
 try {
     $UserHome = Full-Path $UserHome
     Assert-OrdinaryPath $UserHome
     $statePath = Join-Path $UserHome '.letsgal-authoring/installer-state.json'
-    $saved = $null
-    Assert-OrdinaryPath $statePath
-    if (Test-Path -LiteralPath $statePath -PathType Leaf) { try { $saved = [IO.File]::ReadAllText($statePath) | ConvertFrom-Json } catch {} }
+    $saved = Read-InstallerChoices $statePath
     if ($saved) {
         if (-not $Harness) { $Harness = $saved.Harness }
         if (-not $Scope) { $Scope = $saved.Scope }

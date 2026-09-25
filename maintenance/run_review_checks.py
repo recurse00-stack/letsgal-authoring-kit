@@ -43,6 +43,12 @@ def main():
     record('structural-success-is-not-engine-compatibility',report['engine_compatibility']=='not_verified' and report['warnings']>0)
     different_parameters={'id':'c','name':'chapter','fragments':[{'id':'f','name':'main','blocks':[{'type':'branch','props':{'differentVersionParameters':[]}}]}]}
     case('unrecognized-instruction-parameters-need-version-evidence',different_parameters,2,'unsupported_format')
+    legacy_choice={'id':'c','name':'chapter','fragments':[{'id':'f','name':'main','blocks':[{'type':'branch','props':{'choices':json.dumps([{'text':'Continue','fragmentId':''}])}}]}]}
+    report=case('legacy-choice-mode-default-is-read-only',legacy_choice,0,'partial_static_checks_passed')
+    record('legacy-choice-default-is-disclosed',any('legacy choice' in issue['message'] for issue in report['issues']))
+    case('explicit-generation-profile-requires-choice-mode',legacy_choice,1,'issues_found','--format','fragments')
+    legacy_choice['fragments'][0]['blocks'][0]['props']['choices']=json.dumps([{'text':'Continue','fragmentId':'missing'}])
+    case('legacy-default-still-checks-target-reference',legacy_choice,1,'issues_found')
     for name,value in [('path','Q'+':'+chr(92)+'Users'+chr(92)+'private'),('token','ghp_'+'A'*36),('email','person'+'@'+'private.example'),('key','-----BEGIN '+'PRIVATE KEY-----')]:
         record('privacy-detector-'+name,bool(inspect_text(value)))
     record('public-reference-url-not-personal-path',not inspect_text('https://docs.avg-engine.com/reference/script-json'))

@@ -17,6 +17,7 @@ $SkillName = 'letsgal-authoring'
 $Owner = 'letsgal-authoring-kit'
 $Utf8 = New-Object System.Text.UTF8Encoding($false)
 $operationLock = $null
+$completionWarnings = New-Object 'System.Collections.Generic.List[string]'
 
 . (Join-Path $PSScriptRoot 'Import.Paths.ps1')
 function Ensure-Directory([string]$Path) {
@@ -45,9 +46,38 @@ function Read-Json([string]$Path) {
     Assert-OrdinaryPath $Path
     return ([IO.File]::ReadAllText($Path, $Utf8) | ConvertFrom-Json)
 }
-function Write-Json([string]$Path, $Value) {
-    Assert-OrdinaryPath $Path
-    [IO.File]::WriteAllText($Path, ($Value | ConvertTo-Json -Depth 12), $Utf8)
+function Write-Json([string]$Path, $Value, [switch]$Replace) {
+    Assert-OptionalFile $Path
+    # Replace the directory entry, not the existing file's bytes: a hard link must
+    # never turn installer state into a write to another user-owned file.
+    $output = $Path
+    if ($Replace) { $output = $Path + '.' + [Guid]::NewGuid().ToString('N') + '.tmp' }
+    $created = $false
+    $stream = $null
+    try {
+        $bytes = $Utf8.GetBytes(($Value | ConvertTo-Json -Depth 12))
+        $stream = [IO.File]::Open($output,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+        $created = $true
+        $stream.Write($bytes,0,$bytes.Length)
+        $stream.Flush($true)
+        $stream.Dispose(); $stream = $null
+        if ($Replace) {
+            Assert-OptionalFile $Path
+            if (Test-Path -LiteralPath $Path) { [IO.File]::Replace($output,$Path,[NullString]::Value) }
+            else { [IO.File]::Move($output,$Path) }
+        }
+    } finally {
+        if ($stream) { $stream.Dispose() }
+        if ($Replace -and $created -and [IO.File]::Exists($output)) { [IO.File]::Delete($output) }
+    }
+}
+function Write-CompletionRecord([string]$Path, $Value, [switch]$Replace) {
+    try { Write-Json $Path $Value -Replace:$Replace }
+    catch {
+        $message = "技能文件操作已完成，但未能保存安装器选项或日志：$Path。原记录保留；下次请重新核对所选位置。原因：$($_.Exception.Message)"
+        $completionWarnings.Add($message)
+        Write-Warning $message
+    }
 }
 function Hash-File([string]$Path) {
     $algorithm = [Security.Cryptography.SHA256]::Create()
@@ -118,10 +148,7 @@ try {
     Assert-OrdinaryPath $profileRoot
     Assert-OptionalFile $profileFile
     Assert-OptionalFile $stateFile
-    $previous = $null
-    if (Test-Path -LiteralPath $stateFile -PathType Leaf) {
-        try { $previous = Read-Json $stateFile } catch { Write-Warning 'Previous installer choices could not be read; choose again.' }
-    }
+    $previous = Read-InstallerChoices $stateFile
     if (-not $Harness) {
         if ($NonInteractive) { throw 'Harness is required in non-interactive mode.' }
         Write-Host 'LetsGal 创作与协作 - 独立社区技能安装器' -ForegroundColor Cyan
@@ -238,15 +265,15 @@ try {
         Assert-OrdinaryPath $target
         if (-not (Same-Map (Tree-Map $target -SkipReceipt) $currentMap)) { throw 'Skill changed during uninstall; original left in place.' }
         [IO.Directory]::Move($target, $backup)
-        Write-Json (Join-Path $backupRoot ($stamp + '-uninstall.json')) @{target=$target;backup=$backup;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot}
-        @{action='uninstalled_to_backup';backup=$backup;profile=$profileFile;plugins=$pluginsRoot} | ConvertTo-Json -Compress
+        Write-CompletionRecord (Join-Path $backupRoot ($stamp + '-uninstall.json')) @{target=$target;backup=$backup;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot}
+        @{action='uninstalled_to_backup';backup=$backup;profile=$profileFile;plugins=$pluginsRoot;completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
         exit 0
     }
     if ($installed -and (-not $managed -or -not $clean)) { Confirm-Replacement "The existing skill has local edits or is unmanaged: $target" }
     if ($installed -and $managed -and $clean -and (Same-Map $currentMap $expected)) {
         Initialize-UserArea $homeRoot
-        Write-Json $stateFile @{Harness=$Harness;Scope=$Scope;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome}
-        @{action='already_current';target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested'} | ConvertTo-Json -Compress
+        Write-CompletionRecord $stateFile @{Harness=$Harness;Scope=$Scope;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome} -Replace
+        @{action='already_current';target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
         exit 0
     }
     if (-not $NonInteractive -and (Read-Host '以上位置正确吗？回车安装，输入 N 取消') -match '^[Nn]') { throw 'Cancelled.' }
@@ -284,10 +311,10 @@ try {
         if ($backup -and (Test-Path -LiteralPath $backup) -and -not (Test-Path -LiteralPath $target)) { [IO.Directory]::Move($backup, $target) }
         throw
     }
-    Write-Json $stateFile @{Harness=$Harness;Scope=$Scope;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome}
-    Write-Json (Join-Path $backupRoot ($stamp + '-install.json')) @{target=$target;previous=$backup;version=$manifest.version;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot}
+    Write-CompletionRecord $stateFile @{Harness=$Harness;Scope=$Scope;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome} -Replace
+    Write-CompletionRecord (Join-Path $backupRoot ($stamp + '-install.json')) @{target=$target;previous=$backup;version=$manifest.version;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot}
     Write-Host '文件安装并校验完成。打开新的 AI 会话，按 README 的验证提示确认技能与个人配置已加载。' -ForegroundColor Green
-    @{action='installed';version=$manifest.version;target=$target;backup=$backup;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested'} | ConvertTo-Json -Compress
+    @{action='installed';version=$manifest.version;target=$target;backup=$backup;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
     exit 0
 } catch {
     Write-Host ("安装器停止：" + $_.Exception.Message) -ForegroundColor Red

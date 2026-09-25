@@ -191,9 +191,13 @@ def check(target, format_profile='auto'):
                         if "isDefault" in choice and not isinstance(choice["isDefault"], bool):
                             issue("error", cl, "isDefault must be boolean")
                         defaults += choice.get("isDefault") is True
-                        if choice.get("mode") == "jump":
+                        mode = choice.get("mode")
+                        if "mode" not in choice and format_profile == 'auto':
+                            mode = 'jump'
+                            issue("warning", cl, "legacy choice omits mode; inspected using the documented jump default, without modifying source")
+                        if mode == "jump":
                             ref(choice.get("fragmentId"), cl, origin, True)
-                        elif choice.get("mode") == "vars":
+                        elif mode == "vars":
                             if not isinstance(choice.get("varOps"), list):
                                 issue("error", cl, "vars choice requires varOps array")
                             else:

@@ -14,11 +14,13 @@ args=p.parse_args()
 if not args.scratch.is_absolute() or args.scratch.exists():
     p.error('Use a NEW absolute scratch directory')
 previous=args.previous_bundle.resolve()
-if json.loads((previous/'bundle.json').read_text('utf-8'))['version']!='0.1.0-preview.3':
-    p.error('Provide the unmodified preview.3 release as the previous bundle')
+previous_manifest=json.loads((previous/'bundle.json').read_text('utf-8'))
+previous_version=previous_manifest['version']
+if previous_manifest.get('owner')!='letsgal-authoring-kit':
+    p.error('Provide an unmodified previous release of this kit')
 bundle=Path(__file__).resolve().parents[1]
 version=json.loads((bundle/'bundle.json').read_text('utf-8'))['version']
-assert version!='0.1.0-preview.3'
+if version==previous_version: p.error('The upgrade baseline must be a different release')
 args.scratch.mkdir()
 checks=[]
 
@@ -80,7 +82,7 @@ for shell in filter(None,[shutil.which('powershell.exe'),shutil.which('pwsh.exe'
     code,result=run(old_home,source=previous)
     old_target=old_home/'.agents/skills/letsgal-authoring'
     old_skill=snapshot(old_target); old_user=user_snapshot(old_area)
-    record(label+' real preview.3 baseline installed',code==0 and json.loads((old_target/'.install-receipt.json').read_text('utf-8'))['version']=='0.1.0-preview.3')
+    record(label+' real '+previous_version+' baseline installed',code==0 and json.loads((old_target/'.install-receipt.json').read_text('utf-8'))['version']==previous_version)
     code,result=run(old_home)
     record(label+' real version upgrade succeeds with complete old backup',code==0 and json.loads((old_target/'.install-receipt.json').read_text('utf-8'))['version']==version and snapshot(Path(result['backup']))==old_skill)
     record(label+' upgrade preserves legacy preferences and all plugin files',user_snapshot(old_area)==old_user and Path(result['profile'])==legacy)
@@ -111,6 +113,7 @@ for shell in filter(None,[shutil.which('powershell.exe'),shutil.which('pwsh.exe'
         record(label+' '+case+' rejects before target mutation',code!=0 and snapshot(h)==saved and not (h/'.agents').exists())
 
 report={'version':version,'checks':checks,'passed':len(checks),'failed':0,
-        'scope':'Isolated real preview.3 upgrade and byte-preservation tests; no private homes or plugin code execution.'}
+        'previous_version':previous_version,
+        'scope':'Isolated real previous-release upgrade and byte-preservation tests; no private homes or plugin code execution.'}
 (args.scratch/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n','utf-8')
 print(json.dumps({'passed':len(checks),'failed':0}))

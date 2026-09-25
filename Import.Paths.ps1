@@ -9,6 +9,23 @@ function Assert-OptionalFile([string]$Path) {
     Assert-OrdinaryPath $Path
     if ((Test-Path -LiteralPath $Path) -and -not (Test-Path -LiteralPath $Path -PathType Leaf)) { throw "Expected a file, but found another object: $Path" }
 }
+function Read-InstallerChoices([string]$Path) {
+    Assert-OptionalFile $Path
+    $choices = @{Harness=$null;Scope=$null;ProjectPath=$null;SkillsDirectory=$null;DshHome=$null}
+    if (Test-Path -LiteralPath $Path -PathType Leaf) {
+        try {
+            $saved = [IO.File]::ReadAllText($Path) | ConvertFrom-Json
+            if ($null -eq $saved -or $saved -isnot [pscustomobject]) { throw 'Expected an object.' }
+            foreach ($key in @($choices.Keys)) {
+                $property = $saved.PSObject.Properties[$key]
+                if ($property -and $property.Value -is [string]) { $choices[$key] = $property.Value }
+            }
+            if ($choices.Harness -notin @('Codex','Claude','Cursor','Copilot','DSH','Manual')) { $choices.Harness = $null }
+            if ($choices.Scope -notin @('User','Project')) { $choices.Scope = $null }
+        } catch { Write-Warning 'Previous installer choices could not be read; choose again. Existing file was not changed.' }
+    }
+    return [pscustomobject]$choices
+}
 function Assert-OrdinaryPath([string]$Path) {
     $current = [IO.Path]::GetFullPath($Path)
     while ($current) {

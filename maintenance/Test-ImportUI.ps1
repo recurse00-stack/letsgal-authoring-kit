@@ -24,7 +24,7 @@ function Pump {
 }
 function Capture([string]$Name) {
     $script:window.UpdateLayout()
-    $visual = $script:window.Content
+    $visual = $script:window
     $bitmap = New-Object Windows.Media.Imaging.RenderTargetBitmap([int]$visual.ActualWidth,[int]$visual.ActualHeight,96,96,[Windows.Media.PixelFormats]::Pbgra32)
     $bitmap.Render($visual)
     $encoder = New-Object Windows.Media.Imaging.PngBitmapEncoder
@@ -68,6 +68,16 @@ try {
     Record 'GUI repeat import retains preferences' ($script:ui.ResultTitle.Text -eq '已经是此包版本' -and [IO.File]::ReadAllText($profile) -eq 'PRESERVE ME')
     Click-And-Wait $script:ui.CheckButton
     Record 'GUI read-only check completes' ($script:ui.ResultTitle.Text -eq '安装文件校验通过')
+    $stateFile=Join-Path $fixtureHome '.letsgal-authoring/installer-state.json'
+    $stateBefore=[IO.File]::ReadAllText($stateFile)
+    $heldState=[IO.File]::Open($stateFile,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
+    try {
+        Click-And-Wait $script:ui.ImportButton
+        Record 'GUI shows state-save warning without denying installed result' ($script:ui.ResultTitle.Text -eq '已经是此包版本（有提示）' -and $script:ui.ResultBody.Text.Contains($stateFile) -and $script:ui.CopyButton.Visibility -eq 'Visible')
+        Record 'GUI state-save failure preserves previous record' ([IO.File]::ReadAllText($stateFile) -eq $stateBefore)
+        Record 'Completion result scrolls into view' ($script:ui.ContentScroll.VerticalOffset -gt 0)
+        Capture 'state-save-warning.png'
+    } finally { $heldState.Dispose() }
     $skillFile = Join-Path $fixtureDsh 'skills/letsgal-authoring/SKILL.md'
     [IO.File]::AppendAllText($skillFile,"`nLOCAL EDIT")
     Click-And-Wait $script:ui.ImportButton

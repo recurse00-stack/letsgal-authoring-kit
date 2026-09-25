@@ -1,7 +1,7 @@
 {
-  "version": "0.1.0-preview.4",
+  "version": "0.1.0-preview.5",
   "date": "2026-09-25",
-  "passed": 172,
+  "passed": 226,
   "failed": 0,
   "suites": [
     {
@@ -238,6 +238,8 @@
           "detail": ""
         }
       ],
+      "passed": 46,
+      "failed": 0,
       "scope": "Isolated file, installer and static-checker tests only; no real harness/Studio/UI/workshop acceptance."
     },
     {
@@ -348,10 +350,14 @@
           "passed": true
         }
       ],
+      "passed": 26,
+      "failed": 0,
       "scope": "Isolated official DSH filesystem provider; no live session/model/server acceptance."
     },
     {
       "suite": "ui-ps51",
+      "scope": "In-process WPF events and render; no OS mouse or live Agent acceptance.",
+      "failed": 0,
       "checks": [
         {
           "name": "DSH initial selection and destination",
@@ -406,6 +412,18 @@
           "passed": true
         },
         {
+          "name": "GUI shows state-save warning without denying installed result",
+          "passed": true
+        },
+        {
+          "name": "GUI state-save failure preserves previous record",
+          "passed": true
+        },
+        {
+          "name": "Completion result scrolls into view",
+          "passed": true
+        },
+        {
           "name": "Edited skill shows backup choice without changing files",
           "passed": true
         },
@@ -414,76 +432,92 @@
           "passed": true
         }
       ],
-      "scope": "In-process WPF events and render; no OS mouse or live Agent acceptance."
+      "passed": 18
     },
     {
       "suite": "ui-ps7",
+      "scope": "In-process WPF events and render; no OS mouse or live Agent acceptance.",
+      "passed": 18,
       "checks": [
         {
-          "name": "DSH initial selection and destination",
-          "passed": true
+          "passed": true,
+          "name": "DSH initial selection and destination"
         },
         {
-          "name": "Agent selection Codex",
-          "passed": true
+          "passed": true,
+          "name": "Agent selection Codex"
         },
         {
-          "name": "Agent selection Claude",
-          "passed": true
+          "passed": true,
+          "name": "Agent selection Claude"
         },
         {
-          "name": "Agent selection Cursor",
-          "passed": true
+          "passed": true,
+          "name": "Agent selection Cursor"
         },
         {
-          "name": "Agent selection Copilot",
-          "passed": true
+          "passed": true,
+          "name": "Agent selection Copilot"
         },
         {
-          "name": "Agent selection DSH",
-          "passed": true
+          "passed": true,
+          "name": "Agent selection DSH"
         },
         {
-          "name": "Missing project disables import",
-          "passed": true
+          "passed": true,
+          "name": "Missing project disables import"
         },
         {
-          "name": "DSH project preview follows Git root",
-          "passed": true
+          "passed": true,
+          "name": "DSH project preview follows Git root"
         },
         {
-          "name": "GUI import launches hidden child and completes",
-          "passed": true
+          "passed": true,
+          "name": "GUI import launches hidden child and completes"
         },
         {
-          "name": "Success offers correct verification prompt",
-          "passed": true
+          "passed": true,
+          "name": "Success offers correct verification prompt"
         },
         {
-          "name": "GUI separates actual preference and plugin paths",
-          "passed": true
+          "passed": true,
+          "name": "GUI separates actual preference and plugin paths"
         },
         {
-          "name": "GUI repeat import retains preferences",
-          "passed": true
+          "passed": true,
+          "name": "GUI repeat import retains preferences"
         },
         {
-          "name": "GUI read-only check completes",
-          "passed": true
+          "passed": true,
+          "name": "GUI read-only check completes"
         },
         {
-          "name": "Edited skill shows backup choice without changing files",
-          "passed": true
+          "passed": true,
+          "name": "GUI shows state-save warning without denying installed result"
         },
         {
-          "name": "No hidden child left running",
-          "passed": true
+          "passed": true,
+          "name": "GUI state-save failure preserves previous record"
+        },
+        {
+          "passed": true,
+          "name": "Completion result scrolls into view"
+        },
+        {
+          "passed": true,
+          "name": "Edited skill shows backup choice without changing files"
+        },
+        {
+          "passed": true,
+          "name": "No hidden child left running"
         }
       ],
-      "scope": "In-process WPF events and render; no OS mouse or live Agent acceptance."
+      "failed": 0
     },
     {
       "suite": "safety-ps51",
+      "scope": "Isolated path, real cross-process locking and GUI startup regression tests.",
+      "failed": 0,
       "checks": [
         {
           "name": "ambiguous or device path rejected",
@@ -526,134 +560,115 @@
           "passed": true
         },
         {
+          "name": "state replacement preserves external hard-linked user file",
+          "passed": true
+        },
+        {
+          "name": "locked state reports completed install with separate warning",
+          "passed": true
+        },
+        {
+          "name": "locked state retains original record and valid installed skill",
+          "passed": true
+        },
+        {
+          "name": "repeat import separates state warning from installation result",
+          "passed": true
+        },
+        {
+          "name": "released state lock permits atomic save without stale temp files",
+          "passed": true
+        },
+        {
+          "name": "incomplete or invalid saved choices remain safe under strict mode",
+          "passed": true
+        },
+        {
           "name": "invalid DSH path does not prevent Codex GUI startup",
           "passed": true
         }
       ],
-      "scope": "Isolated path, real cross-process locking and GUI startup regression tests."
+      "passed": 17
     },
     {
       "suite": "safety-ps7",
       "checks": [
         {
-          "name": "ambiguous or device path rejected",
-          "passed": true
+          "passed": true,
+          "name": "ambiguous or device path rejected"
         },
         {
-          "name": "ambiguous or device path rejected",
-          "passed": true
+          "passed": true,
+          "name": "ambiguous or device path rejected"
         },
         {
-          "name": "ambiguous or device path rejected",
-          "passed": true
+          "passed": true,
+          "name": "ambiguous or device path rejected"
         },
         {
-          "name": "ambiguous or device path rejected",
-          "passed": true
+          "passed": true,
+          "name": "ambiguous or device path rejected"
         },
         {
-          "name": "ambiguous or device path rejected",
-          "passed": true
+          "passed": true,
+          "name": "ambiguous or device path rejected"
         },
         {
-          "name": "initial fixture install",
-          "passed": true
+          "passed": true,
+          "name": "initial fixture install"
         },
         {
-          "name": "concurrent installer refuses target while lock held",
-          "passed": true
+          "passed": true,
+          "name": "concurrent installer refuses target while lock held"
         },
         {
-          "name": "concurrent attempt preserves installed bytes",
-          "passed": true
+          "passed": true,
+          "name": "concurrent attempt preserves installed bytes"
         },
         {
-          "name": "released lock permits next import",
-          "passed": true
+          "passed": true,
+          "name": "released lock permits next import"
         },
         {
-          "name": "directory masquerading as profile is rejected before install",
-          "passed": true
+          "passed": true,
+          "name": "directory masquerading as profile is rejected before install"
         },
         {
-          "name": "invalid DSH path does not prevent Codex GUI startup",
-          "passed": true
+          "passed": true,
+          "name": "state replacement preserves external hard-linked user file"
+        },
+        {
+          "passed": true,
+          "name": "locked state reports completed install with separate warning"
+        },
+        {
+          "passed": true,
+          "name": "locked state retains original record and valid installed skill"
+        },
+        {
+          "passed": true,
+          "name": "repeat import separates state warning from installation result"
+        },
+        {
+          "passed": true,
+          "name": "released state lock permits atomic save without stale temp files"
+        },
+        {
+          "passed": true,
+          "name": "incomplete or invalid saved choices remain safe under strict mode"
+        },
+        {
+          "passed": true,
+          "name": "invalid DSH path does not prevent Codex GUI startup"
         }
       ],
+      "failed": 0,
+      "passed": 17,
       "scope": "Isolated path, real cross-process locking and GUI startup regression tests."
     },
     {
-      "suite": "version-privacy",
-      "checks": [
-        {
-          "name": "unknown-chapter-is-not-converted",
-          "passed": true
-        },
-        {
-          "name": "json-only-accepts-unknown-layout",
-          "passed": true
-        },
-        {
-          "name": "explicit-profile-reports-shape-problem",
-          "passed": true
-        },
-        {
-          "name": "unknown-project-index-is-not-called-corrupt",
-          "passed": true
-        },
-        {
-          "name": "json-only-unknown-project",
-          "passed": true
-        },
-        {
-          "name": "unknown-instruction-preserved-and-unverified",
-          "passed": true
-        },
-        {
-          "name": "structural-success-is-not-engine-compatibility",
-          "passed": true
-        },
-        {
-          "name": "unrecognized-instruction-parameters-need-version-evidence",
-          "passed": true
-        },
-        {
-          "name": "privacy-detector-path",
-          "passed": true
-        },
-        {
-          "name": "privacy-detector-token",
-          "passed": true
-        },
-        {
-          "name": "privacy-detector-email",
-          "passed": true
-        },
-        {
-          "name": "privacy-detector-key",
-          "passed": true
-        },
-        {
-          "name": "public-reference-url-not-personal-path",
-          "passed": true
-        },
-        {
-          "name": "explicit-release-list-builds-with-unlisted-local-files",
-          "passed": true
-        },
-        {
-          "name": "archive-contains-only-approved-files",
-          "passed": true
-        },
-        {
-          "name": "archive-has-no-private-fixture-bytes",
-          "passed": true
-        }
-      ],
-      "scope": "Version-format handling, privacy detectors and real ZIP whitelist isolation; no host-version runtime acceptance."
-    },
-    {
-      "suite": "user-area",
+      "suite": "user-upgrade-preview3",
+      "version": "0.1.0-preview.5",
       "checks": [
         {
           "name": "powershell first check is read-only",
@@ -680,7 +695,7 @@
           "passed": true
         },
         {
-          "name": "powershell real preview.3 baseline installed",
+          "name": "powershell real 0.1.0-preview.3 baseline installed",
           "passed": true
         },
         {
@@ -744,7 +759,7 @@
           "passed": true
         },
         {
-          "name": "pwsh real preview.3 baseline installed",
+          "name": "pwsh real 0.1.0-preview.3 baseline installed",
           "passed": true
         },
         {
@@ -784,7 +799,237 @@
           "passed": true
         }
       ],
-      "scope": "Isolated real preview.3 upgrade and byte-preservation tests; no private homes or plugin code execution."
+      "passed": 32,
+      "failed": 0,
+      "previous_version": "0.1.0-preview.3",
+      "scope": "Isolated real previous-release upgrade and byte-preservation tests; no private homes or plugin code execution."
+    },
+    {
+      "suite": "user-upgrade-preview4",
+      "version": "0.1.0-preview.5",
+      "checks": [
+        {
+          "name": "powershell first check is read-only",
+          "passed": true
+        },
+        {
+          "name": "powershell fresh install separates preference and plugin areas",
+          "passed": true
+        },
+        {
+          "name": "powershell repeat install preserves every user-owned byte",
+          "passed": true
+        },
+        {
+          "name": "powershell check never rewrites user files",
+          "passed": true
+        },
+        {
+          "name": "powershell uninstall preserves preferences all plugin versions and source",
+          "passed": true
+        },
+        {
+          "name": "powershell reinstall preserves existing user area",
+          "passed": true
+        },
+        {
+          "name": "powershell real 0.1.0-preview.4 baseline installed",
+          "passed": true
+        },
+        {
+          "name": "powershell real version upgrade succeeds with complete old backup",
+          "passed": true
+        },
+        {
+          "name": "powershell upgrade preserves legacy preferences and all plugin files",
+          "passed": true
+        },
+        {
+          "name": "powershell upgrade cannot shadow legacy preferences with blank defaults",
+          "passed": true
+        },
+        {
+          "name": "powershell coexisting preferences stay intact and new path is reported",
+          "passed": true
+        },
+        {
+          "name": "powershell failed update preserves existing skill preferences and plugins",
+          "passed": true
+        },
+        {
+          "name": "powershell modified public skill stops without backup consent or user changes",
+          "passed": true
+        },
+        {
+          "name": "powershell preferences-file rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "powershell profile-directory rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "powershell plugins-file rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "pwsh first check is read-only",
+          "passed": true
+        },
+        {
+          "name": "pwsh fresh install separates preference and plugin areas",
+          "passed": true
+        },
+        {
+          "name": "pwsh repeat install preserves every user-owned byte",
+          "passed": true
+        },
+        {
+          "name": "pwsh check never rewrites user files",
+          "passed": true
+        },
+        {
+          "name": "pwsh uninstall preserves preferences all plugin versions and source",
+          "passed": true
+        },
+        {
+          "name": "pwsh reinstall preserves existing user area",
+          "passed": true
+        },
+        {
+          "name": "pwsh real 0.1.0-preview.4 baseline installed",
+          "passed": true
+        },
+        {
+          "name": "pwsh real version upgrade succeeds with complete old backup",
+          "passed": true
+        },
+        {
+          "name": "pwsh upgrade preserves legacy preferences and all plugin files",
+          "passed": true
+        },
+        {
+          "name": "pwsh upgrade cannot shadow legacy preferences with blank defaults",
+          "passed": true
+        },
+        {
+          "name": "pwsh coexisting preferences stay intact and new path is reported",
+          "passed": true
+        },
+        {
+          "name": "pwsh failed update preserves existing skill preferences and plugins",
+          "passed": true
+        },
+        {
+          "name": "pwsh modified public skill stops without backup consent or user changes",
+          "passed": true
+        },
+        {
+          "name": "pwsh preferences-file rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "pwsh profile-directory rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "pwsh plugins-file rejects before target mutation",
+          "passed": true
+        }
+      ],
+      "passed": 32,
+      "failed": 0,
+      "previous_version": "0.1.0-preview.4",
+      "scope": "Isolated real previous-release upgrade and byte-preservation tests; no private homes or plugin code execution."
+    },
+    {
+      "suite": "review",
+      "checks": [
+        {
+          "name": "unknown-chapter-is-not-converted",
+          "passed": true
+        },
+        {
+          "name": "json-only-accepts-unknown-layout",
+          "passed": true
+        },
+        {
+          "name": "explicit-profile-reports-shape-problem",
+          "passed": true
+        },
+        {
+          "name": "unknown-project-index-is-not-called-corrupt",
+          "passed": true
+        },
+        {
+          "name": "json-only-unknown-project",
+          "passed": true
+        },
+        {
+          "name": "unknown-instruction-preserved-and-unverified",
+          "passed": true
+        },
+        {
+          "name": "structural-success-is-not-engine-compatibility",
+          "passed": true
+        },
+        {
+          "name": "unrecognized-instruction-parameters-need-version-evidence",
+          "passed": true
+        },
+        {
+          "name": "legacy-choice-mode-default-is-read-only",
+          "passed": true
+        },
+        {
+          "name": "legacy-choice-default-is-disclosed",
+          "passed": true
+        },
+        {
+          "name": "explicit-generation-profile-requires-choice-mode",
+          "passed": true
+        },
+        {
+          "name": "legacy-default-still-checks-target-reference",
+          "passed": true
+        },
+        {
+          "name": "privacy-detector-path",
+          "passed": true
+        },
+        {
+          "name": "privacy-detector-token",
+          "passed": true
+        },
+        {
+          "name": "privacy-detector-email",
+          "passed": true
+        },
+        {
+          "name": "privacy-detector-key",
+          "passed": true
+        },
+        {
+          "name": "public-reference-url-not-personal-path",
+          "passed": true
+        },
+        {
+          "name": "explicit-release-list-builds-with-unlisted-local-files",
+          "passed": true
+        },
+        {
+          "name": "archive-contains-only-approved-files",
+          "passed": true
+        },
+        {
+          "name": "archive-has-no-private-fixture-bytes",
+          "passed": true
+        }
+      ],
+      "passed": 20,
+      "failed": 0,
+      "scope": "Version-format handling, privacy detectors and real ZIP whitelist isolation; no host-version runtime acceptance."
     }
-  ]
+  ],
+  "limitations": "Isolated filesystem, provider and WPF component checks. Real model, engine, OS mouse and workshop acceptance not performed."
 }

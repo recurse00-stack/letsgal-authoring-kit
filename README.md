@@ -1,6 +1,6 @@
 # LetsGal 创作与协作 · 公共技能候选版
 
-版本：0.1.0-preview.4。独立技能名称：`letsgal-authoring`。
+版本：0.1.0-preview.5。独立技能名称：`letsgal-authoring`。
 
 帮助 AI 理解制作目标、查官方教程、编写与检查章节 JSON、组织协作和 Git，并保护用户已有内容。支持向 Codex、Claude Code、Cursor、GitHub Copilot 和 DSH 导入标准 Skill。它不是 LetsGal 官方产品，也不包含引擎、模型、账号或 MCP 服务。
 
@@ -21,7 +21,7 @@ Skill 先核对本作品的 Studio 完整版本、发布通道、SDK 和可用�
 3. 点击“导入到 …”。DSH 迁移过数据位置时，点“浏览…”选择实际 DSH 数据文件夹；项目导入则选项目文件夹。
 4. 看到“导入完成”后，点“复制验证提示词”，在 Agent 新会话中粘贴。
 
-首次默认 Codex／个人；安装成功后记住选择。更新时解压新版，再运行同一个入口。无需输入命令，也不要求管理员。安装器不下载软件，不修改 API Key、MCP 或模型配置。
+首次默认 Codex／个人；安装成功后记住选择。若选项或日志无法保存，界面单独显示提示，并保留真实的文件安装结果；下次需重新核对目标位置。更新时解压新版，再运行同一个入口。无需输入命令，也不要求管理员。安装器不下载软件，不修改 API Key、MCP 或模型配置。
 
 启动器对本次 PowerShell 进程使用 Bypass，使同包脚本可启动；不修改系统或用户的持久执行策略。组织策略或系统警告仍可能阻止运行，不要为本包关闭安全保护；可以手动安装。安装文件无需 Python，附带的可选 JSON 检查器需要 Python 3.9+。
 
@@ -66,7 +66,7 @@ Skill 先核对本作品的 Studio 完整版本、发布通道、SDK 和可用�
 
 ## 支持与手动安装
 
-详细目录和范围见 [COMPATIBILITY.md](COMPATIBILITY.md)。将整个 `skills/letsgal-authoring` 文件夹复制到目标 skills 根目录；不要只复制 SKILL.md，也不要多嵌套一层文件夹。若已存在同名内容，先比较与备份。
+详细目录和范围见 [COMPATIBILITY.md](COMPATIBILITY.md)。将整个 `skills/letsgal-authoring` 文件夹复制到目标 skills 根目录；不要只复制 SKILL.md，也不要多嵌套一层文件夹。若已存在同名内容，先保全完整旧目录，移到技能扫描目录之外，再复制新版；不要选择系统的“合并文件夹／替换所有文件”，这会留下过期文件或覆盖本地改动。
 
 Codex、Cursor、当前 Copilot 支持 `.agents/skills`，本安装器优先复用这一共同位置，减少重复副本；Claude Code 使用 `.claude/skills`。Cursor 可能同时发现其他工具目录的同名技能，安装器会提示已有副本但不删除它们。自定义配置目录、旧客户端和远程运行环境可选“自选技能目录”。
 
@@ -89,6 +89,8 @@ DSH 已提供专用入口：个人技能进入 `DSH_HOME/skills`，默认是 `~/
 工程安装加 `-Scope Project -ProjectPath "<工程绝对路径>"`。自选目录使用 `-Harness Manual -SkillsDirectory "<skills根目录绝对路径>"`。`-UserHome` 供便携环境或隔离测试指定实际用户主目录，不会修改系统用户目录。
 
 卸载只把该技能目录移到备份，**个人配置、项目文件和历史备份全部保留**。用户已改动公共文件时仍会停止；界面的“备份后继续”或命令行 `-ReplaceModified` 表示明确同意先完整备份再替换／移走，日常更新不需要它。
+
+安装成功时界面显示本次旧技能备份位置；更详细的记录位于 skills 旁的 `.letsgal-authoring-backups/*-install.json`（卸载为 `*-uninstall.json`）。项目内安装时备份可能含私有特调，提交 Git 前按项目规则排除；安装器不修改项目的 .gitignore。
 
 恢复旧版：先保留现用目录，再从安装日志标明的备份目录复制回相同目标，重新验证加载；也可让 AI 按精确路径完成恢复。不要直接覆盖后续新增的特调。没有自动清理历史备份的功能。
 

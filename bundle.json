@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.1.0-preview.4",
+  "version": "0.1.0-preview.5",
   "profile_schema": 1,
   "files": [
     {
@@ -15,7 +15,7 @@
     },
     {
       "path": "references/collaboration-git.md",
-      "sha256": "ae3e99bd79a4a33ace00762c48d6739b81cbac18920f3ad3e3457fac86549aa3"
+      "sha256": "effe2f906ee207b0d5f0d9849ecd65016c75cd1ed23f1a138acc61ca5fe181ad"
     },
     {
       "path": "references/customization.md",
@@ -27,7 +27,7 @@
     },
     {
       "path": "references/json.md",
-      "sha256": "f7702401d4114559c35a5a323f4666692afb61a13fa6f848aeaa8dfd5bf7ea75"
+      "sha256": "f5eba2bc3bc13fc3cbe04591787218c9081e4ab45f4a8752383f5e28b229beef"
     },
     {
       "path": "references/plugin-skills.md",
@@ -51,11 +51,11 @@
     },
     {
       "path": "scripts/check_project.py",
-      "sha256": "da0fb0614670842a8e7fe6a7f8d1b0c3bdd6778e88451ec5b1833eb34e6c996c"
+      "sha256": "91dcd880a3b9b659b9eaae3223287ce667e815b8aabb48af84ab99d26760eafe"
     },
     {
       "path": "SKILL.md",
-      "sha256": "5a29b8e831df1b80072485144b621beb62b17f06357d94c5012e1a4acbd97e98"
+      "sha256": "6b9f98023ad2a2bbbd5228c966796f43879979db52270b99dd881c49e030b9e9"
     },
     {
       "path": "templates/LETSGAL.example.md",
