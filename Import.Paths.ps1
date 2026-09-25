@@ -21,6 +21,22 @@ function Assert-OrdinaryPath([string]$Path) {
         $current = $parent.FullName
     }
 }
+function Resolve-UserArea([string]$UserHome) {
+    $root = Join-Path (Full-Path $UserHome) '.letsgal-authoring'
+    $preferences = Join-Path $root 'preferences'
+    $plugins = Join-Path $root 'plugins'
+    foreach ($dir in @($root,$preferences,$plugins)) {
+        Assert-OrdinaryPath $dir
+        if ((Test-Path -LiteralPath $dir) -and -not (Test-Path -LiteralPath $dir -PathType Container)) { throw "Expected a user-area directory: $dir" }
+    }
+    $canonical = Join-Path $preferences 'user.md'
+    $legacy = Join-Path $root 'user.md'
+    Assert-OptionalFile $canonical
+    Assert-OptionalFile $legacy
+    $profile = $canonical
+    if (-not (Test-Path -LiteralPath $canonical) -and (Test-Path -LiteralPath $legacy)) { $profile = $legacy }
+    return [pscustomobject]@{Root=$root;Preferences=$preferences;Plugins=$plugins;Profile=$profile;CanonicalProfile=$canonical;LegacyProfile=$legacy}
+}
 function Get-DshHomeInfo([string]$Value, [string]$HomeRoot) {
     $source = '指定的数据目录'
     if (-not $Value) { $Value = [Environment]::GetEnvironmentVariable('DSH_HOME'); $source = 'DSH_HOME 环境变量' }

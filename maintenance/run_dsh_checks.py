@@ -44,7 +44,7 @@ for shell in filter(None,[shutil.which('powershell.exe'),shutil.which('pwsh.exe'
     custom_env=dict(env,DSH_HOME=str(data))
     run('-Scope','User',environment=custom_env)
     record(Path(shell).stem+' DSH_HOME environment',(data/'skills/letsgal-authoring/SKILL.md').exists())
-    profile=home/'.letsgal-authoring/user.md'
+    profile=home/'.letsgal-authoring/preferences/user.md'
     profile.write_bytes(b'Keep my preferences exactly.\n')
     run('-Scope','User','-DshHome',str(data),environment=dict(env,DSH_HOME=str(fixture/'unused-env')))
     record(Path(shell).stem+' explicit home overrides env',not (fixture/'unused-env').exists())

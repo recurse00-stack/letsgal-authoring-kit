@@ -54,19 +54,32 @@ python "skills/letsgal-authoring/scripts/check_project.py" "<章节或工程绝�
 
 | 内容 | 位置 | 用途 |
 | --- | --- | --- |
-| 跨作品偏好 | 实际 AI 用户主目录的 `.letsgal-authoring/user.md` | 文风、命名、协作节奏等 |
+| 跨作品偏好 | 实际 AI 用户主目录的 `.letsgal-authoring/preferences/user.md`；旧用户沿用原 user.md | 文风、命名、协作节奏等 |
+| 插件 Skill | `.letsgal-authoring/plugins/<插件ID>/<版本>/SKILL.md` | 插件方法、参数、示例、版本及来源；由用户维护 |
 | 本作品约定 | 工程根 `LETSGAL.md` | 版本、SDK、允许能力、作品规则和已有文档入口 |
 | 公共 Skill | Agent 的技能目录 | 随本包升级 |
 
 可以直接对 AI 说“把这项长期偏好写到 user.md，保留原内容；项目特定约定写入 LETSGAL.md”。不要把 API Key、账号资料或完整私人作品放进公共 Skill。项目规则比个人一般偏好具体，当前请求仍优先；这些文件不能增加工具权限。
 
+## 让 AI 为插件写 Skill
+
+先在 Agent 中加载 letsgal-authoring，并给出插件所在目录或作者文档入口，然后说：
+
+> 分析这个插件并生成插件 Skill，按规范保存到用户插件区，更新索引。不要改插件代码和项目启用状态。已有内容先保全；只按真实接口编写，并说明验证范围。
+
+AI 应自动写到 `~/.letsgal-authoring/plugins/<插件ID>/<版本>/SKILL.md`，并在 `plugins/INDEX.md` 登记入口。索引按需建立，安装器不填充任何真实插件。用户指定位置优先；无文件权限时交付文件和目标路径，不宣称写入完成。完整流程见 [插件 Skill 规范](skills/letsgal-authoring/references/plugin-skills.md)。
+
+个人偏好和插件知识分开维护。项目 LETSGAL.md 记录实际使用的插件 ID、版本和资料入口，主 Skill 按需读取；有资料不等于已启用。旧作品可以继续读取旧插件版本的 Skill，不自动取最新版本。公共包更新不修改插件资料或插件代码，插件升级后的资料复核由用户发起。
+
+旧版根目录 user.md 无需搬家：新个人偏好文件不存在时继续使用旧文件，不创建空白配置遮住它；两处都有时，先比较并标出冲突，不能自动覆盖或丢弃旧内容。
+
 ## 更新、卸载与恢复
 
-更新：下载新版完整包，解压到另一个普通目录，再运行 `Install.cmd`。相同安装位置会校验后更新；个人和项目配置保留。旧 Skill 位于所选 `skills` 目录旁的 `.letsgal-authoring-backups`，不会作为第二个 Skill 被发现。
+更新：下载新版完整包，解压到另一个普通目录，再运行 `Install.cmd`。相同安装位置会校验后更新；个人偏好、插件 Skill 和项目配置原样保留；缺失目录才创建，已有文件不重写。旧 Skill 位于所选 `skills` 目录旁的 `.letsgal-authoring-backups`，不会作为第二个 Skill 被发现。
 
 如果公共 Skill 被改过，导入器先停止。让 AI 比较原版与改动，将个人部分迁到外部配置；确认后用“备份后继续”。备份保留旧内容，但个人代码改动不会自动合并进新版。不要同时开两个导入窗口更新同一位置。
 
-卸载：在“更多选项”中选择卸载，或运行 `Uninstall.cmd`。它将技能移到备份，保留 user.md、项目文件与历史备份。
+卸载：在“更多选项”中选择卸载，或运行 `Uninstall.cmd`。它将技能移到备份，保留整个用户区（个人偏好、插件 Skill、旧版 user.md）、项目文件与历史备份。
 
 恢复：先保全当前目录和新增内容，找到安装日志里的准确备份路径，再比较并恢复相应 Skill；不能通过删除所有备份来排错。导入器没有自动清理备份功能。
 

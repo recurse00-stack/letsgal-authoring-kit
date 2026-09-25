@@ -23,6 +23,24 @@ function Ensure-Directory([string]$Path) {
     Assert-OrdinaryPath $Path
     [void][IO.Directory]::CreateDirectory($Path)
 }
+function Initialize-UserArea([string]$HomeRoot) {
+    $area = Resolve-UserArea $HomeRoot
+    foreach ($dir in @($area.Root,$area.Preferences,$area.Plugins)) { Ensure-Directory $dir }
+    # Legacy preferences remain active; never create an empty file that shadows them.
+    if (-not (Test-Path -LiteralPath $area.Profile)) {
+        $initial = "# 我的 LetsGal 创作偏好`r`n`r`n个人区：仅记录用户明确要求保存的文风、命名与协作习惯。插件接口资料单独放在同级 plugins 目录，项目约定放在工程 LETSGAL.md。更新和卸载公共技能都保留用户区。`r`n`r`n目前没有已确认的额外偏好。`r`n"
+        $bytes = $Utf8.GetBytes($initial)
+        $stream = $null
+        try {
+            $stream = [IO.File]::Open($area.Profile,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write)
+            $stream.Write($bytes,0,$bytes.Length)
+        } catch [IO.IOException] {
+            # Another Agent may have created it concurrently. Do not truncate or replace it.
+            if ($stream -or -not (Test-Path -LiteralPath $area.Profile -PathType Leaf)) { throw }
+            Assert-OptionalFile $area.Profile
+        } finally { if ($stream) { $stream.Dispose() } }
+    }
+}
 function Read-Json([string]$Path) {
     Assert-OrdinaryPath $Path
     return ([IO.File]::ReadAllText($Path, $Utf8) | ConvertFrom-Json)
@@ -92,8 +110,10 @@ try {
         throw 'UserHome must be an existing user directory, not a drive root.'
     }
     Assert-OrdinaryPath $homeRoot
-    $profileRoot = Join-Path $homeRoot '.letsgal-authoring'
-    $profileFile = Join-Path $profileRoot 'user.md'
+    $userArea = Resolve-UserArea $homeRoot
+    $profileRoot = $userArea.Root
+    $profileFile = $userArea.Profile
+    $pluginsRoot = $userArea.Plugins
     $stateFile = Join-Path $profileRoot 'installer-state.json'
     Assert-OrdinaryPath $profileRoot
     Assert-OptionalFile $profileFile
@@ -176,7 +196,8 @@ try {
         catch { throw 'Another installer may be using this location, or its lock cannot be opened. Close the other installer or check folder access; no skill files changed.' }
     }
     Write-Host "目标：$target"
-    Write-Host "保留个人配置：$profileFile"
+    Write-Host "保留个人偏好：$profileFile"
+    Write-Host "保留插件资料：$pluginsRoot"
     if ($Harness -in @('Codex','Cursor','Copilot')) {
         Write-Host '.agents/skills 是共享目录；同机支持该目录的 AI 工具可能同时发现此技能。'
     }
@@ -203,7 +224,7 @@ try {
         }
     }
     if ($Action -eq 'Check') {
-        [ordered]@{action='check';installed=$installed;managed=$managed;unchanged=$clean;target=$target;profile=$profileFile;ai_loaded='not_tested'} | ConvertTo-Json -Compress
+        [ordered]@{action='check';installed=$installed;managed=$managed;unchanged=$clean;target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested'} | ConvertTo-Json -Compress
         if (-not $installed -or -not $managed -or -not $clean) { exit 2 }
         exit 0
     }
@@ -217,15 +238,15 @@ try {
         Assert-OrdinaryPath $target
         if (-not (Same-Map (Tree-Map $target -SkipReceipt) $currentMap)) { throw 'Skill changed during uninstall; original left in place.' }
         [IO.Directory]::Move($target, $backup)
-        Write-Json (Join-Path $backupRoot ($stamp + '-uninstall.json')) @{target=$target;backup=$backup;profile_preserved=$profileFile}
-        @{action='uninstalled_to_backup';backup=$backup;profile=$profileFile} | ConvertTo-Json -Compress
+        Write-Json (Join-Path $backupRoot ($stamp + '-uninstall.json')) @{target=$target;backup=$backup;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot}
+        @{action='uninstalled_to_backup';backup=$backup;profile=$profileFile;plugins=$pluginsRoot} | ConvertTo-Json -Compress
         exit 0
     }
     if ($installed -and (-not $managed -or -not $clean)) { Confirm-Replacement "The existing skill has local edits or is unmanaged: $target" }
     if ($installed -and $managed -and $clean -and (Same-Map $currentMap $expected)) {
-        Ensure-Directory $profileRoot
+        Initialize-UserArea $homeRoot
         Write-Json $stateFile @{Harness=$Harness;Scope=$Scope;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome}
-        @{action='already_current';target=$target;profile=$profileFile;ai_loaded='not_tested'} | ConvertTo-Json -Compress
+        @{action='already_current';target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested'} | ConvertTo-Json -Compress
         exit 0
     }
     if (-not $NonInteractive -and (Read-Host '以上位置正确吗？回车安装，输入 N 取消') -match '^[Nn]') { throw 'Cancelled.' }
@@ -240,6 +261,8 @@ try {
     }
     if (-not (Same-Map (Tree-Map $stage) $expected)) { throw 'Staging verification failed; original untouched.' }
     Write-Json (Join-Path $stage '.install-receipt.json') @{owner=$Owner;skill=$SkillName;version=$manifest.version;installed_at=(Get-Date -Format o);files=$manifest.files}
+    # Initialize only missing user-area items before moving any installed Skill.
+    Initialize-UserArea $homeRoot
     Ensure-Directory $skillsRoot
     Assert-OrdinaryPath $target
     $backup = $null
@@ -261,16 +284,10 @@ try {
         if ($backup -and (Test-Path -LiteralPath $backup) -and -not (Test-Path -LiteralPath $target)) { [IO.Directory]::Move($backup, $target) }
         throw
     }
-    if (-not (Test-Path -LiteralPath $profileFile)) {
-        $initial = "# 我的 LetsGal 创作偏好`r`n`r`n此文件独立于公共技能，升级和卸载时保留。请让 AI 按我的明确要求记录跨项目习惯；作品专属约定放在工程 LETSGAL.md。`r`n`r`n目前没有已确认的额外偏好。`r`n"
-        $bytes = $Utf8.GetBytes($initial)
-        $stream = [IO.File]::Open($profileFile, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write)
-        try { $stream.Write($bytes,0,$bytes.Length) } finally { $stream.Dispose() }
-    }
     Write-Json $stateFile @{Harness=$Harness;Scope=$Scope;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome}
-    Write-Json (Join-Path $backupRoot ($stamp + '-install.json')) @{target=$target;previous=$backup;version=$manifest.version;profile_preserved=$profileFile}
+    Write-Json (Join-Path $backupRoot ($stamp + '-install.json')) @{target=$target;previous=$backup;version=$manifest.version;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot}
     Write-Host '文件安装并校验完成。打开新的 AI 会话，按 README 的验证提示确认技能与个人配置已加载。' -ForegroundColor Green
-    @{action='installed';version=$manifest.version;target=$target;backup=$backup;profile=$profileFile;ai_loaded='not_tested'} | ConvertTo-Json -Compress
+    @{action='installed';version=$manifest.version;target=$target;backup=$backup;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested'} | ConvertTo-Json -Compress
     exit 0
 } catch {
     Write-Host ("安装器停止：" + $_.Exception.Message) -ForegroundColor Red

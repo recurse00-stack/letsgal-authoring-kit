@@ -2,6 +2,8 @@
 
 从 [官方创建流程](https://docs.avg-engine.com/extensions/develop/) 和 [AI 扩展指导](https://docs.avg-engine.com/extensions/llms.txt) 进入。先确认用户需要新增扩展还是配置已存在的功能；不把普通剧情制作扩大成重建系统。
 
+具体插件的 AI 使用知识独立存入用户插件区，不并入公共 Skill；分析插件或生成插件 Skill 时先读 [用户插件 Skill](plugin-skills.md)。插件代码继续在原扩展工程维护，不随本技能包安装或升级。
+
 ## 定位与实现
 
 找到有 `extension.json` 的目标源码根，读取清单、`package.json` 和当前 `sdk/`。纯界面扩展与包含 TypeScript 的扩展采取不同流程；程序初始化优先使用当前 Studio 提供的流程。当前会话无法操作时，给出具体初始化步骤并继续准备设计，不能伪称已在宿主创建。

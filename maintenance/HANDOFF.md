@@ -1,6 +1,8 @@
 # 维护交接
 
-当前：独立公共技能 letsgal-authoring，0.1.0-preview.3。已加入 DSH 适配与图形导入器。本包是维护源与分发候选，不是任何机器的已注册技能。修改范围是此目录，不能同步覆盖其他个人技能。
+当前：独立公共技能 letsgal-authoring，0.1.0-preview.4。已加入 DSH 适配与图形导入器。本包是维护源与分发候选，不是任何机器的已注册技能。修改范围是此目录，不能同步覆盖其他个人技能。
+
+本轮新增：用户区 preferences/ 与 plugins/ 分离，旧版 user.md 原位兼容；插件 Skill 自动按 ID／版本落位，用户独立维护。安装器只创建缺失用户项，不覆盖现有内容；真实旧版升级及失败保留测试见验证记录。
 
 入口：README.md 面向使用者；skills/letsgal-authoring/SKILL.md 面向 AI；SOURCES.md 保存来源；VALIDATION.md 标记验证层次；WORKSHOP.md 列投稿剩余事项。
 

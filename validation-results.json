@@ -1,6 +1,7 @@
 {
-  "version": "0.1.0-preview.3",
-  "passed": 138,
+  "version": "0.1.0-preview.4",
+  "date": "2026-09-25",
+  "passed": 172,
   "failed": 0,
   "suites": [
     {
@@ -237,8 +238,6 @@
           "detail": ""
         }
       ],
-      "passed": 46,
-      "failed": 0,
       "scope": "Isolated file, installer and static-checker tests only; no real harness/Studio/UI/workshop acceptance."
     },
     {
@@ -349,14 +348,10 @@
           "passed": true
         }
       ],
-      "passed": 26,
-      "failed": 0,
       "scope": "Isolated official DSH filesystem provider; no live session/model/server acceptance."
     },
     {
-      "suite": "ui-powershell",
-      "scope": "In-process WPF events and render; no OS mouse or live Agent acceptance.",
-      "failed": 0,
+      "suite": "ui-ps51",
       "checks": [
         {
           "name": "DSH initial selection and destination",
@@ -399,66 +394,7 @@
           "passed": true
         },
         {
-          "name": "GUI repeat import retains preferences",
-          "passed": true
-        },
-        {
-          "name": "GUI read-only check completes",
-          "passed": true
-        },
-        {
-          "name": "Edited skill shows backup choice without changing files",
-          "passed": true
-        },
-        {
-          "name": "No hidden child left running",
-          "passed": true
-        }
-      ],
-      "passed": 14
-    },
-    {
-      "suite": "ui-pwsh",
-      "failed": 0,
-      "checks": [
-        {
-          "name": "DSH initial selection and destination",
-          "passed": true
-        },
-        {
-          "name": "Agent selection Codex",
-          "passed": true
-        },
-        {
-          "name": "Agent selection Claude",
-          "passed": true
-        },
-        {
-          "name": "Agent selection Cursor",
-          "passed": true
-        },
-        {
-          "name": "Agent selection Copilot",
-          "passed": true
-        },
-        {
-          "name": "Agent selection DSH",
-          "passed": true
-        },
-        {
-          "name": "Missing project disables import",
-          "passed": true
-        },
-        {
-          "name": "DSH project preview follows Git root",
-          "passed": true
-        },
-        {
-          "name": "GUI import launches hidden child and completes",
-          "passed": true
-        },
-        {
-          "name": "Success offers correct verification prompt",
+          "name": "GUI separates actual preference and plugin paths",
           "passed": true
         },
         {
@@ -478,13 +414,76 @@
           "passed": true
         }
       ],
-      "passed": 14,
       "scope": "In-process WPF events and render; no OS mouse or live Agent acceptance."
     },
     {
-      "suite": "safety-powershell",
-      "scope": "Isolated path, real cross-process locking and GUI startup regression tests.",
-      "failed": 0,
+      "suite": "ui-ps7",
+      "checks": [
+        {
+          "name": "DSH initial selection and destination",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Codex",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Claude",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Cursor",
+          "passed": true
+        },
+        {
+          "name": "Agent selection Copilot",
+          "passed": true
+        },
+        {
+          "name": "Agent selection DSH",
+          "passed": true
+        },
+        {
+          "name": "Missing project disables import",
+          "passed": true
+        },
+        {
+          "name": "DSH project preview follows Git root",
+          "passed": true
+        },
+        {
+          "name": "GUI import launches hidden child and completes",
+          "passed": true
+        },
+        {
+          "name": "Success offers correct verification prompt",
+          "passed": true
+        },
+        {
+          "name": "GUI separates actual preference and plugin paths",
+          "passed": true
+        },
+        {
+          "name": "GUI repeat import retains preferences",
+          "passed": true
+        },
+        {
+          "name": "GUI read-only check completes",
+          "passed": true
+        },
+        {
+          "name": "Edited skill shows backup choice without changing files",
+          "passed": true
+        },
+        {
+          "name": "No hidden child left running",
+          "passed": true
+        }
+      ],
+      "scope": "In-process WPF events and render; no OS mouse or live Agent acceptance."
+    },
+    {
+      "suite": "safety-ps51",
       "checks": [
         {
           "name": "ambiguous or device path rejected",
@@ -531,12 +530,10 @@
           "passed": true
         }
       ],
-      "passed": 11
+      "scope": "Isolated path, real cross-process locking and GUI startup regression tests."
     },
     {
-      "suite": "safety-pwsh",
-      "scope": "Isolated path, real cross-process locking and GUI startup regression tests.",
-      "passed": 11,
+      "suite": "safety-ps7",
       "checks": [
         {
           "name": "ambiguous or device path rejected",
@@ -583,10 +580,10 @@
           "passed": true
         }
       ],
-      "failed": 0
+      "scope": "Isolated path, real cross-process locking and GUI startup regression tests."
     },
     {
-      "suite": "review",
+      "suite": "version-privacy",
       "checks": [
         {
           "name": "unknown-chapter-is-not-converted",
@@ -653,9 +650,141 @@
           "passed": true
         }
       ],
-      "passed": 16,
-      "failed": 0,
       "scope": "Version-format handling, privacy detectors and real ZIP whitelist isolation; no host-version runtime acceptance."
+    },
+    {
+      "suite": "user-area",
+      "checks": [
+        {
+          "name": "powershell first check is read-only",
+          "passed": true
+        },
+        {
+          "name": "powershell fresh install separates preference and plugin areas",
+          "passed": true
+        },
+        {
+          "name": "powershell repeat install preserves every user-owned byte",
+          "passed": true
+        },
+        {
+          "name": "powershell check never rewrites user files",
+          "passed": true
+        },
+        {
+          "name": "powershell uninstall preserves preferences all plugin versions and source",
+          "passed": true
+        },
+        {
+          "name": "powershell reinstall preserves existing user area",
+          "passed": true
+        },
+        {
+          "name": "powershell real preview.3 baseline installed",
+          "passed": true
+        },
+        {
+          "name": "powershell real version upgrade succeeds with complete old backup",
+          "passed": true
+        },
+        {
+          "name": "powershell upgrade preserves legacy preferences and all plugin files",
+          "passed": true
+        },
+        {
+          "name": "powershell upgrade cannot shadow legacy preferences with blank defaults",
+          "passed": true
+        },
+        {
+          "name": "powershell coexisting preferences stay intact and new path is reported",
+          "passed": true
+        },
+        {
+          "name": "powershell failed update preserves existing skill preferences and plugins",
+          "passed": true
+        },
+        {
+          "name": "powershell modified public skill stops without backup consent or user changes",
+          "passed": true
+        },
+        {
+          "name": "powershell preferences-file rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "powershell profile-directory rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "powershell plugins-file rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "pwsh first check is read-only",
+          "passed": true
+        },
+        {
+          "name": "pwsh fresh install separates preference and plugin areas",
+          "passed": true
+        },
+        {
+          "name": "pwsh repeat install preserves every user-owned byte",
+          "passed": true
+        },
+        {
+          "name": "pwsh check never rewrites user files",
+          "passed": true
+        },
+        {
+          "name": "pwsh uninstall preserves preferences all plugin versions and source",
+          "passed": true
+        },
+        {
+          "name": "pwsh reinstall preserves existing user area",
+          "passed": true
+        },
+        {
+          "name": "pwsh real preview.3 baseline installed",
+          "passed": true
+        },
+        {
+          "name": "pwsh real version upgrade succeeds with complete old backup",
+          "passed": true
+        },
+        {
+          "name": "pwsh upgrade preserves legacy preferences and all plugin files",
+          "passed": true
+        },
+        {
+          "name": "pwsh upgrade cannot shadow legacy preferences with blank defaults",
+          "passed": true
+        },
+        {
+          "name": "pwsh coexisting preferences stay intact and new path is reported",
+          "passed": true
+        },
+        {
+          "name": "pwsh failed update preserves existing skill preferences and plugins",
+          "passed": true
+        },
+        {
+          "name": "pwsh modified public skill stops without backup consent or user changes",
+          "passed": true
+        },
+        {
+          "name": "pwsh preferences-file rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "pwsh profile-directory rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "pwsh plugins-file rejects before target mutation",
+          "passed": true
+        }
+      ],
+      "scope": "Isolated real preview.3 upgrade and byte-preservation tests; no private homes or plugin code execution."
     }
   ]
 }

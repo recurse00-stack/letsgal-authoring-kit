@@ -16,7 +16,7 @@
     <StackPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
       <ProgressBar Name="Progress" Height="3" IsIndeterminate="True" Visibility="Collapsed" Margin="0,0,0,10"/>
       <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-        <TextBlock Name="Footer" Text="个人偏好与作品规则独立保存，更新无需重新特调。" VerticalAlignment="Center" Foreground="#506177" Margin="0,0,18,0"/>
+        <TextBlock Name="Footer" Text="个人偏好、插件 Skill 与作品规则独立保存，更新时保留。" VerticalAlignment="Center" Foreground="#506177" Margin="0,0,18,0"/>
         <Button Name="ImportButton" Grid.Column="1" Content="导入到 Codex" Background="#2257D7" Foreground="White" BorderBrush="#2257D7" FontWeight="SemiBold" MinWidth="180" Margin="0"/>
       </Grid>
     </StackPanel>
@@ -50,6 +50,14 @@
               </StackPanel>
             </Border>
             <TextBlock Text="导入内容：制作流程、官方教程查找、JSON、安全约束与 Git 协作。" Foreground="#506177" FontSize="12" Margin="0,12,0,0"/>
+            <Border Background="#F6F8FA" CornerRadius="7" Padding="13" Margin="0,14,0,0">
+              <StackPanel>
+                <TextBlock Text="用户区 · 两部分独立保留" FontWeight="SemiBold"/>
+                <TextBlock Name="ProfileText" Foreground="#506177" FontSize="12" Margin="0,8,0,0"/>
+                <TextBlock Name="PluginsText" Foreground="#506177" FontSize="12" Margin="0,5,0,0"/>
+                <TextBlock Text="只创建缺失项，不覆盖已有内容；旧版偏好继续在原位置使用。" Foreground="#506177" FontSize="12" Margin="0,7,0,0"/>
+              </StackPanel>
+            </Border>
           </StackPanel>
         </Border>
         <Border Name="ResultPanel" Background="#EAF4EF" CornerRadius="10" Padding="18" Margin="0,14,0,0" Visibility="Collapsed">
@@ -65,7 +73,6 @@
         <Expander Header="更多选项 · 检查、卸载与详细信息" Margin="2,18,0,0">
           <StackPanel Margin="0,12,0,0">
             <WrapPanel><Button Name="CheckButton" Content="检查安装"/><Button Name="RemoveButton" Content="卸载（保留特调）"/></WrapPanel>
-            <TextBlock Name="ProfileText" Foreground="#506177" FontSize="12" Margin="0,12,0,8"/>
             <TextBox Name="LogBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MinHeight="65" MaxHeight="180" FontSize="12"/>
           </StackPanel>
         </Expander>

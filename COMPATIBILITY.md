@@ -31,6 +31,6 @@ Cursor 也支持 `.cursor/skills`，Copilot 也有 `.copilot/skills`（个人）
 - 项目目录按 DSH 官方算法向上寻找最近的 `.git`（目录或文件），找不到时使用所选目录。界面与安装后端共用同一套解析代码。
 - 官方提供器也支持 `.agents/skills`；本包的 DSH 入口明确使用 `.dsh/skills`。同名项目技能优先于个人技能，另有副本时先核对实际来源，不自动删掉它们。
 - DSH 必须已启用文件系统技能提供器，且没有关闭默认根目录；使用自定义 `customSkillDirs` 时可选“其他 Agent”导入到已配置的根目录。安装器不编辑 DSH 预设，不启动／重启 DSH。
-- 技能内容与相对参考文件可读取，不依赖特定模型或 MCP。个人偏好仍在实际运行 AI 的用户主目录 `~/.letsgal-authoring/user.md`，不随 DSH_HOME 搬入公共技能。
+- 技能内容与相对参考文件可读取，不依赖特定模型或 MCP。个人偏好仍在实际运行 AI 的用户主目录 `~/.letsgal-authoring/preferences/user.md`（旧版根目录 user.md 继续兼容），不随 DSH_HOME 搬入公共技能；插件 Skill 独立放在同一用户区的 plugins/ 中，由主 Skill 按项目需要读取。
 
 DSH 来源：[文件系统技能提供器](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/skill/skill-filesystem/README.md)、[数据目录解析](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/util/home-paths/src/index.ts)。

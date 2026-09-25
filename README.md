@@ -1,6 +1,6 @@
 # LetsGal 创作与协作 · 公共技能候选版
 
-版本：0.1.0-preview.3。独立技能名称：`letsgal-authoring`。
+版本：0.1.0-preview.4。独立技能名称：`letsgal-authoring`。
 
 帮助 AI 理解制作目标、查官方教程、编写与检查章节 JSON、组织协作和 Git，并保护用户已有内容。支持向 Codex、Claude Code、Cursor、GitHub Copilot 和 DSH 导入标准 Skill。它不是 LetsGal 官方产品，也不包含引擎、模型、账号或 MCP 服务。
 
@@ -32,7 +32,8 @@ Skill 先核对本作品的 Studio 完整版本、发布通道、SDK 和可用�
 | 内容 | 位置 | 升级时 |
 | --- | --- | --- |
 | 公共技能与检查器 | AI 工具的 skills 目录 | 校验后更新，旧版备份 |
-| 个人长期偏好 | `~/.letsgal-authoring/user.md` | 原样保留 |
+| 个人长期偏好 | `~/.letsgal-authoring/preferences/user.md`；旧用户沿用原 user.md | 原样保留，不自动迁移 |
+| 用户插件 Skill | `~/.letsgal-authoring/plugins/<插件ID>/<版本>/SKILL.md` | 用户独立维护，安装／更新／卸载均保留 |
 | 作品规则 | 工程根 `LETSGAL.md`，可链接已有项目文档 | 原样保留；安装器不写它 |
 
 `~` 是实际运行 AI 的用户主目录。远程机器、WSL、容器和云端不是本机；需要在对应环境另行安装／复制配置。设置个人偏好可以对 AI 说：
@@ -43,13 +44,23 @@ Skill 先核对本作品的 Studio 完整版本、发布通道、SDK 和可用�
 
 如果直接改过公共 Skill，安装器会检测差异并停止自动覆盖。让 AI 比较旧包和新包，将个人部分迁入外部配置；备份保留原文。不要把其他私有技能的全部内容自动导入公共版。
 
+## 用户区：个人偏好与插件 Skill 分开
+
+`preferences/` 存个人习惯；`plugins/` 存用户自己的插件 Skill 和必要参考资料。导入器显示两个位置，只创建缺失项，不覆盖已有文件。旧版 user.md 继续在原位置使用，不要求重新配置；两处偏好都存在时应比较原文，不自动合并。
+
+对已加载本技能的 AI 说：
+
+> 分析我指定的这个插件，为它编写插件 Skill。按 letsgal-authoring 的规范自动存入用户插件区，用真实插件 ID 和版本区分，补充插件索引。保全已有内容，不修改插件代码、不启用项目依赖；完成后告诉我保存路径、来源和未验证项。
+
+默认落点是 `~/.letsgal-authoring/plugins/<插件ID>/<版本>/SKILL.md`。具体规范和模板见 [用户插件 Skill](skills/letsgal-authoring/references/plugin-skills.md)。主 Skill 按当前项目选择读取它，不把多个版本自动注册为 Agent 的同名独立技能。插件的代码、构建产物与安装升级继续由原扩展工程／Studio 管理，不打进公共包。
+
 ## 验证 AI 真正加载
 
 打开一个 LetsGal 工程，在新会话中选择／调用 `letsgal-authoring`。Codex 可输入 `$letsgal-authoring`；Claude Code、Cursor 可在 `/` 菜单查找；Copilot、DSH 按当前客户端的技能列表与调用入口使用。DSH 需要启用文件系统技能提供器及技能工具；若看不到技能，先核对运行实例的数据目录和提供器配置，安装器不会擅自修改预设或重启服务。
 
 复制这段提示：
 
-> 使用 letsgal-authoring。只读检查：告诉我实际读取的技能文件路径、个人配置和项目约定；不存在就明确说不存在。定位当前工程与章节，并说明写 JSON 前会查哪一页官方规范。不要修改文件或启动引擎。
+> 使用 letsgal-authoring。只读检查：告诉我实际读取的技能文件路径、个人偏好、项目约定和实际使用的插件 Skill 入口；不存在就明确说不存在。定位当前工程与章节，并说明写 JSON 前会查哪一页官方规范。不要修改文件或启动引擎。
 
 核对路径和真实结果。安装器的 `ai_loaded=not_tested` 是有意保留的边界：文件安装、AI 发现技能和引擎实际运行分别验证。请勿把模型声称“已加载”作为唯一证据；可检查技能选择器、读取操作和一个小型实际任务。
 

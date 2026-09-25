@@ -1,5 +1,7 @@
 # User configuration and project-local overrides never belong in the public kit.
 .letsgal-authoring/
+/preferences/
+/plugins/
 LETSGAL.md
 user.md
 installer-state.json

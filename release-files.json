@@ -31,6 +31,7 @@
     "maintenance/run_checks.py",
     "maintenance/run_dsh_checks.py",
     "maintenance/run_review_checks.py",
+    "maintenance/run_user_area_checks.py",
     "release-files.json",
     "skills/letsgal-authoring/SKILL.md",
     "skills/letsgal-authoring/agents/openai.yaml",
@@ -39,12 +40,14 @@
     "skills/letsgal-authoring/references/customization.md",
     "skills/letsgal-authoring/references/extensions.md",
     "skills/letsgal-authoring/references/json.md",
+    "skills/letsgal-authoring/references/plugin-skills.md",
     "skills/letsgal-authoring/references/production.md",
     "skills/letsgal-authoring/references/research.md",
     "skills/letsgal-authoring/references/safety.md",
     "skills/letsgal-authoring/references/version-compatibility.md",
     "skills/letsgal-authoring/scripts/check_project.py",
     "skills/letsgal-authoring/templates/LETSGAL.example.md",
+    "skills/letsgal-authoring/templates/PLUGIN-SKILL.example.md",
     "validation-results.json"
   ]
 }

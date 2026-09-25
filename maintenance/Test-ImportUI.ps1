@@ -60,8 +60,9 @@ try {
     Click-And-Wait $script:ui.ImportButton
     Record 'GUI import launches hidden child and completes' ($script:ui.ResultTitle.Text -eq '导入完成' -and (Test-Path -LiteralPath (Join-Path $fixtureDsh 'skills/letsgal-authoring/SKILL.md')))
     Record 'Success offers correct verification prompt' ($script:ui.CopyButton.Visibility -eq 'Visible' -and $script:prompt.Contains($script:destination.Target))
+    Record 'GUI separates actual preference and plugin paths' ($script:ui.ProfileText.Text.Contains((Join-Path $fixtureHome '.letsgal-authoring/preferences/user.md')) -and $script:ui.PluginsText.Text.Contains((Join-Path $fixtureHome '.letsgal-authoring/plugins')))
     Capture 'after-import.png'
-    $profile = Join-Path $fixtureHome '.letsgal-authoring/user.md'
+    $profile = Join-Path $fixtureHome '.letsgal-authoring/preferences/user.md'
     [IO.File]::WriteAllText($profile,'PRESERVE ME')
     Click-And-Wait $script:ui.ImportButton
     Record 'GUI repeat import retains preferences' ($script:ui.ResultTitle.Text -eq '已经是此包版本' -and [IO.File]::ReadAllText($profile) -eq 'PRESERVE ME')

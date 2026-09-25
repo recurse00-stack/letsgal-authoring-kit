@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.1.0-preview.3",
+  "version": "0.1.0-preview.4",
   "profile_schema": 1,
   "files": [
     {
@@ -19,15 +19,19 @@
     },
     {
       "path": "references/customization.md",
-      "sha256": "c88503199f9443bc331bf4507b3652a5f8ad653a6e6dc75a79585d3113d8c7ca"
+      "sha256": "bb355b0e3879ef2d1439c5d4acbe0ce7e326c67f6f8513cfac78866278e20f41"
     },
     {
       "path": "references/extensions.md",
-      "sha256": "e1e6de72e2813d4c2c1c93f45c63177218fbc53213beb1493985d5ce056c0ee1"
+      "sha256": "e2b0c5df837ebe21ea4a3ab93e0d8eeb4b16e7ce995c02d631ec63a2f3606ad5"
     },
     {
       "path": "references/json.md",
       "sha256": "f7702401d4114559c35a5a323f4666692afb61a13fa6f848aeaa8dfd5bf7ea75"
+    },
+    {
+      "path": "references/plugin-skills.md",
+      "sha256": "ca2bde3605152030cbb7c46ffa41a2d9d177f29feb842815f80242b04877f74e"
     },
     {
       "path": "references/production.md",
@@ -51,11 +55,15 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "382bfef03884b122feec89157c3be9be61f32252b8fc6b1c7f05c9878e2a005a"
+      "sha256": "5a29b8e831df1b80072485144b621beb62b17f06357d94c5012e1a4acbd97e98"
     },
     {
       "path": "templates/LETSGAL.example.md",
-      "sha256": "8d4ed31427140e5fd07897b18de1d312dc8169d786318c42690416e6991efedc"
+      "sha256": "d506796d9ea46c5dce13fe1791a38a3c2496f4fa5e835ecf4c83470f46fc3dd7"
+    },
+    {
+      "path": "templates/PLUGIN-SKILL.example.md",
+      "sha256": "c0544e4cb399a005f2e8efe6686e9cd39f73ae12650abffb06a219dd35c14dba"
     }
   ]
 }

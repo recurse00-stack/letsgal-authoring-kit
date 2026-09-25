@@ -44,6 +44,9 @@ function Update-Destination {
     $script:ui.CopyButton.Visibility = 'Collapsed'
     $script:ui.ResultPanel.Visibility = 'Collapsed'
     try {
+        $area = Resolve-UserArea $UserHome
+        $script:ui.ProfileText.Text = '个人偏好：' + $area.Profile
+        $script:ui.PluginsText.Text = '插件 Skill：' + $area.Plugins
         $script:destination = Resolve-SkillDestination $agent $scopeName $UserHome $script:ui.ProjectBox.Text $script:ui.ManualBox.Text $script:ui.DshBox.Text
         $script:ui.DestinationText.Text = $script:destination.Target
         $script:ui.PathNote.Text = $script:destination.Note
@@ -137,11 +140,11 @@ function Complete-ImportAction {
     } elseif ($exitCode -eq 0 -and $result -and $result.action -in @('installed','already_current','check')) {
         $title = switch ($result.action) { 'installed' { '导入完成' }; 'already_current' { '已经是此包版本' }; 'check' { '安装文件校验通过' } }
         Show-ImportResult $title '下一步：打开 Agent 的新会话，粘贴验证提示词。此结果确认文件已就位；AI 是否加载，需要在 Agent 中核对。' $true
-        $script:prompt = "使用 letsgal-authoring。只读检查：核对实际读取的技能路径是否为 $($job.Target)；读取用户主目录下 .letsgal-authoring/user.md 和工程 LETSGAL.md（不存在就明确说不存在）。定位当前工程与章节，说明写 JSON 前要查哪一页官方规范。不要修改文件或启动引擎。"
+        $script:prompt = "使用 letsgal-authoring。只读检查：核对实际读取的技能路径是否为 $($job.Target)；读取个人偏好 $($result.profile) 和工程 LETSGAL.md（不存在就明确说不存在）；插件 Skill 位于 $($result.plugins)，只按当前项目的插件 ID 和实际版本定位相关资料，不默认全部启用。定位当前工程与章节，说明写 JSON 前要查哪一页官方规范。不要修改文件或启动引擎。"
         $script:ui.CopyButton.Visibility = 'Visible'
         $script:ui.CopyButton.Content = '复制验证提示词'
     } elseif ($exitCode -eq 0 -and $result -and $result.action -eq 'uninstalled_to_backup') {
-        Show-ImportResult '技能已移到备份' ("个人特调保留。备份位置：`n" + $result.backup) $true
+        Show-ImportResult '技能已移到备份' ("个人偏好与插件 Skill 均保留。备份位置：`n" + $result.backup) $true
     } elseif ($result -and $result.action -eq 'check') {
         Show-ImportResult '此位置尚未安装，或文件已有变化' '检查没有修改任何文件。可使用导入入口安装；已有改动会先受到保护。详细信息见下方。' $false
     } else {
@@ -194,7 +197,6 @@ try {
     $script:ui.DshBox.Text = $dshInfo.Path
     $script:ui.DshHint.Text = $dshInfo.Source + '。选 DSH 的数据目录，不是程序安装目录。'
     $script:ui.ManualBox.Text = $SkillsDirectory
-    $script:ui.ProfileText.Text = '始终保留个人偏好：' + (Join-Path $UserHome '.letsgal-authoring/user.md')
     $script:timer = New-Object Windows.Threading.DispatcherTimer
     $script:timer.Interval = [TimeSpan]::FromMilliseconds(180)
     $script:timer.Add_Tick({ try { Complete-ImportAction } catch { $script:timer.Stop(); Show-ImportResult '结果显示失败' $_.Exception.Message $false } })
