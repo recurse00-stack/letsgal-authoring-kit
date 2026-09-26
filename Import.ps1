@@ -140,7 +140,7 @@ function Complete-ImportAction {
         $script:ui.BackupButton.Visibility = 'Visible'
     } elseif ($exitCode -eq 0 -and $result -and $result.action -in @('installed','already_current','check')) {
         $title = switch ($result.action) { 'installed' { '导入完成' }; 'already_current' { '已经是此包版本' }; 'check' { '安装文件校验通过' } }
-        $body = '下一步：打开 Agent 的新会话，粘贴验证提示词。此结果确认文件已就位；AI 是否加载，需要在 Agent 中核对。'
+        $body = '下一步：建议先停用其他功能重叠的 LetsGal／引擎创作类 Skill，保留原文件与特调，避免调度冲突和额外上下文开销。安装器不会自动停用或删除其他技能。然后打开 Agent 新会话，粘贴验证提示词并核对实际加载路径。'
         if ($result.PSObject.Properties['backup'] -and $result.backup) { $body += "`n旧技能完整备份：" + $result.backup }
         Show-ImportResult $title $body $true
         $script:prompt = "使用 letsgal-authoring。只读检查：核对实际读取的技能路径是否为 $($job.Target)；读取个人偏好 $($result.profile) 和工程 LETSGAL.md（不存在就明确说不存在）；插件 Skill 位于 $($result.plugins)，只按当前项目的插件 ID 和实际版本定位相关资料，不默认全部启用。定位当前工程与章节，说明写 JSON 前要查哪一页官方规范。不要修改文件或启动引擎。"

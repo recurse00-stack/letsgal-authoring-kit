@@ -1,5 +1,7 @@
 # 编写依据与证据范围
 
+2026-09-26 发行复核补充：官网下载页脚本引用的 [Stable 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json) 当前指向 2.0.0；[发行历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json) 另含 2.0.1，历史存在本身不能证明它属于当前 Stable 通道。首发验收基线据此采用 Stable 2.0.0 和 Beta 2.2.0-beta.1，均仍需实机验收。官方 Stable 压缩包中的完整 SDK 目录及 Beta 初始化 SDK 均复现缺失 extension-inspector 的类型错误，详见 [阻断记录](maintenance/SDK-BLOCKER.md)。没有为此改写官方 SDK。
+
 本包独立编写，未复制用户的私有技能、游戏正文、账号或本地索引。以下链接于 2026-09-23 用网页检索／正文读取核对；公开文档更新不齐，不把页面抓取成功当作某一宿主版本已验收。
 
 - [剧本 JSON](https://docs.avg-engine.com/reference/script-json)：磁盘结构、序列化参数及片段引用。

@@ -51,6 +51,14 @@
     "skills/letsgal-authoring/scripts/check_project.py",
     "skills/letsgal-authoring/templates/LETSGAL.example.md",
     "skills/letsgal-authoring/templates/PLUGIN-SKILL.example.md",
-    "validation-results.json"
+    "validation-results.json",
+    "LICENSE",
+    "skills/letsgal-authoring/LICENSE",
+    "maintenance/build_workshop.py",
+    "maintenance/run_recovery_checks.py",
+    "maintenance/run_workshop_checks.py",
+    "maintenance/stage_publication.py",
+    "maintenance/SDK-BLOCKER.md",
+    "maintenance/RELEASE-GATES.md"
   ]
 }

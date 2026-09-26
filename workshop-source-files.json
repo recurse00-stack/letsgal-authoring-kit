@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "files": [
+    "workshop-guide/LICENSE",
+    "workshop-guide/THIRD-PARTY.md",
+    "workshop-guide/README.md",
+    "workshop-guide/extension.json",
+    "workshop-guide/package-lock.json",
+    "workshop-guide/package.json",
+    "workshop-guide/src/authoring-guide.tsx",
+    "workshop-guide/src/index.tsx",
+    "workshop-guide/tsconfig.json",
+    "workshop-guide/vite.config.ts",
+    "workshop-guide/types/sdk-api.d.ts"
+  ]
+}

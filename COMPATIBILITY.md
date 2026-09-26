@@ -4,7 +4,7 @@
 
 Agent 的导入目录兼容与 LetsGal 引擎版本兼容分别判断。稳定版、Beta、旧工程和未知版本均走 [项目版本规则](skills/letsgal-authoring/references/version-compatibility.md)，不以“最新版文档”替代目标宿主证据。下表只说明 Agent 的技能入口。
 
-2026-09-23 按官方文档核对。以下为当前格式／目录适配，不代表全部客户端版本、远程环境或真实 AI 行为均已验收。
+2026-09-26 按官方文档复核。以下为当前格式／目录适配，不代表全部客户端版本、远程环境或真实 AI 行为均已验收。
 
 | 本地工具 | 个人安装 | 工程安装 | 核对来源 |
 | --- | --- | --- | --- |
@@ -36,3 +36,9 @@ Cursor 也支持 `.cursor/skills`，Copilot 也有 `.copilot/skills`（个人）
 - 技能内容与相对参考文件可读取，不依赖特定模型或 MCP。个人偏好仍在实际运行 AI 的用户主目录 `~/.letsgal-authoring/preferences/user.md`（旧版根目录 user.md 继续兼容），不随 DSH_HOME 搬入公共技能；插件 Skill 独立放在同一用户区的 plugins/ 中，由主 Skill 按项目需要读取。
 
 DSH 来源：[文件系统技能提供器](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/skill/skill-filesystem/README.md)、[数据目录解析](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/util/home-paths/src/index.ts)。
+
+## 首发验收分级
+
+Codex、Claude Code、DSH 的完整模型任务及更新后会话暂未验证，不作为 0.1.0 的发行门槛。Codex 有真实技能发现证据，DSH 有官方 provider 读取证据；Claude Code、Cursor、Copilot 标为格式／目录适配。命令存在、目录被发现、模型实际使用和宿主运行是不同证据，不相互替代；详见 VALIDATION.md。
+
+建议安装或启用本技能前，在 Agent 的技能设置中暂时停用其他功能重叠的 LetsGal／引擎创作类 Skill，避免重复触发、相互矛盾的指令和额外上下文开销影响执行效果。也请核对个人与工程范围是否装了多个同名副本。保留原文件及特调；由你决定停用哪一份，安装器不会自动禁用或删除其他 Skill。
