@@ -1,7 +1,7 @@
 {
-  "id": "letsgal-authoring-guide-58dea2",
+  "id": "io.github.letsgal-authoring-kit.guide",
   "name": "AI 创作技能 · 安装与协作指引",
-  "description": "AI 创作技能安装指引与项目验收提示生成。",
+  "description": "AI Skill 包，需自备 AI 工具和模型；Windows 安装需 PowerShell 5.1 与 .NET 图形组件。",
   "author": "letsgal-authoring-kit",
   "version": "0.1.0",
   "entry": "dist/index.mjs",

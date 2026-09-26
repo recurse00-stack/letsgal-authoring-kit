@@ -11,6 +11,8 @@
     "workshop-guide/src/index.tsx",
     "workshop-guide/tsconfig.json",
     "workshop-guide/vite.config.ts",
-    "workshop-guide/types/sdk-api.d.ts"
+    "workshop-guide/types/sdk-api.d.ts",
+    "workshop-guide/BUILDING.md",
+    "workshop-guide/scripts/check-manifest.mjs"
   ]
 }

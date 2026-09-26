@@ -1,12 +1,17 @@
 {
-  "name": "letsgal-authoring-guide-58dea2",
+  "name": "letsgal-authoring-guide",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "vite build",
     "watch": "vite build --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:manifest": "node scripts/check-manifest.mjs",
+    "test:manifest": "node scripts/check-manifest.mjs --self-test",
+    "pretypecheck": "node scripts/check-manifest.mjs",
+    "prebuild": "node scripts/check-manifest.mjs",
+    "prewatch": "node scripts/check-manifest.mjs"
   },
   "peerDependencies": {
     "react": "^18.0.0",
