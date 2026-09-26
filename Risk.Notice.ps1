@@ -12,7 +12,7 @@ function Get-RiskNotice {
     return [pscustomobject]@{
         Version=$version; Path=$path; Text=$content
         Summary='AI 可能误改、误删或泄露资料。请先备份作品并限制 Agent 可写范围；技能备份不包含作品。'
-        Legal='在法律允许的最大范围内，作者与贡献者对使用本包造成的损失不承担任何责任；依法不得免除的责任及用户法定权利不受影响。'
+        Legal='本包按现状提供，不提供担保；作者及贡献者不对使用或无法使用本包造成的任何损失承担责任。'
         Sha256=$sha256
     }
 }

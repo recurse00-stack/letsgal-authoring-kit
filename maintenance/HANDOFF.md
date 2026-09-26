@@ -1,10 +1,10 @@
-# 当前维护入口：0.1.0-preview.6
+# 当前维护入口：0.1.0-preview.7
 
-2026-09-26：用户要求醒目提醒 AI 误删等风险，并明确不承担责任。已加入“在适用法律允许的最大范围内不承担任何责任”，保留依法不得免责的责任与法定权利。没有确认 MIT，不得把本次说明当作版权许可。
+2026-09-26：用户要求醒目提醒 AI 误删等风险，并明确不承担责任。对外声明现统一为按现状提供、不提供担保、不承担使用或无法使用本包造成的损失责任。没有确认 MIT，不得把本次说明当作版权许可。
 
-统一全文位于 skills/letsgal-authoring/references/risk-notice.md（说明版本 2026-09-26.1）。Risk.Notice.ps1 读取同一全文供 GUI 和 CLI 使用；摘要在界面顶部，全文可展开。安装收据及操作日志记文案版本／SHA-256，acknowledgement 为 not_collected，不能称已获得同意。文案变化须提升说明版本，并复查摘要、README、手册和工坊入口。
+统一全文位于 skills/letsgal-authoring/references/risk-notice.md（说明版本 2026-09-26.2）。Risk.Notice.ps1 读取同一全文供 GUI 和 CLI 使用；摘要在界面顶部，全文可展开。安装收据及操作日志记文案版本／SHA-256，acknowledgement 为 not_collected，不能称已获得同意。文案变化须提升说明版本，并复查摘要、README、手册和工坊入口。
 
-本次 156 项检查、Skill 格式及 51 文件隐私检查通过；证据与限制见 VALIDATION.md。维护先运行 build_release.py 同步 BOM 和清单，再验证，最后使用新版本号生成 ZIP，禁止覆盖旧包。仅在隔离目录测试，不操作真实用户区。
+最终文字另通过 38 项检查；沿用 preview.6 的相关 156 项基线，未改变安装流程。Skill 格式及 51 文件隐私检查通过；证据与限制见 VALIDATION.md。维护先运行 build_release.py 同步 BOM 和清单，再验证，最后使用新版本号生成 ZIP，禁止覆盖旧包。仅在隔离目录测试，不操作真实用户区。
 
 以下保留前版维护说明；当前版本和验证数量以上文为准。
 
