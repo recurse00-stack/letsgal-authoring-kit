@@ -43,6 +43,14 @@ try {
     $script:window.Show()
     Pump
     Record 'DSH initial selection and destination' ($script:ui.DestinationText.Text -eq (Join-Path $fixtureDsh 'skills/letsgal-authoring'))
+    $expectedNotice = [IO.File]::ReadAllText((Join-Path (Split-Path $PSScriptRoot -Parent) 'skills/letsgal-authoring/references/risk-notice.md'),[Text.Encoding]::UTF8)
+    Record 'Risk summary visible before any import' ($script:ui.RiskSummary.IsVisible -and $script:ui.RiskLegal.IsVisible -and $null -eq $script:job)
+    $script:ui.RiskExpander.IsExpanded = $true
+    Pump
+    Record 'Full notice accessible and identical to distributed text' ($script:ui.RiskDetails.IsVisible -and $script:ui.RiskDetails.Text -eq $expectedNotice -and $script:ui.RiskDetails.IsReadOnly)
+    Capture 'risk-notice-expanded.png'
+    $script:ui.RiskExpander.IsExpanded = $false
+    Pump
     Capture 'before-import.png'
     foreach ($choice in @('Codex','Claude','Cursor','Copilot','DSH')) {
         $script:ui.AgentBox.SelectedItem = @($script:ui.AgentBox.Items | Where-Object {$_.Tag -eq $choice})[0]

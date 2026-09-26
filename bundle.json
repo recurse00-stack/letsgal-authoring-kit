@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.1.0-preview.5",
+  "version": "0.1.0-preview.6",
   "profile_schema": 1,
   "files": [
     {
@@ -42,8 +42,12 @@
       "sha256": "9e6b258d377babea40b6510d089de0c4f908b6b59dddcb2ebc1db2e0a38dfe41"
     },
     {
+      "path": "references/risk-notice.md",
+      "sha256": "7553dddb00ecfb10d982a24157bdc112ead46da67de5d31fa448997e3bda4cdd"
+    },
+    {
       "path": "references/safety.md",
-      "sha256": "fac81956c323b9ae947f5ff92ae0bae3f8311a04aa1bcfa23089022b623e59e0"
+      "sha256": "e2972dc47dc2dc15d060e33b03ca8263b3c758dc3d254cd370cfca4ab5e3f91f"
     },
     {
       "path": "references/version-compatibility.md",
@@ -55,7 +59,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "6b9f98023ad2a2bbbd5228c966796f43879979db52270b99dd881c49e030b9e9"
+      "sha256": "617eef687a773c604b08251ff1da88c84358458852711c3d03c46328049c28dc"
     },
     {
       "path": "templates/LETSGAL.example.md",

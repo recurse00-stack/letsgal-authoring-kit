@@ -14,6 +14,7 @@ $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName System.Windows.Forms
 . (Join-Path $PSScriptRoot 'Import.Paths.ps1')
+. (Join-Path $PSScriptRoot 'Risk.Notice.ps1')
 $script:job = $null
 $script:destination = $null
 $script:lastAction = $null
@@ -163,6 +164,7 @@ function Complete-ImportAction {
 }
 
 try {
+    $notice = Get-RiskNotice
     $UserHome = Full-Path $UserHome
     Assert-OrdinaryPath $UserHome
     $statePath = Join-Path $UserHome '.letsgal-authoring/installer-state.json'
@@ -189,6 +191,9 @@ try {
     try { $script:window = [Windows.Markup.XamlReader]::Load($reader) } finally { $reader.Close() }
     $script:window.Height = [Math]::Min(805, [Windows.SystemParameters]::WorkArea.Height - 32)
     foreach ($node in $xaml.SelectNodes('//*[@Name]')) { $script:ui[$node.Name] = $script:window.FindName($node.Name) }
+    $script:ui.RiskSummary.Text = $notice.Summary
+    $script:ui.RiskLegal.Text = $notice.Legal
+    $script:ui.RiskDetails.Text = $notice.Text
     $choices = @(@('Codex','Codex'),@('Claude','Claude Code'),@('Cursor','Cursor'),@('Copilot','GitHub Copilot'),@('DSH','DSH'),@('Manual','其他 Agent'))
     foreach ($choice in $choices) {
         $item = New-Object Windows.Controls.ComboBoxItem

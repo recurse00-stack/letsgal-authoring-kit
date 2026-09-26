@@ -12,6 +12,16 @@
       <TextBlock Text="LETSGAL  /  COMMUNITY SKILL" FontSize="12" FontWeight="SemiBold" Foreground="#506982"/>
       <TextBlock Text="把制作技能导入你的 AI" FontSize="27" FontWeight="SemiBold" Margin="0,8,0,7"/>
       <TextBlock Text="选择你使用的 Agent，导入后在新会话中调用 letsgal-authoring。" Foreground="#506177"/>
+      <Border Background="#FFF2DE" BorderBrush="#C98D29" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,12,0,0">
+        <StackPanel>
+          <TextBlock Text="使用前请阅读 · 数据风险与免责声明" FontWeight="SemiBold" Foreground="#633F06"/>
+          <TextBlock Name="RiskSummary" Margin="0,5,0,0" FontSize="13"/>
+          <TextBlock Name="RiskLegal" Margin="0,4,0,0" FontSize="12"/>
+          <Expander Name="RiskExpander" Header="展开完整说明（可选中复制）" Margin="0,5,0,0">
+            <TextBox Name="RiskDetails" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="160" FontSize="12" AutomationProperties.Name="风险说明与免责声明全文"/>
+          </Expander>
+        </StackPanel>
+      </Border>
     </StackPanel>
     <StackPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
       <ProgressBar Name="Progress" Height="3" IsIndeterminate="True" Visibility="Collapsed" Margin="0,0,0,10"/>

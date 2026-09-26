@@ -1,366 +1,429 @@
 {
-  "version": "0.1.0-preview.5",
-  "date": "2026-09-25",
-  "passed": 226,
+  "version": "0.1.0-preview.6",
+  "verified_on": "2026-09-26",
+  "passed": 156,
   "failed": 0,
   "suites": [
     {
-      "suite": "base",
+      "name": "基础回归",
+      "passed": 46,
+      "failed": 0,
       "checks": [
         {
           "name": "valid-project",
-          "passed": true,
-          "detail": "exit=0; read-only=True; status=partial_static_checks_passed"
+          "passed": true
         },
         {
           "name": "valid-standalone",
-          "passed": true,
-          "detail": "exit=0; read-only=True; status=partial_static_checks_passed"
+          "passed": true
         },
         {
           "name": "array-instead-of-json-string",
-          "passed": true,
-          "detail": "exit=1; read-only=True; status=issues_found"
+          "passed": true
         },
         {
           "name": "broken-fragment-target",
-          "passed": true,
-          "detail": "exit=1; read-only=True; status=issues_found"
+          "passed": true
         },
         {
           "name": "fragment-cycle",
-          "passed": true,
-          "detail": "exit=1; read-only=True; status=issues_found"
+          "passed": true
         },
         {
           "name": "duplicate-id",
-          "passed": true,
-          "detail": "exit=1; read-only=True; status=issues_found"
+          "passed": true
         },
         {
           "name": "unknown-instruction-preserved",
-          "passed": true,
-          "detail": "exit=0; read-only=True; status=partial_static_checks_passed"
+          "passed": true
         },
         {
           "name": "duplicate-json-keys",
-          "passed": true,
-          "detail": "exit=1; read-only=True; status=issues_found"
+          "passed": true
         },
         {
           "name": "nonfinite-json",
-          "passed": true,
-          "detail": "exit=1; read-only=True; status=issues_found"
+          "passed": true
         },
         {
           "name": "wrong-boolean-type",
-          "passed": true,
-          "detail": "exit=1; read-only=True; status=issues_found"
+          "passed": true
         },
         {
           "name": "malformed-type-does-not-crash",
-          "passed": true,
-          "detail": "exit=1; read-only=True; status=issues_found"
+          "passed": true
         },
         {
           "name": "unknown-metadata-preserved",
-          "passed": true,
-          "detail": "exit=0; read-only=True; status=partial_static_checks_passed"
+          "passed": true
         },
         {
           "name": "local-markdown-links",
-          "passed": true,
-          "detail": "[]"
+          "passed": true
         },
         {
           "name": "no-personal-paths-or-private-project-dependencies",
-          "passed": true,
-          "detail": "[]"
+          "passed": true
         },
         {
           "name": "powershell fresh-install",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell repeat-is-no-op",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell install-receipt-check",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell edited-skill-blocks-overwrite",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell explicit-replacement-backs-up-edits",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell user-and-project-customizations-preserved",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell original-private-skill-untouched",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell corrupted-bundle-rejected",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell manifest-traversal-rejected",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell uninstall-retains-skill-backup-and-profile",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell version-upgrade-retains-personal-configuration",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell project-path-Codex",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell project-path-Claude",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell project-path-Cursor",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell project-path-Copilot",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "powershell junction-target-rejected",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh fresh-install",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh repeat-is-no-op",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh install-receipt-check",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh edited-skill-blocks-overwrite",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh explicit-replacement-backs-up-edits",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh user-and-project-customizations-preserved",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh original-private-skill-untouched",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh corrupted-bundle-rejected",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh manifest-traversal-rejected",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh uninstall-retains-skill-backup-and-profile",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh version-upgrade-retains-personal-configuration",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh project-path-Codex",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh project-path-Claude",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh project-path-Cursor",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh project-path-Copilot",
-          "passed": true,
-          "detail": ""
+          "passed": true
         },
         {
           "name": "pwsh junction-target-rejected",
-          "passed": true,
-          "detail": ""
+          "passed": true
         }
-      ],
-      "passed": 46,
-      "failed": 0,
-      "scope": "Isolated file, installer and static-checker tests only; no real harness/Studio/UI/workshop acceptance."
+      ]
     },
     {
-      "suite": "dsh",
+      "name": "preview.5 升级与用户区保护",
+      "passed": 32,
+      "failed": 0,
       "checks": [
         {
-          "name": "powershell default DSH home",
+          "name": "powershell first check is read-only",
           "passed": true
         },
         {
-          "name": "powershell DSH_HOME environment",
+          "name": "powershell fresh install separates preference and plugin areas",
           "passed": true
         },
         {
-          "name": "powershell explicit home overrides env",
+          "name": "powershell repeat install preserves every user-owned byte",
           "passed": true
         },
         {
-          "name": "powershell Git root and customizations",
+          "name": "powershell check never rewrites user files",
           "passed": true
         },
         {
-          "name": "powershell installed official provider discovers project at nearest Git root",
+          "name": "powershell uninstall preserves preferences all plugin versions and source",
           "passed": true
         },
         {
-          "name": "powershell installed official provider discovers personal skill",
+          "name": "powershell reinstall preserves existing user area",
           "passed": true
         },
         {
-          "name": "powershell installed official provider loads workflow and metadata",
+          "name": "powershell real 0.1.0-preview.5 baseline installed",
           "passed": true
         },
         {
-          "name": "powershell installed relative reference is accessible",
+          "name": "powershell real version upgrade succeeds with complete old backup",
           "passed": true
         },
         {
-          "name": "powershell installed no parsing warnings",
+          "name": "powershell upgrade preserves legacy preferences and all plugin files",
           "passed": true
         },
         {
-          "name": "powershell uninstalled official provider discovers project at nearest Git root",
+          "name": "powershell upgrade cannot shadow legacy preferences with blank defaults",
           "passed": true
         },
         {
-          "name": "powershell uninstalled uninstalled personal copy is not discovered",
+          "name": "powershell coexisting preferences stay intact and new path is reported",
           "passed": true
         },
         {
-          "name": "powershell uninstalled no parsing warnings",
+          "name": "powershell failed update preserves existing skill preferences and plugins",
           "passed": true
         },
         {
-          "name": "powershell uninstall keeps profile",
+          "name": "powershell modified public skill stops without backup consent or user changes",
           "passed": true
         },
         {
-          "name": "pwsh default DSH home",
+          "name": "powershell preferences-file rejects before target mutation",
           "passed": true
         },
         {
-          "name": "pwsh DSH_HOME environment",
+          "name": "powershell profile-directory rejects before target mutation",
           "passed": true
         },
         {
-          "name": "pwsh explicit home overrides env",
+          "name": "powershell plugins-file rejects before target mutation",
           "passed": true
         },
         {
-          "name": "pwsh Git root and customizations",
+          "name": "pwsh first check is read-only",
           "passed": true
         },
         {
-          "name": "pwsh installed official provider discovers project at nearest Git root",
+          "name": "pwsh fresh install separates preference and plugin areas",
           "passed": true
         },
         {
-          "name": "pwsh installed official provider discovers personal skill",
+          "name": "pwsh repeat install preserves every user-owned byte",
           "passed": true
         },
         {
-          "name": "pwsh installed official provider loads workflow and metadata",
+          "name": "pwsh check never rewrites user files",
           "passed": true
         },
         {
-          "name": "pwsh installed relative reference is accessible",
+          "name": "pwsh uninstall preserves preferences all plugin versions and source",
           "passed": true
         },
         {
-          "name": "pwsh installed no parsing warnings",
+          "name": "pwsh reinstall preserves existing user area",
           "passed": true
         },
         {
-          "name": "pwsh uninstalled official provider discovers project at nearest Git root",
+          "name": "pwsh real 0.1.0-preview.5 baseline installed",
           "passed": true
         },
         {
-          "name": "pwsh uninstalled uninstalled personal copy is not discovered",
+          "name": "pwsh real version upgrade succeeds with complete old backup",
           "passed": true
         },
         {
-          "name": "pwsh uninstalled no parsing warnings",
+          "name": "pwsh upgrade preserves legacy preferences and all plugin files",
           "passed": true
         },
         {
-          "name": "pwsh uninstall keeps profile",
+          "name": "pwsh upgrade cannot shadow legacy preferences with blank defaults",
+          "passed": true
+        },
+        {
+          "name": "pwsh coexisting preferences stay intact and new path is reported",
+          "passed": true
+        },
+        {
+          "name": "pwsh failed update preserves existing skill preferences and plugins",
+          "passed": true
+        },
+        {
+          "name": "pwsh modified public skill stops without backup consent or user changes",
+          "passed": true
+        },
+        {
+          "name": "pwsh preferences-file rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "pwsh profile-directory rejects before target mutation",
+          "passed": true
+        },
+        {
+          "name": "pwsh plugins-file rejects before target mutation",
           "passed": true
         }
-      ],
-      "passed": 26,
-      "failed": 0,
-      "scope": "Isolated official DSH filesystem provider; no live session/model/server acceptance."
+      ]
     },
     {
-      "suite": "ui-ps51",
-      "scope": "In-process WPF events and render; no OS mouse or live Agent acceptance.",
+      "name": "风险说明与安装记录",
+      "passed": 18,
+      "failed": 0,
+      "checks": [
+        {
+          "name": "powershell: install succeeds with notice delivered before target output",
+          "passed": true
+        },
+        {
+          "name": "powershell: installed full notice retains exact bytes",
+          "passed": true
+        },
+        {
+          "name": "powershell: receipt records notice hash and does not assert consent",
+          "passed": true
+        },
+        {
+          "name": "powershell: operation log agrees with notice receipt",
+          "passed": true
+        },
+        {
+          "name": "powershell: repeat install still emits and reports current notice",
+          "passed": true
+        },
+        {
+          "name": "powershell: check delivers notice without changing any home files",
+          "passed": true
+        },
+        {
+          "name": "powershell: uninstall retains the full notice in backup and records its version",
+          "passed": true
+        },
+        {
+          "name": "powershell: preferences and plugin notes remain byte-identical",
+          "passed": true
+        },
+        {
+          "name": "powershell: missing notice stops before creating any user files",
+          "passed": true
+        },
+        {
+          "name": "pwsh: install succeeds with notice delivered before target output",
+          "passed": true
+        },
+        {
+          "name": "pwsh: installed full notice retains exact bytes",
+          "passed": true
+        },
+        {
+          "name": "pwsh: receipt records notice hash and does not assert consent",
+          "passed": true
+        },
+        {
+          "name": "pwsh: operation log agrees with notice receipt",
+          "passed": true
+        },
+        {
+          "name": "pwsh: repeat install still emits and reports current notice",
+          "passed": true
+        },
+        {
+          "name": "pwsh: check delivers notice without changing any home files",
+          "passed": true
+        },
+        {
+          "name": "pwsh: uninstall retains the full notice in backup and records its version",
+          "passed": true
+        },
+        {
+          "name": "pwsh: preferences and plugin notes remain byte-identical",
+          "passed": true
+        },
+        {
+          "name": "pwsh: missing notice stops before creating any user files",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Windows PowerShell 5.1 WPF 组件",
+      "passed": 20,
       "failed": 0,
       "checks": [
         {
           "name": "DSH initial selection and destination",
+          "passed": true
+        },
+        {
+          "name": "Risk summary visible before any import",
+          "passed": true
+        },
+        {
+          "name": "Full notice accessible and identical to distributed text",
           "passed": true
         },
         {
@@ -431,519 +494,99 @@
           "name": "No hidden child left running",
           "passed": true
         }
-      ],
-      "passed": 18
+      ]
     },
     {
-      "suite": "ui-ps7",
-      "scope": "In-process WPF events and render; no OS mouse or live Agent acceptance.",
-      "passed": 18,
-      "checks": [
-        {
-          "passed": true,
-          "name": "DSH initial selection and destination"
-        },
-        {
-          "passed": true,
-          "name": "Agent selection Codex"
-        },
-        {
-          "passed": true,
-          "name": "Agent selection Claude"
-        },
-        {
-          "passed": true,
-          "name": "Agent selection Cursor"
-        },
-        {
-          "passed": true,
-          "name": "Agent selection Copilot"
-        },
-        {
-          "passed": true,
-          "name": "Agent selection DSH"
-        },
-        {
-          "passed": true,
-          "name": "Missing project disables import"
-        },
-        {
-          "passed": true,
-          "name": "DSH project preview follows Git root"
-        },
-        {
-          "passed": true,
-          "name": "GUI import launches hidden child and completes"
-        },
-        {
-          "passed": true,
-          "name": "Success offers correct verification prompt"
-        },
-        {
-          "passed": true,
-          "name": "GUI separates actual preference and plugin paths"
-        },
-        {
-          "passed": true,
-          "name": "GUI repeat import retains preferences"
-        },
-        {
-          "passed": true,
-          "name": "GUI read-only check completes"
-        },
-        {
-          "passed": true,
-          "name": "GUI shows state-save warning without denying installed result"
-        },
-        {
-          "passed": true,
-          "name": "GUI state-save failure preserves previous record"
-        },
-        {
-          "passed": true,
-          "name": "Completion result scrolls into view"
-        },
-        {
-          "passed": true,
-          "name": "Edited skill shows backup choice without changing files"
-        },
-        {
-          "passed": true,
-          "name": "No hidden child left running"
-        }
-      ],
-      "failed": 0
-    },
-    {
-      "suite": "safety-ps51",
-      "scope": "Isolated path, real cross-process locking and GUI startup regression tests.",
+      "name": "PowerShell 7 WPF 组件",
+      "passed": 20,
       "failed": 0,
       "checks": [
         {
-          "name": "ambiguous or device path rejected",
+          "name": "DSH initial selection and destination",
           "passed": true
         },
         {
-          "name": "ambiguous or device path rejected",
+          "name": "Risk summary visible before any import",
           "passed": true
         },
         {
-          "name": "ambiguous or device path rejected",
+          "name": "Full notice accessible and identical to distributed text",
           "passed": true
         },
         {
-          "name": "ambiguous or device path rejected",
+          "name": "Agent selection Codex",
           "passed": true
         },
         {
-          "name": "ambiguous or device path rejected",
+          "name": "Agent selection Claude",
           "passed": true
         },
         {
-          "name": "initial fixture install",
+          "name": "Agent selection Cursor",
           "passed": true
         },
         {
-          "name": "concurrent installer refuses target while lock held",
+          "name": "Agent selection Copilot",
           "passed": true
         },
         {
-          "name": "concurrent attempt preserves installed bytes",
+          "name": "Agent selection DSH",
           "passed": true
         },
         {
-          "name": "released lock permits next import",
+          "name": "Missing project disables import",
           "passed": true
         },
         {
-          "name": "directory masquerading as profile is rejected before install",
+          "name": "DSH project preview follows Git root",
           "passed": true
         },
         {
-          "name": "state replacement preserves external hard-linked user file",
+          "name": "GUI import launches hidden child and completes",
           "passed": true
         },
         {
-          "name": "locked state reports completed install with separate warning",
+          "name": "Success offers correct verification prompt",
           "passed": true
         },
         {
-          "name": "locked state retains original record and valid installed skill",
+          "name": "GUI separates actual preference and plugin paths",
           "passed": true
         },
         {
-          "name": "repeat import separates state warning from installation result",
+          "name": "GUI repeat import retains preferences",
           "passed": true
         },
         {
-          "name": "released state lock permits atomic save without stale temp files",
+          "name": "GUI read-only check completes",
           "passed": true
         },
         {
-          "name": "incomplete or invalid saved choices remain safe under strict mode",
+          "name": "GUI shows state-save warning without denying installed result",
           "passed": true
         },
         {
-          "name": "invalid DSH path does not prevent Codex GUI startup",
+          "name": "GUI state-save failure preserves previous record",
+          "passed": true
+        },
+        {
+          "name": "Completion result scrolls into view",
+          "passed": true
+        },
+        {
+          "name": "Edited skill shows backup choice without changing files",
+          "passed": true
+        },
+        {
+          "name": "No hidden child left running",
           "passed": true
         }
-      ],
-      "passed": 17
+      ]
     },
     {
-      "suite": "safety-ps7",
-      "checks": [
-        {
-          "passed": true,
-          "name": "ambiguous or device path rejected"
-        },
-        {
-          "passed": true,
-          "name": "ambiguous or device path rejected"
-        },
-        {
-          "passed": true,
-          "name": "ambiguous or device path rejected"
-        },
-        {
-          "passed": true,
-          "name": "ambiguous or device path rejected"
-        },
-        {
-          "passed": true,
-          "name": "ambiguous or device path rejected"
-        },
-        {
-          "passed": true,
-          "name": "initial fixture install"
-        },
-        {
-          "passed": true,
-          "name": "concurrent installer refuses target while lock held"
-        },
-        {
-          "passed": true,
-          "name": "concurrent attempt preserves installed bytes"
-        },
-        {
-          "passed": true,
-          "name": "released lock permits next import"
-        },
-        {
-          "passed": true,
-          "name": "directory masquerading as profile is rejected before install"
-        },
-        {
-          "passed": true,
-          "name": "state replacement preserves external hard-linked user file"
-        },
-        {
-          "passed": true,
-          "name": "locked state reports completed install with separate warning"
-        },
-        {
-          "passed": true,
-          "name": "locked state retains original record and valid installed skill"
-        },
-        {
-          "passed": true,
-          "name": "repeat import separates state warning from installation result"
-        },
-        {
-          "passed": true,
-          "name": "released state lock permits atomic save without stale temp files"
-        },
-        {
-          "passed": true,
-          "name": "incomplete or invalid saved choices remain safe under strict mode"
-        },
-        {
-          "passed": true,
-          "name": "invalid DSH path does not prevent Codex GUI startup"
-        }
-      ],
+      "name": "版本与发布边界",
+      "passed": 20,
       "failed": 0,
-      "passed": 17,
-      "scope": "Isolated path, real cross-process locking and GUI startup regression tests."
-    },
-    {
-      "suite": "user-upgrade-preview3",
-      "version": "0.1.0-preview.5",
-      "checks": [
-        {
-          "name": "powershell first check is read-only",
-          "passed": true
-        },
-        {
-          "name": "powershell fresh install separates preference and plugin areas",
-          "passed": true
-        },
-        {
-          "name": "powershell repeat install preserves every user-owned byte",
-          "passed": true
-        },
-        {
-          "name": "powershell check never rewrites user files",
-          "passed": true
-        },
-        {
-          "name": "powershell uninstall preserves preferences all plugin versions and source",
-          "passed": true
-        },
-        {
-          "name": "powershell reinstall preserves existing user area",
-          "passed": true
-        },
-        {
-          "name": "powershell real 0.1.0-preview.3 baseline installed",
-          "passed": true
-        },
-        {
-          "name": "powershell real version upgrade succeeds with complete old backup",
-          "passed": true
-        },
-        {
-          "name": "powershell upgrade preserves legacy preferences and all plugin files",
-          "passed": true
-        },
-        {
-          "name": "powershell upgrade cannot shadow legacy preferences with blank defaults",
-          "passed": true
-        },
-        {
-          "name": "powershell coexisting preferences stay intact and new path is reported",
-          "passed": true
-        },
-        {
-          "name": "powershell failed update preserves existing skill preferences and plugins",
-          "passed": true
-        },
-        {
-          "name": "powershell modified public skill stops without backup consent or user changes",
-          "passed": true
-        },
-        {
-          "name": "powershell preferences-file rejects before target mutation",
-          "passed": true
-        },
-        {
-          "name": "powershell profile-directory rejects before target mutation",
-          "passed": true
-        },
-        {
-          "name": "powershell plugins-file rejects before target mutation",
-          "passed": true
-        },
-        {
-          "name": "pwsh first check is read-only",
-          "passed": true
-        },
-        {
-          "name": "pwsh fresh install separates preference and plugin areas",
-          "passed": true
-        },
-        {
-          "name": "pwsh repeat install preserves every user-owned byte",
-          "passed": true
-        },
-        {
-          "name": "pwsh check never rewrites user files",
-          "passed": true
-        },
-        {
-          "name": "pwsh uninstall preserves preferences all plugin versions and source",
-          "passed": true
-        },
-        {
-          "name": "pwsh reinstall preserves existing user area",
-          "passed": true
-        },
-        {
-          "name": "pwsh real 0.1.0-preview.3 baseline installed",
-          "passed": true
-        },
-        {
-          "name": "pwsh real version upgrade succeeds with complete old backup",
-          "passed": true
-        },
-        {
-          "name": "pwsh upgrade preserves legacy preferences and all plugin files",
-          "passed": true
-        },
-        {
-          "name": "pwsh upgrade cannot shadow legacy preferences with blank defaults",
-          "passed": true
-        },
-        {
-          "name": "pwsh coexisting preferences stay intact and new path is reported",
-          "passed": true
-        },
-        {
-          "name": "pwsh failed update preserves existing skill preferences and plugins",
-          "passed": true
-        },
-        {
-          "name": "pwsh modified public skill stops without backup consent or user changes",
-          "passed": true
-        },
-        {
-          "name": "pwsh preferences-file rejects before target mutation",
-          "passed": true
-        },
-        {
-          "name": "pwsh profile-directory rejects before target mutation",
-          "passed": true
-        },
-        {
-          "name": "pwsh plugins-file rejects before target mutation",
-          "passed": true
-        }
-      ],
-      "passed": 32,
-      "failed": 0,
-      "previous_version": "0.1.0-preview.3",
-      "scope": "Isolated real previous-release upgrade and byte-preservation tests; no private homes or plugin code execution."
-    },
-    {
-      "suite": "user-upgrade-preview4",
-      "version": "0.1.0-preview.5",
-      "checks": [
-        {
-          "name": "powershell first check is read-only",
-          "passed": true
-        },
-        {
-          "name": "powershell fresh install separates preference and plugin areas",
-          "passed": true
-        },
-        {
-          "name": "powershell repeat install preserves every user-owned byte",
-          "passed": true
-        },
-        {
-          "name": "powershell check never rewrites user files",
-          "passed": true
-        },
-        {
-          "name": "powershell uninstall preserves preferences all plugin versions and source",
-          "passed": true
-        },
-        {
-          "name": "powershell reinstall preserves existing user area",
-          "passed": true
-        },
-        {
-          "name": "powershell real 0.1.0-preview.4 baseline installed",
-          "passed": true
-        },
-        {
-          "name": "powershell real version upgrade succeeds with complete old backup",
-          "passed": true
-        },
-        {
-          "name": "powershell upgrade preserves legacy preferences and all plugin files",
-          "passed": true
-        },
-        {
-          "name": "powershell upgrade cannot shadow legacy preferences with blank defaults",
-          "passed": true
-        },
-        {
-          "name": "powershell coexisting preferences stay intact and new path is reported",
-          "passed": true
-        },
-        {
-          "name": "powershell failed update preserves existing skill preferences and plugins",
-          "passed": true
-        },
-        {
-          "name": "powershell modified public skill stops without backup consent or user changes",
-          "passed": true
-        },
-        {
-          "name": "powershell preferences-file rejects before target mutation",
-          "passed": true
-        },
-        {
-          "name": "powershell profile-directory rejects before target mutation",
-          "passed": true
-        },
-        {
-          "name": "powershell plugins-file rejects before target mutation",
-          "passed": true
-        },
-        {
-          "name": "pwsh first check is read-only",
-          "passed": true
-        },
-        {
-          "name": "pwsh fresh install separates preference and plugin areas",
-          "passed": true
-        },
-        {
-          "name": "pwsh repeat install preserves every user-owned byte",
-          "passed": true
-        },
-        {
-          "name": "pwsh check never rewrites user files",
-          "passed": true
-        },
-        {
-          "name": "pwsh uninstall preserves preferences all plugin versions and source",
-          "passed": true
-        },
-        {
-          "name": "pwsh reinstall preserves existing user area",
-          "passed": true
-        },
-        {
-          "name": "pwsh real 0.1.0-preview.4 baseline installed",
-          "passed": true
-        },
-        {
-          "name": "pwsh real version upgrade succeeds with complete old backup",
-          "passed": true
-        },
-        {
-          "name": "pwsh upgrade preserves legacy preferences and all plugin files",
-          "passed": true
-        },
-        {
-          "name": "pwsh upgrade cannot shadow legacy preferences with blank defaults",
-          "passed": true
-        },
-        {
-          "name": "pwsh coexisting preferences stay intact and new path is reported",
-          "passed": true
-        },
-        {
-          "name": "pwsh failed update preserves existing skill preferences and plugins",
-          "passed": true
-        },
-        {
-          "name": "pwsh modified public skill stops without backup consent or user changes",
-          "passed": true
-        },
-        {
-          "name": "pwsh preferences-file rejects before target mutation",
-          "passed": true
-        },
-        {
-          "name": "pwsh profile-directory rejects before target mutation",
-          "passed": true
-        },
-        {
-          "name": "pwsh plugins-file rejects before target mutation",
-          "passed": true
-        }
-      ],
-      "passed": 32,
-      "failed": 0,
-      "previous_version": "0.1.0-preview.4",
-      "scope": "Isolated real previous-release upgrade and byte-preservation tests; no private homes or plugin code execution."
-    },
-    {
-      "suite": "review",
       "checks": [
         {
           "name": "unknown-chapter-is-not-converted",
@@ -1025,11 +668,10 @@
           "name": "archive-has-no-private-fixture-bytes",
           "passed": true
         }
-      ],
-      "passed": 20,
-      "failed": 0,
-      "scope": "Version-format handling, privacy detectors and real ZIP whitelist isolation; no host-version runtime acceptance."
+      ]
     }
   ],
-  "limitations": "Isolated filesystem, provider and WPF component checks. Real model, engine, OS mouse and workshop acceptance not performed."
+  "historical_preview5_checks": 226,
+  "historical_checks_included_in_current_count": false,
+  "scope": "Isolated file and CLI behavior, real prior-release upgrade, WPF component events/render, release boundary; no OS mouse, live Agent or legal sufficiency claim."
 }

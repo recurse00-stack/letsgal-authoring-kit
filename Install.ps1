@@ -20,6 +20,7 @@ $operationLock = $null
 $completionWarnings = New-Object 'System.Collections.Generic.List[string]'
 
 . (Join-Path $PSScriptRoot 'Import.Paths.ps1')
+. (Join-Path $PSScriptRoot 'Risk.Notice.ps1')
 function Ensure-Directory([string]$Path) {
     Assert-OrdinaryPath $Path
     [void][IO.Directory]::CreateDirectory($Path)
@@ -135,6 +136,11 @@ function Confirm-Replacement([string]$Reason) {
 }
 
 try {
+    $notice = Get-RiskNotice
+    Write-Host ('使用前请阅读 [' + $notice.Version + ']：' + $notice.Summary) -ForegroundColor Yellow
+    Write-Host $notice.Legal
+    Write-Host ('完整说明：' + $notice.Path)
+    $noticeRecord = @{version=$notice.Version;sha256=$notice.Sha256;channel='installer_console';acknowledgement='not_collected'}
     $homeRoot = Full-Path $UserHome
     if (-not (Test-Path -LiteralPath $homeRoot -PathType Container) -or $homeRoot -eq [IO.Path]::GetPathRoot($homeRoot).TrimEnd('\')) {
         throw 'UserHome must be an existing user directory, not a drive root.'
@@ -265,7 +271,7 @@ try {
         Assert-OrdinaryPath $target
         if (-not (Same-Map (Tree-Map $target -SkipReceipt) $currentMap)) { throw 'Skill changed during uninstall; original left in place.' }
         [IO.Directory]::Move($target, $backup)
-        Write-CompletionRecord (Join-Path $backupRoot ($stamp + '-uninstall.json')) @{target=$target;backup=$backup;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot}
+        Write-CompletionRecord (Join-Path $backupRoot ($stamp + '-uninstall.json')) @{target=$target;backup=$backup;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot;risk_notice=$noticeRecord}
         @{action='uninstalled_to_backup';backup=$backup;profile=$profileFile;plugins=$pluginsRoot;completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
         exit 0
     }
@@ -273,7 +279,7 @@ try {
     if ($installed -and $managed -and $clean -and (Same-Map $currentMap $expected)) {
         Initialize-UserArea $homeRoot
         Write-CompletionRecord $stateFile @{Harness=$Harness;Scope=$Scope;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome} -Replace
-        @{action='already_current';target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
+        @{action='already_current';target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';risk_notice=$noticeRecord;completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
         exit 0
     }
     if (-not $NonInteractive -and (Read-Host '以上位置正确吗？回车安装，输入 N 取消') -match '^[Nn]') { throw 'Cancelled.' }
@@ -287,7 +293,7 @@ try {
         [IO.File]::Copy((Join-Path $source $relative), $output, $false)
     }
     if (-not (Same-Map (Tree-Map $stage) $expected)) { throw 'Staging verification failed; original untouched.' }
-    Write-Json (Join-Path $stage '.install-receipt.json') @{owner=$Owner;skill=$SkillName;version=$manifest.version;installed_at=(Get-Date -Format o);files=$manifest.files}
+    Write-Json (Join-Path $stage '.install-receipt.json') @{owner=$Owner;skill=$SkillName;version=$manifest.version;installed_at=(Get-Date -Format o);files=$manifest.files;risk_notice=$noticeRecord}
     # Initialize only missing user-area items before moving any installed Skill.
     Initialize-UserArea $homeRoot
     Ensure-Directory $skillsRoot
@@ -312,9 +318,9 @@ try {
         throw
     }
     Write-CompletionRecord $stateFile @{Harness=$Harness;Scope=$Scope;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome} -Replace
-    Write-CompletionRecord (Join-Path $backupRoot ($stamp + '-install.json')) @{target=$target;previous=$backup;version=$manifest.version;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot}
+    Write-CompletionRecord (Join-Path $backupRoot ($stamp + '-install.json')) @{target=$target;previous=$backup;version=$manifest.version;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot;risk_notice=$noticeRecord}
     Write-Host '文件安装并校验完成。打开新的 AI 会话，按 README 的验证提示确认技能与个人配置已加载。' -ForegroundColor Green
-    @{action='installed';version=$manifest.version;target=$target;backup=$backup;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
+    @{action='installed';version=$manifest.version;target=$target;backup=$backup;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';risk_notice=$noticeRecord;completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
     exit 0
 } catch {
     Write-Host ("安装器停止：" + $_.Exception.Message) -ForegroundColor Red

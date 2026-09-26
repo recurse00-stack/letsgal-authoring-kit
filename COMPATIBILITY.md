@@ -1,5 +1,7 @@
 # Harness 适配边界
 
+手动导入前阅读 [风险说明与免责声明](skills/letsgal-authoring/references/risk-notice.md)，完整复制 Skill 目录以保留随包说明；导入不授予 AI 额外文件权限。
+
 Agent 的导入目录兼容与 LetsGal 引擎版本兼容分别判断。稳定版、Beta、旧工程和未知版本均走 [项目版本规则](skills/letsgal-authoring/references/version-compatibility.md)，不以“最新版文档”替代目标宿主证据。下表只说明 Agent 的技能入口。
 
 2026-09-23 按官方文档核对。以下为当前格式／目录适配，不代表全部客户端版本、远程环境或真实 AI 行为均已验收。

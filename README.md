@@ -1,12 +1,14 @@
 # LetsGal 创作与协作 · 公共技能候选版
 
-版本：0.1.0-preview.5。独立技能名称：`letsgal-authoring`。
+版本：0.1.0-preview.6。独立技能名称：`letsgal-authoring`。
 
 帮助 AI 理解制作目标、查官方教程、编写与检查章节 JSON、组织协作和 Git，并保护用户已有内容。支持向 Codex、Claude Code、Cursor、GitHub Copilot 和 DSH 导入标准 Skill。它不是 LetsGal 官方产品，也不包含引擎、模型、账号或 MCP 服务。
 
 本包依据官方资料独立编写；安装器只操作名为 `letsgal-authoring` 的目标目录，其他名称的个人技能保持原样。
 
 快速入口：[完整使用手册](MANUAL.md) · [工具兼容表](COMPATIBILITY.md) · [稳定版／Beta 规则](skills/letsgal-authoring/references/version-compatibility.md) · [验证报告](VALIDATION.md) · [隐私说明](PRIVACY.md)。
+
+**使用前请阅读：AI 可能误改、误删或泄露资料。请先备份作品并限制 Agent 可写范围；技能备份不包含作品。** 在法律允许的最大范围内，作者与贡献者对使用本包造成的损失不承担任何责任；依法不得免除的责任及用户法定权利不受影响。详见[风险说明与免责声明](skills/letsgal-authoring/references/risk-notice.md)。
 
 ## 稳定版与 Beta 都按项目选择
 
