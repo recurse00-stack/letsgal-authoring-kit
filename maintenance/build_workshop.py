@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 from pathlib import Path, PurePosixPath
+import re
 import shutil
 import stat
 import subprocess
@@ -13,6 +14,25 @@ from review_release import inspect_text
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+def tree_hashes(root):
+    return {p.relative_to(root).as_posix(): sha(ordinary(p)) for p in root.rglob('*') if p.is_file()}
+
+def verify_runtime(work):
+    mapping = json.loads((work / 'dist/index.mjs.map').read_text('utf-8'))
+    expected = ['../src/authoring-guide.tsx', '../src/index.tsx', '../src/risk-notice.ts']
+    if sorted(mapping.get('sources', [])) != expected or len(mapping.get('sourcesContent', [])) != len(expected):
+        raise ValueError('Source map must contain only the three owned source files')
+    for name, source in zip(mapping['sources'], mapping['sourcesContent']):
+        if (work / 'dist' / name).read_bytes().decode('utf-8') != source:
+            raise ValueError('Source map differs from the actual source')
+    module = (work / 'dist/index.mjs').read_text('utf-8')
+    imports = re.findall(r'^import\b[^;]*?\bfrom\s*[\"\']([^\"\']+)[\"\']', module, re.M)
+    if set(imports) != {'@avg-studio/sdk', 'react', 'react/jsx-runtime'}:
+        raise ValueError('Unexpected runtime imports')
+    if '__decorateElement' in module or '__decoratorStart' in module:
+        raise ValueError('Bundled decorator helpers need a fresh third-party license review')
+    return {'runtime_imports': sorted(imports), 'source_map': 'owned sources only'}
 
 def ordinary(path):
     path = Path(path).absolute()
@@ -109,13 +129,17 @@ def main():
             raise ValueError('Manifest entry must match the build output')
     for path in sdk.rglob('*'):
         ordinary(path)
+    sdk_before = tree_hashes(sdk)
     shutil.copytree(sdk, work / 'sdk')
     (work / 'src/risk-notice.ts').write_text('export const riskNotice = ' + json.dumps(notice, ensure_ascii=False) + ';\n', 'utf-8')
     npm = shutil.which('npm.cmd' if os.name == 'nt' else 'npm')
     if not npm:
         raise RuntimeError('Node.js and npm are required for workshop builds')
-    for command in [[npm, 'ci', '--ignore-scripts', '--no-audit', '--no-fund'], [npm, 'run', 'typecheck'], [npm, 'run', 'build']]:
+    for command in [[npm, 'ci', '--include=optional', '--ignore-scripts', '--no-audit', '--no-fund'], [npm, 'run', 'typecheck'], [npm, 'run', 'build']]:
         subprocess.run(command, cwd=work, check=True)
+    if sdk_before != tree_hashes(sdk) or sdk_before != tree_hashes(work / 'sdk'):
+        raise ValueError('Official SDK changed during the build')
+    runtime = verify_runtime(work)
     outputs = [p.relative_to(root / 'workshop-guide').as_posix() for p in files]
     outputs += ['src/risk-notice.ts', 'dist/index.mjs', 'dist/index.mjs.map']
     for name in outputs:
@@ -143,7 +167,7 @@ def main():
     with zipfile.ZipFile(archive) as z:
         for name in outputs:
             assert z.read(out.name + '/' + name) == (out / name).read_bytes()
-    print(json.dumps({'version': version, 'files': len(outputs), 'sha256': sha(archive), 'core_sha256': sha(args.core_zip), 'scope': 'Typecheck, build, privacy and ZIP readback; native dual-host and workshop submission still require separate acceptance.'}))
+    print(json.dumps({'version': version, 'files': len(outputs), 'sha256': sha(archive), 'core_sha256': sha(args.core_zip), 'sdk_unchanged': True, **runtime, 'scope': 'Strict typecheck, build, source map, privacy and ZIP readback. Host runtime tests deferred; workshop submission has a separate receipt.'}))
 
 if __name__ == '__main__':
     main()

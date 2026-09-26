@@ -39,6 +39,6 @@ DSH 来源：[文件系统技能提供器](https://github.com/deepseek-ai/deepse
 
 ## 首发验收分级
 
-Codex、Claude Code、DSH 是真实会话验收目标，具体完成结果见 VALIDATION.md；Cursor、Copilot 本次仅标为目录适配。命令存在、目录被发现、模型实际使用和宿主运行是不同证据，不相互替代。
+Codex、Claude Code、DSH 的完整模型任务及更新后会话暂未验证，不作为 0.1.0 的发行门槛。Codex 有真实技能发现证据，DSH 有官方 provider 读取证据；Claude Code、Cursor、Copilot 标为格式／目录适配。命令存在、目录被发现、模型实际使用和宿主运行是不同证据，不相互替代；详见 VALIDATION.md。
 
 建议安装或启用本技能前，在 Agent 的技能设置中暂时停用其他功能重叠的 LetsGal／引擎创作类 Skill，避免重复触发、相互矛盾的指令和额外上下文开销影响执行效果。也请核对个人与工程范围是否装了多个同名副本。保留原文件及特调；由你决定停用哪一份，安装器不会自动禁用或删除其他 Skill。

@@ -1,6 +1,6 @@
-# LetsGal 创作与协作 · 公共技能候选版
+# LetsGal 创作与协作 · 公共技能包
 
-版本：0.1.0-rc.1（正式版候选，尚未发布）。独立技能名称：`letsgal-authoring`。
+版本：0.1.0。独立技能名称：`letsgal-authoring`。
 
 帮助 AI 理解制作目标、查官方教程、编写与检查章节 JSON、组织协作和 Git，并保护用户已有内容。支持向 Codex、Claude Code、Cursor、GitHub Copilot 和 DSH 导入标准 Skill。它不是 LetsGal 官方产品，也不包含引擎、模型、账号或 MCP 服务。
 
@@ -14,7 +14,7 @@
 
 Skill 先核对本作品的 Studio 完整版本、发布通道、SDK 和可用功能。旧稳定版不会因更新 Skill 被自动升级、迁移 JSON 或切换到蓝图；Beta 项目的规则也不会成为其他作品的全局默认。版本约定记录在各项目的 LETSGAL.md。
 
-本包的 preview／rc 是技能包自己的发布状态，与 LetsGal 引擎的 Beta 通道无关。安装本包不要求使用 Beta 引擎；目前也没有声称已在全部历史版本上运行验收。
+本包版本与 LetsGal 引擎的发布通道分别管理。安装本包不要求使用 Beta 引擎。工坊入口以 Stable 2.0.0 和 Beta 2.2.0-beta.1 的官方 SDK 通过严格类型检查与构建，属于理论兼容，尚未完成两版宿主运行实测。三款 Agent 的完整模型任务和安装器原生操作同样暂未验证；具体范围见验证报告。
 
 ## 安装与启用前
 

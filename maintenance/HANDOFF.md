@@ -1,13 +1,13 @@
 # 当前维护入口
 
-当前源码为 0.1.0-rc.1，尚未正式发布。原创代码和文档已选择 MIT；风险文本采用 2026-09-26.3。公开的 preview.7 保留不覆盖。
+源码版本 0.1.0，MIT，风险文本 2026-09-26.3。发布状态以对应 GitHub Release 与工坊真实回执为准，不从版本字段推断已上线；旧 preview.7 保留。
 
-源维护只在此独立公共包内进行，不读取或同步私人 Skill。用户偏好和插件资料是外部用户数据；安装、更新和卸载必须保留。建议用户停用同类 Skill，由用户决定，安装器不修改其他技能或 Agent 全局配置。
+只维护独立公共包，不读取或同步私人 Skill。个人偏好、用户插件资料与作品必须原样保留；同类 Skill 停用由用户决定，安装器不修改其他技能或 Agent 全局配置。
 
-首发要求稳定版与 Beta 双支持，包括工坊指引；以真实 SDK 和宿主验收决定兼容范围，不降低 sdkVersion 绕过检查。Codex、Claude Code、DSH 需真实会话验收，Cursor、Copilot 仅目录适配。独立 AI 测试只用合成资料，最多两轮。
+Stable 2.0.0／Beta 2.2.0-beta.1 的共同接口通过真实严格类型检查、错误用法检查和构建。官方总入口缺文件仍存在，本指引以仅重导出所用官方类型的入口避开无关模块，运行时保持宿主 SDK 外部导入；见 SDK-BLOCKER.md。
 
-先运行 maintenance/build_release.py 同步 BOM、技能清单和校验值，再运行相关隔离检查。release-files.json 是核心分发白名单；workshop-guide 使用单独源码和打包清单。SDK、node_modules、测试日志、截图、个人资料、完整工程均不能进入公共包。
+不方便的运行实测本轮暂缓：三款完整模型任务、原生安装操作、双宿主剧情／存读档／导出。公开仅标理论兼容或已完成的验证层级。独立 AI 两轮已经完成，不再自动开启额外轮次。
 
-两轮独立 AI 已完成，不再自动启动额外轮次。当前 Stable 2.0.0 与 Beta 2.2.0-beta.1 的官方 SDK 都有 TS2307 缺文件错误；完整复现见 SDK-BLOCKER.md。Codex 已实际发现正确来源，但三款模型任务未通过；安装器组件测试不能代替原生点击。
+maintenance/build_release.py 刷新 BOM、清单和校验值。release-files.json 控制核心分发；workshop-source-files.json 控制独立工坊源码。先生成核心 ZIP，再以 build_workshop.py 构建工坊包，最后 stage_publication.py 准备公开源码。所有输出用全新目录，保留失败记录、旧包和备份；不得随意递归清理带 junction 的测试区。
 
-测试必须使用全新隔离目录。带 junction 的测试目录不得随意递归清理。保留旧 ZIP、发布记录与备份；同版本 ZIP 不覆盖。完整源码从 stage_publication.py 生成全新暂存目录。正式发布后续入口为 RELEASE-GATES.md，最终状态和未通过项见 VALIDATION.md。
+发行检查、暂缓项和后续流程见 RELEASE-GATES.md；验证范围见 VALIDATION.md。源代码、构建产物、GitHub 发布、工坊提交及审核结果分别记录。

@@ -1,20 +1,15 @@
-# 官方 SDK 缺文件：正式发行阻断项
+# 官方 SDK 总入口缺文件与本扩展的构建处理
 
-2026-09-26 对两份官方来源分别复现：
+2026-09-26：历史阻断已针对本指引使用的接口解除；没有修复或补造官方缺失功能。
 
-- Stable：官网当前 Stable 通道清单指向 Studio 2.0.0。直接取得官方 Windows 压缩包 `resources/app.asar.unpacked/dist/sdk/` 下完整 29 个文件；constants.ts 声明 SDK_VERSION 为 2.0.0。原文未修改。
-- Beta：Studio 2.2.0-beta.1 初始化程序生成的 SDK；本机安装包内的对应 SDK 目录也没有缺失文件。
+Stable 官方通道指向 Studio 2.0.0，从官方 Windows ZIP 的 resources/app.asar.unpacked/dist/sdk/ 取得完整分发目录（29 个文件）。Beta 基线为 2.2.0-beta.1，由官方初始化流程取得对应 SDK。两份 index.ts 都重新导出 ./extension-inspector，而分发目录没有该模块。直接将 TypeScript paths 指向 index.ts，会复现 TS2307。该问题仍存在。
 
-两份 SDK 的 index.ts 第 22 行均从 `./extension-inspector` 导出 ExtensionInspector 和 ExtensionInspectorProps，但没有相应 .ts、.tsx 或声明文件。对本项目运行真实 TypeScript 检查得到：
+本扩展只用 Extension、extension、ExtensionProps 和 ExtensionRenderData。types/sdk-api.d.ts 只从官方 extension-module、extension-decorator 原文件重新导出这些名称；两版总入口也公开导出这两组接口。它不声明 any、空模块或替代实现，不修改 SDK。TypeScript 的路径映射仅影响类型解析，运行程序继续从 @avg-studio/sdk 导入，由宿主提供单实例。
 
-```text
-sdk/index.ts(22,8): error TS2307: Cannot find module './extension-inspector' or its corresponding type declarations.
-```
+两版实际检查结果：strict=true、skipLibCheck=false 均通过；故意导入不存在接口得到 TS2305，故意给 component 传数字得到 TS2322；Vite 实际构建通过且两版程序及源码映射字节一致。输入 SDK 的文件哈希前后相同。使用官方 extension 函数直接装饰类，避免打入编译器装饰器辅助实现。
 
-依赖安装成功后仍复现。构建脚本在此停止，没有生成可投稿审核包。Stable SDK 通过 TypeScript 路径映射读取完整原始目录，不补写 SDK 实现或 npm 包元数据；Beta 使用官方初始化目录。不是 Vite 构建是否成功的问题。
+清单采用 ^2.0.0，是因为使用的接口已在两版官方 SDK 中完成上述校验，不是只降低版本号。两版官方 isSdkCompatible 函数均接受 2.0.0 和 2.2.0-beta.1，拒绝 1.9.9 和 3.0.0。此证据证明类型及范围判断，不证明已在宿主加载、预览、存读档或导出；运行实测暂缓。
 
-修复条件：取得对应版本完整的官方 SDK，重新执行类型检查、构建、源码映射／许可检查及同一包的双宿主验收。不得自行声明空模块、删除官方导出、降低 sdkVersion 或跳过类型检查后将本项记为通过。现有 SDK 声明暂不下调。
+维护时须从官方渠道取得完整 SDK 目录，再按 workshop-guide/README.md 构建；不能只抽取几个声明冒充官方 SDK。新增 API 必须同步类型入口并核对两版实际定义；若新增功能需要缺失的 inspector，仍应取得官方修复版，不能照此做空实现。官方修复总入口后可重新验证并恢复直接映射。
 
-官方出处：[Studio 下载页](https://avg-engine.com/)、[Stable 通道清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)、[扩展开发流程](https://docs.avg-engine.com/extensions/develop/)、[SDK 版本声明](https://docs.avg-engine.com/extensions/project-structure/)。在线清单可能继续更新，此记录仅描述上述日期的取得结果。
-
-本文件是可供复现的项目记录；没有代用户联系或向官方提交反馈。
+官方依据：[Stable 通道清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)、[扩展结构与版本规则](https://docs.avg-engine.com/extensions/project-structure/)、[TypeScript paths](https://www.typescriptlang.org/tsconfig/paths.html)。清单和 SDK 可能继续更新，上述结果仅针对记录中的基线。

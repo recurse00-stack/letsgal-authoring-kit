@@ -17,7 +17,7 @@ export function AuthoringGuide(_props: AuthoringGuideProps) {
   return <main style={{ width: "100%", height: "100%", boxSizing: "border-box", overflow: "auto", background: "#eef4f4", color: "#183b46", padding: "40px 5%", fontFamily: '"Microsoft YaHei", system-ui, sans-serif', fontSize: 20, lineHeight: 1.6 }}>
     <header style={{ display: "flex", justifyContent: "space-between", alignItems: "start", gap: 30, marginBottom: 28 }}>
       <div><div style={{ color: "#46777d", letterSpacing: 3, fontSize: 16 }}>LETSGAL AUTHORING KIT · 社区工具</div><h1 style={{ fontSize: 42, margin: "8px 0" }}>把 AI 接入你的创作流程</h1><p style={{ margin: 0 }}>导入技能、保留个人特调，再按作品版本开始协作。</p></div>
-      <div style={{ borderRadius: 10, background: "#dcebe8", padding: "12px 18px", fontSize: 16 }}>独立技能包<br/>工坊指引入口 · 发行候选</div>
+      <div style={{ borderRadius: 10, background: "#dcebe8", padding: "12px 18px", fontSize: 16 }}>独立技能包<br/>工坊指引入口 · 0.1.0</div>
     </header>
     <section aria-label="使用风险与免责声明" style={{ background: "#fff2de", border: "1px solid #c98d29", borderRadius: 12, padding: "18px 22px", marginBottom: 24 }}>
       <strong>使用前请阅读 · 数据风险与免责声明</strong>
@@ -48,6 +48,6 @@ export function AuthoringGuide(_props: AuthoringGuideProps) {
         <p style={{ marginBottom: 0, fontSize: 17, color: "#4c6872" }}>这一步生成文本；请在有工程文件访问能力的 AI 工具中使用。模型服务和账号由你自行配置。</p>
       </section>
     </div>
-    <footer style={{ paddingTop: 24, fontSize: 17, color: "#4c6872" }}>本包目标为稳定版与 Beta 共用；候选的实际验收状态见随包说明。技能按当前工程确认版本，不把当前编辑器版本当作所有作品的目标版本。界面不扫描工程、不会自动联网、不执行安装，也不写入存档或个人配置。</footer>
+    <footer style={{ paddingTop: 24, fontSize: 17, color: "#4c6872" }}>Stable 2.0.0 与 Beta 2.2.0-beta.1 已通过官方 SDK 类型检查和构建，宿主运行暂未实测。技能按当前工程确认版本，不把当前编辑器版本当作所有作品的目标版本。界面不扫描工程、不会自动联网、不执行安装，也不写入存档或个人配置。</footer>
   </main>;
 }

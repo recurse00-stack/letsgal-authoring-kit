@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0",
   "profile_schema": 1,
   "files": [
     {
@@ -63,7 +63,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "f211ecd260a331237bd7a95b8a006f0bfda51991a9b41c97352adba01905e1a2"
+      "sha256": "5f67732bab204d5cfb9bfe0d63a2bb727ac73d52530ed86d18ec1db5aa9854c5"
     },
     {
       "path": "templates/LETSGAL.example.md",
