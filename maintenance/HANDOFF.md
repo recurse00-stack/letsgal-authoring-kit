@@ -1,37 +1,13 @@
-# 当前维护入口：0.1.0-preview.7
+# 当前维护入口
 
-2026-09-26：用户要求醒目提醒 AI 误删等风险，并明确不承担责任。对外声明现统一为按现状提供、不提供担保、不承担使用或无法使用本包造成的损失责任。没有确认 MIT，不得把本次说明当作版权许可。
+当前源码为 0.1.0-rc.1，尚未正式发布。原创代码和文档已选择 MIT；风险文本采用 2026-09-26.3。公开的 preview.7 保留不覆盖。
 
-统一全文位于 skills/letsgal-authoring/references/risk-notice.md（说明版本 2026-09-26.2）。Risk.Notice.ps1 读取同一全文供 GUI 和 CLI 使用；摘要在界面顶部，全文可展开。安装收据及操作日志记文案版本／SHA-256，acknowledgement 为 not_collected，不能称已获得同意。文案变化须提升说明版本，并复查摘要、README、手册和工坊入口。
+源维护只在此独立公共包内进行，不读取或同步私人 Skill。用户偏好和插件资料是外部用户数据；安装、更新和卸载必须保留。建议用户停用同类 Skill，由用户决定，安装器不修改其他技能或 Agent 全局配置。
 
-最终文字另通过 38 项检查；沿用 preview.6 的相关 156 项基线，未改变安装流程。Skill 格式及 51 文件隐私检查通过；证据与限制见 VALIDATION.md。维护先运行 build_release.py 同步 BOM 和清单，再验证，最后使用新版本号生成 ZIP，禁止覆盖旧包。仅在隔离目录测试，不操作真实用户区。
+首发要求稳定版与 Beta 双支持，包括工坊指引；以真实 SDK 和宿主验收决定兼容范围，不降低 sdkVersion 绕过检查。Codex、Claude Code、DSH 需真实会话验收，Cursor、Copilot 仅目录适配。独立 AI 测试只用合成资料，最多两轮。
 
-以下保留前版维护说明；当前版本和验证数量以上文为准。
+先运行 maintenance/build_release.py 同步 BOM、技能清单和校验值，再运行相关隔离检查。release-files.json 是核心分发白名单；workshop-guide 使用单独源码和打包清单。SDK、node_modules、测试日志、截图、个人资料、完整工程均不能进入公共包。
 
----
+两轮独立 AI 已完成，不再自动启动额外轮次。当前 Stable 2.0.0 与 Beta 2.2.0-beta.1 的官方 SDK 都有 TS2307 缺文件错误；完整复现见 SDK-BLOCKER.md。Codex 已实际发现正确来源，但三款模型任务未通过；安装器组件测试不能代替原生点击。
 
-# 维护交接
-
-当前：独立公共技能 letsgal-authoring，0.1.0-preview.5。已加入 DSH 适配与图形导入器。本包是维护源与分发候选，不是任何机器的已注册技能。修改范围是此目录，不能同步覆盖其他个人技能。
-
-本轮复核修复：安装器状态使用原子替换，保护硬链接关联文件；状态／日志保存失败单独提示已完成结果；残缺状态安全回退。检查器 auto 兼容旧分支省略 mode，严格 fragments 模式仍要求新建字段完整。
-
-前轮新增：用户区 preferences/ 与 plugins/ 分离，旧版 user.md 原位兼容；插件 Skill 自动按 ID／版本落位，用户独立维护。安装器只创建缺失用户项，不覆盖现有内容；真实旧版升级及失败保留测试见验证记录。
-
-入口：README.md 面向使用者；skills/letsgal-authoring/SKILL.md 面向 AI；SOURCES.md 保存来源；VALIDATION.md 标记验证层次；WORKSHOP.md 列投稿剩余事项。
-
-修改后：核官方规范和目标版本，更新公共技能／脚本；对公共文件重算 bundle.json 的 SHA-256。个人特调不写进包。新增用户配置格式须另做有备份的显式迁移；当前 Markdown 格式不需要迁移。
-
-运行 maintenance/run_checks.py 时传全新隔离目录。PS1 使用 UTF-8 BOM 兼容 Windows PowerShell 5.1；CMD 使用 ASCII／CRLF。检查器只依赖 Python 标准库。bundle.json 只列技能目录中的文件，不能包含上跳路径。最终重新生成 SHA256SUMS.txt 和 ZIP，并解包逐项核对。
-
-Import.xaml / Import.ps1 是 WPF 界面；Install.ps1 是实际修改文件的后端；Import.Paths.ps1 供双方共用路径算法。界面通过隐藏子进程调用后端，使用 EncodedCommand 和单引号转义处理含空格／中文／撇号的目录。-PrepareOnly 只供同进程组件测试构建界面，正常启动不使用它。
-
-maintenance/run_dsh_checks.py 需要显式传入当前安装的官方 provider 文件及新的 scratch；不启动 DSH 服务。maintenance/Test-ImportUI.ps1 测 WPF 自身事件并渲染 PNG，不是鼠标点击验收。新增的测试目录可能含 junction，不能顺手递归清理。
-
-维护时先用 python -B maintenance/build_release.py 更新清单与编码，然后运行 VALIDATION.md 中的测试，更新验证记录；最后加 --zip 构建新包（拒绝覆盖已存在 ZIP）。不要把测试目录、真实数据路径或用户配置加入发行包。
-
-公共包不存在完整 LetsGal SDK 或已初始化的引擎扩展源码。若开始工坊承载开发，先核当前表单与 SDK，按官方初始化流程实施；不要靠伪清单跳过真实验证。没有任何持续进程、网络端口或后台服务属于本包。
-
-本轮复核：加入项目版本分流、未知格式保留、同目标进程锁、回滚边界、发布文件白名单与隐私检测。MANUAL.md 是用户手册；PRIVACY.md 是实际发布边界。发布文件必须逐项加入 release-files.json，再运行 review_release.py；任何测试目录、截图和安装状态不在清单中。
-
-发布目标是独立 GitHub 仓库，仓库地址与本机过程仅留在维护会话，不硬编码进公共 Skill。GitHub 上传、真实引擎版本验收和工坊审核分别核实，不能以其中一项替代另一项。
+测试必须使用全新隔离目录。带 junction 的测试目录不得随意递归清理。保留旧 ZIP、发布记录与备份；同版本 ZIP 不覆盖。完整源码从 stage_publication.py 生成全新暂存目录。正式发布后续入口为 RELEASE-GATES.md，最终状态和未通过项见 VALIDATION.md。

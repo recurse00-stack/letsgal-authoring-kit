@@ -1,0 +1,9 @@
+{
+  "id": "letsgal-authoring-guide-58dea2",
+  "name": "AI 创作技能 · 安装与协作指引",
+  "description": "AI 创作技能安装指引与项目验收提示生成。",
+  "author": "letsgal-authoring-kit",
+  "version": "0.1.0-rc.1",
+  "entry": "dist/index.mjs",
+  "sdkVersion": "^2.2.0-beta.1"
+}

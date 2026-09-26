@@ -45,7 +45,9 @@ def main():
         all_files=files
         with zipfile.ZipFile(archive,'x',zipfile.ZIP_DEFLATED) as z:
             for file in all_files:
-                z.write(file,root.name+'/'+file.relative_to(root).as_posix())
+                info=zipfile.ZipInfo(root.name+'/'+file.relative_to(root).as_posix(), date_time=(2026,1,1,0,0,0))
+                info.compress_type=zipfile.ZIP_DEFLATED
+                z.writestr(info,file.read_bytes())
         with zipfile.ZipFile(archive) as z:
             assert z.testzip() is None
             assert len(z.namelist())==len(all_files)

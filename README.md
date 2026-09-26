@@ -1,10 +1,10 @@
 # LetsGal 创作与协作 · 公共技能候选版
 
-版本：0.1.0-preview.7。独立技能名称：`letsgal-authoring`。
+版本：0.1.0-rc.1（正式版候选，尚未发布）。独立技能名称：`letsgal-authoring`。
 
 帮助 AI 理解制作目标、查官方教程、编写与检查章节 JSON、组织协作和 Git，并保护用户已有内容。支持向 Codex、Claude Code、Cursor、GitHub Copilot 和 DSH 导入标准 Skill。它不是 LetsGal 官方产品，也不包含引擎、模型、账号或 MCP 服务。
 
-本包依据官方资料独立编写；安装器只操作名为 `letsgal-authoring` 的目标目录，其他名称的个人技能保持原样。
+本包依据官方资料独立编写。安装器校验并更新 `letsgal-authoring`，只创建缺失的用户区项，并保存安装选项、记录和旧技能备份；不覆盖个人偏好、插件资料、作品或其他技能。
 
 快速入口：[完整使用手册](MANUAL.md) · [工具兼容表](COMPATIBILITY.md) · [稳定版／Beta 规则](skills/letsgal-authoring/references/version-compatibility.md) · [验证报告](VALIDATION.md) · [隐私说明](PRIVACY.md)。
 
@@ -14,7 +14,11 @@
 
 Skill 先核对本作品的 Studio 完整版本、发布通道、SDK 和可用功能。旧稳定版不会因更新 Skill 被自动升级、迁移 JSON 或切换到蓝图；Beta 项目的规则也不会成为其他作品的全局默认。版本约定记录在各项目的 LETSGAL.md。
 
-本包的 preview 是技能包自己的发布状态，与 LetsGal 引擎的 Beta 通道无关。安装本包不要求使用 Beta 引擎；目前也没有声称已在全部历史版本上运行验收。
+本包的 preview／rc 是技能包自己的发布状态，与 LetsGal 引擎的 Beta 通道无关。安装本包不要求使用 Beta 引擎；目前也没有声称已在全部历史版本上运行验收。
+
+## 安装与启用前
+
+建议安装或启用本技能前，在 Agent 的技能设置中暂时停用其他功能重叠的 LetsGal／引擎创作类 Skill，避免重复触发、相互矛盾的指令和额外上下文开销影响执行效果。也请核对个人与工程范围是否装了多个同名副本。保留原文件及特调；由你决定停用哪一份，安装器不会自动禁用或删除其他 Skill。
 
 ## Windows 简易安装
 
@@ -103,8 +107,8 @@ DSH 已提供专用入口：个人技能进入 `DSH_HOME/skills`，默认是 `~/
 - 运行 `python "skills/letsgal-authoring/scripts/check_project.py" "<工程或章节绝对路径>"` 做只读的部分静态检查。对话不会被输出，但诊断会显示文件名。
 - [资料来源](SOURCES.md)、[验证结果](VALIDATION.md)、[工坊投稿准备](WORKSHOP.md)。
 
-## 当前发布状态
+## 当前发布状态与许可证
 
-这是可分发的技能及安装器候选包，**不是已通过 LetsGal 投稿检查的引擎扩展**。没有伪造 extension.json 或运行入口。工坊的承载方式、下载结果和审核仍待验证；GitHub 源码发布不代表工坊通过。
+GitHub 已发布的预览版见 [Releases](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。当前候选正在补齐正式版验收，实际支持范围见 [验证报告](VALIDATION.md)。工坊指引已有独立源码；正式版需要稳定版与 Beta 都通过后再提交审核。GitHub 发布、工坊提交、审核通过分别记录。
 
-尚未指定开源许可证；请勿把公开源码状态自动理解为已授予任意再分发许可。
+本项目原创代码与文档采用 [MIT 许可证](LICENSE)。第三方引擎、SDK、工具及插件适用各自条款。本包不包含 LetsGal 引擎或 SDK。

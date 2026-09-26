@@ -319,7 +319,7 @@ try {
     }
     Write-CompletionRecord $stateFile @{Harness=$Harness;Scope=$Scope;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome} -Replace
     Write-CompletionRecord (Join-Path $backupRoot ($stamp + '-install.json')) @{target=$target;previous=$backup;version=$manifest.version;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot;risk_notice=$noticeRecord}
-    Write-Host '文件安装并校验完成。打开新的 AI 会话，按 README 的验证提示确认技能与个人配置已加载。' -ForegroundColor Green
+    Write-Host '文件安装并校验完成。建议先停用其他同类 LetsGal／引擎创作 Skill，保留原文件与特调；安装器不会自动停用它们。打开新的 AI 会话，按 README 核对技能实际来源。' -ForegroundColor Green
     @{action='installed';version=$manifest.version;target=$target;backup=$backup;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';risk_notice=$noticeRecord;completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
     exit 0
 } catch {

@@ -59,6 +59,7 @@
                 <TextBlock Name="PathNote" Foreground="#506177" FontSize="12" Margin="0,8,0,0"/>
               </StackPanel>
             </Border>
+            <TextBlock Text="建议启用前停用其他同类 LetsGal／引擎创作 Skill，保留原文件与特调，避免重复调度和额外上下文开销。安装器不会自动停用它们。" Foreground="#506177" FontSize="12" Margin="0,12,0,0"/>
             <TextBlock Text="导入内容：制作流程、官方教程查找、JSON、安全约束与 Git 协作。" Foreground="#506177" FontSize="12" Margin="0,12,0,0"/>
             <Border Background="#F6F8FA" CornerRadius="7" Padding="13" Margin="0,14,0,0">
               <StackPanel>

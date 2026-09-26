@@ -2,7 +2,7 @@
 name: letsgal-authoring
 description: 帮助创作者在 LetsGal Studio 中制作剧情、分支、章节 JSON、变量、素材和扩展，并组织人与 AI 的工程协作、Git 管理和验证。适用于新作搭建、现有工程修改、格式排错、分析插件并生成用户插件 Skill，以及开发交接；以目标版本的官方文档与工程实例为依据。
 metadata:
-  version: 0.1.0-preview.7
+  version: 0.1.0-rc.1
 ---
 
 # LetsGal 创作与协作
