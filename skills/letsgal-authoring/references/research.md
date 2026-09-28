@@ -22,7 +22,6 @@
 | 创建及构建扩展 | [扩展开发](https://docs.avg-engine.com/extensions/develop/) | 核对目标 SDK、源码与构建入口 |
 | 多人同时编辑 | [实时协作](https://docs.avg-engine.com/manual/overview/collaboration) | 确认编辑权、同步和冲突 |
 | 备份及恢复影响 | [时光机](https://docs.avg-engine.com/manual/overview/backup) | 恢复是写入操作，先判断覆盖范围 |
-| 工坊分发 | [扩展工坊](https://docs.avg-engine.com/manual/overview/extension-market/) | 投稿格式、完整文件包、审核要求 |
 | Git 行为 | [status](https://git-scm.com/docs/git-status)、[worktree](https://git-scm.com/docs/git-worktree)、[restore](https://git-scm.com/docs/git-restore) | 按所用命令核对选项及影响 |
 
 更多指令沿官方页面链接继续找，不把本表当作全量 API。版本记录可从 [官网](https://avg-engine.com/) 进入；页面抓取失败时写明无法读取，不把失败当作无更新。

@@ -1,6 +1,6 @@
 # 编写依据与证据范围
 
-2026-09-26 发行复核补充：官网下载页脚本引用的 [Stable 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json) 当前指向 2.0.0；[发行历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json) 另含 2.0.1，历史存在本身不能证明它属于当前 Stable 通道。首发验收基线据此采用 Stable 2.0.0 和 Beta 2.2.0-beta.1，均仍需实机验收。官方 Stable 压缩包中的完整 SDK 目录及 Beta 初始化 SDK 均复现缺失 extension-inspector 的类型错误，详见 [阻断记录](maintenance/SDK-BLOCKER.md)。没有为此改写官方 SDK。
+历史版本依据：2026-09-26 复核时，[Stable 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json) 指向 2.0.0，Beta 基线为 2.2.0-beta.1。这不是对当前最新版本的声明。社区技能包本身不依赖 SDK 构建；创作时仍按目标工程的版本证据查阅资料，完整宿主运行仍需另行验证。
 
 本包独立编写，未复制用户的私有技能、游戏正文、账号或本地索引。以下链接于 2026-09-23 用网页检索／正文读取核对；公开文档更新不齐，不把页面抓取成功当作某一宿主版本已验收。
 
@@ -11,7 +11,6 @@
 - [扩展 AI 指导](https://docs.avg-engine.com/extensions/llms.txt)、[创建扩展](https://docs.avg-engine.com/extensions/develop/)：源码、SDK、构建和接口查询。
 - [实时协作](https://docs.avg-engine.com/manual/overview/collaboration)：编辑权及冲突覆盖。
 - [时光机](https://docs.avg-engine.com/manual/overview/backup)：备份、恢复影响。
-- [工坊](https://docs.avg-engine.com/manual/overview/extension-market/)：引擎扩展投稿和完整审核包；未证明纯技能包可被审核接受。
 - [Git status](https://git-scm.com/docs/git-status)、[worktree](https://git-scm.com/docs/git-worktree)、[restore](https://git-scm.com/docs/git-restore)：工作区、隔离与恢复操作。
 - [Codex Skills](https://learn.chatgpt.com/docs/build-skills)、[Claude Code Skills](https://code.claude.com/docs/en/skills)、[Cursor Skills](https://cursor.com/docs/skills)、[Copilot Skills](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills)：当前技能目录规范。
 - [DSH 文件系统技能提供器](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/skill/skill-filesystem/README.md)、[实现](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/skill/skill-filesystem/src/index.ts)、[数据目录解析](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/util/home-paths/src/index.ts)：个人／项目发现路径、最近 Git 根、DSH_HOME 与正文读取。另对安装版本 0.1.6-alpha.2 所带官方 provider 做了隔离调用，不把上游 master 文档当成已发布版本保证。

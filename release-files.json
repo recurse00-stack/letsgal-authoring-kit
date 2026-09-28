@@ -20,7 +20,6 @@
     "SOURCES.md",
     "Uninstall.cmd",
     "VALIDATION.md",
-    "WORKSHOP.md",
     "bundle.json",
     "maintenance/HANDOFF.md",
     "maintenance/Test-ImportUI.ps1",
@@ -54,11 +53,8 @@
     "validation-results.json",
     "LICENSE",
     "skills/letsgal-authoring/LICENSE",
-    "maintenance/build_workshop.py",
     "maintenance/run_recovery_checks.py",
-    "maintenance/run_workshop_checks.py",
     "maintenance/stage_publication.py",
-    "maintenance/SDK-BLOCKER.md",
     "maintenance/RELEASE-GATES.md"
   ]
 }

@@ -189,7 +189,7 @@ def run(bundle, scratch):
         else:
             record(label+' junction-target-rejected',False,'Could not create test junction')
     report={'checks':results,'passed':sum(r['passed'] for r in results),'failed':sum(not r['passed'] for r in results),
-            'scope':'Isolated file, installer and static-checker tests only; no real harness/Studio/UI/workshop acceptance.'}
+            'scope':'Isolated file, installer and static-checker tests only; no real harness/Studio/UI acceptance.'}
     (scratch/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2), 'utf-8')
     print(json.dumps(report,ensure_ascii=False,indent=2))
     return 1 if report['failed'] else 0

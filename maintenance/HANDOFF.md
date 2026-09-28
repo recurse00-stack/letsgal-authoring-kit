@@ -1,13 +1,9 @@
-# 当前维护入口
+# 社区版维护交接
 
-源码版本 0.1.0，MIT，风险文本 2026-09-26.3。发布状态以对应 GitHub Release 与工坊真实回执为准，不从版本字段推断已上线；旧 preview.7 保留。
+源码版本 0.1.1，MIT，风险文本保持 2026-09-26.3。仅通过社区和 GitHub Releases 分发；版本字段不等于已发布。旧发行包保留原字节。
 
-只维护独立公共包，不读取或同步私人 Skill。个人偏好、用户插件资料与作品必须原样保留；同类 Skill 停用由用户决定，安装器不修改其他技能或 Agent 全局配置。
+release-files.json 是核心 ZIP 与 GitHub 源码的唯一白名单。修改后运行 maintenance/build_release.py 刷新 bundle.json 和 SHA256SUMS.txt；加 --zip 创建新版本归档，再用 maintenance/stage_publication.py --output <全新目录> 准备公开源码。所有输出使用新路径。
 
-Stable 2.0.0／Beta 2.2.0-beta.1 的共同接口通过真实严格类型检查、错误用法检查和构建。官方总入口缺文件仍存在，本指引以仅重导出所用官方类型的入口避开无关模块，运行时保持宿主 SDK 外部导入；见 SDK-BLOCKER.md。
+公共规则、个人偏好、版本化插件知识独立维护。不要把本机目录、安装日志、真实作品、账号、历史备份或私人资料加入公开文件。维护源码不等于自动安装，文件部署不等于模型或引擎验收。
 
-不方便的运行实测本轮暂缓：三款完整模型任务、原生安装操作、双宿主剧情／存读档／导出。公开仅标理论兼容或已完成的验证层级。独立 AI 两轮已经完成，不再自动开启额外轮次。
-
-maintenance/build_release.py 刷新 BOM、清单和校验值。release-files.json 控制核心分发；workshop-source-files.json 控制独立工坊源码。先生成核心 ZIP，再以 build_workshop.py 构建工坊包，最后 stage_publication.py 准备公开源码。所有输出用全新目录，保留失败记录、旧包和备份；不得随意递归清理带 junction 的测试区。
-
-发行检查、暂缓项和后续流程见 RELEASE-GATES.md；验证范围见 VALIDATION.md。源代码、构建产物、GitHub 发布、工坊提交及审核结果分别记录。
+检查与未验证范围见 RELEASE-GATES.md 和 ../VALIDATION.md。保全既有 Git HEAD、索引和未提交内容；公开提交、Release 与下载读回分别记录。

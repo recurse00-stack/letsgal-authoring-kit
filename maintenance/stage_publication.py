@@ -1,13 +1,29 @@
-"""Copy the explicitly approved core and workshop source into a NEW publication staging directory."""
+"""Copy only approved community source into a NEW publication staging directory."""
 import argparse
 import hashlib
 import json
 import os
 from pathlib import Path
 import shutil
-from build_workshop import ordinary, overlaps, source_files
+import stat
 from release_manifest import release_files
-from review_release import audit, inspect_text
+from review_release import audit
+
+
+def ordinary(path):
+    path = Path(path).absolute()
+    for part in [path, *path.parents]:
+        try:
+            info = part.lstat()
+        except FileNotFoundError:
+            continue
+        if stat.S_ISLNK(info.st_mode) or getattr(info, 'st_file_attributes', 0) & 0x400:
+            raise ValueError('Linked staging paths are not supported')
+    return Path(os.path.abspath(path))
+
+
+def overlaps(left, right):
+    return left == right or left in right.parents or right in left.parents
 
 
 def main():
@@ -20,11 +36,8 @@ def main():
         parser.error('Output must be a NEW directory outside source')
     if audit(root, [os.environ.get('USERNAME', '')])['status'] != 'passed':
         raise ValueError('Core privacy review failed')
-    listing = ordinary(root / 'workshop-source-files.json')
-    if inspect_text(listing.read_text('utf-8'), [os.environ.get('USERNAME', '')]):
-        raise ValueError('Workshop manifest privacy review failed')
-    files = sorted(set(release_files(root) + source_files(root) + [listing]))
-    out.mkdir(parents=True)
+    files = release_files(root)
+    out.mkdir(parents=True, exist_ok=False)
     for source in files:
         target = out / source.relative_to(root)
         target.parent.mkdir(parents=True, exist_ok=True)

@@ -21,7 +21,3 @@ test-results/
 .DS_Store
 Thumbs.db
 
-/workshop-guide/sdk/
-/workshop-guide/dist/
-/workshop-guide/src/risk-notice.ts
-/workshop-guide/assets/
