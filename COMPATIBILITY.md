@@ -4,7 +4,7 @@
 
 Agent 的导入目录兼容与 LetsGal 引擎版本兼容分别判断。稳定版、Beta、旧工程和未知版本均走 [项目版本规则](skills/letsgal-authoring/references/version-compatibility.md)，不以“最新版文档”替代目标宿主证据。下表只说明 Agent 的技能入口。
 
-2026-09-26 按官方文档复核。以下为当前格式／目录适配，不代表全部客户端版本、远程环境或真实 AI 行为均已验收。
+2026-09-30 按当前官方目录文档重新复核；DSH 安装 provider 的运行结果仍是注明版本的历史证据。以下为当前格式／目录适配，不代表全部客户端版本、远程环境或真实 AI 行为均已验收。
 
 | 本地工具 | 个人安装 | 工程安装 | 核对来源 |
 | --- | --- | --- | --- |
@@ -24,7 +24,7 @@ Cursor 也支持 `.cursor/skills`，Copilot 也有 `.copilot/skills`（个人）
 
 用户配置文件结构约定版本为 1：只含 Markdown，自定义内容原样读取。此版安装器不做迁移和重写；未来若需要迁移，应采用有版本、备份、可审查差异的流程，不静默重置。
 
-## 0.1.2 的引擎资料路由
+## 当前引擎资料路由
 
 [只读版本工具](skills/letsgal-authoring/scripts/inspect_version.py)对已核实的 2.0.0／2.0.1 选择 Stable 资料，对 2.3.0-beta.1 选择 Beta 资料；缺失／冲突／其他版本返回 UNKNOWN，不推定兼容。资料实现、EXE 版本读取、SDK 指纹与真实宿主运行分别记录，见 [验证范围](VALIDATION.md)。下载清单与发布历史可能不同，选择不依赖“最新”标签。安装主 Skill 不嵌套为自己的插件。
 
@@ -43,6 +43,6 @@ DSH 来源：[文件系统技能提供器](https://github.com/deepseek-ai/deepse
 
 ## 首发验收分级
 
-Codex、Claude Code、DSH 的完整模型任务及更新后会话暂未验证，不作为 0.1.0 的发行门槛。Codex 有真实技能发现证据，DSH 有官方 provider 读取证据；Claude Code、Cursor、Copilot 标为格式／目录适配。命令存在、目录被发现、模型实际使用和宿主运行是不同证据，不相互替代；详见 VALIDATION.md。
+Codex、Claude Code、DSH 的完整模型任务及更新后会话暂未验证，此项与当前隔离测试分别记录。Codex 有真实技能发现证据，DSH 有官方 provider 读取证据；Claude Code、Cursor、Copilot 标为格式／目录适配。命令存在、目录被发现、模型实际使用和宿主运行是不同证据，不相互替代；详见 VALIDATION.md。
 
 建议安装或启用本技能前，在 Agent 的技能设置中暂时停用其他功能重叠的 LetsGal／引擎创作类 Skill，避免重复触发、相互矛盾的指令和额外上下文开销影响执行效果。也请核对个人与工程范围是否装了多个同名副本。保留原文件及特调；由你决定停用哪一份，安装器不会自动禁用或删除其他 Skill。

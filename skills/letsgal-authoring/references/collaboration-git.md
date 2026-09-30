@@ -25,7 +25,9 @@ git diff --cached --stat
 
 默认沿用工程的分支、提交频率和素材策略。需要并行隔离且用户／环境已允许时可用独立分支或 worktree；worktree 不自动携带原目录未提交内容，也不是大型素材备份。先核工作目录与引擎关联路径，再打开目标副本。[Git worktree](https://git-scm.com/docs/git-worktree)
 
-只暂存本次确定的路径，例如 `git add -- "chapters/本次章节.json"`，随后审查 `git diff --cached -- <路径>`。若用户已有暂存内容，避免一次 commit 把它们混入；使用经核实的路径限定提交方式或协调索引，不擅自 unstage/stash 他人工作。提交行为沿项目约定和当前授权；push、force-push、重写公共历史另判范围。
+只暂存本次确定的路径，例如 `git add -- "chapters/本次章节.json"`，随后审查 `git diff --cached -- <路径>`。若用户已有暂存内容，避免一次 commit 把它们混入；使用经核实的路径限定提交方式或协调索引，不擅自 unstage/stash 他人工作。路径限定提交也须查语义：`git commit --only -- <路径>` 使用这些路径的工作区内容，不等于只提交刚审阅的暂存片段；同文件部分暂存时先保全双方并核最终提交差异。[官方 commit](https://git-scm.com/docs/git-commit)
+
+提交行为沿项目约定和当前授权；push、force-push、重写公共历史另判范围。
 
 小批提交应围绕能说明的行为变化，正文和结构的大改可分开审阅。素材是否使用 Git LFS、是否提交发行物等由项目决定；不自动安装 LFS、不追溯改写历史。秘密、缓存、依赖目录的忽略规则先检查已有约定。项目内安装 Skill 时，`.letsgal-authoring-backups/` 中可能有私有特调；提交前核对排除范围，不把整个备份目录打进作品仓库。
 

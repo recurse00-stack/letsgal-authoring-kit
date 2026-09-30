@@ -1,13 +1,17 @@
-# 0.1.2 验证范围
+# 0.1.3 当前验证范围
 
-2026-09-30：新增版本证据路由、Beta 2.3 使用说明与离线手册；构建器可将新包直接输出到固定版本目录，包内根目录固定为产品名。安装器控制逻辑、现有 JSON 检查器和风险文本保持原字节。
+2026-09-30 全面修订及纠正见[AUDIT.md](AUDIT.md)。以下都是本轮候选实际执行结果，旧版结果不累计为当前完整验收。
 
-本轮分别通过：基础安装／检查器回归 **46 项**、从已发布 0.1.1 核心 ZIP 升级与用户资料保留 **32 项**、版本路由／未知冲突／只读 SDK 指纹 **20 项**、公开边界及固定 ZIP 路径／拒绝覆盖 **23 项**。Skill 格式、60 个公共文件的隐私及相对引用检查通过；HTML 手册在浏览器实际显示并检查 Beta 表格与代码排版。可用 maintenance/run_version_checks.py 在全新 --scratch 中复核新增工具，其他检查沿用对应维护脚本。
+46项 installer_and_checker、20项 version_routing、13项 authoring_diagnostics、23项 public_boundary_and_archive、32项 upgrade_from_0.1.2通过；Skill格式、公开隐私与相对引用通过。13项新诊断检查在真实Python CLI运行合成章节，验证引用冲突、转换风险提示、前处理、未覆盖数量及只读性；并非Studio转换／播放测试。完整结果见[validation-results.json](validation-results.json)。
 
-从本机 EXE FileVersion 实际读取到 2.3.0-beta.1 并选择 Beta 专页；ProductVersion 不作为后缀依据。此结果只验证文件元数据与资料路由，未运行引擎功能。SDK 测试使用隔离类型样本，只证明指纹与只读行为，不证明目标 SDK 兼容。
+实际只读提取EXE FileVersion=2.3.0-beta.1。既有SDK副本自报1.21.0且没有历史追加声明，工具保留来源UNKNOWN和兼容未验证，不将该副本当配套Beta SDK。官方当前历史页也未给追加签名，UNKNOWN保留。
 
-三款 Agent 完整模型任务和更新后会话、安装器原生点击／取消／选目录／缩放，以及 Stable/Beta 的完整剧情／存读档／Windows 导出仍未完成。新历史追加参数、数据列表点击动作、超链接及部位序列化仍需目标实际 SDK／保存样本，不能由功能公告补齐签名。本轮没有将这些缺口标为通过。
+独立代理在当前会话按候选Skill完成两个只读任务：版本冲突与旧SDK/新API处理，实际调用路由／检查器并查证源码与官方页。此项仅验证当前会话的限定行为，不是三款安装后Agent完整任务。Cursor／Copilot仍只有官方格式与目录依据。
 
-0.1.0／0.1.1 的其他历史验收保留在原包，未计为本轮新增结果。当前结构化结果见 [validation-results.json](validation-results.json)。源码、GitHub main、标签、Release、附件和匿名下载分别记录；本地候选检查不表示已经发布。仅社区／GitHub，工坊 not-applicable。
+安装器控制逻辑／GUI原字节保留；新payload仍从不可变0.1.2完整包做实际隔离升级，核对个人区、插件知识、旧版备份及失败分支。运行两个现有Windows PowerShell，不操作真实账号或作品。
 
-Windows 自动安装器与其他平台手动导入分别说明。发布门禁见 [RELEASE-GATES.md](maintenance/RELEASE-GATES.md)。
+原生安装GUI点击／取消／缩放、Stable与Beta完整剧情／存读档／全新启动／Windows导出仍未完成；当前工具缺原生窗口操作能力，没有以API或脚本绕过。main调用及禁用块转换、新Beta参数与序列化仍需目标宿主SDK／保存样本。
+
+Markdown和离线HTML同步。运行脚本从完整包根或实际Skill绝对目录调用，安装不要求Python；可选工具需要Python3.9+。复核新增诊断可在全新scratch中运行maintenance/run_authoring_checks.py。
+
+源码、GitHub main、tag、Release、附件和匿名下载分别记录，候选静态检查不表示外部发布。工坊not-applicable；门禁见[RELEASE-GATES.md](maintenance/RELEASE-GATES.md)。

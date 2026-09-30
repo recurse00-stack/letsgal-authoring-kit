@@ -13,7 +13,7 @@ VERSION = re.compile(r'(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]
 PROFILES = {'2.0.0':'references/versions/stable-2.0.md',
             '2.0.1':'references/versions/stable-2.0.md',
             '2.3.0-beta.1':'references/versions/beta-2.3.md'}
-SDK_FILES = ('index.ts','sdk-context.ts','extension-module.ts','extension-method.ts',
+SDK_FILES = ('constants.ts','index.ts','sdk-context.ts','extension-module.ts','extension-method.ts',
              'save-schema.ts','schedule-strategy.ts','internal-system-slots.ts')
 
 def parse_version(value):
@@ -60,7 +60,9 @@ def inspect(studio_version=None, project_version=None, channel='auto', studio_ex
             issues.append('Project version conflicts with actual host version')
     if channel!='auto' and channel!=inferred:
         issues.append('Declared channel conflicts with full host version')
-    sdk_report = {'status':'UNKNOWN','files':{},'api_compatibility':'not_verified'}
+    sdk_report = {'status':'UNKNOWN','files':{},'declared_version':'UNKNOWN',
+                  'provenance':'UNKNOWN','api_compatibility':'not_verified',
+                  'declared_version_is_host_version':False}
     if sdk:
         sdk_root = safe_path(Path(sdk))
         if not sdk_root.is_dir():
@@ -72,6 +74,10 @@ def inspect(studio_version=None, project_version=None, channel='auto', studio_ex
                 if not path.is_file(): raise ValueError('SDK entry must be a regular file')
                 sdk_report['files'][name]=hashlib.sha256(path.read_bytes()).hexdigest()
         sdk_report['status']='fingerprinted' if 'index.ts' in sdk_report['files'] else 'UNKNOWN'
+        if 'constants.ts' in sdk_report['files']:
+            match = re.search(r'\bSDK_VERSION\s*=\s*[\"\']([^\"\'\r\n]+)[\"\']',
+                              (sdk_root/'constants.ts').read_text('utf-8-sig'))
+            if match: sdk_report['declared_version'] = match.group(1)
     if issues or inferred=='UNKNOWN':
         profile = None
     status = 'reference_selected' if profile else 'UNKNOWN'

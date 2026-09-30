@@ -57,7 +57,7 @@ def run(bundle, scratch):
     check_json('broken-fragment-target', value, 1)
     value = copy.deepcopy(example)
     value['fragments'][1]['blocks'].append({'type':'callFragment','props':{'fragmentId':value['fragments'][1]['id']}})
-    check_json('fragment-cycle', value, 1)
+    check_json('fragment-cycle-warning-only', value, 0)
     value = copy.deepcopy(example)
     value['fragments'][1]['id'] = value['fragments'][2]['id']
     check_json('duplicate-id', value, 1)

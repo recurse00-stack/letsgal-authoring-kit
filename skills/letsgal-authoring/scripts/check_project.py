@@ -54,7 +54,9 @@ def check(target, format_profile='auto'):
     issues = []
     seen_ids = set()
     chapters_checked = 0
-    unsupported = 0
+    unsupported_chapters = 0
+    unsupported_blocks = 0
+    unchecked_blocks = 0
 
     def issue(level, where, message):
         issues.append({"level": level, "location": where, "message": message})
@@ -85,7 +87,7 @@ def check(target, format_profile='auto'):
         return decoded
 
     def chapter(path, is_entry=False):
-        nonlocal chapters_checked, unsupported
+        nonlocal chapters_checked, unsupported_chapters, unsupported_blocks, unchecked_blocks
         where = path.name
         try:
             data = read(path)
@@ -94,7 +96,7 @@ def check(target, format_profile='auto'):
             return
         chapters_checked += 1
         if format_profile == 'auto' and (not isinstance(data, dict) or 'fragments' not in data):
-            unsupported += 1
+            unsupported_chapters += 1
             issue('warning', where, 'unrecognized chapter format; no conversion attempted; verify the target Studio version and a chapter saved by that version')
             return
         if not isinstance(data, dict):
@@ -115,12 +117,19 @@ def check(target, format_profile='auto'):
         main = fragments[0].get("id") if isinstance(fragments[0], dict) else None
         edges = {key: set() for key in ids}
 
-        def ref(value, loc, origin, allow_empty=False):
+        def ref(value, loc, origin, allow_empty=False, call_fragment=False):
             if allow_empty and value == "":
                 return
-            if not isinstance(value, str) or value not in ids or value == main:
-                issue("error", loc, "target must be an existing same-chapter non-main fragment id")
-            elif origin in edges:
+            if not isinstance(value, str) or value not in ids:
+                issue("error", loc, "target must be an existing same-chapter fragment id")
+                return
+            if value == main:
+                if call_fragment:
+                    issue("warning", loc, "callFragment targeting main: official JSON reference and Call Fragment guide differ; verify the target host before changing this reference")
+                else:
+                    issue("error", loc, "branch/if target must be a non-main fragment id in the documented subset")
+                    return
+            if origin in edges:
                 edges[origin].add(value)
 
         for fi, fragment in enumerate(fragments):
@@ -148,13 +157,14 @@ def check(target, format_profile='auto'):
                 if not isinstance(kind, str) or not kind:
                     issue("error", bl, "type must be a non-empty string")
                 elif kind not in KNOWN:
+                    unchecked_blocks += 1
                     issue("warning", bl, "instruction is outside this checker's supported subset; consult official reference")
                 if not isinstance(props, dict):
                     issue("error", bl, "props must be an object")
                     continue
                 required_parameter = {'branch':'choices','if':'conditions','callFragment':'fragmentId','setver':'key'}.get(kind) if isinstance(kind,str) else None
                 if format_profile == 'auto' and required_parameter and required_parameter not in props:
-                    unsupported += 1
+                    unsupported_blocks += 1
                     issue('warning', bl, 'instruction parameters do not match the documented subset; verify target-version serialization before treating this as an error')
                     continue
                 if "disabled" in props and not isinstance(props["disabled"], bool):
@@ -214,13 +224,17 @@ def check(target, format_profile='auto'):
                         issue("error", bl, "invalid logicOp")
                     issue("warning", bl, "condition expression fields, types and variables need semantic validation")
                 elif kind == "callFragment":
-                    ref(props.get("fragmentId"), bl, origin)
+                    if props.get('fragmentId') == '' and format_profile == 'auto':
+                        issue('warning', bl, 'empty callFragment target is a documented editor no-op; select a real target for generated playable content')
+                    else:
+                        ref(props.get("fragmentId"), bl, origin, call_fragment=True)
                 elif kind == "setver":
                     if not isinstance(props.get("key"), str) or not props["key"]:
                         issue("error", bl, "assignment requires variable key")
                     issue("warning", bl, "assignment operands and variable declarations are not validated")
         # Iterative traversal avoids Python recursion on long, valid chapter chains.
         state = {}
+        has_cycle = False
         for start in edges:
             if state.get(start):
                 continue
@@ -233,10 +247,27 @@ def check(target, format_profile='auto'):
                     state[node] = 2
                     stack.pop()
                 elif state.get(dest) == 1:
-                    issue("error", where, "fragment call cycle detected; remove recursion or review actual flow")
+                    has_cycle = True
                 elif not state.get(dest):
                     state[dest] = 1
                     stack.append((dest, iter(edges[dest])))
+        if has_cycle:
+            issue('warning', where, 'cycle in stored fragment references: Call Fragment guide describes conversion-time bounded expansion; this checker does not infer runtime recursion, disabled instructions or reachability')
+        else:
+            # Longest path in an acyclic stored-reference graph, not a runtime trace.
+            indegree = {node:0 for node in edges}
+            depth = {node:0 for node in edges}
+            for links in edges.values():
+                for dest in links: indegree[dest] += 1
+            pending = [node for node,count in indegree.items() if count == 0]
+            while pending:
+                node = pending.pop()
+                for dest in edges[node]:
+                    depth[dest] = max(depth[dest], depth[node]+1)
+                    indegree[dest] -= 1
+                    if indegree[dest] == 0: pending.append(dest)
+            if max(depth.values(), default=0) > 30:
+                issue('warning', where, 'stored-reference depth exceeds the 30-level conversion limit described by Call Fragment guide; check target-host conversion, not runtime recursion')
 
     target = safe_path(target)
     if target.is_file():
@@ -246,7 +277,7 @@ def check(target, format_profile='auto'):
         project = read(target / "project.json")
         if format_profile == 'auto' and (not isinstance(project, dict) or 'chapterOrder' not in project):
             return {'status':'unsupported_format','errors':0,'warnings':1,'chapters_checked':0,
-                    'unsupported_project':True,'format_profile':format_profile,'engine_compatibility':'not_verified',
+                    'unsupported_project':True,'read_only':True,'format_profile':format_profile,'engine_compatibility':'not_verified',
                     'issues':[{'level':'warning','location':'project.json','message':'unrecognized project index; verify the target Studio version; no conversion attempted'}]}
         if not isinstance(project, dict):
             raise ValueError("project.json must contain an object")
@@ -269,17 +300,23 @@ def check(target, format_profile='auto'):
             chapter(root / (name + ".json"), is_entry=(i == 0))
         for path in sorted(root.glob("*.json")):
             if path.stem not in names:
-                issue("warning", path.name, "chapter file is not listed in chapterOrder; inspect before integrating")
+                try:
+                    preprocessing = isinstance(data := read(path), dict) and data.get('kind') == 'schedule-preprocessing'
+                except (OSError, ValueError):
+                    preprocessing = False
+                if not preprocessing:
+                    issue("warning", path.name, "chapter file is not listed in chapterOrder; inspect before integrating")
                 chapter(path)
         issue("warning", "project", "blueprint routes, chapter tree, asset/character/variable references and runtime are not checked")
     errors = sum(i["level"] == "error" for i in issues)
-    return {"status": "issues_found" if errors else ("unsupported_format" if unsupported else "partial_static_checks_passed"),
+    return {"status": "issues_found" if errors else ("unsupported_format" if unsupported_chapters or unsupported_blocks else "partial_static_checks_passed"),
             "chapters_checked": chapters_checked, "errors": errors,
-            "unsupported_chapters": unsupported, "format_profile": format_profile,
+            "unsupported_chapters": unsupported_chapters, "unsupported_blocks": unsupported_blocks,
+            "unchecked_blocks": unchecked_blocks, "format_profile": format_profile, "read_only":True,
             "engine_compatibility": "not_verified",
-            "schema_basis": "Documented fragment subset; compare target-version samples before applying findings.",
+            "schema_basis": "2026-09-30 documented fragment subset; Call Fragment main/cycle contradictions are warnings, not confirmed host errors.",
             "warnings": sum(i["level"] == "warning" for i in issues),
-            "scope": "Read-only subset; not a full schema, compiler, engine load or runtime acceptance.",
+            "scope": "Read-only subset; not full parameter/type/asset/variable validation, a compiler, engine load or runtime-flow acceptance.",
             "issues": issues}
 
 

@@ -1,6 +1,6 @@
 # LetsGal 创作与协作 · 公共技能包
 
-版本：0.1.2。独立技能名称：`letsgal-authoring`。
+版本：0.1.3。独立技能名称：`letsgal-authoring`。
 
 帮助 AI 理解制作目标、查官方教程、编写与检查章节 JSON、组织协作和 Git，并保护用户已有内容。支持向 Codex、Claude Code、Cursor、GitHub Copilot 和 DSH 导入标准 Skill。它不是 LetsGal 官方产品，也不包含引擎、模型、账号或 MCP 服务。
 
@@ -14,9 +14,9 @@
 
 Skill 先核对本作品的 Studio 完整版本、发布通道、SDK 和可用功能。旧稳定版不会因更新 Skill 被自动升级、迁移 JSON 或切换到蓝图；Beta 项目的规则也不会成为其他作品的全局默认。版本约定记录在各项目的 LETSGAL.md。
 
-本包版本与 LetsGal 引擎的发布通道分别管理。安装本包不要求使用 Beta 引擎。稳定版和 Beta 的实际预览、存读档及导出仍需按工程验证。三款 Agent 的完整模型任务和安装器原生操作同样暂未验证；具体范围见验证报告。
+本包版本与 LetsGal 引擎的发布通道分别管理。安装本包不要求使用 Beta 引擎。稳定版和 Beta 的实际预览、存读档及导出仍需按工程验证。Codex／Claude Code／DSH 的完整模型任务和安装器原生操作同样暂未验证；具体范围见验证报告。
 
-0.1.2 新增只读宿主资料选择工具，并补齐 2.3.0-beta.1 的皮肤／差分、网格、超链接、选项编辑和扩展变化说明。不会因此把稳定版项目切到 Beta。见 [Beta 专页](skills/letsgal-authoring/references/versions/beta-2.3.md)。
+0.1.3 已逐项复核全部 20 个 Skill 文件，并按官方资料纠正章节调用、前处理、检查器诊断、变量生命周期、扩展源码及资源规则。自报 SDK 版本与来源分开记录；当前实际隔离验证及争议见 [全面修订记录](AUDIT.md)。版本工具仍按项目选择 Stable／Beta 资料。见 [Beta 专页](skills/letsgal-authoring/references/versions/beta-2.3.md)。
 
 ## 安装与启用前
 
@@ -106,8 +106,10 @@ DSH 已提供专用入口：个人技能进入 `DSH_HOME/skills`，默认是 `~/
 
 - [技能入口](skills/letsgal-authoring/SKILL.md) 按任务路由到制作、JSON、安全、Git、扩展和定制参考。
 - [原创章节例子](skills/letsgal-authoring/examples/选择练习.json) 不依赖图像／音频；是待导入章节，不是完整游戏。复制前重生成 ID。
-- 运行 `python "skills/letsgal-authoring/scripts/check_project.py" "<工程或章节绝对路径>"` 做只读的部分静态检查。对话不会被输出，但诊断会显示文件名。
-- [资料来源](SOURCES.md)、[验证结果](VALIDATION.md)。
+- 在完整解压包根目录运行 `python "skills/letsgal-authoring/scripts/check_project.py" "<工程或章节绝对路径>"` 做只读的部分静态检查。对话不会被输出，但诊断会显示文件名。
+- [资料来源](SOURCES.md)、[全面修订](AUDIT.md)、[验证结果](VALIDATION.md)。
+
+从作品目录调用工具时，用实际加载 Skill 的绝对目录，例如 `python "<实际 Skill 绝对目录>/scripts/check_project.py" "<章节绝对路径>"`；安装不要求一直保留或使用下载目录。
 
 ## 当前发布状态与许可证
 

@@ -15,8 +15,8 @@
 ## 主题入口
 
 | 查什么 | 官方入口 | 使用方式 |
-| 完整版本与通道变化 | [Beta 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)、[Stable 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)、[发布历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json) | 三者分别记录；实际宿主优先，清单冲突不猜最新 |
 | --- | --- | --- |
+| 完整版本与通道变化 | [Beta 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)、[Stable 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)、[发布历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json) | 三者分别记录；实际宿主优先，清单冲突不猜最新 |
 | 章节与 Block 的磁盘结构 | [剧本 JSON](https://docs.avg-engine.com/reference/script-json) | 先看结构，再跳到此次指令及引用规则 |
 | 选项返回与片段执行 | [Branch](https://docs.avg-engine.com/manual/writing/blocks/branch) | 区分调用返回和结束路线 |
 | 跨章节路线 | [章节调度与蓝图](https://docs.avg-engine.com/advanced/chapter-scheduling) | 不把画布位置当执行顺序 |
@@ -24,6 +24,8 @@
 | 多人同时编辑 | [实时协作](https://docs.avg-engine.com/manual/overview/collaboration) | 确认编辑权、同步和冲突 |
 | 备份及恢复影响 | [时光机](https://docs.avg-engine.com/manual/overview/backup) | 恢复是写入操作，先判断覆盖范围 |
 | Git 行为 | [status](https://git-scm.com/docs/git-status)、[worktree](https://git-scm.com/docs/git-worktree)、[restore](https://git-scm.com/docs/git-restore) | 按所用命令核对选项及影响 |
+
+官方 JSON 生成参考与人类手册可能不同步。例如调用片段的 main 目标与静态展开说明存在冲突，Branch 手册没有完整覆盖 vars 选项。保留争议内容，按目标版本样本验证，不能选一页就把现有数据判成损坏。
 
 更多指令沿官方页面链接继续找，不把本表当作全量 API。版本记录可从 [官网](https://avg-engine.com/) 进入；页面抓取失败时写明无法读取，不把失败当作无更新。
 

@@ -6,7 +6,7 @@
 
 读取项目已有的 LETSGAL.md／开发说明，并核对用户指定的 Studio 完整版本与发布通道（stable、beta 或 unknown）。优先用该实例的“关于”信息或安装包版本佐证；工程 JSON 中名为 version／engineVersion 的字段未必表示编辑器版本，不凭名称推断。
 
-记录本次真正需要的内容：Studio 完整版本、通道、事实来源、调度方式、相关扩展及 SDK 版本、已有可工作样本。资料不全时只补问会影响当前写入的那一项；剧情讨论、只读检查、文案草稿等独立工作可以继续。
+记录本次真正需要的内容：Studio 完整版本、通道、事实来源、调度方式、相关扩展版本、清单 sdkVersion 要求、SDK 副本自报版本／同步来源／有限指纹、已有可工作样本。资料不全时只补问会影响当前写入的那一项；剧情讨论、只读检查、文案草稿等独立工作可以继续。
 
 对每个新字段或 API，按以下顺序判断：目标版本实际保存的样本／SDK 类型 → 该版本官方说明和更新记录 → 当前文档作为检索线索。最新文档描述的存在不等于旧版支持；样本中没出现某字段也不能单独证明不支持。
 
@@ -14,7 +14,7 @@
 
 ## 只读资料路由
 
-可用 `python "<技能目录>/scripts/inspect_version.py" --studio-exe "<当前 Studio EXE>" --project-version "<项目约定的完整版本>"` 读取 Windows EXE 的 **FileVersion**，不使用可能丢失 Beta 后缀的 ProductVersion。其他平台或已确认实例可用 `--studio-version` 传入完整版本；这表示调用者提供的证据，不宣称脚本读取了实例。可加 `--channel stable|beta` 核对通道、`--sdk "<目标扩展 sdk>"` 记录有限类型文件指纹。
+可用 `python "<技能目录>/scripts/inspect_version.py" --studio-exe "<当前 Studio EXE>" --project-version "<项目约定的完整版本>"` 读取 Windows EXE 的 **FileVersion**，不使用可能丢失 Beta 后缀的 ProductVersion。其他平台或已确认实例可用 `--studio-version` 传入完整版本；这表示调用者提供的证据，不宣称脚本读取了实例。可加 `--channel stable|beta` 核对通道、`--sdk "<目标扩展 sdk>"` 记录有限类型文件指纹及可读出的 SDK_VERSION 自报值。自报值不是来源证明，不能以数字相似推定宿主配套。
 
 2.0.0／2.0.1 路由至 [Stable 2.0](versions/stable-2.0.md)，2.3.0-beta.1 路由至 [Beta 2.3](versions/beta-2.3.md)。只读程序不会从官网“最新”或 `project.json.version` 猜宿主，不自动更新 SDK。缺少宿主、冲突、其他版本或未维护通道返回 UNKNOWN／退出码 2，留在本页查证。退出码 0 只表示选出了资料；SDK 指纹不表示来源或接口兼容通过。
 
@@ -35,7 +35,7 @@
 
 章节的 fragments/blocks 结构和序列化参数仅在目标版本格式已确认时使用。不能把字段名不一致、旧版结构或扩展字段当作垃圾，不能将未知 JSON 自动重写成当前示例。先让目标 Studio 在隔离工程保存一份最小对应指令，再比对字段和运行行为。
 
-检查器默认 auto 只识别已有片段结构；未知章节格式标为 unsupported_format，退出码 2，不自动转换。`--format json-only` 只检查语法。结构检查通过也不证明稳定版／Beta 的功能、SDK 或运行时兼容。
+检查器默认 auto 只识别已有片段结构；未知章节格式标为 unsupported_format，退出码 2，不自动转换。`--format json-only` 只检查语法。fragments 模式也不是全部字段／参数完整性检查。调用片段的 main 目标及循环按官方资料争议与转换风险提示，不直接当宿主损坏；前处理不参加普通章顺序。结构检查通过也不证明稳定版／Beta 的功能、SDK 或运行时兼容。
 
 扩展采用目标 Studio 实际提供的 SDK；不得把 Beta 的 sdk/ 拷进稳定版工程，不压低清单要求来掩盖 API 缺失，不以 TypeScript 编译成功代替宿主运行。Beta 工程需要回稳定版时，先保留完整副本，比较受影响字段与接口；没有确认的逆向迁移方式就保留原版。
 

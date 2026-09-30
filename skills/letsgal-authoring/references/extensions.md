@@ -1,25 +1,35 @@
-# 扩展开发
+# 扩展开发：源码、契约与运行
 
-从 [官方创建流程](https://docs.avg-engine.com/extensions/develop/) 和 [AI 扩展指导](https://docs.avg-engine.com/extensions/llms.txt) 进入。先确认用户需要新增扩展还是配置已存在的功能；不把普通剧情制作扩大成重建系统。
+从[创建流程](https://docs.avg-engine.com/extensions/develop/)进入，按[AI 开发指导](https://docs.avg-engine.com/extensions/llms.txt)及[运行时索引](https://docs.avg-engine.com/extensions/api-context)查当前任务。判断用户要配置已有功能还是开发扩展，不把普通剧情扩大为系统重建。插件使用 Skill 独立保存，见[用户插件知识](plugin-skills.md)。
 
-具体插件的 AI 使用知识独立存入用户插件区，不并入公共 Skill；分析插件或生成插件 Skill 时先读 [用户插件 Skill](plugin-skills.md)。插件代码继续在原扩展工程维护，不随本技能包安装或升级。
+## 识别真实开发工程
 
-## 定位与实现
+以 `extension.json` 定位源码和 ID。纯可视化扩展可能只有清单与 ui/，没有 package.json／sdk/，不需要 npm；其界面优先由编辑器维护。包含程序时读取实际 package.json、src/、sdk/ 与构建入口。需要程序但尚未初始化时使用 Studio 的“初始化程序”流程；工具无法操作就明确该前置缺口，完成独立设计，不手造猜测的脚手架。[项目结构](https://docs.avg-engine.com/extensions/project-structure)
 
-找到有 `extension.json` 的目标源码根，读取清单、`package.json` 和当前 `sdk/`。纯界面扩展与包含 TypeScript 的扩展采取不同流程；程序初始化优先使用当前 Studio 提供的流程。当前会话无法操作时，给出具体初始化步骤并继续准备设计，不能伪称已在宿主创建。
+**已投入使用的 extension.json.id 保持不变**，它影响设置、存档和调用命名空间；模块内部 id 与清单 ID 分开核对。扩展版本、清单 sdkVersion 要求、SDK 自报版本、同步来源和 Studio 完整版本分别记录。SDK 文件存在不证明与当前宿主配套，不用旧副本的版本比较器替代当前宿主规则。
 
-用清单和真实源码确定 ID、入口、依赖与构建命令。根据当前 SDK 声明界面、剧本方法、设置及存档；查询时先从导出入口找类型，不猜方法和参数。可执行的示例参数来自当前项目，不固定任何作者的自定义插件。
+所有程序改动写源码，`dist/` 仅由项目构建生成，不手工创建、编辑或修补其中的文件；找不到源码就说明该项无法完成。SDK 由 Studio 同步，不私改。保留模板中 React／React DOM／SDK 外置单实例配置，不把另一份打进运行包。按工程实际 scripts 构建，不凭模板名假定命令。
 
-修改源码再运行工程定义的构建。构建产物、SDK 和宿主程序分别对待：不直接修补 `dist/` 来伪造修复，不私改官方 SDK，不绕过宿主外置依赖设置。
+## 按需求查具体契约
 
-## 兼容与验收
+先从当前 sdk/index.ts 的公开导出定位声明，再查实现所需类型和官方页。最新文档是检索入口，不证明旧 SDK 或所有宿主支持。
 
-先读 [稳定版／Beta 兼容](version-compatibility.md)。SDK 随目标宿主核对，不能把 Beta SDK 复制给稳定版使用，也不能仅修改版本约束来假装兼容。当前网页中的 API 对旧版是否存在，需要该版 SDK 或运行证据。
+| 需求 | 资料与必须核对的边界 |
+| --- | --- |
+| 剧本方法、参数或返回 | [剧本方法](https://docs.avg-engine.com/extensions/method)及真实声明；字面量／变量、条件调用和普通方法调用分别取样 |
+| 设置与玩家存档 | [存档 Schema](https://docs.avg-engine.com/extensions/save-schema)；设置是作者配置，save 是玩家数据，类型声明不等于运行时校验 |
+| 数据库 | [数据库](https://docs.avg-engine.com/extensions/database)；使用声明并绑定的别名，写入需要权限及集合策略，处理拒绝 |
+| 扩展内资源 | [资源接口](https://docs.avg-engine.com/extensions/runtime/extension-resource)；路径相对扩展根、没有 ./，确认文件实际进入发行物 |
+| 原生 Node 能力 | [原生能力](https://docs.avg-engine.com/extensions/runtime/native-node)；核宿主权限、可用性与拒绝降级，不据此加载 npm 包 |
+| 默认壳／系统插槽 | [插槽](https://docs.avg-engine.com/extensions/system-slots)；普通面板不自动占插槽，候选声明与选项原始序号核对 |
+| 历史／2.3 新能力 | [历史](https://docs.avg-engine.com/extensions/runtime/history)和[Beta 专页](versions/beta-2.3.md)；公告不代替新增签名，当前未知项保留 UNKNOWN |
 
-2.3.0-beta.1 涉及历史追加／数据列表点击时，先读 [Beta 专页](versions/beta-2.3.md)，核对目标 SDK 的公开导出和实际参数；公告不提供完整签名，不猜测追加方法或调用方式。
+持久化分别测试 slot（槽位）、shared（跨档）与 session（本次 App 启动）。session 不写存档，也不因回标题／换档自动清空；它与项目变量的启动重置不同。数组通过整体 set 更新，不原地 push；订阅、输入和 UI 在重复预览／卸载时清理，不能累积处理器。
 
-记录目标 Studio、SDK、扩展版本；只比较本次用到的 API。更换稳定 ID、方法参数和保存字段可能影响使用它们的作品，先列消费者与迁移方式。
+## 安装、启用与发行分别验收
 
-验证构建产物实际被目标工程加载，再检查参数界面、方法结果、失败分支及持久状态。订阅需有清理逻辑，重复预览不应叠加处理器。使用到导出平台时另做该平台验证。
+扩展安装不代表当前作品已启用，启用不代表程序加载或方法运行通过。源码关联与项目的运行发行快照分开，不能把后者当开发源。按官方结构，作品发行通常只复制清单、ui、assets、构建入口等运行文件，不包含 src／sdk；自定义资源目录需实际核包。纯 UI 的压缩包导入能力以当前入口支持为准，不能猜测与程序扩展相同。
 
-安装、加入工程、启用和真实运行分别核实。普通游戏运行时扩展的能力不能直接等同于编辑器自动化。开发工具与游戏运行时扩展分别选择适合的分发方式。本技能包由社区和 GitHub 独立分发，不包装为引擎扩展。
+构建后检查目标工程加载、参数 UI、正常与失败分支、状态保存、重复预览和目标导出。找不到真实宿主操作工具时记录静态及构建结果，提供人工步骤，不把 TypeScript 成功或文件复制称为运行兼容。
+
+本主 Skill 是 GitHub／社区纯 Skill，按主 Skill 安装器维护；不是 LetsGal 引擎扩展。第三方插件的运行安装与其 AI 资料安装分别处理。

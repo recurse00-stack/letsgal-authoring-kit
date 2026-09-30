@@ -1,6 +1,6 @@
 # 使用手册
 
-版本 **0.1.2**。可直接打开随包 [MANUAL.html](MANUAL.html) 离线阅读与浏览器搜索。
+版本 **0.1.3**。可直接打开随包 [MANUAL.html](MANUAL.html) 离线阅读与浏览器搜索。
 
 ## 这个包能做什么
 
@@ -37,7 +37,7 @@ DSH：选择其数据文件夹，默认通常为 `~/.dsh`。如果启动器另�
 
 ## 当前验证范围
 
-0.1.0 已验证隔离安装、升级保留用户资料、备份恢复和相关组件。0.1.1 调整为社区分发；0.1.2 新增版本资料路由与 Beta 说明，当前检查见验证报告；两版 Studio 的打开、存读档或导出仍未完整实测。各 Agent 完整模型任务、更新后会话及安装器原生点击／缩放暂未验证。使用时先在副本尝试，详见 [验证报告](VALIDATION.md)。
+0.1.3 已全面复核现有 Skill 并纠正有依据的问题；当前隔离脚本及升级结果见验证报告，历史结果保留在旧包。Codex／Claude Code／DSH 完整模型任务和更新会话未验收，Cursor／Copilot 只有格式目录依据；下面的独立代理检查也不是这些客户端的完整任务。两版 Studio、存读档、导出及安装器原生点击／缩放仍未完整实测。使用时先在副本尝试，详见 [验证报告](VALIDATION.md)。
 
 ## 先明确工程版本
 
@@ -51,7 +51,7 @@ DSH：选择其数据文件夹，默认通常为 `~/.dsh`。如果启动器另�
 
 ## 2.3 Beta 的用法与版本核对
 
-不需要换安装方式：下载 **0.1.2 完整 ZIP**，完整解压并运行 `Install.cmd`，复用原技能目录。不要单独运行摘出的 `Install.ps1`。安装器控制逻辑保持，新增资料和工具随同一个主 Skill 安装；个人偏好、插件库和旧备份保留。
+不需要换安装方式：下载 **0.1.3 完整 ZIP**，完整解压并运行 `Install.cmd`，复用原技能目录。不要单独运行摘出的 `Install.ps1`。安装器控制逻辑保持，新增资料和工具随同一个主 Skill 安装；个人偏好、插件库和旧备份保留。
 
 | 能力 | 怎样让 AI 帮忙 | 需要观察的结果 |
 | --- | --- | --- |
@@ -63,7 +63,7 @@ DSH：选择其数据文件夹，默认通常为 `~/.dsh`。如果启动器另�
 
 完整说明、最小调查提示例子与未知字段见 [Beta 专页](skills/letsgal-authoring/references/versions/beta-2.3.md)。没有实际 SDK／新字段样本时，先做不依赖它们的文案和设计。官方要求重新构建已导出作品才能应用本版运行时变化；本包更新不会替你构建或发布作品。
 
-可交给 AI 运行以下只读命令（安装不要求 Python；工具需要 Python 3.9+）：
+在完整解压包根目录，可交给 AI 运行以下只读命令（安装不要求 Python；工具需要 Python 3.9+）：
 
 ```powershell
 python "skills/letsgal-authoring/scripts/inspect_version.py" --studio-exe "<当前 Studio EXE 的绝对路径>" --project-version "2.3.0-beta.1" --channel beta
@@ -76,7 +76,7 @@ python "skills/letsgal-authoring/scripts/inspect_version.py" --studio-version "2
 | `--studio-version` | 传入已核实的完整宿主版本，适用于其他平台 |
 | `--project-version` | 核对作品已有版本约定，不读取或修改作品 |
 | `--channel` | 可选 stable／beta；默认从完整版本后缀判断 |
-| `--sdk` | 可选目标 SDK 目录，记录有限类型文件 SHA-256，不更新 SDK |
+| `--sdk` | 可选目标 SDK 目录，记录有限文件 SHA-256 及可读出的 SDK 自报值；来源仍需查证，不更新 SDK |
 | `reference_selected`／退出码 0 | 找到资料，仍需核对字段、SDK 和运行行为 |
 | `UNKNOWN`／退出码 2 | 版本缺失、冲突、格式错误或暂无对应资料，先查证 |
 
@@ -92,18 +92,30 @@ python "skills/letsgal-authoring/scripts/inspect_version.py" --studio-version "2
 
 > 只读检查指定章节的 JSON 和引用，按本作品版本解释问题。未知字段先保留，不批量修复；列出可以确认的错误和需要宿主验证的部分。
 
-本地检查命令：
+本地检查命令（在完整解压包根运行）：
 
 ```powershell
 python "skills/letsgal-authoring/scripts/check_project.py" "<章节或工程绝对路径>"
 python "skills/letsgal-authoring/scripts/check_project.py" "<章节或工程绝对路径>" --format json-only
 ```
 
-默认 auto 识别片段结构；未知章节格式返回 `unsupported_format`。旧分支省略 mode 时按官方兼容默认 jump 检查并提示，原文件不改动；显式 `--format fragments` 用于检查新建字段是否完整。`json-only` 只检查 JSON 语法。退出码 0 表示所选范围没有发现错误，1 表示有问题，2 表示无法检查／格式未覆盖；任何结果都不等于引擎运行通过。不要把“新版检查器不认识”当作删除旧字段的依据。
+默认 auto 识别片段结构；未知章节格式返回 `unsupported_format`。旧分支省略 mode 时按官方兼容默认 jump 检查并提示，原文件不改动；显式 `--format fragments` 仍只检查有限结构约定，不保证新建字段完整、角色引用或全部参数类型正确。`json-only` 只检查 JSON 语法。退出码 0 表示所选范围没有发现错误，1 表示有问题，2 表示无法检查／格式未覆盖；任何结果都不等于引擎运行通过。不要把“新版检查器不认识”当作删除旧字段的依据。
+
+在作品目录工作时改用 `python "<实际 Skill 绝对目录>/scripts/check_project.py" "<章节绝对路径>"`，版本工具同理。不要把包内相对路径直接当成任何工作目录都可运行的命令。
+
+0.1.3 对 `callFragment → main` 保留官方资料冲突提示，环和超过 30 层的存储引用给转换风险警告；不会把这些直接写成运行时递归失败。前处理章节不因未列入普通章索引而建议加入。完整边界见 [JSON 工作法](skills/letsgal-authoring/references/json.md)及[修订记录](AUDIT.md)。
 
 **多人或多个 AI 协作**
 
 > 按现有协作方式拆分任务，明确各自可写章节和共享文件的整合者。同一 JSON 不安排同时写入。保留已有 Git 暂存改动，完成后留下简短交接；没有授权不启动额外代理或付费服务。
+
+## 从一个完整案例理解流程
+
+完整解压包中的[选择练习](skills/letsgal-authoring/examples/选择练习.json)包含提问、两个选择、两个结果片段和回流主线。让 AI 在隔离工程重生成 ID，再将普通章加入已有索引；保留原入口和其他配置。分别选择两项，应看到相应结果，再继续主线。它是合成章节，不是直接覆盖整个作品的游戏包；宿主加载和路线仍要实际验证。
+
+涉及变量时，先列变量 key、类型、初值及保留方式。当前存档随读档恢复，跨存档共享，启动重置另设开关。回标题、读档和预览刷新不是全新启动；启动行为最终用导出游戏观察。[制作流程与变量](skills/letsgal-authoring/references/production.md)
+
+扩展开发时区分作者设置与玩家存档，slot／shared／session 各自测试。代码写源码并构建，SDK 通过宿主同步，保持已使用清单 ID；扩展资源是否进入导出包要单独核实。[扩展工作法](skills/letsgal-authoring/references/extensions.md)
 
 ## 个人特调放哪里
 
