@@ -1,10 +1,14 @@
 {
-  "version": "0.1.3",
-  "date": "2026-09-30",
+  "version": "0.1.4",
+  "date": "2026-10-01",
   "skill_files_audited": 20,
   "groups": {
     "installer_and_checker": {
       "passed": 46,
+      "failed": 0
+    },
+    "upgrade_from_0.1.3": {
+      "passed": 32,
       "failed": 0
     },
     "version_routing": {
@@ -12,15 +16,23 @@
       "failed": 0
     },
     "authoring_diagnostics": {
-      "passed": 13,
+      "passed": 20,
       "failed": 0
     },
     "public_boundary_and_archive": {
       "passed": 23,
       "failed": 0
     },
-    "upgrade_from_0.1.2": {
-      "passed": 32,
+    "read_only_preflight": {
+      "passed": 62,
+      "failed": 0
+    },
+    "installer_safety": {
+      "passed": 34,
+      "failed": 0
+    },
+    "wpf_component": {
+      "passed": 20,
       "failed": 0
     }
   },
@@ -28,20 +40,59 @@
   "actual_sdk_declared_version": "1.21.0",
   "actual_sdk_provenance": "UNKNOWN",
   "actual_sdk_host_compatibility": "not_verified",
+  "native_host": {
+    "bridge_choice_and_return": "passed",
+    "garden_choice_and_return": "passed",
+    "disabled_narration_omitted_from_OP_and_playback": "passed",
+    "same_debug_session_quick_save_load": "passed"
+  },
+  "previous_native_main_cases": {
+    "count": 5,
+    "date": "2026-09-30",
+    "status": "reused finite evidence, not counted as new tests"
+  },
   "independent_agent_tasks": {
-    "completed": 2,
-    "scope": "Current-session read-only behavioral tasks; no installed-client or Studio runtime acceptance"
+    "completed": 1,
+    "client": "Codex CLI 0.159.0",
+    "second_invocation": {
+      "exit_code": 0,
+      "timed_out": false,
+      "turn_completed": true,
+      "elapsed_seconds": 274.134,
+      "independent_checks_passed": 23,
+      "independent_checks_failed": 0
+    },
+    "first_invocation": {
+      "independent_checks_passed": 20,
+      "independent_checks_failed": 1,
+      "failure": "Supervisor 900s timeout before final turn completion; not a completed-client pass"
+    },
+    "scope": "Fresh ephemeral Codex CLI explicitly reading candidate Skill, isolated two-choice authoring, preserved fields and UNKNOWN routing; not automatic discovery of installed 0.1.4 or other clients",
+    "public_text": "一次新鲜Codex CLI显式读取候选Skill，完成隔离两分支制作、保留已有字段与UNKNOWN路由，正常返回最终回复，23项独立核对通过。第一次监督超时另记，没有改成通过；本结果不等于安装后自动发现或其他Agent验收。"
   },
   "skill_format": "passed",
   "privacy_audit": "passed",
   "local_links": "passed",
-  "offline_manual": "In-app browser rendered; Beta table, commands and full example observed; no native installer GUI acceptance",
+  "offline_manual": {
+    "status": "passed",
+    "browser": "Chrome via official connected browser interface",
+    "in_app_browser": "unavailable",
+    "headings": 18,
+    "tables": 8,
+    "code_blocks": 2,
+    "local_links": 16,
+    "whole_page_horizontal_overflow": false,
+    "html_sha256": "e290268198240bc52b545186b911b9e71da95da60d2732525243c7d0d703d234",
+    "scope": "Actual isolated manual page rendering; no native installer acceptance"
+  },
   "deferred": [
-    "complete Codex/Claude/DSH client tasks and update sessions; Cursor/Copilot only format/path evidence",
-    "native installer GUI",
-    "Stable/Beta story/save/load/full restart/export",
-    "target Beta SDK signatures and serialization",
-    "callFragment main/disabled conversion behavior"
+    "Native installer OS clicking/directory browsing/scaling",
+    "Automatic fresh-session discovery of installed 0.1.4",
+    "Claude Code/DSH complete model tasks; Cursor/Copilot format/path evidence only",
+    "Stable runtime",
+    "Beta standalone player/full restart/export and extension state",
+    "Matching Beta SDK/new feature serialization"
   ],
-  "scope": "Current CLI and installer execution on isolated files, actual read-only EXE/SDK evidence and limited agent tasks; no engine runtime proof"
+  "initial_failures": "Preflight test HOME name corrected; file-replace safety/component failures diagnosed as constrained runner metadata permissions and verified in ordinary Windows processes without relaxing installer logic or changing ACLs",
+  "scope": "257 independent automated checks, finite native Beta observations and separately reported model-client task; no universal compatibility guarantee"
 }

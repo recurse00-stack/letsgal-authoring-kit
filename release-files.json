@@ -62,6 +62,9 @@
     "skills/letsgal-authoring/references/versions/beta-2.3.md",
     "maintenance/run_version_checks.py",
     "AUDIT.md",
-    "maintenance/run_authoring_checks.py"
+    "maintenance/run_authoring_checks.py",
+    "Import.Preflight.ps1",
+    "maintenance/Test-Preflight.ps1",
+    "HOST-VALIDATION.md"
   ]
 }

@@ -58,8 +58,11 @@ def check(target, format_profile='auto'):
     unsupported_blocks = 0
     unchecked_blocks = 0
 
-    def issue(level, where, message):
-        issues.append({"level": level, "location": where, "message": message})
+    def issue(level, where, message, code=None):
+        row = {"level": level, "location": where, "message": message}
+        if code:
+            row['code'] = code
+        issues.append(row)
 
     def identity(value, where, required=True):
         if value is None and not required:
@@ -86,7 +89,7 @@ def check(target, format_profile='auto'):
             return None
         return decoded
 
-    def chapter(path, is_entry=False):
+    def chapter(path, is_entry=False, in_linear_order=False):
         nonlocal chapters_checked, unsupported_chapters, unsupported_blocks, unchecked_blocks
         where = path.name
         try:
@@ -109,6 +112,9 @@ def check(target, format_profile='auto'):
             issue("error", where, "chapter disabled must be boolean")
         if is_entry and data.get("disabled") is True:
             issue("error", where, "entry chapter is disabled")
+        if in_linear_order and data.get('kind') == 'schedule-preprocessing':
+            issue('warning', where, 'schedule-preprocessing chapter is listed in ordinary chapterOrder; official scheduling excludes preprocessing from the linear order; inspect target-version indexing before changing source',
+                  'preprocessing_in_linear_order')
         fragments = data.get("fragments")
         if not isinstance(fragments, list) or not fragments:
             issue("error", where, "fragments must be a non-empty array")
@@ -125,7 +131,8 @@ def check(target, format_profile='auto'):
                 return
             if value == main:
                 if call_fragment:
-                    issue("warning", loc, "callFragment targeting main: official JSON reference and Call Fragment guide differ; verify the target host before changing this reference")
+                    issue("warning", loc, "callFragment targeting main: official JSON reference and Call Fragment guide differ; noncyclic A-to-main executed and returned in 2.3.0-beta.1 native fragment preview; other hosts, entry paths and exports require their own evidence; preserve existing references",
+                          'main_call_version_sensitive')
                 else:
                     issue("error", loc, "branch/if target must be a non-main fragment id in the documented subset")
                     return
@@ -252,22 +259,25 @@ def check(target, format_profile='auto'):
                     state[dest] = 1
                     stack.append((dest, iter(edges[dest])))
         if has_cycle:
-            issue('warning', where, 'cycle in stored fragment references: Call Fragment guide describes conversion-time bounded expansion; this checker does not infer runtime recursion, disabled instructions or reachability')
-        else:
-            # Longest path in an acyclic stored-reference graph, not a runtime trace.
-            indegree = {node:0 for node in edges}
-            depth = {node:0 for node in edges}
-            for links in edges.values():
-                for dest in links: indegree[dest] += 1
-            pending = [node for node,count in indegree.items() if count == 0]
-            while pending:
-                node = pending.pop()
-                for dest in edges[node]:
-                    depth[dest] = max(depth[dest], depth[node]+1)
-                    indegree[dest] -= 1
-                    if indegree[dest] == 0: pending.append(dest)
-            if max(depth.values(), default=0) > 30:
-                issue('warning', where, 'stored-reference depth exceeds the 30-level conversion limit described by Call Fragment guide; check target-host conversion, not runtime recursion')
+            issue('warning', where, 'cycle in stored fragment references: official conversion-time 30-layer expansion description differed from three 2.3.0-beta.1 native cases, whose cycle back-edges did not repeat; not a runtime recursion guarantee; this checker does not infer disabled instructions or reachability',
+                  'fragment_cycle')
+        # Kahn traversal also checks independent acyclic components/prefixes when
+        # another component contains a cycle. Nodes held by cycles are not a
+        # runtime trace or a complete longest-path analysis of a cyclic graph.
+        indegree = {node:0 for node in edges}
+        depth = {node:0 for node in edges}
+        for links in edges.values():
+            for dest in links: indegree[dest] += 1
+        pending = [node for node,count in indegree.items() if count == 0]
+        while pending:
+            node = pending.pop()
+            for dest in edges[node]:
+                depth[dest] = max(depth[dest], depth[node]+1)
+                indegree[dest] -= 1
+                if indegree[dest] == 0: pending.append(dest)
+        if max(depth.values(), default=0) > 30:
+            issue('warning', where, 'acyclic stored-reference depth exceeds the documented 30-level expansion threshold; this is a diagnostic heuristic, not a measured hard limit; verify target-host conversion separately',
+                  'fragment_depth')
 
     target = safe_path(target)
     if target.is_file():
@@ -297,7 +307,7 @@ def check(target, format_profile='auto'):
                 issue("error", "project.json", "duplicate chapter name in index")
                 continue
             names.add(name)
-            chapter(root / (name + ".json"), is_entry=(i == 0))
+            chapter(root / (name + ".json"), is_entry=(i == 0), in_linear_order=True)
         for path in sorted(root.glob("*.json")):
             if path.stem not in names:
                 try:
@@ -314,7 +324,7 @@ def check(target, format_profile='auto'):
             "unsupported_chapters": unsupported_chapters, "unsupported_blocks": unsupported_blocks,
             "unchecked_blocks": unchecked_blocks, "format_profile": format_profile, "read_only":True,
             "engine_compatibility": "not_verified",
-            "schema_basis": "2026-09-30 documented fragment subset; Call Fragment main/cycle contradictions are warnings, not confirmed host errors.",
+            "schema_basis": "authoring-subset-v0.1.4",
             "warnings": sum(i["level"] == "warning" for i in issues),
             "scope": "Read-only subset; not full parameter/type/asset/variable validation, a compiler, engine load or runtime-flow acceptance.",
             "issues": issues}

@@ -20,6 +20,7 @@ $operationLock = $null
 $completionWarnings = New-Object 'System.Collections.Generic.List[string]'
 
 . (Join-Path $PSScriptRoot 'Import.Paths.ps1')
+. (Join-Path $PSScriptRoot 'Import.Preflight.ps1')
 . (Join-Path $PSScriptRoot 'Risk.Notice.ps1')
 function Ensure-Directory([string]$Path) {
     Assert-OrdinaryPath $Path
@@ -42,10 +43,6 @@ function Initialize-UserArea([string]$HomeRoot) {
             Assert-OptionalFile $area.Profile
         } finally { if ($stream) { $stream.Dispose() } }
     }
-}
-function Read-Json([string]$Path) {
-    Assert-OrdinaryPath $Path
-    return ([IO.File]::ReadAllText($Path, $Utf8) | ConvertFrom-Json)
 }
 function Write-Json([string]$Path, $Value, [switch]$Replace) {
     Assert-OptionalFile $Path
@@ -79,51 +76,6 @@ function Write-CompletionRecord([string]$Path, $Value, [switch]$Replace) {
         $completionWarnings.Add($message)
         Write-Warning $message
     }
-}
-function Hash-File([string]$Path) {
-    $algorithm = [Security.Cryptography.SHA256]::Create()
-    $stream = [IO.File]::OpenRead($Path)
-    try { return ([BitConverter]::ToString($algorithm.ComputeHash($stream))).Replace('-','').ToLowerInvariant() }
-    finally { $stream.Dispose(); $algorithm.Dispose() }
-}
-function Tree-Map([string]$Root, [switch]$SkipReceipt) {
-    Assert-OrdinaryPath $Root
-    $map = @{}
-    $stack = New-Object 'System.Collections.Generic.Stack[string]'
-    $stack.Push($Root)
-    while ($stack.Count -gt 0) {
-        $dir = $stack.Pop()
-        foreach ($item in (Get-ChildItem -LiteralPath $dir -Force)) {
-            if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
-                throw "Refusing linked content: $($item.FullName)"
-            }
-            if ($item.PSIsContainer) { $stack.Push($item.FullName); continue }
-            $relative = $item.FullName.Substring($Root.Length + 1).Replace('\','/')
-            if ($SkipReceipt -and $relative -eq '.install-receipt.json') { continue }
-            $map[$relative] = Hash-File $item.FullName
-        }
-    }
-    return $map
-}
-function Same-Map($Actual, $Expected) {
-    if ($Actual.Count -ne $Expected.Count) { return $false }
-    foreach ($key in $Expected.Keys) {
-        if (-not $Actual.ContainsKey($key) -or $Actual[$key] -ne $Expected[$key]) { return $false }
-    }
-    return $true
-}
-function Record-Map($Records) {
-    $map = @{}
-    foreach ($entry in $Records) {
-        if (-not ($entry.path -is [string]) -or $entry.path -notmatch '^[A-Za-z0-9_\-\u4e00-\u9fff./]+$' -or
-            $entry.path.StartsWith('/') -or $entry.path.Split('/') -contains '..' -or
-            $entry.path.Split('/') -contains '.' -or $entry.path.Split('/') -contains '' -or
-            $entry.sha256 -notmatch '^[0-9a-f]{64}$' -or $map.ContainsKey($entry.path)) {
-            throw 'Invalid or duplicate manifest path/hash.'
-        }
-        $map[$entry.path] = $entry.sha256
-    }
-    return $map
 }
 function Confirm-Replacement([string]$Reason) {
     if ($ReplaceModified) { return }
@@ -203,24 +155,12 @@ try {
     $scopeRoot = $destination.ScopeRoot
     $target = $destination.Target
     if ($destination.DshHome) { $DshHome = $destination.DshHome }
-    $bundle = Full-Path $PSScriptRoot
-    $source = Join-Path (Join-Path $bundle 'skills') $SkillName
-    if ($source.Equals($target, [StringComparison]::OrdinalIgnoreCase) -or
-        $source.StartsWith($target + '\', [StringComparison]::OrdinalIgnoreCase) -or
-        $target.StartsWith($bundle + '\', [StringComparison]::OrdinalIgnoreCase)) {
-        throw 'Installation target must be outside the distribution bundle.'
-    }
-    if ($target.Equals($profileRoot,[StringComparison]::OrdinalIgnoreCase) -or
-        $target.StartsWith($profileRoot + '\', [StringComparison]::OrdinalIgnoreCase) -or
-        $profileRoot.StartsWith($target + '\', [StringComparison]::OrdinalIgnoreCase)) { throw 'Target and personal configuration locations must not overlap.' }
-    $backupRoot = Join-Path ([IO.Path]::GetDirectoryName($skillsRoot)) '.letsgal-authoring-backups'
-    Assert-OrdinaryPath $backupRoot
-    if ($Action -eq 'Install') {
-        $manifest = Read-Json (Join-Path $bundle 'bundle.json')
-        if ($manifest.schema -ne 1 -or $manifest.skill -ne $SkillName -or $manifest.owner -ne $Owner) { throw 'Unsupported bundle identity/schema.' }
-        $expected = Record-Map $manifest.files
-        if (-not $expected.ContainsKey('SKILL.md') -or -not (Same-Map (Tree-Map $source) $expected)) { throw 'Bundle contents do not match manifest; installation stopped.' }
-    }
+    $preview = Get-InstallPreview -BundleRoot $PSScriptRoot -Destination $destination -UserHome $homeRoot -ValidateBundle:($Action -eq 'Install')
+    $bundle = $preview.BundleRoot
+    $source = $preview.Source
+    $backupRoot = $preview.BackupRoot
+    $manifest = $preview.Manifest
+    $expected = $preview.Expected
     if ($Action -ne 'Check') {
         Ensure-Directory $backupRoot
         $lockPath = Join-Path $backupRoot 'installer.lock'
@@ -240,24 +180,15 @@ try {
             Write-Warning "Another copy exists at $candidate. It is preserved; verify duplicate discovery in your AI tool."
         }
     }
-    $receiptPath = Join-Path $target '.install-receipt.json'
-    $installed = Test-Path -LiteralPath $target
-    $receipt = $null
-    $managed = $false
-    $clean = $false
-    if ($installed) {
-        if (-not (Test-Path -LiteralPath $target -PathType Container)) { throw 'Target exists but is not a directory.' }
-        $currentMap = Tree-Map $target -SkipReceipt
-        if (Test-Path -LiteralPath $receiptPath -PathType Leaf) {
-            try {
-                $receipt = Read-Json $receiptPath
-                $managed = $receipt.owner -eq $Owner -and $receipt.skill -eq $SkillName
-                if ($managed) { $clean = Same-Map $currentMap (Record-Map $receipt.files) }
-            } catch { $managed = $false; $clean = $false }
-        }
-    }
+    # Re-read after taking the install/uninstall lock. Check remains read-only.
+    $preview = Get-InstallPreview -BundleRoot $PSScriptRoot -Destination $destination -UserHome $homeRoot
+    $installed = $preview.Installed
+    $receipt = $preview.Receipt
+    $managed = $preview.Managed
+    $clean = $preview.Clean
+    $currentMap = $preview.CurrentMap
     if ($Action -eq 'Check') {
-        [ordered]@{action='check';installed=$installed;managed=$managed;unchanged=$clean;target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested'} | ConvertTo-Json -Compress
+        [ordered]@{action='check';installed=$installed;managed=$managed;unchanged=$clean;target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';installed_version=$preview.InstalledVersion;bundle_version=$preview.BundleVersion;status=$preview.Status;matches_bundle=($preview.Status -eq 'current')} | ConvertTo-Json -Compress
         if (-not $installed -or -not $managed -or -not $clean) { exit 2 }
         exit 0
     }

@@ -1,8 +1,9 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LetsGal Authoring Kit 0.1.3 使用手册</title><style>body{max-width:960px;margin:36px auto;padding:0 20px;font:17px/1.75 system-ui,sans-serif;color:#243044;background:#fafbfc}h1,h2,h3{color:#12233e}a{color:#1556aa}table{border-collapse:collapse;width:100%;margin:20px 0}td,th{border:1px solid #ccd4df;padding:8px;text-align:left}th{background:#edf2f8}pre{overflow:auto;padding:16px;background:#eaf0f6;border-radius:8px}code{font-family:Consolas,monospace}blockquote{border-left:4px solid #7aa0cc;margin:16px 0;padding:4px 16px;background:#f0f5fa}</style></head><body><h1 id="_1">使用手册</h1>
-<p>版本 <strong>0.1.3</strong>。可直接打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读与浏览器搜索。</p>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LetsGal Authoring Kit 0.1.4 使用手册</title><style>body{max-width:960px;margin:36px auto;padding:0 20px;font:17px/1.75 system-ui,sans-serif;color:#243044;background:#fafbfc}h1,h2,h3{color:#12233e}a{color:#1556aa}table{border-collapse:collapse;width:100%;margin:20px 0}td,th{border:1px solid #ccd4df;padding:8px;text-align:left}th{background:#edf2f8}pre{overflow:auto;padding:16px;background:#eaf0f6;border-radius:8px}code{font-family:Consolas,monospace}blockquote{border-left:4px solid #7aa0cc;margin:16px 0;padding:4px 16px;background:#f0f5fa}</style></head><body><h1 id="_1">使用手册</h1>
+<p>版本 <strong>0.1.4</strong>。可直接打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读与浏览器搜索。</p>
 <h2 id="_2">这个包能做什么</h2>
 <p><code>letsgal-authoring</code> 是给 AI 编程工具读取的社区 Skill。它教 AI 查找 LetsGal 官方规范、制作剧情与章节 JSON、组织协作和 Git，并保护已有作品。它不包含引擎、模型账号或 MCP，也不会给聊天工具凭空增加文件访问能力。</p>
 <p>导入器只导入本包的 LetsGal Skill；“其他 Agent”表示选择另一个工具的技能目录，不是导入任意第三方 Skill。</p>
+<p>第一次使用可依次阅读安装、工程版本、选择练习及字段说明，再查工具参数、排错和升级。Beta 专项与插件开发按当前任务需要阅读。</p>
 <h2 id="_3">安装与启用前：避免同类技能冲突</h2>
 <p>建议安装或启用本技能前，在 Agent 的技能设置中暂时停用其他功能重叠的 LetsGal／引擎创作类 Skill，避免重复触发、相互矛盾的指令和额外上下文开销影响执行效果。也请核对个人与工程范围是否装了多个同名副本。保留原文件及特调；由你决定停用哪一份，安装器不会自动禁用或删除其他 Skill。</p>
 <p>停用后打开新会话，显式调用 <code>letsgal-authoring</code> 并核对实际来源。如果仍需其他专用技能，按任务单独调用，避免让多个入口同时接管同一项制作任务。停用方法以对应 Agent 当前的技能设置为准；没有停用入口时先查询其官方说明，不直接删除目录。</p>
@@ -15,13 +16,41 @@
 <ol>
 <li>从社区提供的 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases">GitHub Releases</a> 下载 <code>letsgal-authoring-kit-&lt;版本&gt;.zip</code>，完整解压后可交给 Agent 按本手册协助安装。不要只下载 <code>Install.cmd</code>，也不要直接在压缩包中运行。</li>
 <li>双击 <code>Install.cmd</code>，选择实际使用的 Agent。一般保留“个人 · 所有项目”；只给一个作品用时选择“项目 · 仅此工程”，再浏览项目文件夹。</li>
-<li>检查蓝色区域显示的位置，点击“导入到 …”。导入完成后点击“复制验证提示词”。</li>
+<li>检查蓝色预览区域中的安装位置、本包版本、已安装版本及状态；确定是你实际使用的 Agent 和范围后，点击“导入到 …”。导入完成后点击“复制验证提示词”。</li>
 <li>在 Agent 中打开作品目录，建立新会话并粘贴提示。核对它实际读取的 Skill 路径，而不只看一句“已加载”。</li>
 </ol>
 <p>普通导入使用 Windows 自带 PowerShell，不要求 Python、Node 或管理员权限。可选 JSON 检查器与版本资料工具需要 Python 3.9+。macOS／Linux、WSL 和远程环境请按 <a href="COMPATIBILITY.md">兼容表</a> 手动复制到实际运行 Agent 的环境。</p>
 <p>DSH：选择其数据文件夹，默认通常为 <code>~/.dsh</code>。如果启动器另设 DSH_HOME 或数据已迁移，浏览选择实际位置，不选程序安装文件夹。导入器会记住成功选择；它不会读取账号配置、改预设或重启 DSH。发现不到技能时检查默认技能根是否启用。</p>
+<table>
+<thead>
+<tr>
+<th>预览状态</th>
+<th>你需要核对什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>未安装</td>
+<td>目标下没有该 Skill；核对个人／项目范围和最终目录后安装</td>
+</tr>
+<tr>
+<td>当前</td>
+<td>已装文件与本包一致；无需反复覆盖，转到新会话验证加载</td>
+</tr>
+<tr>
+<td>可更新</td>
+<td>已装版本可识别，且与本包不同；核对两个版本，更新会先备份旧 Skill</td>
+</tr>
+<tr>
+<td>需备份</td>
+<td>已装内容有本地改动、文件缺失或来源无法核实；先比较并保全，确定后使用“备份后继续”</td>
+</tr>
+</tbody>
+</table>
+<p>版本与状态只表示 Skill 文件和安装目标，不代表 AI 已调用它，也不代表 LetsGal 作品通过运行验收。已装版本无法识别时按未知处理，不能把它当成较旧版本直接覆盖。</p>
+<p>安装位置若与本包来源、个人配置等受保护位置重叠，预览会提前拒绝，包括同一目录及目录互相包含。把完整解压包放在与实际技能目录分开的普通文件夹，再核对目标；不要通过删除个人区或修改保护规则来绕过。此处没有新增安装器原生操作截图，界面操作的本轮验证范围见 <a href="VALIDATION.md">VALIDATION.md</a>。</p>
 <h2 id="_6">当前验证范围</h2>
-<p>0.1.3 已全面复核现有 Skill 并纠正有依据的问题；当前隔离脚本及升级结果见验证报告，历史结果保留在旧包。Codex／Claude Code／DSH 完整模型任务和更新会话未验收，Cursor／Copilot 只有格式目录依据；下面的独立代理检查也不是这些客户端的完整任务。两版 Studio、存读档、导出及安装器原生点击／缩放仍未完整实测。使用时先在副本尝试，详见 <a href="VALIDATION.md">验证报告</a>。</p>
+<p>本版257项自动化检查、实际Codex任务范围和有限原生宿主结果见<a href="VALIDATION.md">验证报告</a>。实际2.3.0-beta.1已观察两条示例路线、一个禁用旁白、同一调试会话快存快读，并沿用上一轮五个main／循环用例；这些不是完整宿主验收。原生安装点击／缩放、Stable运行、Beta全新启动／导出、其他Agent完整任务及新版自动发现仍有未完成项。请先在副本尝试。</p>
 <h2 id="_7">先明确工程版本</h2>
 <p>同一个 Skill 可以服务稳定版、Beta 和旧工程，但每个项目须按自己的实际版本工作。不要安装两个同名 Skill 来区分通道，也不要因为技能包版本带 preview 就切换引擎到 Beta。</p>
 <p>在第一次任务中告诉 AI：</p>
@@ -29,8 +58,101 @@
 <p>使用 letsgal-authoring。先核对本作品的 Studio 完整版本和稳定／Beta 通道，以及相关 SDK。沿用作品当前版本；不要升级引擎、迁移 JSON 或启用未经确认的新功能。版本不明时只读定位，告诉我当前任务还缺哪项依据。</p>
 </blockquote>
 <p>版本信息可让 AI 写到工程 <code>LETSGAL.md</code>，以后重读沿用。版本与能力无法确认时，可以继续构思、文字草稿和只读查找；不要直接套用新 API。<a href="skills/letsgal-authoring/references/version-compatibility.md">详细兼容规则</a></p>
+<h2 id="_8">从选择练习走完一个最小完整案例</h2>
+<p>随包的<a href="skills/letsgal-authoring/examples/选择练习.json">选择练习</a>包含一个完整章节：main 提问、两个选择、石桥／花园两个结果片段，以及返回 main 后的结束文字。它使用原创合成内容，不依赖角色、图像、音频或变量；宿主加载和两条路线仍需在你的实际版本验证。</p>
+<ol>
+<li>在 Studio 新建官方空白工程，或复制现有工程作为练习副本。确认 AI 当前打开的是这个副本，按前节核对完整宿主版本与通道。</li>
+<li>让 AI 读取包内例子，重新生成章节及三个片段的唯一 ID，并同步替换选项中的目标 ID。若副本已有“选择练习”章节，先另取章节名，不覆盖原章；章节名和文件名一起修改。</li>
+<li>将完整章节保存到副本的 <code>chapters/选择练习.json</code>；已另取名字时，文件名同步采用该名字。在已有 <code>project.json</code> 的 <code>chapterOrder</code> 中登记该章，保留原入口、其他章节及配置；不要用一小段索引示意覆盖整个 <code>project.json</code>。</li>
+<li>对新章节和副本做只读静态检查，确认名称、引用及登记位置正确。章节中所有片段 ID 和 <code>choices</code> 内的目标 ID 必须对应；检查器的零错误还需要后续预览。</li>
+<li>在 Studio 重新读取副本，打开练习章节的 main，从片段开头预览。先选“查看石桥”；重新从 main 开头预览，再选“查看花园”。只预览一个结果片段不能验证选项及回流。</li>
+<li>对照下面的完整顺序。确认各路线仅显示自己的结果，然后显示回到路口的文字并执行 <code>endChapter</code>。记录实际宿主版本及通过／失败；保存、读档和导出另外验证，不能从这两次预览推定通过。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>选择</th>
+<th>应看到的文字顺序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查看石桥</td>
+<td>“路口竖着两块路牌。你准备先查看哪一边？” → 选“查看石桥” → “桥栏上留着一道新划痕。” → “记下观察结果后，你回到了路口。”</td>
+</tr>
+<tr>
+<td>查看花园</td>
+<td>“路口竖着两块路牌。你准备先查看哪一边？” → 选“查看花园” → “花园门旁放着一把尚未收起的伞。” → “记下观察结果后，你回到了路口。”</td>
+</tr>
+</tbody>
+</table>
+<p>可以把准备副本后的任务交给 AI：</p>
+<blockquote>
+<p>使用 letsgal-authoring。只在当前练习副本加入包内“选择练习”章节，先核对实际 Studio 版本。重生成章节及片段 ID，并同步选项目标；保留原入口、索引和其他配置。若同名章节已存在，使用新名字。完成后只读检查，告诉我在 Studio 应从哪里预览，以及两项选择的预期文字顺序；未实际预览就明确说明。</p>
+</blockquote>
+<h3 id="_9">本例的必要字段</h3>
+<p>这些字段帮助你读懂例子；完整结构仍按目标版本保存样本及 <a href="skills/letsgal-authoring/references/json.md">JSON 工作法</a>核对。</p>
+<table>
+<thead>
+<tr>
+<th>字段／概念</th>
+<th>在本例中的用途</th>
+<th>修改时要保留什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>章节 <code>name</code> 与文件名</td>
+<td><code>选择练习</code> 对应 <code>chapters/选择练习.json</code></td>
+<td>两者一致；同一工程内章节名不重复</td>
+</tr>
+<tr>
+<td>章节／片段 <code>id</code></td>
+<td>识别章节和被调用片段</td>
+<td>加入副本时生成唯一 ID；以后维护已有对象时保留 ID</td>
+</tr>
+<tr>
+<td><code>fragments</code>／<code>main</code></td>
+<td>第一项 main 是该章入口，后面是石桥和花园片段</td>
+<td>顺序与片段身份；不要将片段对象单独当成完整章节</td>
+</tr>
+<tr>
+<td><code>blocks</code></td>
+<td>按数组顺序放旁白、选项、结束指令</td>
+<td>数组结构及已有未知字段；空数组可以作为空片段骨架</td>
+</tr>
+<tr>
+<td><code>branch.props.choices</code></td>
+<td>保存两项选择</td>
+<td>磁盘中是 JSON 字符串；解开后才是选项数组，不直接改成数组</td>
+</tr>
+<tr>
+<td>选项 <code>mode</code>／<code>text</code></td>
+<td>本例 <code>mode: jump</code> 调用结果片段，<code>text</code> 是按钮文字</td>
+<td>本例两项都明确写 jump；不要根据名称猜另一种模式的参数</td>
+</tr>
+<tr>
+<td>选项 <code>fragmentId</code></td>
+<td>指向同章石桥或花园的片段 ID</td>
+<td>重生成片段 ID 后同步替换；填写 ID，不能填写片段名或其他章的 ID</td>
+</tr>
+<tr>
+<td>旁白 <code>content</code>／<code>keepDialogue</code></td>
+<td>text 内联项保存正文；本例 keepDialogue 为 false</td>
+<td>正文数组及 <code>styles: {}</code>；不要把正文移到 props 中</td>
+</tr>
+<tr>
+<td><code>endChapter</code></td>
+<td>main 的末尾结束本章</td>
+<td>本例 <code>props: {}</code> 即可；结果片段结束会回到调用处，无需另加返回指令</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_10">变量与扩展的验证</h2>
+<p>涉及变量时，先列变量 key、类型、初值及保留方式。当前存档随读档恢复，跨存档共享，启动重置另设开关。回标题、读档和预览刷新不是全新启动；启动行为最终用导出游戏观察。<a href="skills/letsgal-authoring/references/production.md">制作流程与变量</a></p>
+<p>扩展开发时区分作者设置与玩家存档，slot／shared／session 各自测试。代码写源码并构建，SDK 通过宿主同步，保持已使用清单 ID；扩展资源是否进入导出包要单独核实。<a href="skills/letsgal-authoring/references/extensions.md">扩展工作法</a></p>
 <h2 id="23-beta">2.3 Beta 的用法与版本核对</h2>
-<p>不需要换安装方式：下载 <strong>0.1.3 完整 ZIP</strong>，完整解压并运行 <code>Install.cmd</code>，复用原技能目录。不要单独运行摘出的 <code>Install.ps1</code>。安装器控制逻辑保持，新增资料和工具随同一个主 Skill 安装；个人偏好、插件库和旧备份保留。</p>
+<p>不需要换安装方式：下载 <strong>0.1.4 完整 ZIP</strong>，完整解压并运行 <code>Install.cmd</code>，复用原技能目录。不要单独运行摘出的 <code>Install.ps1</code>。资料和工具随同一个主 Skill 安装，预览先核对包版本及已装状态；个人偏好、插件库和旧备份保留。</p>
 <table>
 <thead>
 <tr>
@@ -111,7 +233,7 @@ python &quot;skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-
 </tbody>
 </table>
 <p>例子中 2.3 Beta 与 Stable 的命令是不同工程的选择，不能将前一个项目的版本沿用到下一个。工具不查询网络、不安装、不迁移。未知未来版本留在通用规则，不能按“更大版本号”假定兼容。</p>
-<h2 id="_8">常见任务怎么提</h2>
+<h2 id="_11">常见任务怎么提</h2>
 <p><strong>制作一个小片段</strong></p>
 <blockquote>
 <p>使用 letsgal-authoring。按现有作品风格，制作一段包含两个选择的剧情。先读工程约定，说明会改哪些章节和变量；只使用当前版本已有的指令，保留稳定 ID。完成后检查两条路线并说明实际预览是否通过。</p>
@@ -125,17 +247,56 @@ python &quot;skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-
 python &quot;skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;章节或工程绝对路径&gt;&quot; --format json-only
 </code></pre>
 <p>默认 auto 识别片段结构；未知章节格式返回 <code>unsupported_format</code>。旧分支省略 mode 时按官方兼容默认 jump 检查并提示，原文件不改动；显式 <code>--format fragments</code> 仍只检查有限结构约定，不保证新建字段完整、角色引用或全部参数类型正确。<code>json-only</code> 只检查 JSON 语法。退出码 0 表示所选范围没有发现错误，1 表示有问题，2 表示无法检查／格式未覆盖；任何结果都不等于引擎运行通过。不要把“新版检查器不认识”当作删除旧字段的依据。</p>
+<table>
+<thead>
+<tr>
+<th>参数／结果</th>
+<th>怎样使用或理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>必填位置参数：指定一个章节 JSON 文件或工程目录的绝对路径</td>
+</tr>
+<tr>
+<td><code>--format auto</code></td>
+<td>默认模式；只识别已覆盖的片段布局，旧分支缺省 mode 按兼容默认 jump 并提示</td>
+</tr>
+<tr>
+<td><code>--format fragments</code></td>
+<td>显式采用片段结构约定；仍是有限静态检查，不是完整 schema 校验</td>
+</tr>
+<tr>
+<td><code>--format json-only</code></td>
+<td>只检查 JSON 能否解析，适合先定位语法问题或未覆盖格式</td>
+</tr>
+<tr>
+<td>退出码 0</td>
+<td>所选检查范围没有错误；仍要阅读警告、未覆盖数和运行缺口</td>
+</tr>
+<tr>
+<td>退出码 1</td>
+<td>存在错误；按 issues 中的文件／位置核对，不直接批量修复未知字段</td>
+</tr>
+<tr>
+<td>退出码 2</td>
+<td>无法读取／检查，或格式未覆盖；核路径及版本样本，再选择合适范围</td>
+</tr>
+</tbody>
+</table>
+<p>输出是 JSON 报告。<code>errors</code> 和 <code>warnings</code> 分别统计错误与提示；未覆盖章节、指令及未检查参数另列，<code>read_only</code> 表示工具没有改写输入。警告可以与退出码 0 同时出现，不能仅凭退出码省略报告内容。</p>
 <p>在作品目录工作时改用 <code>python "&lt;实际 Skill 绝对目录&gt;/scripts/check_project.py" "&lt;章节绝对路径&gt;"</code>，版本工具同理。不要把包内相对路径直接当成任何工作目录都可运行的命令。</p>
-<p>0.1.3 对 <code>callFragment → main</code> 保留官方资料冲突提示，环和超过 30 层的存储引用给转换风险警告；不会把这些直接写成运行时递归失败。前处理章节不因未列入普通章索引而建议加入。完整边界见 <a href="skills/letsgal-authoring/references/json.md">JSON 工作法</a>及<a href="AUDIT.md">修订记录</a>。</p>
+<p>检查器对 <code>callFragment → main</code> 保留资料争议及目标版本核对提示，对存储引用环和深链给风险提示。它不运行 Studio 转换器，不推定禁用块是否转换、运行可达性或真实展开层数。前处理章节不因未列入普通章索引而建议加入。完整边界见 <a href="skills/letsgal-authoring/references/json.md">JSON 工作法</a>及<a href="AUDIT.md">修订记录</a>。</p>
+<h3 id="beta-main">Beta main 调用及循环：有限原生证据</h3>
+<p>2026-09-30，在实际 <strong>LetsGal Studio 2.3.0-beta.1</strong> 的官方空白测试工程中，非循环 A → main 由原生片段预览显示 A 的进入标记、main 内容、A 的返回标记。此版本不能按“main 一律不可调用”判定既有数据损坏；新内容继续默认采用普通、无环、非 main 片段，这是制作约定。</p>
+<p>三个循环用例（main → main、main → A → main、A → A）在原生调试中没有重复输出，继续执行调用后的内容；其中 main 自调用的原生 OP 仅 4 条。编辑器仍显示“最多静态展开 30 层”的提示，本轮观察不支持实际展开了 30 层。不能据此制作依赖递归退出的菜单，也不能把这几例推成所有循环的算法或深度保证。</p>
+<p>以上只覆盖注明版本的有限调试／片段预览用例。Stable、独立玩家、导出、全局运行入口、禁用调用块、branch／if／扩展流程的 main 目标和一般深度策略仍需另验；<a href="https://docs.avg-engine.com/reference/script-json">官方 JSON 参考</a>与<a href="https://docs.avg-engine.com/manual/writing/blocks/call-fragment">调用片段手册</a>的文字冲突也仍保留。详细公开范围见 <a href="VALIDATION.md">VALIDATION.md</a>，原始截图含私有界面信息，不随公共包发布。</p>
 <p><strong>多人或多个 AI 协作</strong></p>
 <blockquote>
 <p>按现有协作方式拆分任务，明确各自可写章节和共享文件的整合者。同一 JSON 不安排同时写入。保留已有 Git 暂存改动，完成后留下简短交接；没有授权不启动额外代理或付费服务。</p>
 </blockquote>
-<h2 id="_9">从一个完整案例理解流程</h2>
-<p>完整解压包中的<a href="skills/letsgal-authoring/examples/选择练习.json">选择练习</a>包含提问、两个选择、两个结果片段和回流主线。让 AI 在隔离工程重生成 ID，再将普通章加入已有索引；保留原入口和其他配置。分别选择两项，应看到相应结果，再继续主线。它是合成章节，不是直接覆盖整个作品的游戏包；宿主加载和路线仍要实际验证。</p>
-<p>涉及变量时，先列变量 key、类型、初值及保留方式。当前存档随读档恢复，跨存档共享，启动重置另设开关。回标题、读档和预览刷新不是全新启动；启动行为最终用导出游戏观察。<a href="skills/letsgal-authoring/references/production.md">制作流程与变量</a></p>
-<p>扩展开发时区分作者设置与玩家存档，slot／shared／session 各自测试。代码写源码并构建，SDK 通过宿主同步，保持已使用清单 ID；扩展资源是否进入导出包要单独核实。<a href="skills/letsgal-authoring/references/extensions.md">扩展工作法</a></p>
-<h2 id="_10">个人特调放哪里</h2>
+<h2 id="_12">个人特调放哪里</h2>
 <table>
 <thead>
 <tr>
@@ -176,13 +337,7 @@ python &quot;skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;�
 <p>AI 应自动写到 <code>~/.letsgal-authoring/plugins/&lt;插件ID&gt;/&lt;版本&gt;/SKILL.md</code>，并在 <code>plugins/INDEX.md</code> 登记入口。索引按需建立，安装器不填充任何真实插件。用户指定位置优先；无文件权限时交付文件和目标路径，不宣称写入完成。完整流程见 <a href="skills/letsgal-authoring/references/plugin-skills.md">插件 Skill 规范</a>。</p>
 <p>个人偏好和插件知识分开维护。项目 LETSGAL.md 记录实际使用的插件 ID、版本和资料入口，主 Skill 按需读取；有资料不等于已启用。旧作品可以继续读取旧插件版本的 Skill，不自动取最新版本。公共包更新不修改插件资料或插件代码，插件升级后的资料复核由用户发起。</p>
 <p>旧版根目录 user.md 无需搬家：新个人偏好文件不存在时继续使用旧文件，不创建空白配置遮住它；两处都有时，先比较并标出冲突，不能自动覆盖或丢弃旧内容。</p>
-<h2 id="_11">更新、卸载与恢复</h2>
-<p>更新：下载新版完整包，解压到另一个普通目录，再运行 <code>Install.cmd</code>。相同安装位置会校验后更新；个人偏好、插件 Skill 和项目配置原样保留；缺失目录才创建，已有文件不重写。旧 Skill 位于所选 <code>skills</code> 目录旁的 <code>.letsgal-authoring-backups</code>，不会作为第二个 Skill 被发现。</p>
-<p>如果公共 Skill 被改过，导入器先停止。让 AI 比较原版与改动，将个人部分迁到外部配置；确认后用“备份后继续”。备份保留旧内容，但个人代码改动不会自动合并进新版。不要同时开两个导入窗口更新同一位置。</p>
-<p>卸载：在“更多选项”中选择卸载，或运行 <code>Uninstall.cmd</code>。它将技能移到备份，保留整个用户区（个人偏好、插件 Skill、旧版 user.md）、项目文件与历史备份。</p>
-<p>安装完成时会显示本次旧技能备份路径。日志位于 skills 旁 <code>.letsgal-authoring-backups</code> 的 <code>*-install.json</code>／<code>*-uninstall.json</code>。如果选项或日志保存失败，界面显示“有提示”，保留真实完成结果与旧记录；不要因此删除目录或反复强制覆盖，下次重新核对位置即可。项目内的备份可能带私有特调，提交 Git 前检查排除规则，安装器不修改项目的 .gitignore。</p>
-<p>恢复：先保全当前目录和新增内容，找到结果或安装日志里的准确备份路径，再比较并恢复相应 Skill；不能通过删除所有备份来排错。导入器没有自动清理备份功能。</p>
-<h2 id="_12">常见问题</h2>
+<h2 id="_13">常见问题</h2>
 <table>
 <thead>
 <tr>
@@ -194,6 +349,14 @@ python &quot;skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;�
 <tr>
 <td>窗口打不开／被系统策略阻止</td>
 <td>确认完整解压；遵循系统策略，按兼容表手动导入，不关闭安全保护</td>
+</tr>
+<tr>
+<td>预览提示路径重叠</td>
+<td>核对完整包的解压位置、技能目标与个人区；重新选互不包含的位置，不删除个人区绕过</td>
+</tr>
+<tr>
+<td>预览显示需备份／已装版本未知</td>
+<td>核对实际已装来源，比较文件；保全后再决定是否“备份后继续”，不按猜测覆盖</td>
 </tr>
 <tr>
 <td>导入完成但 AI 不使用</td>
@@ -228,11 +391,37 @@ python &quot;skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;�
 <td>使用 json-only，核对该版 Studio 保存的样本，不自动升级格式</td>
 </tr>
 <tr>
+<td>选择练习没有显示在章节树／没有运行</td>
+<td>检查文件是否在副本的 chapters 目录，文件名与 name 是否一致，以及是否登记已有 chapterOrder；保留原入口，不覆盖整份配置</td>
+</tr>
+<tr>
+<td>选项出现但没有结果文字</td>
+<td>核对 choices 中的目标 ID 与同章片段 ID；从 main 开头重新预览，区分未选目标、错误目标和空片段</td>
+</tr>
+<tr>
+<td>两条路线混在一起／没有回到主线</td>
+<td>检查 main 的块顺序、两项各自的 fragmentId，以及结果片段内是否多了跳转或结束章指令；先还原最小案例再定位，保留原数据</td>
+</tr>
+<tr>
+<td>检查器退出码 0，Studio 仍失败</td>
+<td>阅读警告及未覆盖项，再核实际版本、保存样本、实体／资源引用和参数；结构通过不能替代预览</td>
+</tr>
+<tr>
+<td>main 调用或循环出现提示</td>
+<td>普通无环片段可作制作默认；现有数据先保留，并按目标宿主和注明版本的有限证据核对，不按30层文字推定执行</td>
+</tr>
+<tr>
 <td>更换电脑、WSL 或远程环境</td>
 <td>在目标环境另行导入，明确复制所需个人配置；本机安装不会自动同步</td>
 </tr>
 </tbody>
 </table>
-<h2 id="_13">验证范围与反馈</h2>
+<h2 id="_14">更新、卸载与恢复</h2>
+<p>更新：下载新版完整包，解压到另一个普通目录，再运行 <code>Install.cmd</code>。预览核对本包／已装版本、状态及目标；相同安装位置会校验后更新，当前版本不反复替换。个人偏好、插件 Skill 和项目配置原样保留；缺失目录才创建，已有用户文件不重写。旧 Skill 位于所选 <code>skills</code> 目录旁的 <code>.letsgal-authoring-backups</code>，不会作为第二个 Skill 被发现。升级后打开新会话并重新核对实际加载来源，旧会话中的内容不能作为已使用新版的证据。</p>
+<p>如果公共 Skill 被改过，导入器先停止。让 AI 比较原版与改动，将个人部分迁到外部配置；确认后用“备份后继续”。备份保留旧内容，但个人代码改动不会自动合并进新版。不要同时开两个导入窗口更新同一位置。</p>
+<p>卸载：在“更多选项”中选择卸载，或运行 <code>Uninstall.cmd</code>。它将技能移到备份，保留整个用户区（个人偏好、插件 Skill、旧版 user.md）、项目文件与历史备份。</p>
+<p>安装完成时会显示本次旧技能备份路径。日志位于 skills 旁 <code>.letsgal-authoring-backups</code> 的 <code>*-install.json</code>／<code>*-uninstall.json</code>。如果选项或日志保存失败，界面显示“有提示”，保留真实完成结果与旧记录；不要因此删除目录或反复强制覆盖，下次重新核对位置即可。项目内的备份可能带私有特调，提交 Git 前检查排除规则，安装器不修改项目的 .gitignore。</p>
+<p>恢复：先保全当前目录和新增内容，找到结果或安装日志里的准确备份路径，再比较并恢复相应 Skill；不能通过删除所有备份来排错。导入器没有自动清理备份功能。</p>
+<h2 id="_15">验证范围与反馈</h2>
 <p>已验证范围及未完成项见 <a href="VALIDATION.md">VALIDATION.md</a>。实际 Agent 会话、LetsGal 预览、导出平台和公开下载需分别验证。</p>
 <p>反馈时提供包版本、Agent／Studio 版本、稳定或 Beta 通道、操作步骤、已脱敏的错误信息。提交日志或截图前遮住用户名、磁盘路径、账号、密钥和作品正文；优先用新建最小示例复现。</p></body></html>

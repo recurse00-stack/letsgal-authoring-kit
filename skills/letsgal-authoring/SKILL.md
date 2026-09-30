@@ -2,7 +2,7 @@
 name: letsgal-authoring
 description: 在 LetsGal Studio 工程中制作剧情、分支、章节 JSON、变量、素材与扩展，排查格式和流程，并维护相关插件 Skill。依据目标工程、宿主版本、官方文档及实际样本工作；不把一般创作讨论自动升级为工程修改。
 metadata:
-  version: 0.1.3
+  version: 0.1.4
 ---
 
 # LetsGal 创作与维护

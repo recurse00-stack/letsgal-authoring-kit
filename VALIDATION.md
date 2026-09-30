@@ -1,17 +1,36 @@
-# 0.1.3 当前验证范围
+# 0.1.4 验证范围
 
-2026-09-30 全面修订及纠正见[AUDIT.md](AUDIT.md)。以下都是本轮候选实际执行结果，旧版结果不累计为当前完整验收。
+日期：2026-09-30至2026-10-01。本版符合已验收范围的社区发行条件；不宣称全部Agent、宿主、平台和功能已经成熟验收。机器摘要见[validation-results.json](validation-results.json)。
 
-46项 installer_and_checker、20项 version_routing、13项 authoring_diagnostics、23项 public_boundary_and_archive、32项 upgrade_from_0.1.2通过；Skill格式、公开隐私与相对引用通过。13项新诊断检查在真实Python CLI运行合成章节，验证引用冲突、转换风险提示、前处理、未覆盖数量及只读性；并非Studio转换／播放测试。完整结果见[validation-results.json](validation-results.json)。
+| 本轮自动化组 | 通过／失败 |
+| --- | --- |
+| 安装与检查器基础 | 46／0 |
+| 不可变0.1.3完整包升级与用户保留 | 32／0 |
+| Stable／Beta／UNKNOWN资料路由 | 20／0 |
+| 作者诊断，包括上一轮原生保存形状 | 20／0 |
+| 公开边界及归档 | 23／0 |
+| 只读预检，PowerShell 5.1与7 | 62／0 |
+| 安全路径／收据／链接，PowerShell 5.1与7 | 34／0 |
+| WPF组件行为 | 20／0 |
 
-实际只读提取EXE FileVersion=2.3.0-beta.1。既有SDK副本自报1.21.0且没有历史追加声明，工具保留来源UNKNOWN和兼容未验证，不将该副本当配套Beta SDK。官方当前历史页也未给追加签名，UNKNOWN保留。
+合计257项。相同作者检查的合成重跑不重复累计；28次File.Replace环境诊断也不加入通过数。预检首次因测试变量HOME被保留而停，修正测试后重跑；受限执行环境的文件元数据权限曾令替换检查失败，普通Windows进程复验通过，安装器权限保护和测试断言没有放宽。
 
-独立代理在当前会话按候选Skill完成两个只读任务：版本冲突与旧SDK/新API处理，实际调用路由／检查器并查证源码与官方页。此项仅验证当前会话的限定行为，不是三款安装后Agent完整任务。Cursor／Copilot仍只有官方格式与目录依据。
+安装检查覆盖完整包新装、从0.1.3升级、重复执行、备份、个人偏好与插件内容保留、修改／未知来源检测及路径／包错误拒绝。WPF组件检查有实际窗口构造与事件，但不是OS原生鼠标点击。原生安装窗口未能完成操作验收，最初控制接口返回窗口激活／GetCursorPos拒绝访问，用户确认桌面可操作后引擎控制及原工程视图已恢复；重开的隔离安装进程仍未出现接口可定位的窗口，原因UNKNOWN。不据此判定安装器逻辑有错，也不称GUI已经通过。
 
-安装器控制逻辑／GUI原字节保留；新payload仍从不可变0.1.2完整包做实际隔离升级，核对个人区、插件知识、旧版备份及失败分支。运行两个现有Windows PowerShell，不操作真实账号或作品。
+## 实际Beta宿主
 
-原生安装GUI点击／取消／缩放、Stable与Beta完整剧情／存读档／全新启动／Windows导出仍未完成；当前工具缺原生窗口操作能力，没有以API或脚本绕过。main调用及禁用块转换、新Beta参数与序列化仍需目标宿主SDK／保存样本。
+实际Windows EXE完整FileVersion为2.3.0-beta.1。在官方空白骨架的独立合成工程内，本轮原生调试完成选择练习的石桥与花园两条路线及返回；一个props.disabled=true旁白不进入OP和播放；同一调试会话中快存、继续、快读恢复了石桥台词。没有验证应用重启持久、导出、独立玩家、扩展状态或其他禁用指令类型。
 
-Markdown和离线HTML同步。运行脚本从完整包根或实际Skill绝对目录调用，安装不要求Python；可选工具需要Python3.9+。复核新增诊断可在全新scratch中运行maintenance/run_authoring_checks.py。
+2026-09-30的五个main／循环原生用例作为既有有限证据沿用，没有重计为本轮新测试。具体入口、顺序和官方文字冲突见[HOST-VALIDATION.md](HOST-VALIDATION.md)。真实工程受核对的三个原文件字节不变；原始私人界面及账号资料不公开。
 
-源码、GitHub main、tag、Release、附件和匿名下载分别记录，候选静态检查不表示外部发布。工坊not-applicable；门禁见[RELEASE-GATES.md](maintenance/RELEASE-GATES.md)。
+## Agent任务与版本资料
+
+一次新鲜Codex CLI确实读取候选Skill并写出两分支章节、版本／UNKNOWN判断及交接；独立21项检查20通过。监督900秒上限在最终回复前触发，缺少turn.completed，故这次不算完整客户端通过。第二次采用更紧凑任务，在274.134秒自然结束、退出0，记录turn.completed和最终回复，23项独立核对全部通过。确实制作两分支章节并保留既有字段、执行UNKNOWN路由；不把这次显式读取候选Skill称为安装后自动发现，也不代表其他Agent。第一次超时记录保留。
+
+EXE读取、20项资料路由与SDK指纹检查通过。现有SDK自报1.21.0，来源UNKNOWN、对Beta新API的适配未验证；缺失或冲突工程不会继承本机Beta。Stable运行未测。Claude Code／DSH完整模型任务及所有更新后自动发现会话未测，Cursor／Copilot只有当前格式和目录依据。
+
+## 发布与剩余范围
+
+核心包按release-files.json白名单65文件生成，bundle中的20文件、包校验及公开暂存逐项读回。离线HTML已通过官方连接的Chrome独立页面观察：18标题、8表格、2代码块及16链接与Markdown一致，无整页横向溢出；内置浏览器不可用，实际替代浏览器及范围见机器摘要。GitHub源码、标签、Release、附件和匿名下载各自使用本版本随附凭证；本报告不将本地构建等同外部发布完成。纯Skill工坊状态not-applicable。
+
+剩余：原生安装点击／取消／选目录／缩放；Stable运行；Beta独立玩家、全新启动、Windows导出及扩展状态；配套SDK和新功能序列化；其他Agent完整任务及新版自动发现。使用者按目标工程版本做副本验收，不从本次有限结果推定所有项目兼容。

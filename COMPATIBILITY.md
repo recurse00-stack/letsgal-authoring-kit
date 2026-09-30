@@ -41,8 +41,8 @@ Cursor 也支持 `.cursor/skills`，Copilot 也有 `.copilot/skills`（个人）
 
 DSH 来源：[文件系统技能提供器](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/skill/skill-filesystem/README.md)、[数据目录解析](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/util/home-paths/src/index.ts)。
 
-## 首发验收分级
+## 当前验收分级
 
-Codex、Claude Code、DSH 的完整模型任务及更新后会话暂未验证，此项与当前隔离测试分别记录。Codex 有真实技能发现证据，DSH 有官方 provider 读取证据；Claude Code、Cursor、Copilot 标为格式／目录适配。命令存在、目录被发现、模型实际使用和宿主运行是不同证据，不相互替代；详见 VALIDATION.md。
+候选Skill的实际Codex CLI任务与终态分别见VALIDATION.md；显式读取候选源码不代表安装后自动发现新版。Claude Code／DSH完整模型任务及更新后自动发现暂未验证。Codex 有真实技能发现证据，DSH 有官方 provider 读取证据；Claude Code、Cursor、Copilot 标为格式／目录适配。命令存在、目录被发现、模型实际使用和宿主运行是不同证据，不相互替代；详见 VALIDATION.md。
 
 建议安装或启用本技能前，在 Agent 的技能设置中暂时停用其他功能重叠的 LetsGal／引擎创作类 Skill，避免重复触发、相互矛盾的指令和额外上下文开销影响执行效果。也请核对个人与工程范围是否装了多个同名副本。保留原文件及特调；由你决定停用哪一份，安装器不会自动禁用或删除其他 Skill。
