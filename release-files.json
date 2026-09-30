@@ -55,6 +55,11 @@
     "skills/letsgal-authoring/LICENSE",
     "maintenance/run_recovery_checks.py",
     "maintenance/stage_publication.py",
-    "maintenance/RELEASE-GATES.md"
+    "maintenance/RELEASE-GATES.md",
+    "MANUAL.html",
+    "skills/letsgal-authoring/scripts/inspect_version.py",
+    "skills/letsgal-authoring/references/versions/stable-2.0.md",
+    "skills/letsgal-authoring/references/versions/beta-2.3.md",
+    "maintenance/run_version_checks.py"
   ]
 }

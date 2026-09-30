@@ -62,12 +62,25 @@ def main():
     (copy/'private-notes.txt').write_text(private_marker,'utf-8')
     built=subprocess.run([sys.executable,'-B',str(copy/'maintenance/build_release.py'),'--zip'],capture_output=True)
     record('explicit-release-list-builds-with-unlisted-local-files',built.returncode==0)
-    archive=next(args.scratch.glob('release-fixture-*.zip'))
+    package=json.loads((copy/'bundle.json').read_text('utf-8'))
+    archive=args.scratch/(package['owner']+'-'+package['version']+'.zip')
     selected=json.loads((copy/'release-files.json').read_text('utf-8'))['files']
     with zipfile.ZipFile(archive) as z:
+        assert all(name.startswith(package['owner']+'/') for name in z.namelist())
         actual={name.split('/',1)[1] for name in z.namelist()}
         record('archive-contains-only-approved-files',actual==set(selected))
         record('archive-has-no-private-fixture-bytes',not any(private_marker.encode() in z.read(name) for name in z.namelist()))
+    fixed=args.scratch/'versions'/package['version']/'packages'
+    fixed.mkdir(parents=True)
+    output=fixed/archive.name
+    command=[sys.executable,'-B',str(copy/'maintenance/build_release.py'),'--zip','--archive',str(output)]
+    built=subprocess.run(command,capture_output=True)
+    record('fixed-version-directory-archive-builds',built.returncode==0 and output.is_file())
+    original=output.read_bytes()
+    repeated=subprocess.run(command,capture_output=True)
+    record('published-archive-is-never-overwritten',repeated.returncode!=0 and output.read_bytes()==original)
+    rejected=subprocess.run(command[:-1]+[str(copy/'unsafe.zip')],capture_output=True)
+    record('archive-inside-public-source-rejected',rejected.returncode!=0 and not (copy/'unsafe.zip').exists())
     report={'checks':checks,'passed':len(checks),'failed':0,'scope':'Version-format handling, privacy detectors and real ZIP whitelist isolation; no host-version runtime acceptance.'}
     (args.scratch/'review-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')
     print(json.dumps(report,ensure_ascii=False,indent=2))

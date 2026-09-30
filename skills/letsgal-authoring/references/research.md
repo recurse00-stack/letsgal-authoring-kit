@@ -15,6 +15,7 @@
 ## 主题入口
 
 | 查什么 | 官方入口 | 使用方式 |
+| 完整版本与通道变化 | [Beta 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)、[Stable 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)、[发布历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json) | 三者分别记录；实际宿主优先，清单冲突不猜最新 |
 | --- | --- | --- |
 | 章节与 Block 的磁盘结构 | [剧本 JSON](https://docs.avg-engine.com/reference/script-json) | 先看结构，再跳到此次指令及引用规则 |
 | 选项返回与片段执行 | [Branch](https://docs.avg-engine.com/manual/writing/blocks/branch) | 区分调用返回和结束路线 |

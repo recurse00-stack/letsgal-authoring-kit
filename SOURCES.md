@@ -1,5 +1,7 @@
 # 编写依据与证据范围
 
+2026-09-30 当前补充：读取官方 [Beta 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)确认 Windows 2.3.0-beta.1，并与[发布历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json)交叉核对。Stable 清单仍为 2.0.0，发布历史已有 2.0.1，不据此统一宣称“最新”。基于公告独立整理 [Beta 使用说明](skills/letsgal-authoring/references/versions/beta-2.3.md)，没有复制引擎或 SDK。新历史追加签名、行内超链接和部位序列化需实际 SDK／样本，本轮保持 UNKNOWN；当前官方 JSON 与历史 API 页不能替代目标 Beta 类型。双宿主运行仍未完成。
+
 历史版本依据：2026-09-26 复核时，[Stable 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json) 指向 2.0.0，Beta 基线为 2.2.0-beta.1。这不是对当前最新版本的声明。社区技能包本身不依赖 SDK 构建；创作时仍按目标工程的版本证据查阅资料，完整宿主运行仍需另行验证。
 
 本包独立编写，未复制用户的私有技能、游戏正文、账号或本地索引。以下链接于 2026-09-23 用网页检索／正文读取核对；公开文档更新不齐，不把页面抓取成功当作某一宿主版本已验收。

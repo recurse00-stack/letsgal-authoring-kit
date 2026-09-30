@@ -24,6 +24,10 @@ Cursor 也支持 `.cursor/skills`，Copilot 也有 `.copilot/skills`（个人）
 
 用户配置文件结构约定版本为 1：只含 Markdown，自定义内容原样读取。此版安装器不做迁移和重写；未来若需要迁移，应采用有版本、备份、可审查差异的流程，不静默重置。
 
+## 0.1.2 的引擎资料路由
+
+[只读版本工具](skills/letsgal-authoring/scripts/inspect_version.py)对已核实的 2.0.0／2.0.1 选择 Stable 资料，对 2.3.0-beta.1 选择 Beta 资料；缺失／冲突／其他版本返回 UNKNOWN，不推定兼容。资料实现、EXE 版本读取、SDK 指纹与真实宿主运行分别记录，见 [验证范围](VALIDATION.md)。下载清单与发布历史可能不同，选择不依赖“最新”标签。安装主 Skill 不嵌套为自己的插件。
+
 ## DSH
 
 已对本机安装的 DSH 0.1.6-alpha.2 所带官方 `@deepseek-ai/dsh-skill-filesystem` 进行隔离发现与正文读取测试；没有向真实服务导入，也没有调用模型。

@@ -11,6 +11,8 @@
 - `props.choices`、`props.conditions` 等复杂参数存为 JSON 字符串；普通 `props` 和片段 `metadata` 仍是对象。每项参数的布尔／数字／字符串类型查字段表，不能整体“规范化”。
 - 新章节须加入既有 `chapterOrder`，同时检查目录排序及当前调度。不能拿索引片段覆盖整个 `project.json`。
 
+2.3.0-beta.1 的行内超链接、姿势／部位及选项样式先读 [Beta 专页](versions/beta-2.3.md)，再取该版保存样本。当前检查器仍只检查已有片段子集，不校验新行内动作，不把未知内容删掉或转换。
+
 ## 写入方式
 
 先加载原对象；定位章、片段、Block；仅改所需字段。先构造 choices 数组，再用 JSON 序列化器赋给 `props.choices`，最后序列化外层章节，避免手工转义。

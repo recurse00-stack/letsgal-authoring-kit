@@ -1,12 +1,12 @@
 # LetsGal 创作与协作 · 公共技能包
 
-版本：0.1.1。独立技能名称：`letsgal-authoring`。
+版本：0.1.2。独立技能名称：`letsgal-authoring`。
 
 帮助 AI 理解制作目标、查官方教程、编写与检查章节 JSON、组织协作和 Git，并保护用户已有内容。支持向 Codex、Claude Code、Cursor、GitHub Copilot 和 DSH 导入标准 Skill。它不是 LetsGal 官方产品，也不包含引擎、模型、账号或 MCP 服务。
 
 本包依据官方资料独立编写。安装器校验并更新 `letsgal-authoring`，只创建缺失的用户区项，并保存安装选项、记录和旧技能备份；不覆盖个人偏好、插件资料、作品或其他技能。
 
-快速入口：[完整使用手册](MANUAL.md) · [工具兼容表](COMPATIBILITY.md) · [稳定版／Beta 规则](skills/letsgal-authoring/references/version-compatibility.md) · [验证报告](VALIDATION.md) · [隐私说明](PRIVACY.md)。
+快速入口：[完整使用手册](MANUAL.md) · [离线 HTML 手册](MANUAL.html) · [工具兼容表](COMPATIBILITY.md) · [稳定版／Beta 规则](skills/letsgal-authoring/references/version-compatibility.md) · [验证报告](VALIDATION.md) · [隐私说明](PRIVACY.md)。
 
 **使用前请阅读：AI 可能误改、误删或泄露资料。请先备份作品并限制 Agent 可写范围；技能备份不包含作品。** 本包按现状提供，不提供担保；作者及贡献者不对使用或无法使用本包造成的任何损失承担责任。详见[风险说明与免责声明](skills/letsgal-authoring/references/risk-notice.md)。
 
@@ -15,6 +15,8 @@
 Skill 先核对本作品的 Studio 完整版本、发布通道、SDK 和可用功能。旧稳定版不会因更新 Skill 被自动升级、迁移 JSON 或切换到蓝图；Beta 项目的规则也不会成为其他作品的全局默认。版本约定记录在各项目的 LETSGAL.md。
 
 本包版本与 LetsGal 引擎的发布通道分别管理。安装本包不要求使用 Beta 引擎。稳定版和 Beta 的实际预览、存读档及导出仍需按工程验证。三款 Agent 的完整模型任务和安装器原生操作同样暂未验证；具体范围见验证报告。
+
+0.1.2 新增只读宿主资料选择工具，并补齐 2.3.0-beta.1 的皮肤／差分、网格、超链接、选项编辑和扩展变化说明。不会因此把稳定版项目切到 Beta。见 [Beta 专页](skills/letsgal-authoring/references/versions/beta-2.3.md)。
 
 ## 安装与启用前
 
@@ -29,7 +31,7 @@ Skill 先核对本作品的 Studio 完整版本、发布通道、SDK 和可用�
 
 首次默认 Codex／个人；安装成功后记住选择。若选项或日志无法保存，界面单独显示提示，并保留真实的文件安装结果；下次需重新核对目标位置。更新时解压新版，再运行同一个入口。无需输入命令，也不要求管理员。安装器不下载软件，不修改 API Key、MCP 或模型配置。
 
-启动器对本次 PowerShell 进程使用 Bypass，使同包脚本可启动；不修改系统或用户的持久执行策略。组织策略或系统警告仍可能阻止运行，不要为本包关闭安全保护；可以手动安装。安装文件无需 Python，附带的可选 JSON 检查器需要 Python 3.9+。
+启动器对本次 PowerShell 进程使用 Bypass，使同包脚本可启动；不修改系统或用户的持久执行策略。组织策略或系统警告仍可能阻止运行，不要为本包关闭安全保护；可以手动安装。安装文件无需 Python，附带的可选 JSON 检查器与版本资料工具需要 Python 3.9+。
 
 安装器拒绝链接／junction 目标，保留未知或已修改的旧技能，替换前完整备份；备份在所选 `skills` 目录旁的 `.letsgal-authoring-backups`，不会被当作另一个 Skill 加载。备份和目标在同一卷，支持 AI 配置在 C 盘、项目在其他盘。
 
