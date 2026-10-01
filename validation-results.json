@@ -1,401 +1,463 @@
 {
-  "version": "0.1.5",
+  "version": "0.1.6",
   "date": "2026-10-01",
-  "status": "finite community release validation; not comprehensive engine/client acceptance",
+  "status": "content-and-local-delivery-validated",
   "parts": {
-    "skill": "changed: native slot number assignment and desktop restart quick/manual load evidence; full model task not rerun",
-    "installer": "verified-unchanged code in cumulative Beta revision; complete package payload changed",
-    "human_manual": "changed"
+    "skill": "changed",
+    "installer_code": "verified-unchanged",
+    "installer_explanation": "changed",
+    "human_manual": "changed",
+    "missing": []
   },
-  "candidate_groups": {
-    "codex_existing_paths": {
-      "cases": 21,
-      "environments": [
-        "Windows PowerShell 5.1",
-        "PowerShell 7"
-      ],
-      "executions_passed": 42,
-      "failed": 0
-    },
-    "backend_warning_results": {
-      "passed": 10,
-      "failed": 0
-    },
-    "feedback_components": {
-      "passed": 23,
-      "failed": 0
-    },
-    "minimum_layout_final_r2": {
-      "passed": 12,
-      "failed": 0
-    },
-    "final_complete_bundle_upgrade": {
-      "passed": 19,
-      "failed": 0,
-      "backend_calls": 5
-    },
-    "installation_path_explanation_layout": {
-      "passed": 12,
-      "failed": 0,
-      "window": "680x560",
-      "powershell": "5.1.26100.9444",
-      "xaml_sha256": "0d0f62392dbd4514e950a9c1934e12f3ca745e46d2d8454df795fcdea4a993d3",
-      "scope": "Current explanatory text; repeated existing WPF layout group. No backend calls, OS mouse, directory picker or scaling acceptance."
-    }
-  },
-  "installed_0.1.4_supplement": {
-    "discovery": {
-      "status": "passed",
-      "method": "official skills/list(forceReload=true)",
-      "cwd_count": 2,
-      "unique_enabled_user_entry": true,
-      "source_path_injection": false
-    },
-    "real_model_task": {
-      "status": "passed",
-      "exit_code": 0,
-      "turn_completed": true,
-      "elapsed_seconds": 618.707,
-      "independent_checks_passed": 29,
-      "independent_checks_failed": 0
-    },
-    "native_beta": {
-      "actual_full_version": "2.3.0-beta.1",
-      "clock_route_and_common_return": "passed",
-      "well_route_and_common_return": "passed",
-      "EndChapter": "Observed final blank viewport at OP6/5 after instruction5; Studio debug UI still says running",
-      "scope": "Generated synthetic chapter from installed skill; two separate runs; finite authoring-to-host chain only",
-      "native_save_note": "Host appended defaults and removed synthetic unknown chapter field; fragment sentinel, IDs, choices and dialogue retained. Original model bytes recovered from isolated history; original three real project source files unchanged."
-    }
-  },
-  "native_installer_0.1.4": {
-    "method": "user-assisted actual native GUI, isolated user home",
-    "import": "passed: user screenshot plus independent all20payload hash and receipt version readback",
-    "check": "user confirmed installation file verification passed",
-    "control_limitation": "WPF PowerShell child absent from official Windows target list even when visible; exact filtering cause UNKNOWN"
-  },
-  "candidate_final_upgrade": "passed: immutable 0.1.4 to complete candidate 0.1.5; exact 21-file backup, personal sentinels, read-only checks, conflict refusal",
-  "historical_0.1.4": {
-    "version": "0.1.4",
+  "scope": "Documentation revision; no new model, native GUI, host runtime or engine-source refresh. Publication/download verified separately in per-release receipts.",
+  "release_criteria": "Usable task guidance, sourced key details, complete distribution, accurate evidence scope; exhaustive engine acceptance is not required",
+  "known_gaps": [
+    "Optional native installer browsing/cancellation/full-flow/scaling coverage",
+    "New0.1.5 generated assignment chapter playback and new0.1.6 model task not performed",
+    "Stable and other Agent full tasks, other Beta/platform coverage",
+    "Unsampled fields/APIs and additional saves/persistence: verify when a concrete task uses them"
+  ],
+  "confirmed_core_release_blockers": [],
+  "historical_0.1.5": {
+    "version": "0.1.5",
     "date": "2026-10-01",
-    "skill_files_audited": 20,
-    "groups": {
-      "installer_and_checker": {
-        "passed": 46,
+    "status": "finite community release validation; not comprehensive engine/client acceptance",
+    "parts": {
+      "skill": "changed: native slot number assignment and desktop restart quick/manual load evidence; full model task not rerun",
+      "installer": "verified-unchanged code in cumulative Beta revision; complete package payload changed",
+      "human_manual": "changed"
+    },
+    "candidate_groups": {
+      "codex_existing_paths": {
+        "cases": 21,
+        "environments": [
+          "Windows PowerShell 5.1",
+          "PowerShell 7"
+        ],
+        "executions_passed": 42,
         "failed": 0
       },
-      "upgrade_from_0.1.3": {
-        "passed": 32,
+      "backend_warning_results": {
+        "passed": 10,
         "failed": 0
       },
-      "version_routing": {
-        "passed": 20,
-        "failed": 0
-      },
-      "authoring_diagnostics": {
-        "passed": 20,
-        "failed": 0
-      },
-      "public_boundary_and_archive": {
+      "feedback_components": {
         "passed": 23,
         "failed": 0
       },
-      "read_only_preflight": {
-        "passed": 62,
+      "minimum_layout_final_r2": {
+        "passed": 12,
         "failed": 0
       },
-      "installer_safety": {
-        "passed": 34,
-        "failed": 0
+      "final_complete_bundle_upgrade": {
+        "passed": 19,
+        "failed": 0,
+        "backend_calls": 5
       },
-      "wpf_component": {
-        "passed": 20,
-        "failed": 0
+      "installation_path_explanation_layout": {
+        "passed": 12,
+        "failed": 0,
+        "window": "680x560",
+        "powershell": "5.1.26100.9444",
+        "xaml_sha256": "0d0f62392dbd4514e950a9c1934e12f3ca745e46d2d8454df795fcdea4a993d3",
+        "scope": "Current explanatory text; repeated existing WPF layout group. No backend calls, OS mouse, directory picker or scaling acceptance."
       }
     },
-    "actual_exe_file_version": "2.3.0-beta.1",
-    "actual_sdk_declared_version": "1.21.0",
-    "actual_sdk_provenance": "UNKNOWN",
-    "actual_sdk_host_compatibility": "not_verified",
-    "native_host": {
-      "bridge_choice_and_return": "passed",
-      "garden_choice_and_return": "passed",
-      "disabled_narration_omitted_from_OP_and_playback": "passed",
-      "same_debug_session_quick_save_load": "passed"
-    },
-    "previous_native_main_cases": {
-      "count": 5,
-      "date": "2026-09-30",
-      "status": "reused finite evidence, not counted as new tests"
-    },
-    "independent_agent_tasks": {
-      "completed": 1,
-      "client": "Codex CLI 0.159.0",
-      "second_invocation": {
+    "installed_0.1.4_supplement": {
+      "discovery": {
+        "status": "passed",
+        "method": "official skills/list(forceReload=true)",
+        "cwd_count": 2,
+        "unique_enabled_user_entry": true,
+        "source_path_injection": false
+      },
+      "real_model_task": {
+        "status": "passed",
         "exit_code": 0,
-        "timed_out": false,
         "turn_completed": true,
-        "elapsed_seconds": 274.134,
-        "independent_checks_passed": 23,
+        "elapsed_seconds": 618.707,
+        "independent_checks_passed": 29,
         "independent_checks_failed": 0
       },
-      "first_invocation": {
-        "independent_checks_passed": 20,
-        "independent_checks_failed": 1,
-        "failure": "Supervisor 900s timeout before final turn completion; not a completed-client pass"
-      },
-      "scope": "Fresh ephemeral Codex CLI explicitly reading candidate Skill, isolated two-choice authoring, preserved fields and UNKNOWN routing; not automatic discovery of installed 0.1.4 or other clients",
-      "public_text": "一次新鲜Codex CLI显式读取候选Skill，完成隔离两分支制作、保留已有字段与UNKNOWN路由，正常返回最终回复，23项独立核对通过。第一次监督超时另记，没有改成通过；本结果不等于安装后自动发现或其他Agent验收。"
-    },
-    "skill_format": "passed",
-    "privacy_audit": "passed",
-    "local_links": "passed",
-    "offline_manual": {
-      "status": "passed",
-      "browser": "Chrome via official connected browser interface",
-      "in_app_browser": "unavailable",
-      "headings": 18,
-      "tables": 8,
-      "code_blocks": 2,
-      "local_links": 16,
-      "whole_page_horizontal_overflow": false,
-      "html_sha256": "e290268198240bc52b545186b911b9e71da95da60d2732525243c7d0d703d234",
-      "scope": "Actual isolated manual page rendering; no native installer acceptance"
-    },
-    "deferred": [
-      "Native installer OS clicking/directory browsing/scaling",
-      "Automatic fresh-session discovery of installed 0.1.4",
-      "Claude Code/DSH complete model tasks; Cursor/Copilot format/path evidence only",
-      "Stable runtime",
-      "Beta standalone player/full restart/export and extension state",
-      "Matching Beta SDK/new feature serialization"
-    ],
-    "initial_failures": "Preflight test HOME name corrected; file-replace safety/component failures diagnosed as constrained runner metadata permissions and verified in ordinary Windows processes without relaxing installer logic or changing ACLs",
-    "scope": "257 independent automated checks, finite native Beta observations and separately reported model-client task; no universal compatibility guarantee"
-  },
-  "known_gaps": [
-    "0.1.5 native installer browse/cancel/check not completed: WPF window absent from official target list; complete import/upgrade/uninstall and scaling also remain gaps",
-    "New0.1.5 model-generated assignment chapter not played; name-only current task is read-only, not full production-to-playback",
-    "Stable runtime",
-    "Claude Code and DSH complete model tasks; Cursor and Copilot format/path evidence only",
-    "Remaining Beta paths: role Tab, web/dialogue/parameterized links, other assignment expressions/types, scene splitting, list item clicks and other SDK APIs",
-    "Other save slots/modes/types, Web restart and long-term extension state; appended history not restored by finite debug/desktop restart loads",
-    "Other Beta versions, Android, Steam and online deployment not tested"
-  ],
-  "installation_path_explanation": {
-    "parts": {
-      "skill": "verified-unchanged",
-      "installer": "changed: explanatory text only",
-      "human_manual": "changed"
-    },
-    "path_and_installation_logic": "verified-unchanged",
-    "native_gui": "not-rerun",
-    "model_task": "not-rerun",
-    "automatic_selection": "Standard paths and known existing Codex entries only; no custom CODEX_HOME or portable/config scanning",
-    "manual_selection": "Agent-configured skills root; appends letsgal-authoring and does not configure discovery roots"
-  },
-  "historical_initial_0.1.5_local_sync": {
-    "status": "passed",
-    "payload_files": 20,
-    "changed": "Skill metadata only",
-    "unchanged_files": 19,
-    "previous_installation_backup_files": 21,
-    "personal_non_installer_files_preserved": 17,
-    "fresh_forced_discovery_cwds": 2,
-    "unique_original_enabled_user_entry": true,
-    "new_model_turn": false
-  },
-  "beta_cumulative_revision": {
-    "date": "2026-10-01",
-    "baseline": [
-      "2.0.0",
-      "2.0.1"
-    ],
-    "announcement_entries": {
-      "2.1.0-beta.1": 6,
-      "2.2.0-beta.1": 6,
-      "2.3.0-beta.1": {
-        "new": 11,
-        "optimizations": 8,
-        "fixes": 7
+      "native_beta": {
+        "actual_full_version": "2.3.0-beta.1",
+        "clock_route_and_common_return": "passed",
+        "well_route_and_common_return": "passed",
+        "EndChapter": "Observed final blank viewport at OP6/5 after instruction5; Studio debug UI still says running",
+        "scope": "Generated synthetic chapter from installed skill; two separate runs; finite authoring-to-host chain only",
+        "native_save_note": "Host appended defaults and removed synthetic unknown chapter field; fragment sentinel, IDs, choices and dialogue retained. Original model bytes recovered from isolated history; original three real project source files unchanged."
       }
     },
-    "total_announcement_entries": 38,
-    "announcements": "fetched from official manifests/history",
-    "all_38_corresponding_feature_runtime_tests": "not_completed",
-    "new_parameter_samples_and_matching_sdk": "UNKNOWN where needed; no SDK prerequisite imposed on UI-only items",
-    "unannounced_finite_observation_rows": 6,
-    "human_finite_observation_rows": 5,
-    "hypothesis_rows": 3,
-    "official_document_scope": "User relayed official answer on 2026-10-01: stable docs only; original answer/link/date not obtained",
-    "new_host_or_model_task": false,
-    "code": "installer and inspector/checker verified-unchanged",
-    "current_local_sync": {
-      "status": "passed",
-      "payload_files": 21,
-      "changed_or_new_files": 6,
-      "unchanged_existing_files": 15,
-      "old_complete_installation_backup_files": 21,
-      "personal_non_installer_files_preserved": 17,
-      "check": "current/read-only",
-      "scope": "Historical cumulative-announcement checkpoint, before the latest four reference edits; not current delivery acceptance"
+    "native_installer_0.1.4": {
+      "method": "user-assisted actual native GUI, isolated user home",
+      "import": "passed: user screenshot plus independent all20payload hash and receipt version readback",
+      "check": "user confirmed installation file verification passed",
+      "control_limitation": "WPF PowerShell child absent from official Windows target list even when visible; exact filtering cause UNKNOWN"
     },
-    "current_official_discovery": {
-      "status": "passed",
-      "cwds": 2,
-      "forceReload": true,
-      "unique_original_enabled_user_entry": true,
-      "new_model_turn": false,
-      "scope": "Historical cumulative-announcement checkpoint, before the latest four reference edits; not current delivery acceptance"
-    },
-    "scope": "Historical announcement整理与同步阶段检查点；后续原生补验结果见 beta_native_20261001。此对象的 new_host_or_model_task 只描述当时阶段。"
-  },
-  "beta_native_20261001": {
-    "host": "Windows FileVersion 2.3.0-beta.1 and native UI",
-    "fixture": "official empty project; synthetic text and original procedural PNGs",
-    "project_json_version_fields": {
-      "version": "1.0.0",
-      "engineVersion": "1.0.0",
-      "semantics": "UNKNOWN; not host evidence"
-    },
-    "card": "native add/text/bold/label system-variable/target A to B saved; debug, Windows and Web B route passed",
-    "scene": "native empty-scene plus two imported layers and real scene-id block; editor/debug/Windows/Web passed",
-    "inline_ui": "native narration link to actual history slot passed in debug; no advance",
-    "inline_method": "native registered zero-parameter method; debug twice and Windows/Web once each append SINGLE,A,B; no advance",
-    "sdk": {
-      "source": "Studio official new-extension initializer",
-      "version": "2.3.0-beta.1",
-      "initialized_files": 30,
-      "host_files_matched": 29,
-      "build": "passed",
-      "history_methods": [
-        "append",
-        "appendBatch"
+    "candidate_final_upgrade": "passed: immutable 0.1.4 to complete candidate 0.1.5; exact 21-file backup, personal sentinels, read-only checks, conflict refusal",
+    "historical_0.1.4": {
+      "version": "0.1.4",
+      "date": "2026-10-01",
+      "skill_files_audited": 20,
+      "groups": {
+        "installer_and_checker": {
+          "passed": 46,
+          "failed": 0
+        },
+        "upgrade_from_0.1.3": {
+          "passed": 32,
+          "failed": 0
+        },
+        "version_routing": {
+          "passed": 20,
+          "failed": 0
+        },
+        "authoring_diagnostics": {
+          "passed": 20,
+          "failed": 0
+        },
+        "public_boundary_and_archive": {
+          "passed": 23,
+          "failed": 0
+        },
+        "read_only_preflight": {
+          "passed": 62,
+          "failed": 0
+        },
+        "installer_safety": {
+          "passed": 34,
+          "failed": 0
+        },
+        "wpf_component": {
+          "passed": 20,
+          "failed": 0
+        }
+      },
+      "actual_exe_file_version": "2.3.0-beta.1",
+      "actual_sdk_declared_version": "1.21.0",
+      "actual_sdk_provenance": "UNKNOWN",
+      "actual_sdk_host_compatibility": "not_verified",
+      "native_host": {
+        "bridge_choice_and_return": "passed",
+        "garden_choice_and_return": "passed",
+        "disabled_narration_omitted_from_OP_and_playback": "passed",
+        "same_debug_session_quick_save_load": "passed"
+      },
+      "previous_native_main_cases": {
+        "count": 5,
+        "date": "2026-09-30",
+        "status": "reused finite evidence, not counted as new tests"
+      },
+      "independent_agent_tasks": {
+        "completed": 1,
+        "client": "Codex CLI 0.159.0",
+        "second_invocation": {
+          "exit_code": 0,
+          "timed_out": false,
+          "turn_completed": true,
+          "elapsed_seconds": 274.134,
+          "independent_checks_passed": 23,
+          "independent_checks_failed": 0
+        },
+        "first_invocation": {
+          "independent_checks_passed": 20,
+          "independent_checks_failed": 1,
+          "failure": "Supervisor 900s timeout before final turn completion; not a completed-client pass"
+        },
+        "scope": "Fresh ephemeral Codex CLI explicitly reading candidate Skill, isolated two-choice authoring, preserved fields and UNKNOWN routing; not automatic discovery of installed 0.1.4 or other clients",
+        "public_text": "一次新鲜Codex CLI显式读取候选Skill，完成隔离两分支制作、保留已有字段与UNKNOWN路由，正常返回最终回复，23项独立核对通过。第一次监督超时另记，没有改成通过；本结果不等于安装后自动发现或其他Agent验收。"
+      },
+      "skill_format": "passed",
+      "privacy_audit": "passed",
+      "local_links": "passed",
+      "offline_manual": {
+        "status": "passed",
+        "browser": "Chrome via official connected browser interface",
+        "in_app_browser": "unavailable",
+        "headings": 18,
+        "tables": 8,
+        "code_blocks": 2,
+        "local_links": 16,
+        "whole_page_horizontal_overflow": false,
+        "html_sha256": "e290268198240bc52b545186b911b9e71da95da60d2732525243c7d0d703d234",
+        "scope": "Actual isolated manual page rendering; no native installer acceptance"
+      },
+      "deferred": [
+        "Native installer OS clicking/directory browsing/scaling",
+        "Automatic fresh-session discovery of installed 0.1.4",
+        "Claude Code/DSH complete model tasks; Cursor/Copilot format/path evidence only",
+        "Stable runtime",
+        "Beta standalone player/full restart/export and extension state",
+        "Matching Beta SDK/new feature serialization"
       ],
-      "only_history_text_field_runtime_tested": true
+      "initial_failures": "Preflight test HOME name corrected; file-replace safety/component failures diagnosed as constrained runner metadata permissions and verified in ordinary Windows processes without relaxing installer logic or changing ACLs",
+      "scope": "257 independent automated checks, finite native Beta observations and separately reported model-client task; no universal compatibility guarantee"
     },
-    "same_session_quickload": "position restored and six appended entries still present; not persistence proof",
-    "studio_restart_quickload": "position restored; zero of earlier six appended entries restored; subsequent method call appended three",
-    "exports": "native build Windows x64 and Web; both outputs and ZIPs generated; each player ran scene/method/B route",
-    "new_model_turn": false,
-    "external_publication": false,
-    "all_38_feature_acceptance": false,
-    "parts": {
-      "skill": "changed",
-      "installer_code": "verified-unchanged",
-      "installer_distribution": "changed",
-      "human_manual": "changed"
-    }
-  },
-  "beta_followup_20261001": {
-    "host": "Windows actual2.3.0-beta.1",
-    "fixture": "isolated synthetic copy; original fixture/exports preserved",
-    "native_variable": {
-      "name": "BETA_SCORE",
-      "type": "number",
-      "defaultValue": 0,
-      "persistence": "slot",
-      "startup_reset": false
-    },
-    "choice_assignment": "actual native modevars/save, debug click and new desktop click yielded42",
-    "mode_switch": "native vars replaces jump fragmentId; combined assignment/jump not tested",
-    "desktop_quickload_restart": "PASS: position/value42/scene",
-    "desktop_slot1_restart": "PASS: position/value42/scene after another complete process exit",
-    "history": "0 of original3 appended markers restored in both cases; natural3 dialogue entries visible",
-    "desktop_zip": {
-      "files": 158,
-      "crc": "PASS",
-      "all_bytes_match_raw_output": true
-    },
-    "model_task": false,
-    "all_Beta_acceptance": false,
-    "external_publication": false,
-    "native_installer": {
-      "status": "not_completed",
-      "actual_window_visible": true,
-      "official_target_window": "not found",
-      "user_authorized_assistant_clicks": true,
-      "no_test_result_credited": true
-    }
-  },
-  "historical_status_consistency_review_20261001": {
-    "native_serialization_checker": [
-      {
-        "fixture": "first native",
-        "errors": 0,
-        "warnings": 2
+    "known_gaps": [
+      "0.1.5 native installer browse/cancel/check not completed: WPF window absent from official target list; complete import/upgrade/uninstall and scaling also remain gaps",
+      "New0.1.5 model-generated assignment chapter not played; name-only current task is read-only, not full production-to-playback",
+      "Stable runtime",
+      "Claude Code and DSH complete model tasks; Cursor and Copilot format/path evidence only",
+      "Remaining Beta paths: role Tab, web/dialogue/parameterized links, other assignment expressions/types, scene splitting, list item clicks and other SDK APIs",
+      "Other save slots/modes/types, Web restart and long-term extension state; appended history not restored by finite debug/desktop restart loads",
+      "Other Beta versions, Android, Steam and online deployment not tested"
+    ],
+    "installation_path_explanation": {
+      "parts": {
+        "skill": "verified-unchanged",
+        "installer": "changed: explanatory text only",
+        "human_manual": "changed"
       },
-      {
-        "fixture": "assignment followup",
-        "errors": 0,
-        "warnings": 3
+      "path_and_installation_logic": "verified-unchanged",
+      "native_gui": "not-rerun",
+      "model_task": "not-rerun",
+      "automatic_selection": "Standard paths and known existing Codex entries only; no custom CODEX_HOME or portable/config scanning",
+      "manual_selection": "Agent-configured skills root; appends letsgal-authoring and does not configure discovery roots"
+    },
+    "historical_initial_0.1.5_local_sync": {
+      "status": "passed",
+      "payload_files": 20,
+      "changed": "Skill metadata only",
+      "unchanged_files": 19,
+      "previous_installation_backup_files": 21,
+      "personal_non_installer_files_preserved": 17,
+      "fresh_forced_discovery_cwds": 2,
+      "unique_original_enabled_user_entry": true,
+      "new_model_turn": false
+    },
+    "beta_cumulative_revision": {
+      "date": "2026-10-01",
+      "baseline": [
+        "2.0.0",
+        "2.0.1"
+      ],
+      "announcement_entries": {
+        "2.1.0-beta.1": 6,
+        "2.2.0-beta.1": 6,
+        "2.3.0-beta.1": {
+          "new": 11,
+          "optimizations": 8,
+          "fixes": 7
+        }
+      },
+      "total_announcement_entries": 38,
+      "announcements": "fetched from official manifests/history",
+      "all_38_corresponding_feature_runtime_tests": "not_completed",
+      "new_parameter_samples_and_matching_sdk": "UNKNOWN where needed; no SDK prerequisite imposed on UI-only items",
+      "unannounced_finite_observation_rows": 6,
+      "human_finite_observation_rows": 5,
+      "hypothesis_rows": 3,
+      "official_document_scope": "User relayed official answer on 2026-10-01: stable docs only; original answer/link/date not obtained",
+      "new_host_or_model_task": false,
+      "code": "installer and inspector/checker verified-unchanged",
+      "current_local_sync": {
+        "status": "passed",
+        "payload_files": 21,
+        "changed_or_new_files": 6,
+        "unchanged_existing_files": 15,
+        "old_complete_installation_backup_files": 21,
+        "personal_non_installer_files_preserved": 17,
+        "check": "current/read-only",
+        "scope": "Historical cumulative-announcement checkpoint, before the latest four reference edits; not current delivery acceptance"
+      },
+      "current_official_discovery": {
+        "status": "passed",
+        "cwds": 2,
+        "forceReload": true,
+        "unique_original_enabled_user_entry": true,
+        "new_model_turn": false,
+        "scope": "Historical cumulative-announcement checkpoint, before the latest four reference edits; not current delivery acceptance"
+      },
+      "scope": "Historical announcement整理与同步阶段检查点；后续原生补验结果见 beta_native_20261001。此对象的 new_host_or_model_task 只描述当时阶段。"
+    },
+    "beta_native_20261001": {
+      "host": "Windows FileVersion 2.3.0-beta.1 and native UI",
+      "fixture": "official empty project; synthetic text and original procedural PNGs",
+      "project_json_version_fields": {
+        "version": "1.0.0",
+        "engineVersion": "1.0.0",
+        "semantics": "UNKNOWN; not host evidence"
+      },
+      "card": "native add/text/bold/label system-variable/target A to B saved; debug, Windows and Web B route passed",
+      "scene": "native empty-scene plus two imported layers and real scene-id block; editor/debug/Windows/Web passed",
+      "inline_ui": "native narration link to actual history slot passed in debug; no advance",
+      "inline_method": "native registered zero-parameter method; debug twice and Windows/Web once each append SINGLE,A,B; no advance",
+      "sdk": {
+        "source": "Studio official new-extension initializer",
+        "version": "2.3.0-beta.1",
+        "initialized_files": 30,
+        "host_files_matched": 29,
+        "build": "passed",
+        "history_methods": [
+          "append",
+          "appendBatch"
+        ],
+        "only_history_text_field_runtime_tested": true
+      },
+      "same_session_quickload": "position restored and six appended entries still present; not persistence proof",
+      "studio_restart_quickload": "position restored; zero of earlier six appended entries restored; subsequent method call appended three",
+      "exports": "native build Windows x64 and Web; both outputs and ZIPs generated; each player ran scene/method/B route",
+      "new_model_turn": false,
+      "external_publication": false,
+      "all_38_feature_acceptance": false,
+      "parts": {
+        "skill": "changed",
+        "installer_code": "verified-unchanged",
+        "installer_distribution": "changed",
+        "human_manual": "changed"
       }
-    ],
-    "exe_beta_reference": "selected",
-    "deliberate_project_conflict": "UNKNOWN",
-    "actual_sdk_declared_version": "2.3.0-beta.1",
-    "sdk_provenance_from_inspector": "UNKNOWN by design; independent official-initializer receipt retained",
-    "new_host_runtime": false,
-    "new_model_task_completed": false,
-    "scope": "Earlier checkpoint before explicit user approval and successful current sync/model acceptance"
-  },
-  "historical_delivery_checkpoint_before_authorization": {
-    "date": "2026-10-01",
-    "status": "unpublished candidate; sync pending",
-    "payload_files": 21,
-    "public_vs_local_different_files": [
-      "references/extensions.md",
-      "references/json.md",
-      "references/versions/beta-2.3.md",
-      "references/versions/beta-differences.md"
-    ],
-    "local_sync": "pending; earlier cumulative revision remains installed",
-    "current_automatic_discovery": "not tested",
-    "model_attempt": "execution environment failed before in-process app-server initialization; no Skill read",
-    "ordinary_user_retry": "not executed; no model acceptance result",
-    "native_scene_attempt": "GetCursorPos access denied after target refresh; no input performed",
-    "native_scene_combined_or_split": "not tested",
-    "parts_this_revision": {
-      "skill": "verified-unchanged",
-      "installer_code": "verified-unchanged",
-      "installer_distribution": "changed",
-      "human_manual": "changed"
-    }
-  },
-  "current_delivery_checkpoint": {
-    "date": "2026-10-01",
-    "status": "finite acceptance complete; external channel results recorded separately",
-    "payload_files": 21,
-    "public_vs_local_different_files": [],
-    "local_sync": "all three physical copies match",
-    "complete_package_backend": "installed; 22 original files byte-exact backup; 26 personal non-installer files preserved",
-    "post_install_check": "current; matches_bundle=true",
-    "official_discovery": "forceReload; two cwds; unique enabled original user entry; no extra roots/config changes",
-    "explicit_candidate_model": {
-      "exit_code": 0,
-      "turn_completed": true,
-      "elapsed_seconds": 170.516,
-      "independent_checks": 22,
-      "static_errors": 0,
-      "static_warnings": 3,
-      "runtime": "not tested"
     },
-    "installed_name_only_read_task": {
-      "exit_code": 0,
-      "turn_completed": true,
-      "elapsed_seconds": 69.125,
-      "independent_checks": 10,
-      "actual_read_files": 5,
-      "scope": "read-only understanding; no production/playback"
+    "beta_followup_20261001": {
+      "host": "Windows actual2.3.0-beta.1",
+      "fixture": "isolated synthetic copy; original fixture/exports preserved",
+      "native_variable": {
+        "name": "BETA_SCORE",
+        "type": "number",
+        "defaultValue": 0,
+        "persistence": "slot",
+        "startup_reset": false
+      },
+      "choice_assignment": "actual native modevars/save, debug click and new desktop click yielded42",
+      "mode_switch": "native vars replaces jump fragmentId; combined assignment/jump not tested",
+      "desktop_quickload_restart": "PASS: position/value42/scene",
+      "desktop_slot1_restart": "PASS: position/value42/scene after another complete process exit",
+      "history": "0 of original3 appended markers restored in both cases; natural3 dialogue entries visible",
+      "desktop_zip": {
+        "files": 158,
+        "crc": "PASS",
+        "all_bytes_match_raw_output": true
+      },
+      "model_task": false,
+      "all_Beta_acceptance": false,
+      "external_publication": false,
+      "native_installer": {
+        "status": "not_completed",
+        "actual_window_visible": true,
+        "official_target_window": "not found",
+        "user_authorized_assistant_clicks": true,
+        "no_test_result_credited": true
+      }
     },
-    "new_host_runtime": false,
-    "native_scene_combined_or_split": "not tested",
-    "native_installer_browse_cancel_check": "not tested; official interface did not list fresh isolated WPF target",
-    "parts_this_phase": {
-      "skill": "verified-unchanged",
-      "installer_code": "verified-unchanged",
-      "installer_distribution": "changed",
-      "human_manual": "changed"
-    }
+    "historical_status_consistency_review_20261001": {
+      "native_serialization_checker": [
+        {
+          "fixture": "first native",
+          "errors": 0,
+          "warnings": 2
+        },
+        {
+          "fixture": "assignment followup",
+          "errors": 0,
+          "warnings": 3
+        }
+      ],
+      "exe_beta_reference": "selected",
+      "deliberate_project_conflict": "UNKNOWN",
+      "actual_sdk_declared_version": "2.3.0-beta.1",
+      "sdk_provenance_from_inspector": "UNKNOWN by design; independent official-initializer receipt retained",
+      "new_host_runtime": false,
+      "new_model_task_completed": false,
+      "scope": "Earlier checkpoint before explicit user approval and successful current sync/model acceptance"
+    },
+    "historical_delivery_checkpoint_before_authorization": {
+      "date": "2026-10-01",
+      "status": "unpublished candidate; sync pending",
+      "payload_files": 21,
+      "public_vs_local_different_files": [
+        "references/extensions.md",
+        "references/json.md",
+        "references/versions/beta-2.3.md",
+        "references/versions/beta-differences.md"
+      ],
+      "local_sync": "pending; earlier cumulative revision remains installed",
+      "current_automatic_discovery": "not tested",
+      "model_attempt": "execution environment failed before in-process app-server initialization; no Skill read",
+      "ordinary_user_retry": "not executed; no model acceptance result",
+      "native_scene_attempt": "GetCursorPos access denied after target refresh; no input performed",
+      "native_scene_combined_or_split": "not tested",
+      "parts_this_revision": {
+        "skill": "verified-unchanged",
+        "installer_code": "verified-unchanged",
+        "installer_distribution": "changed",
+        "human_manual": "changed"
+      }
+    },
+    "current_delivery_checkpoint": {
+      "date": "2026-10-01",
+      "status": "finite acceptance complete; external channel results recorded separately",
+      "payload_files": 21,
+      "public_vs_local_different_files": [],
+      "local_sync": "all three physical copies match",
+      "complete_package_backend": "installed; 22 original files byte-exact backup; 26 personal non-installer files preserved",
+      "post_install_check": "current; matches_bundle=true",
+      "official_discovery": "forceReload; two cwds; unique enabled original user entry; no extra roots/config changes",
+      "explicit_candidate_model": {
+        "exit_code": 0,
+        "turn_completed": true,
+        "elapsed_seconds": 170.516,
+        "independent_checks": 22,
+        "static_errors": 0,
+        "static_warnings": 3,
+        "runtime": "not tested"
+      },
+      "installed_name_only_read_task": {
+        "exit_code": 0,
+        "turn_completed": true,
+        "elapsed_seconds": 69.125,
+        "independent_checks": 10,
+        "actual_read_files": 5,
+        "scope": "read-only understanding; no production/playback"
+      },
+      "new_host_runtime": false,
+      "native_scene_combined_or_split": "not tested",
+      "native_installer_browse_cancel_check": "not tested; official interface did not list fresh isolated WPF target",
+      "parts_this_phase": {
+        "skill": "verified-unchanged",
+        "installer_code": "verified-unchanged",
+        "installer_distribution": "changed",
+        "human_manual": "changed"
+      }
+    },
+    "scope_label": "Historical 0.1.5 development and final acceptance checkpoints, not new 0.1.6 tests"
+  },
+  "current_documentation_checks": {
+    "status": "PASS",
+    "revision": "0.1.6",
+    "markdown_files": 28,
+    "local_links_and_anchors_checked": 138,
+    "manual_headings": 26,
+    "manual_tables": 14,
+    "markdown_html_body_and_links_identical": true,
+    "html_visual": "not newly verified",
+    "beta_announcement_rows": 38,
+    "installer_parameter_names_match": true,
+    "new_model_or_runtime_test": false
+  },
+  "current_local_delivery": {
+    "status": "PASS",
+    "version": "0.1.6",
+    "three_physical_payload_copies": 21,
+    "complete_package_backend_update": true,
+    "prior_installation_backup_files": 22,
+    "personal_files_byte_preserved": 26,
+    "installer_owned_state": "updated by backend; not personal content",
+    "check": {
+      "status": "current",
+      "matches_bundle": true
+    },
+    "discovery_model_native_gui_host": "not rerun in documentation revision",
+    "external_publication_in_local_delivery_task": false
+  },
+  "historical_public_release_baseline": {
+    "version": "0.1.5",
+    "source_commit": "397569da95dfb8f0c09694f00ffc91d7a4d705f6",
+    "anonymous_assets": 4,
+    "source_and_zip_files": 66,
+    "live_refresh_this_revision": false
+  },
+  "external_release_evidence": {
+    "version": "0.1.6",
+    "record": "DOWNLOAD-VERIFICATION-0.1.6.json release attachment",
+    "scope": "Published/downloaded bytes are verified separately from content/runtime checks"
   }
 }
