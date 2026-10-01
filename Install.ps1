@@ -171,13 +171,13 @@ try {
     Write-Host "目标：$target"
     Write-Host "保留个人偏好：$profileFile"
     Write-Host "保留插件资料：$pluginsRoot"
-    if ($Harness -in @('Codex','Cursor','Copilot')) {
-        Write-Host '.agents/skills 是共享目录；同机支持该目录的 AI 工具可能同时发现此技能。'
-    }
+    if ($destination.Note) { Write-Host $destination.Note }
     foreach ($other in @('.agents','.claude','.cursor','.codex','.github','.copilot','.dsh')) {
         $candidate = Join-Path (Join-Path (Join-Path $scopeRoot $other) 'skills') $SkillName
         if ($candidate -ne $target -and (Test-Path -LiteralPath $candidate)) {
-            Write-Warning "Another copy exists at $candidate. It is preserved; verify duplicate discovery in your AI tool."
+            $message = "发现另一份技能：$candidate。已保留；请核对 Agent 实际读取的入口，避免重复调度。"
+            $completionWarnings.Add($message)
+            Write-Warning $message
         }
     }
     # Re-read after taking the install/uninstall lock. Check remains read-only.
@@ -188,7 +188,7 @@ try {
     $clean = $preview.Clean
     $currentMap = $preview.CurrentMap
     if ($Action -eq 'Check') {
-        [ordered]@{action='check';installed=$installed;managed=$managed;unchanged=$clean;target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';installed_version=$preview.InstalledVersion;bundle_version=$preview.BundleVersion;status=$preview.Status;matches_bundle=($preview.Status -eq 'current')} | ConvertTo-Json -Compress
+        [ordered]@{action='check';installed=$installed;managed=$managed;unchanged=$clean;target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';installed_version=$preview.InstalledVersion;bundle_version=$preview.BundleVersion;status=$preview.Status;matches_bundle=($preview.Status -eq 'current');completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
         if (-not $installed -or -not $managed -or -not $clean) { exit 2 }
         exit 0
     }
@@ -255,7 +255,7 @@ try {
     exit 0
 } catch {
     Write-Host ("安装器停止：" + $_.Exception.Message) -ForegroundColor Red
-    @{action='error';message=$_.Exception.Message;requires_backup=$_.Exception.Message.StartsWith('Existing content differs or is unmanaged;')} | ConvertTo-Json -Compress
+    @{action='error';message=$_.Exception.Message;requires_backup=$_.Exception.Message.StartsWith('Existing content differs or is unmanaged;');completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
     exit 1
 } finally {
     if ($operationLock) { $operationLock.Dispose() }

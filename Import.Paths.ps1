@@ -89,6 +89,27 @@ function Resolve-SkillDestination([string]$Harness, [string]$Scope, [string]$Use
         }
     }
     if ($Harness -eq 'Manual') { $skillsRoot = Full-Path $SkillsDirectory; $note = '这里应是 Agent 已配置的 skills 根目录，不包含技能名称。' }
+    elseif ($Harness -eq 'Codex' -and $Scope -eq 'User') {
+        $canonicalSkillsRoot = Join-Path (Join-Path $homeRoot '.agents') 'skills'
+        $legacySkillsRoot = Join-Path (Join-Path $homeRoot '.codex') 'skills'
+        $existing = @{Canonical=$false;Legacy=$false}
+        foreach ($entry in @(@{Name='Canonical';Root=$canonicalSkillsRoot},@{Name='Legacy';Root=$legacySkillsRoot})) {
+            $candidate = Join-Path $entry.Root 'letsgal-authoring'
+            Assert-OrdinaryPath $candidate
+            $item = $null
+            try { $item = Get-Item -LiteralPath $candidate -Force -ErrorAction Stop }
+            catch [System.Management.Automation.ItemNotFoundException] { }
+            if ($null -ne $item) {
+                if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw "Refusing a symlink/junction/reparse path: $candidate" }
+                if (-not $item.PSIsContainer) { throw "已有 Skill 入口不是文件夹，请先核对：$candidate" }
+                $existing[$entry.Name] = $true
+            }
+        }
+        if ($existing.Canonical -and $existing.Legacy) { throw '发现 .agents/skills 和 .codex/skills 两处已有 letsgal-authoring；请选择“其他 / 指定目录”，明确使用哪个 skills 目录，不会自动迁移或复制。' }
+        $skillsRoot = $canonicalSkillsRoot
+        $note = '共用 .agents/skills；支持此目录的其他 Agent 也可能发现它。'
+        if ($existing.Legacy) { $skillsRoot = $legacySkillsRoot; $note = '沿用已有 .codex/skills 入口，更新原技能；不会另建重复入口。' }
+    }
     elseif ($Harness -eq 'DSH' -and $Scope -eq 'User') {
         $info = Get-DshHomeInfo $DshHome $homeRoot
         $resolvedDshHome = $info.Path

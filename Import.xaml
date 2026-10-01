@@ -8,7 +8,19 @@
     <Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/></Style>
   </Window.Resources>
   <DockPanel Margin="28,22">
-    <StackPanel DockPanel.Dock="Top" Margin="0,0,0,20">
+    <StackPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
+      <ProgressBar Name="Progress" Height="3" IsIndeterminate="True" Visibility="Collapsed" Margin="0,0,0,10"/>
+      <Border Name="OperationStatus" Background="#EEF4FF" BorderBrush="#9EB6E7" BorderThickness="1" CornerRadius="7" Padding="12,9" Margin="0,0,0,10">
+        <TextBlock Name="OperationText" Text="等待操作 · 确认目录后导入或检查" FontWeight="SemiBold" AutomationProperties.Name="当前操作状态"/>
+      </Border>
+      <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <TextBlock Name="Footer" Text="个人偏好、插件 Skill 与作品规则独立保存，更新时保留。" VerticalAlignment="Center" Foreground="#506177" Margin="0,0,18,0"/>
+        <Button Name="ImportButton" Grid.Column="1" Content="导入到 Codex" Background="#2257D7" Foreground="White" BorderBrush="#2257D7" FontWeight="SemiBold" MinWidth="180" Margin="0"/>
+      </Grid>
+    </StackPanel>
+    <ScrollViewer Name="ContentScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+      <StackPanel Margin="0,0,6,0">
+        <StackPanel Margin="0,0,0,20">
       <TextBlock Text="LETSGAL  /  COMMUNITY SKILL" FontSize="12" FontWeight="SemiBold" Foreground="#506982"/>
       <TextBlock Text="把制作技能导入你的 AI" FontSize="27" FontWeight="SemiBold" Margin="0,8,0,7"/>
       <TextBlock Text="选择你使用的 Agent，导入后在新会话中调用 letsgal-authoring。" Foreground="#506177"/>
@@ -23,15 +35,6 @@
         </StackPanel>
       </Border>
     </StackPanel>
-    <StackPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
-      <ProgressBar Name="Progress" Height="3" IsIndeterminate="True" Visibility="Collapsed" Margin="0,0,0,10"/>
-      <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-        <TextBlock Name="Footer" Text="个人偏好、插件 Skill 与作品规则独立保存，更新时保留。" VerticalAlignment="Center" Foreground="#506177" Margin="0,0,18,0"/>
-        <Button Name="ImportButton" Grid.Column="1" Content="导入到 Codex" Background="#2257D7" Foreground="White" BorderBrush="#2257D7" FontWeight="SemiBold" MinWidth="180" Margin="0"/>
-      </Grid>
-    </StackPanel>
-    <ScrollViewer Name="ContentScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-      <StackPanel Margin="0,0,6,0">
         <Border Background="White" CornerRadius="12" Padding="22">
           <StackPanel Name="SettingsPanel">
             <TextBlock Text="1  选择 Agent 与导入范围" FontSize="17" FontWeight="SemiBold" Margin="0,0,0,16"/>
@@ -39,6 +42,8 @@
               <StackPanel><TextBlock Text="Agent" Margin="0,0,0,6"/><ComboBox Name="AgentBox" AutomationProperties.Name="选择 Agent"/></StackPanel>
               <StackPanel Grid.Column="2"><TextBlock Text="使用范围" Margin="0,0,0,6"/><ComboBox Name="ScopeBox" AutomationProperties.Name="使用范围"/></StackPanel>
             </Grid>
+            <TextBlock Text="软件装在哪个盘，不决定技能目录。个人模式按运行安装器的 Windows 用户定位标准目录；请使用与 Agent 相同的用户环境。" FontSize="12" Foreground="#506177" Margin="0,9,0,0"/>
+            <TextBlock Text="只给一个工程用可选项目范围。自定义技能目录请选择“其他 Agent / 指定目录”；DSH 可直接选择实际数据文件夹。" FontSize="12" Foreground="#506177" Margin="0,7,0,0"/>
             <StackPanel Name="ProjectPanel" Visibility="Collapsed" Margin="0,16,0,0">
               <TextBlock Text="项目文件夹" Margin="0,0,0,6"/>
               <DockPanel><Button Name="ProjectBrowse" DockPanel.Dock="Right" Content="浏览…" Margin="10,0,0,0"/><TextBox Name="ProjectBox" AutomationProperties.Name="项目文件夹"/></DockPanel>
@@ -51,6 +56,7 @@
             <StackPanel Name="ManualPanel" Visibility="Collapsed" Margin="0,16,0,0">
               <TextBlock Text="Agent 的 skills 根目录（不含技能名称）" Margin="0,0,0,6"/>
               <DockPanel><Button Name="ManualBrowse" DockPanel.Dock="Right" Content="浏览…" Margin="10,0,0,0"/><TextBox Name="ManualBox" AutomationProperties.Name="自选 skills 目录"/></DockPanel>
+              <TextBlock Text="选择 Agent 已配置的 skills 文件夹，不选软件安装文件夹或末级 letsgal-authoring。安装器会追加技能名称，但不会替你配置 Agent 的读取目录。" FontSize="12" Foreground="#506177" Margin="0,7,0,0"/>
             </StackPanel>
             <TextBlock Text="2  确认导入位置" FontSize="17" FontWeight="SemiBold" Margin="0,23,0,10"/>
             <Border Background="#EEF4FF" CornerRadius="7" Padding="13">

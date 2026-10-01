@@ -60,6 +60,7 @@
     "skills/letsgal-authoring/scripts/inspect_version.py",
     "skills/letsgal-authoring/references/versions/stable-2.0.md",
     "skills/letsgal-authoring/references/versions/beta-2.3.md",
+    "skills/letsgal-authoring/references/versions/beta-differences.md",
     "maintenance/run_version_checks.py",
     "AUDIT.md",
     "maintenance/run_authoring_checks.py",

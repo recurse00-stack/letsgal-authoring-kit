@@ -2,7 +2,7 @@
 name: letsgal-authoring
 description: 在 LetsGal Studio 工程中制作剧情、分支、章节 JSON、变量、素材与扩展，排查格式和流程，并维护相关插件 Skill。依据目标工程、宿主版本、官方文档及实际样本工作；不把一般创作讨论自动升级为工程修改。
 metadata:
-  version: 0.1.4
+  version: 0.1.5
 ---
 
 # LetsGal 创作与维护
@@ -15,6 +15,7 @@ metadata:
 - 按[本地定制](references/customization.md)读取实际用户主目录的 `.letsgal-authoring/preferences/user.md`，兼容旧 `user.md`；读取工程已有 `LETSGAL.md`。具体工程选择优先于个人一般偏好；用户当前要求优先。缺少这些文件可以直接工作，不强制新建体系。
 - 写版本相关字段或代码前，按[版本与证据](references/version-compatibility.md)核对实际 Studio 完整版本、通道、工程调度及相关 SDK。可用 `scripts/inspect_version.py` 选择资料；版本缺失或冲突保留 UNKNOWN，继续无版本依赖的工作。不得把本机 Beta 设成其他项目默认。
 - 按[官方资料查找](references/research.md)查到具体字段与行为。当前网页不是所有旧版本的保证，官方页面之间也可能冲突；先保留原结构和未知字段，不能用一个未核实示例批量“修复”作品。
+- Beta 任务按[累计差异与证据状态](references/versions/beta-differences.md)定位相关公告：正式版文档作基础，目标 Beta 的样本／SDK 与实际运行分别补证。官方公告、有限实测和待验证推断分开；没有依据的参数不写入，已有基础剧情测试不替代新增功能验收。
 
 ## 按任务读取
 

@@ -6,6 +6,8 @@
 
 稳定版、Beta 与旧版的判断按 [版本兼容](version-compatibility.md) 执行。查到较新的字段或接口时，先查该功能适用版本；不能把最新网页完整移植进旧工程。
 
+据用户于2026-10-01转述官方答复，官网文档只更新正式版，Beta尚未同步；答复原文与可引用官方链接未取得。查Beta时采用“正式版资料基线＋完整Beta版本差异”，按[累计公告清单](versions/beta-differences.md)区分官方公告、已确认样本／SDK、有限实测和待验证线索。单用Beta观察不能证明正式版文档错误；页面之间的文字冲突单独记录。
+
 1. 在目标工程找到同类、已能工作的内容样本，确定真实文件位置和引用对象。
 2. 查 [官方文档首页](https://docs.avg-engine.com/) 的导航或站内搜索。`/llms.txt` 只是便利入口；失效时改走页面导航或定向搜索，不停在 404。
 3. 搜索示例：`site:docs.avg-engine.com 选项 分支`、`site:docs.avg-engine.com 剧本 JSON <指令名>`、`site:docs.avg-engine.com extensions <API名>`。打开结果正文核实，不能只凭搜索摘要写代码。

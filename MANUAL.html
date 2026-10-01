@@ -1,8 +1,8 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LetsGal Authoring Kit 0.1.4 使用手册</title><style>body{max-width:960px;margin:36px auto;padding:0 20px;font:17px/1.75 system-ui,sans-serif;color:#243044;background:#fafbfc}h1,h2,h3{color:#12233e}a{color:#1556aa}table{border-collapse:collapse;width:100%;margin:20px 0}td,th{border:1px solid #ccd4df;padding:8px;text-align:left}th{background:#edf2f8}pre{overflow:auto;padding:16px;background:#eaf0f6;border-radius:8px}code{font-family:Consolas,monospace}blockquote{border-left:4px solid #7aa0cc;margin:16px 0;padding:4px 16px;background:#f0f5fa}</style></head><body><h1 id="_1">使用手册</h1>
-<p>版本 <strong>0.1.4</strong>。可直接打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读与浏览器搜索。</p>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LetsGal Authoring Kit 0.1.5 候选 使用手册</title><style>body{max-width:960px;margin:36px auto;padding:0 20px;font:17px/1.75 system-ui,sans-serif;color:#243044;background:#fafbfc}h1,h2,h3{color:#12233e}a{color:#1556aa}table{border-collapse:collapse;width:100%;margin:20px 0}td,th{border:1px solid #ccd4df;padding:8px;text-align:left}th{background:#edf2f8}pre{overflow:auto;padding:16px;background:#eaf0f6;border-radius:8px}code{font-family:Consolas,monospace}blockquote{border-left:4px solid #7aa0cc;margin:16px 0;padding:4px 16px;background:#f0f5fa}</style></head><body><h1 id="_1">使用手册</h1>
+<p>本手册对应 <strong>0.1.5</strong>；具体已发布版本与下载附件以 GitHub Releases 为准。可直接打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读与浏览器搜索。</p>
 <h2 id="_2">这个包能做什么</h2>
 <p><code>letsgal-authoring</code> 是给 AI 编程工具读取的社区 Skill。它教 AI 查找 LetsGal 官方规范、制作剧情与章节 JSON、组织协作和 Git，并保护已有作品。它不包含引擎、模型账号或 MCP，也不会给聊天工具凭空增加文件访问能力。</p>
-<p>导入器只导入本包的 LetsGal Skill；“其他 Agent”表示选择另一个工具的技能目录，不是导入任意第三方 Skill。</p>
+<p>导入器只导入本包的 LetsGal Skill；“其他 Agent / 指定目录”用于选择 Agent 已配置的技能根目录，不是导入任意第三方 Skill。</p>
 <p>第一次使用可依次阅读安装、工程版本、选择练习及字段说明，再查工具参数、排错和升级。Beta 专项与插件开发按当前任务需要阅读。</p>
 <h2 id="_3">安装与启用前：避免同类技能冲突</h2>
 <p>建议安装或启用本技能前，在 Agent 的技能设置中暂时停用其他功能重叠的 LetsGal／引擎创作类 Skill，避免重复触发、相互矛盾的指令和额外上下文开销影响执行效果。也请核对个人与工程范围是否装了多个同名副本。保留原文件及特调；由你决定停用哪一份，安装器不会自动禁用或删除其他 Skill。</p>
@@ -16,10 +16,75 @@
 <ol>
 <li>从社区提供的 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases">GitHub Releases</a> 下载 <code>letsgal-authoring-kit-&lt;版本&gt;.zip</code>，完整解压后可交给 Agent 按本手册协助安装。不要只下载 <code>Install.cmd</code>，也不要直接在压缩包中运行。</li>
 <li>双击 <code>Install.cmd</code>，选择实际使用的 Agent。一般保留“个人 · 所有项目”；只给一个作品用时选择“项目 · 仅此工程”，再浏览项目文件夹。</li>
-<li>检查蓝色预览区域中的安装位置、本包版本、已安装版本及状态；确定是你实际使用的 Agent 和范围后，点击“导入到 …”。导入完成后点击“复制验证提示词”。</li>
-<li>在 Agent 中打开作品目录，建立新会话并粘贴提示。核对它实际读取的 Skill 路径，而不只看一句“已加载”。</li>
+<li>检查蓝色预览区域中的安装位置、本包版本、已安装版本及状态；确定是你实际使用的 Agent 和范围后，点击“导入到 …”。窗口底部的固定状态栏会显示正在处理以及完成结果，无需在长页面里寻找反馈。</li>
+<li>看到“导入完成”后，可展开“更多选项”点击“检查安装”。底部显示“检查安装 · 校验通过”（结果框标题为“安装文件校验通过”）后，点击“复制验证提示词”；在 Agent 中打开作品目录，建立新会话并粘贴。核对它实际读取的 Skill 路径，而不只看一句“已加载”。</li>
 </ol>
 <p>普通导入使用 Windows 自带 PowerShell，不要求 Python、Node 或管理员权限。可选 JSON 检查器与版本资料工具需要 Python 3.9+。macOS／Linux、WSL 和远程环境请按 <a href="COMPATIBILITY.md">兼容表</a> 手动复制到实际运行 Agent 的环境。</p>
+<h3 id="_6">安装位置怎样选择</h3>
+<p><strong>软件安装文件夹和技能目录是两回事。</strong> 把 Agent 或 LetsGal 装在 D／E 盘，不会自动把技能目录改到该盘；技能应放到 Agent 实际会读取的位置，通常不在程序文件夹内。</p>
+<p>发行包没有绑定作者的本机用户名或绝对路径。Windows 安装器按运行它的用户主目录解析标准位置；请与 Agent 使用同一用户／环境，并核对预览。下表中的 <code>~</code> 指该环境的用户主目录；便携、WSL、容器或远程环境应核对其真实位置，并按对应手动说明安装。</p>
+<table>
+<thead>
+<tr>
+<th>需要</th>
+<th>界面选择</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Codex 个人安装／更新</td>
+<td>选 Codex 和“个人 · 所有项目”；唯一已有 <code>.codex/skills/letsgal-authoring</code> 时沿用旧入口，唯一已有 <code>.agents/skills/letsgal-authoring</code> 时沿用它，全新默认 <code>~/.agents/skills</code></td>
+</tr>
+<tr>
+<td>Codex 两处都有同名 Skill</td>
+<td>自动选择停止；先核对实际加载来源，再选“其他 Agent / 指定目录”，明确使用其中一个 <code>skills</code> 根目录；原副本保留</td>
+</tr>
+<tr>
+<td>仅某个作品使用</td>
+<td>选对应 Agent 和“项目 · 仅此工程”，用“浏览…”选择或填写工程文件夹</td>
+</tr>
+<tr>
+<td>自定义技能位置</td>
+<td>选“其他 Agent / 指定目录”，浏览或粘贴该 Agent 已配置的 <code>skills</code> 根目录；不要选择末级 <code>letsgal-authoring</code> 文件夹</td>
+</tr>
+</tbody>
+</table>
+<p>安装器会在所选 <code>skills</code> 根目录下追加 <code>letsgal-authoring</code>。自选目录不修改 Agent 的发现配置；若该位置尚未配置，先按 Agent 官方说明配置，再安装并验证。个人偏好与插件 Skill 仍保存在实际用户区，选项目或自定义技能根不会把它们打进公共 Skill。</p>
+<p>只更改软件安装位置、仍使用标准技能目录时，选择对应 Agent 的个人模式即可。安装器只按上表规则和已有入口定位；不会扫描所有磁盘或读取 Agent 配置来寻找便携版、迁移数据目录或自定义 <code>CODEX_HOME</code>。软件另设了技能目录时，按以下步骤手动选择：</p>
+<ol>
+<li>确认 Agent 已配置的技能根目录。例如 <code>&lt;自定义数据目录&gt;/skills</code>，尖括号内容替换为你的实际目录，这不是默认值。</li>
+<li>选“其他 Agent / 指定目录”，点击“浏览…”或粘贴这个 <code>skills</code> 文件夹；不要选软件安装文件夹，也不要再选末级 <code>letsgal-authoring</code>。</li>
+<li>核对预览显示 <code>&lt;自定义数据目录&gt;/skills/letsgal-authoring</code> 后导入；检查文件，再打开 Agent 新会话核对实际读取路径。</li>
+</ol>
+<p>DSH 可在其专用选项内直接选择实际数据文件夹。首次默认取安装器进程的 <code>DSH_HOME</code>，未设时为 <code>~/.dsh</code>；之后恢复上次成功选择。这个默认值不表示识别到了运行中的 DSH，启动器或提供器另设的数据目录须手动核对。</p>
+<h3 id="_7">检查结果在哪里</h3>
+<p>“检查安装”位于“更多选项”内，展开即可点击。操作期间底部固定状态栏显示正在处理，结束后显示明确结果；页面结果框和中文详情同步更新。</p>
+<table>
+<thead>
+<tr>
+<th>操作结果</th>
+<th>含义与下一步</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>导入完成</td>
+<td>Skill 文件已安装；核对实际目录，再检查文件及新会话加载</td>
+</tr>
+<tr>
+<td>安装文件校验通过</td>
+<td>已装文件校验通过；详情说明已装／本包版本及是否一致，不代表 AI 已加载</td>
+</tr>
+<tr>
+<td>需备份</td>
+<td>已有内容需要保全；先比较，再决定是否“备份后继续”</td>
+</tr>
+<tr>
+<td>操作失败</td>
+<td>查看中文详情中的原因和路径；核对目录与权限后处理，不反复强制覆盖</td>
+</tr>
+</tbody>
+</table>
 <p>DSH：选择其数据文件夹，默认通常为 <code>~/.dsh</code>。如果启动器另设 DSH_HOME 或数据已迁移，浏览选择实际位置，不选程序安装文件夹。导入器会记住成功选择；它不会读取账号配置、改预设或重启 DSH。发现不到技能时检查默认技能根是否启用。</p>
 <table>
 <thead>
@@ -49,16 +114,23 @@
 </table>
 <p>版本与状态只表示 Skill 文件和安装目标，不代表 AI 已调用它，也不代表 LetsGal 作品通过运行验收。已装版本无法识别时按未知处理，不能把它当成较旧版本直接覆盖。</p>
 <p>安装位置若与本包来源、个人配置等受保护位置重叠，预览会提前拒绝，包括同一目录及目录互相包含。把完整解压包放在与实际技能目录分开的普通文件夹，再核对目标；不要通过删除个人区或修改保护规则来绕过。此处没有新增安装器原生操作截图，界面操作的本轮验证范围见 <a href="VALIDATION.md">VALIDATION.md</a>。</p>
-<h2 id="_6">当前验证范围</h2>
-<p>本版257项自动化检查、实际Codex任务范围和有限原生宿主结果见<a href="VALIDATION.md">验证报告</a>。实际2.3.0-beta.1已观察两条示例路线、一个禁用旁白、同一调试会话快存快读，并沿用上一轮五个main／循环用例；这些不是完整宿主验收。原生安装点击／缩放、Stable运行、Beta全新启动／导出、其他Agent完整任务及新版自动发现仍有未完成项。请先在副本尝试。</p>
-<h2 id="_7">先明确工程版本</h2>
+<h2 id="_8">当前候选与历史检查点</h2>
+<p>2026-10-01最终交付核对：最新四份参考资料已按原绑定同步，公共源码／自用维护／原Codex加载副本21个载荷文件逐字节一致。完整包后端安装备份了全部22个旧安装文件，26个非安装器个人文件保留；安装后Check返回current、matches_bundle=true。官方app-server在两个目录强制刷新，均发现唯一启用的原用户入口；未添加发现根或改用户配置。版本号相同不能替代逐文件校验。</p>
+<p>当前候选显式制作任务正常结束，170.516秒、exit 0、turn.completed，独立22项核对通过：只改空白副本main，两个选项以原生vars字面量样本分别设为42／7；ID、未知字段、变量声明与其他26个原文件保留。只读检查0错误／3警告，实际EXE路由为2.3.0-beta.1，故意版本冲突返回UNKNOWN，任务SDK仍UNKNOWN。新章节尚未实际播放，此结果是有限制作与资料路由验收。</p>
+<p>另以技能名调用原安装入口完成69.125秒只读任务，独立10项核对通过；执行记录证明实际读取入口及四份最新资料，正确说明字符串aLit、追加历史不自动恢复和版本／SDK证据边界。它证明当前安装资料被模型读取，不是完整制作到播放验收。较早累计公告、0.1.4制作到播放及失败尝试仍按原检查点记录，不能替代当前结果。渠道发布与匿名下载另见GitHub和发行附件。</p>
+<h2 id="_9">当前验证范围</h2>
+<p>0.1.4 已有257项自动化检查及有限原生Beta证据，不重计为0.1.5结果。2026-10-01补验：新鲜官方Codex app-server在两个工作目录发现唯一启用的原用户入口；仅以技能名运行的真实Codex CLI任务618.707秒正常结束，退出码0、最终事件<code>turn.completed</code>，独立29项核对通过。该结果针对已安装0.1.4的最小制作链，不是0.1.5候选安装后的模型验证。详细结果见<a href="VALIDATION.md">验证报告</a>。</p>
+<p>本次模型新生成的合成章节已在实际2.3.0-beta.1分别从main入口独立播放两条路线：开场 → 选择钟楼／水井 → 各自旁白 → 公共返回文字；钟楼及水井桶绳／青苔画面对应的旁白均正确。推进到<code>endChapter</code>后调试进度由OP5变为OP6/5、画面空白，但Studio仍显示运行中。这是已安装0.1.4从自动发现、模型制作到有限Beta播放的验证；不代表应用自动关闭、完整调试终态或所有功能通过。</p>
+<p>0.1.5候选安装界面的布局组件12项检查通过，覆盖680×560窗口下的折叠、风险全文展开及滚动：设置可达，底部反馈固定显示。追加安装位置说明后，对当前界面重新运行同一组12项检查通过；两次证据分别记录，组件结果不替代操作系统原生点击、浏览目录和缩放实测。</p>
+<p>此前实际2.3.0-beta.1已观察石桥／花园两条示例路线、一个禁用旁白、同一调试会话快存快读，另有2026-09-30五个main／循环用例。本轮另补原生卡片／场景／行内链接、官方配套SDK历史方法、Studio重启快读及Windows／Web导出有限播放，见下文新表。桌面一个slot数值变量、快存及普通槽位的跨进程恢复已补验；0.1.5安装界面完整操作与缩放、当前候选完整模型任务、Stable、剩余Beta功能、其他持久状态和其他Agent仍待验；各项按记录分别判断。请先在副本尝试。</p>
+<h2 id="_10">先明确工程版本</h2>
 <p>同一个 Skill 可以服务稳定版、Beta 和旧工程，但每个项目须按自己的实际版本工作。不要安装两个同名 Skill 来区分通道，也不要因为技能包版本带 preview 就切换引擎到 Beta。</p>
 <p>在第一次任务中告诉 AI：</p>
 <blockquote>
 <p>使用 letsgal-authoring。先核对本作品的 Studio 完整版本和稳定／Beta 通道，以及相关 SDK。沿用作品当前版本；不要升级引擎、迁移 JSON 或启用未经确认的新功能。版本不明时只读定位，告诉我当前任务还缺哪项依据。</p>
 </blockquote>
-<p>版本信息可让 AI 写到工程 <code>LETSGAL.md</code>，以后重读沿用。版本与能力无法确认时，可以继续构思、文字草稿和只读查找；不要直接套用新 API。<a href="skills/letsgal-authoring/references/version-compatibility.md">详细兼容规则</a></p>
-<h2 id="_8">从选择练习走完一个最小完整案例</h2>
+<p>实际2.3.0-beta.1官方新建空白工程的 <code>version</code> 和 <code>engineVersion</code> 均为 <code>1.0.0</code>，确切语义尚未确认；不要直接把它们传作宿主版本，也不要为消除冲突自动改值。版本信息可让 AI 写到工程 <code>LETSGAL.md</code>，以后重读沿用。版本与能力无法确认时，可以继续构思、文字草稿和只读查找；不要直接套用新 API。<a href="skills/letsgal-authoring/references/version-compatibility.md">详细兼容规则</a></p>
+<h2 id="_11">从选择练习走完一个最小完整案例</h2>
 <p>随包的<a href="skills/letsgal-authoring/examples/选择练习.json">选择练习</a>包含一个完整章节：main 提问、两个选择、石桥／花园两个结果片段，以及返回 main 后的结束文字。它使用原创合成内容，不依赖角色、图像、音频或变量；宿主加载和两条路线仍需在你的实际版本验证。</p>
 <ol>
 <li>在 Studio 新建官方空白工程，或复制现有工程作为练习副本。确认 AI 当前打开的是这个副本，按前节核对完整宿主版本与通道。</li>
@@ -90,7 +162,7 @@
 <blockquote>
 <p>使用 letsgal-authoring。只在当前练习副本加入包内“选择练习”章节，先核对实际 Studio 版本。重生成章节及片段 ID，并同步选项目标；保留原入口、索引和其他配置。若同名章节已存在，使用新名字。完成后只读检查，告诉我在 Studio 应从哪里预览，以及两项选择的预期文字顺序；未实际预览就明确说明。</p>
 </blockquote>
-<h3 id="_9">本例的必要字段</h3>
+<h3 id="_12">本例的必要字段</h3>
 <p>这些字段帮助你读懂例子；完整结构仍按目标版本保存样本及 <a href="skills/letsgal-authoring/references/json.md">JSON 工作法</a>核对。</p>
 <table>
 <thead>
@@ -148,11 +220,173 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_10">变量与扩展的验证</h2>
+<h2 id="_13">变量与扩展的验证</h2>
 <p>涉及变量时，先列变量 key、类型、初值及保留方式。当前存档随读档恢复，跨存档共享，启动重置另设开关。回标题、读档和预览刷新不是全新启动；启动行为最终用导出游戏观察。<a href="skills/letsgal-authoring/references/production.md">制作流程与变量</a></p>
 <p>扩展开发时区分作者设置与玩家存档，slot／shared／session 各自测试。代码写源码并构建，SDK 通过宿主同步，保持已使用清单 ID；扩展资源是否进入导出包要单独核实。<a href="skills/letsgal-authoring/references/extensions.md">扩展工作法</a></p>
+<h3 id="230-beta1">一个已实测的选择赋值例子（仅2.3.0-beta.1）</h3>
+<ol>
+<li>在选项的“变量操作”面板新建全局项目变量 <code>BETA_SCORE</code>，类型“数值”、初值0，保留方式选“当前存档”，不勾“每次启动重置默认值”。</li>
+<li>选择这个目标变量，运算符用等号，操作数用字面量42。空操作数会显示表达式错误，填好后再保存。</li>
+<li>在分支下方添加旁白 <code>ASSIGN_RESULT_{BETA_SCORE}</code>。从 main 开始调试，实际点击选项，确认结果为 <code>ASSIGN_RESULT_42</code>；编辑器实时预览显示42不能替代这次点击。</li>
+<li>重新构建桌面游戏，在此处快存、另存一个空槽位，退出游戏并确认进程结束。重开后分别快读和读取槽位，核对文字、变量和场景。</li>
+</ol>
+<p>选项“跳转片段”和“变量操作”是该面板的两种模式，切换后保存内容会改变。需要更复杂的赋值／片段流程时另做最小样例，不把此例硬改成同时支持两种动作。扩展追加历史不会自动随本例存档恢复；需要长期保留时，应先验扩展保存／恢复方案。</p>
 <h2 id="23-beta">2.3 Beta 的用法与版本核对</h2>
-<p>不需要换安装方式：下载 <strong>0.1.4 完整 ZIP</strong>，完整解压并运行 <code>Install.cmd</code>，复用原技能目录。不要单独运行摘出的 <code>Install.ps1</code>。资料和工具随同一个主 Skill 安装，预览先核对包版本及已装状态；个人偏好、插件库和旧备份保留。</p>
+<h3 id="beta">正式版到当前 Beta 更新了什么</h3>
+<p>按用户2026-10-01转述的官方答复，官网手册只更新正式版，Beta暂未同步；官方答复原文和可引用链接未取得。因此这里使用正式版文档作基础，并将具体Beta的公告、实测和推断分别说明。</p>
+<table>
+<thead>
+<tr>
+<th>来源版本</th>
+<th>本轮获取的变化</th>
+<th>本包证据状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正式版2.0.0／2.0.1</td>
+<td>正式资料基线；2.0.1的数据集合、资源选择及增量更新修复</td>
+<td>已读取公告，不代表本包完成Stable宿主验收</td>
+</tr>
+<tr>
+<td>2.1.0-beta.1</td>
+<td>立绘预制包、差分调色、复古主题、蓝图分组、对白抖动、存档动画、保存／重载与日常操作修复</td>
+<td>6项顶层公告已获取；新增功能样本和对应行为待验</td>
+</tr>
+<tr>
+<td>2.2.0-beta.1</td>
+<td>网格／部位动画、立绘目录、音轨／分类音量、BGM鉴赏资料、动态界面文案、扩展／数据库／存档及更新修复</td>
+<td>6项顶层公告已获取；字段与有关SDK尚待证据</td>
+</tr>
+<tr>
+<td>2.3.0-beta.1</td>
+<td>皮肤／差分重做、行内超链接、卡内选项、Tab输入、场景创建、Git、导航、列表点击／历史追加及性能／修复</td>
+<td>26项顶层公告已获取；不以普通剧情播放替代这些功能验收</td>
+</tr>
+</tbody>
+</table>
+<p>完整<a href="skills/letsgal-authoring/references/versions/beta-differences.md">38项累计差异清单</a>逐条列出变化和需核对的证据，包含容易漏掉的操作优化及修复。38是公告条目数，一项可以包含多个变化；不是38个已支持新功能。中间版本的编辑方式可能在2.3重做，按当前实际版本使用；获取公告、生成样本、SDK确认和运行通过分别记录。</p>
+<h3 id="_14">官方公告以外，我们实际观察到了什么</h3>
+<p>下表复用2026-09-30／10-01实际Windows <strong>2.3.0-beta.1</strong> 合成工程的记录。本次补写手册没有重新运行这些用例，也不能推广到正式版、其他Beta或所有入口。</p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>已观察到的结果</th>
+<th>使用边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无环普通片段调用main</td>
+<td>A开头 → main文字 → A后续，在原生片段预览中返回</td>
+<td>不把main一律判为损坏；新内容仍推荐普通无环复用片段；其他调用类型／玩家／导出未验</td>
+</tr>
+<tr>
+<td>自调用和回边</td>
+<td>三个循环用例未重复展开，目标UUID保存保留</td>
+<td>一般循环算法及深度UNKNOWN；不能依赖它制作递归或循环菜单</td>
+</tr>
+<tr>
+<td>EndChapter后的界面</td>
+<td>合成章最终空白，OP6/5，Studio仍显示运行中</td>
+<td>不能承诺执行该指令会自动停止调试或关闭窗口</td>
+</tr>
+<tr>
+<td>宿主保存未知字段</td>
+<td>添加默认参数、移除一个章节顶层合成未知字段；该样本的片段字段、ID和剧情保留</td>
+<td>编辑前保全，副本保存后读回；宿主不保证所有未知字段原样保留</td>
+</tr>
+<tr>
+<td>普通路线、禁用和快存快读</td>
+<td>两路线返回公共文字；一个禁用旁白跳过；同调试会话读回石桥文字</td>
+<td>不证明卡内编辑新功能、全部禁用指令、跨重启／导出或扩展存档</td>
+</tr>
+</tbody>
+</table>
+<p>详细限制见<a href="HOST-VALIDATION.md">宿主记录</a>。Beta表现与正式版文档不同，首先记为版本差异待确认；仅凭Beta测试不能断言正式版文档错误。官方页面之间本身的文字冲突可以单独反馈。</p>
+<h2 id="2026-10-01">2026-10-01 首轮原生编辑、重启与导出补验</h2>
+<p>实际 Windows Studio <strong>2.3.0-beta.1</strong>，官方新建空白隔离工程，仅使用原创色块与合成文字。以下是本轮新结果，历史 main／循环用例没有重跑。</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>保存或来源依据</th>
+<th>实际运行与限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>卡内选项</td>
+<td>原生新增、改文字、Ctrl+B 粗体、文案中的 <code>{游玩天数}</code>、把目标 A 改为 B；<code>choices</code> 仍为 JSON 字符串，文案保存 <code>[b]CARD_VAR_{游玩天数}[/b]</code>，目标保存实际片段 ID</td>
+<td>调试、Windows 玩家与 Web 玩家显示粗体 <code>CARD_VAR_0</code> 并进入 B 独有文字；首轮未测选择后赋值、自定义变量或全部样式；本轮补验见后节</td>
+</tr>
+<tr>
+<td>双图层场景</td>
+<td>新建空场景后原生导入两张背景，<code>scenes.json</code> 为 version 2、一个场景两层，章节 scene 指令引用真实场景 ID</td>
+<td>场景编辑器、调试及两个导出玩家均显示蓝色底图与透明橙色叠层；没有测试从背景列表直接创建或分别拆场景、任意层序和全部尺寸</td>
+</tr>
+<tr>
+<td>旁白界面链接</td>
+<td>原生超链接选择“显示界面”，目标为实际系统历史槽 <code>slot:internal.system.history</code></td>
+<td>调试点击打开历史界面且剧情位置不推进；仅这一旁白和界面，没有测试外部网页或角色对白</td>
+</tr>
+<tr>
+<td>旁白方法链接与历史</td>
+<td>原生“调用扩展方法”选择已注册方法；保存 <code>type: method</code>、真实 <code>扩展ID/方法ID</code> 与 <code>paramsJson: "{}"</code>；配套 SDK 来源见下文</td>
+<td>调试两次点击各追加一条 SINGLE 和批次 A、B，同文不自动去重，剧情位置不推进；两个导出玩家各一次点击也显示三条；未测带参数、失效目标或列表项点击</td>
+</tr>
+<tr>
+<td>同会话快存快读</td>
+<td>六条追加历史后快存，推进到选项再快读</td>
+<td>返回原旁白、六条历史仍在；只证明该运行会话的观察，不据此称为历史持久化</td>
+</tr>
+<tr>
+<td>真实重启 Studio 后快读</td>
+<td>关闭应用、重开隔离工程、开始运行并快读同一快存档</td>
+<td>剧情位置恢复，但此前六条追加历史均未恢复；再次点击方法仍追加三条。仅一个调试快存档，不推广到全部存档方式或导出玩家重启</td>
+</tr>
+<tr>
+<td>本地导出</td>
+<td>Studio 构建中心选择 Windows x64 与 Web，原始产物及两份 ZIP 均生成</td>
+<td>Windows 独立进程和本地 Web 页分别播放图层、方法和 B 路线；未测 Android、Steam、线上部署、全部结束行为及玩家持久状态</td>
+</tr>
+</tbody>
+</table>
+<p>官方新建工程的 <code>project.json.version</code> 和 <code>engineVersion</code> 都是 <code>1.0.0</code>，实际 EXE FileVersion 与界面为 <code>2.3.0-beta.1</code>。字段确切语义尚未确认，保留原值；不能将这两个字段直接作为宿主版本。</p>
+<p>配套 SDK 由该版 Studio 官方扩展向导“初始化程序”取得：<code>SDK_VERSION</code> 为 <code>2.3.0-beta.1</code>，清单要求 <code>^2.3.0-beta.1</code>。初始化 SDK 的 30 文件原文保全，其中随当前宿主提供的 29 文件逐项一致；新增探针从源码构建、原生刷新后调用，不手改发行 dist。声明、构建、来源、保存样本与运行分别核对，没有把另一版 SDK 移到本工程。</p>
+<p><code>history.append(entry: HistoryEntry)</code> 与 <code>history.appendBatch(entries: readonly HistoryEntry[])</code> 均返回 void，<code>HistoryEntry.text</code> 必填；本次只用了 text。SDK 说明它们追加当前运行历史，不自动持久化或去重。本次重启结果与此一致，不能直接定性为引擎缺陷。需要保留追加记录的扩展须另外设计保存与恢复，并单独验收；本探针没有实现持久化。空批次、通知次数、可选历史字段、数据列表项点击及其他 SDK 接口仍未测试。</p>
+<p>这些结果仅覆盖注明宿主和合成入口，不代表38项公告完整验收。角色／表情／站位／皮肤 Tab、剩余场景创建路径、链接类别、Stable及其他Beta、其他Agent与当前候选完整模型任务均保留缺口。</p>
+<h3 id="_15">可能成立，但还不能当作用法的线索</h3>
+<table>
+<thead>
+<tr>
+<th>待验证线索</th>
+<th>从哪里推来</th>
+<th>怎样确认</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>branch／if或扩展流也可能允许调用main并返回</td>
+<td>callFragment已有一个无环入口的实测</td>
+<td>分别做无环最小样例，看保存、OP和实际返回；当前UNKNOWN</td>
+</tr>
+<tr>
+<td>循环回边可能被转换阶段抑制</td>
+<td>三个用例没有重复展开</td>
+<td>增加不同图结构及深度用例；目前不能推定普遍算法</td>
+</tr>
+<tr>
+<td>未知字段保留可能随章节／片段对象不同</td>
+<td>一个合成样本的两种对象表现不同</td>
+<td>副本逐对象保存／重开并比对，不拿真实作品试删</td>
+</tr>
+</tbody>
+</table>
+<p>这些是待验证问题，不是新增功能承诺，不提供猜测字段或可直接复制的API。用户要使用其中能力时，先取样并验证需要的那一部分；不要把“可能”写成“已支持”。</p>
+<h3 id="_16">安装与按需使用</h3>
+<p>不需要换安装方式：从发布页下载已发布的完整 ZIP（当前为 <strong>0.1.4</strong>），完整解压并运行 <code>Install.cmd</code>，核对并复用原技能目录。0.1.5 当前是未发布候选。不要单独运行摘出的 <code>Install.ps1</code>。资料和工具随同一个主 Skill 安装，预览先核对包版本及已装状态；个人偏好、插件库和旧备份保留。</p>
 <table>
 <thead>
 <tr>
@@ -179,8 +413,8 @@
 </tr>
 <tr>
 <td>选项卡片</td>
-<td>明确文字、变量操作、样式和目标片段</td>
-<td>每条路线及变量结果一致</td>
+<td>明确文字、文案变量、选择后赋值、样式和目标片段</td>
+<td>文案变量替换与选择后赋值分别验证，每条路线单独观察</td>
 </tr>
 <tr>
 <td>历史追加／列表点击</td>
@@ -212,7 +446,7 @@ python &quot;skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-
 </tr>
 <tr>
 <td><code>--project-version</code></td>
-<td>核对作品已有版本约定，不读取或修改作品</td>
+<td>传入已确认的完整宿主版本约定；不直接复制未经确认的 project.json.version／engineVersion，不读取或修改作品</td>
 </tr>
 <tr>
 <td><code>--channel</code></td>
@@ -233,7 +467,7 @@ python &quot;skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-
 </tbody>
 </table>
 <p>例子中 2.3 Beta 与 Stable 的命令是不同工程的选择，不能将前一个项目的版本沿用到下一个。工具不查询网络、不安装、不迁移。未知未来版本留在通用规则，不能按“更大版本号”假定兼容。</p>
-<h2 id="_11">常见任务怎么提</h2>
+<h2 id="_17">常见任务怎么提</h2>
 <p><strong>制作一个小片段</strong></p>
 <blockquote>
 <p>使用 letsgal-authoring。按现有作品风格，制作一段包含两个选择的剧情。先读工程约定，说明会改哪些章节和变量；只使用当前版本已有的指令，保留稳定 ID。完成后检查两条路线并说明实际预览是否通过。</p>
@@ -296,7 +530,7 @@ python &quot;skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;�
 <blockquote>
 <p>按现有协作方式拆分任务，明确各自可写章节和共享文件的整合者。同一 JSON 不安排同时写入。保留已有 Git 暂存改动，完成后留下简短交接；没有授权不启动额外代理或付费服务。</p>
 </blockquote>
-<h2 id="_12">个人特调放哪里</h2>
+<h2 id="_18">个人特调放哪里</h2>
 <table>
 <thead>
 <tr>
@@ -337,7 +571,7 @@ python &quot;skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;�
 <p>AI 应自动写到 <code>~/.letsgal-authoring/plugins/&lt;插件ID&gt;/&lt;版本&gt;/SKILL.md</code>，并在 <code>plugins/INDEX.md</code> 登记入口。索引按需建立，安装器不填充任何真实插件。用户指定位置优先；无文件权限时交付文件和目标路径，不宣称写入完成。完整流程见 <a href="skills/letsgal-authoring/references/plugin-skills.md">插件 Skill 规范</a>。</p>
 <p>个人偏好和插件知识分开维护。项目 LETSGAL.md 记录实际使用的插件 ID、版本和资料入口，主 Skill 按需读取；有资料不等于已启用。旧作品可以继续读取旧插件版本的 Skill，不自动取最新版本。公共包更新不修改插件资料或插件代码，插件升级后的资料复核由用户发起。</p>
 <p>旧版根目录 user.md 无需搬家：新个人偏好文件不存在时继续使用旧文件，不创建空白配置遮住它；两处都有时，先比较并标出冲突，不能自动覆盖或丢弃旧内容。</p>
-<h2 id="_13">常见问题</h2>
+<h2 id="_19">常见问题</h2>
 <table>
 <thead>
 <tr>
@@ -349,6 +583,18 @@ python &quot;skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;�
 <tr>
 <td>窗口打不开／被系统策略阻止</td>
 <td>确认完整解压；遵循系统策略，按兼容表手动导入，不关闭安全保护</td>
+</tr>
+<tr>
+<td>点击检查后不确定是否完成</td>
+<td>查看窗口底部固定状态栏；处理时显示正在处理，结束后显示“安装文件校验通过”或失败结果；展开详情核对版本和实际目录</td>
+</tr>
+<tr>
+<td>想自己选择导入位置</td>
+<td>选“其他 Agent / 指定目录”，浏览或粘贴已配置的 skills 根目录；只给作品使用时选择项目范围并浏览工程</td>
+</tr>
+<tr>
+<td>Codex 提示两处已有同名 Skill</td>
+<td>先查看新会话的真实加载路径，再指定对应 skills 根；不自动迁移、复制或删除任一原入口</td>
 </tr>
 <tr>
 <td>预览提示路径重叠</td>
@@ -364,7 +610,7 @@ python &quot;skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;�
 </tr>
 <tr>
 <td>DSH 中找不到</td>
-<td>检查 DSH 实例的数据目录、文件系统技能提供器和默认根；特殊根用“其他 Agent”</td>
+<td>检查 DSH 实例的数据目录、文件系统技能提供器和默认根；特殊根用“其他 Agent / 指定目录”</td>
 </tr>
 <tr>
 <td>出现多个同名 Skill</td>
@@ -416,12 +662,60 @@ python &quot;skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;�
 </tr>
 </tbody>
 </table>
-<h2 id="_14">更新、卸载与恢复</h2>
-<p>更新：下载新版完整包，解压到另一个普通目录，再运行 <code>Install.cmd</code>。预览核对本包／已装版本、状态及目标；相同安装位置会校验后更新，当前版本不反复替换。个人偏好、插件 Skill 和项目配置原样保留；缺失目录才创建，已有用户文件不重写。旧 Skill 位于所选 <code>skills</code> 目录旁的 <code>.letsgal-authoring-backups</code>，不会作为第二个 Skill 被发现。升级后打开新会话并重新核对实际加载来源，旧会话中的内容不能作为已使用新版的证据。</p>
+<h2 id="_20">更新、卸载与恢复</h2>
+<p>更新：下载新版完整包，解压到另一个普通目录，再运行 <code>Install.cmd</code>。预览核对本包／已装版本、状态及目标；Codex个人安装沿用唯一已有入口，两处都有时先明确选择，避免另建同名副本。相同安装位置会校验后更新，当前版本不反复替换。个人偏好、插件 Skill 和项目配置原样保留；缺失目录才创建，已有用户文件不重写。旧 Skill 位于所选 <code>skills</code> 目录旁的 <code>.letsgal-authoring-backups</code>，不会作为第二个 Skill 被发现。升级后打开新会话并重新核对实际加载来源，旧会话中的内容不能作为已使用新版的证据。</p>
 <p>如果公共 Skill 被改过，导入器先停止。让 AI 比较原版与改动，将个人部分迁到外部配置；确认后用“备份后继续”。备份保留旧内容，但个人代码改动不会自动合并进新版。不要同时开两个导入窗口更新同一位置。</p>
 <p>卸载：在“更多选项”中选择卸载，或运行 <code>Uninstall.cmd</code>。它将技能移到备份，保留整个用户区（个人偏好、插件 Skill、旧版 user.md）、项目文件与历史备份。</p>
 <p>安装完成时会显示本次旧技能备份路径。日志位于 skills 旁 <code>.letsgal-authoring-backups</code> 的 <code>*-install.json</code>／<code>*-uninstall.json</code>。如果选项或日志保存失败，界面显示“有提示”，保留真实完成结果与旧记录；不要因此删除目录或反复强制覆盖，下次重新核对位置即可。项目内的备份可能带私有特调，提交 Git 前检查排除规则，安装器不修改项目的 .gitignore。</p>
 <p>恢复：先保全当前目录和新增内容，找到结果或安装日志里的准确备份路径，再比较并恢复相应 Skill；不能通过删除所有备份来排错。导入器没有自动清理备份功能。</p>
-<h2 id="_15">验证范围与反馈</h2>
+<h2 id="_21">验证范围与反馈</h2>
 <p>已验证范围及未完成项见 <a href="VALIDATION.md">VALIDATION.md</a>。实际 Agent 会话、LetsGal 预览、导出平台和公开下载需分别验证。</p>
-<p>反馈时提供包版本、Agent／Studio 版本、稳定或 Beta 通道、操作步骤、已脱敏的错误信息。提交日志或截图前遮住用户名、磁盘路径、账号、密钥和作品正文；优先用新建最小示例复现。</p></body></html>
+<p>反馈时提供包版本、Agent／Studio 版本、稳定或 Beta 通道、操作步骤、已脱敏的错误信息。提交日志或截图前遮住用户名、磁盘路径、账号、密钥和作品正文；优先用新建最小示例复现。</p>
+<p>初稿0.1.5曾按原绑定同步并通过两目录官方强制刷新；当时仅元数据变化，未重跑模型。当前候选新增Beta累计差异和证据规则，不能把这项历史发现或模型记录称为当前完整制作验收。新合成章节经实际 Beta 保存后增加默认参数、移除章节顶层合成未知字段；片段未知字段和剧情保持。在副本预览后读回差异，并保留原文，不能用 AI 写入保留字段的结果推定宿主保存保证。</p>
+<p>累计公告整理阶段曾同步原加载入口，21文件一致，并通过两个目录的官方刷新发现。这是早于最新赋值／桌面读档资料的历史检查点；当时4份参考资料尚待同步；最终同步、发现及模型结果见本节开头。个人区与旧候选备份保留；使用新增能力仍按本手册的取样／SDK／运行步骤补证。</p>
+<h2 id="2026-10-01_1">2026-10-01 选择后赋值与桌面跨进程读档</h2>
+<p>继续使用 <strong>Windows Studio 2.3.0-beta.1</strong> 的合成隔离工程副本，保留首轮工程与原导出。以下补验独立于上面的首轮结果，不把旧测试重新累计。</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>原生保存依据与实际结果</th>
+<th>适用范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自定义数值变量</td>
+<td>原生“新建项目变量”创建 <code>BETA_SCORE</code>，数值、默认0、当前存档；未启用每次启动重置。<code>project.variables.json</code> 中 <code>type: number</code>、<code>kind: project</code>、<code>persistence: slot</code></td>
+<td>仅此配置；不推断 shared／session、其他类型或启动重置</td>
+</tr>
+<tr>
+<td>选择后赋值</td>
+<td>在选项面板切到“变量操作”，选择 <code>BETA_SCORE</code>、等号、字面量42。原生保存 <code>mode: vars</code> 和 <code>varOps</code>；调试与新构建的桌面玩家真实点击后均显示 <code>ASSIGN_RESULT_42</code></td>
+<td>文案 <code>{游玩天数}</code> 替换与选择后赋值分别确认；这不是自动生成所有表达式的规范</td>
+</tr>
+<tr>
+<td>模式切换</td>
+<td>原选项从“跳转片段”切到“变量操作”后，保存形式以 <code>varOps</code> 替换 <code>fragmentId</code>；后续旁白在同一 main 中执行</td>
+<td>此原生面板的两种模式互斥；不能据此写成单一选项同时赋值并调用片段</td>
+</tr>
+<tr>
+<td>桌面重启快读</td>
+<td>在赋值后快存，正常退出并核对全部测试玩家进程退出；重开回到开场，再快读</td>
+<td>恢复目标旁白、变量42及双图层场景；一个快存档</td>
+</tr>
+<tr>
+<td>桌面重启槽位读档</td>
+<td>另存空槽位1，再次正常退出全部玩家进程并重开，从原生读档界面读取槽位1</td>
+<td>恢复相同旁白、变量42及场景；一个普通槽位，没有覆盖既有真实存档</td>
+</tr>
+<tr>
+<td>追加历史限制</td>
+<td>保存前方法的一次点击追加三条 SINGLE／A／B；两次重启读档均未恢复这三条。可见三条自然剧情历史，历史界面并非完全空白</td>
+<td>与配套SDK“不自动持久化”声明一致；要保留追加记录须另做扩展保存／恢复验收，不能称本轮已实现</td>
+</tr>
+</tbody>
+</table>
+<p>本轮桌面原始产物与 ZIP 最终均完成；158个文件逐项相同、ZIP CRC通过，运行的是该轮新产物。该文件一致性与实际玩家观察分开记录。受限进程首次启动失败，普通用户可见进程正常运行；不把执行环境失败定性为引擎功能失败。</p>
+<p>仍未覆盖其他变量类型／表达式／持久方式、全部槽位、Web重启、长期扩展状态、Stable与其他Beta、其他Agent及当前候选完整模型任务。有限通过不代表38项公告全部验收。</p>
+<p>本轮原生安装器：完整候选包启动后窗口可见，官方控制接口未返回可定位的WPF窗口，目录浏览／取消／固定检查反馈未完成原生点击。本轮不计通过；既有路径及WPF组件结果只保留原范围。完整导入、升级、卸载与缩放也未新增验收。</p></body></html>

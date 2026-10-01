@@ -26,11 +26,51 @@ $script:prompt = ''
 function Quote-PS([string]$Value) { return "'" + $Value.Replace("'", "''") + "'" }
 function Get-SelectedAgent { return [string]$script:ui.AgentBox.SelectedItem.Tag }
 function Get-SelectedScope { if ($script:ui.ScopeBox.SelectedIndex -eq 1) { return 'Project' }; return 'User' }
+function Set-OperationStatus([string]$Text, [string]$State = 'info') {
+    $script:ui.OperationText.Text = $Text
+    $colors = switch ($State) {
+        'success' { @('#EAF4EF','#74A68B','#1D5739') }
+        'warning' { @('#FFF2DE','#C98D29','#633F06') }
+        'error' { @('#FFF0F0','#C97979','#8A2929') }
+        default { @('#EEF4FF','#9EB6E7','#2257D7') }
+    }
+    $script:ui.OperationStatus.Background = $colors[0]
+    $script:ui.OperationStatus.BorderBrush = $colors[1]
+    $script:ui.OperationText.Foreground = $colors[2]
+}
 function Show-ImportResult([string]$Title, [string]$Body, [bool]$Success) {
     $script:ui.ResultPanel.Visibility = 'Visible'
     $script:ui.ResultPanel.Background = if ($Success) { '#EAF4EF' } else { '#FFF2DE' }
     $script:ui.ResultTitle.Text = $Title
     $script:ui.ResultBody.Text = $Body
+    $status = if ($Success) { 'success' } else { 'error' }
+    $summary = if ($Title -eq '安装文件校验通过') { '检查安装 · 校验通过' } else { $Title }
+    Set-OperationStatus $summary $status
+}
+function Format-ImportDetails($Result, [int]$ExitCode, [string]$Target) {
+    if (-not $Result) {
+        return "后台未返回可识别的结果（退出码 $ExitCode）。请完整解压本包，按 README 的命令行检查或手动安装说明排查。"
+    }
+    $lines = New-Object 'System.Collections.Generic.List[string]'
+    $actionText = switch ($Result.action) {
+        'installed' { '已导入并校验' }; 'already_current' { '已是本包版本' }
+        'check' { '只读检查' }; 'uninstalled_to_backup' { '已移到备份' }
+        'error' { '操作未完成' }; default { '返回结果' }
+    }
+    $lines.Add('操作：' + $actionText)
+    if ($Target) { $lines.Add('目标目录：' + $Target) }
+    foreach ($field in @(@('version','导入版本'),@('installed_version','已安装版本'),@('bundle_version','本包版本'),@('backup','完整备份'),@('message','原因'))) {
+        $property = $Result.PSObject.Properties[$field[0]]
+        if ($property -and $property.Value) { $lines.Add($field[1] + '：' + [string]$property.Value) }
+    }
+    if ($Result.action -eq 'check') {
+        $lines.Add('安装文件：' + $(if ($Result.installed -and $Result.managed -and $Result.unchanged) { '完整，已通过校验' } else { '尚未安装或需要核对文件' }))
+        $lines.Add('与本包：' + $(if ($Result.matches_bundle) { '一致' } else { '不一致；请核对版本及文件' }))
+    }
+    if ($Result.PSObject.Properties['completion_warnings']) {
+        foreach ($warning in $Result.completion_warnings) { if ($warning) { $lines.Add('提示：' + [string]$warning) } }
+    }
+    return ($lines -join "`r`n")
 }
 function Set-PreviewStatus($Preview) {
     $installedDisplay = if ($Preview.InstalledVersion) { $Preview.InstalledVersion } elseif ($Preview.Installed) { '未知' } else { '未安装' }
@@ -56,6 +96,8 @@ function Update-Destination {
     $script:ui.BackupButton.Visibility = 'Collapsed'
     $script:ui.CopyButton.Visibility = 'Collapsed'
     $script:ui.ResultPanel.Visibility = 'Collapsed'
+    $script:ui.LogBox.Text = ''
+    Set-OperationStatus '等待操作 · 确认目录后导入或检查'
     try {
         $area = Resolve-UserArea $UserHome
         $script:ui.ProfileText.Text = '个人偏好：' + $area.Profile
@@ -75,6 +117,7 @@ function Update-Destination {
         $script:ui.ImportButton.IsEnabled = $false
         $script:ui.CheckButton.IsEnabled = $false
         $script:ui.RemoveButton.IsEnabled = $false
+        Set-OperationStatus '无法确认安装位置 · 请核对目录' 'error'
     }
 }
 function Select-Folder($TextBox, [string]$Description) {
@@ -103,11 +146,13 @@ function Start-ImportAction([string]$Action, [bool]$Replace = $false) {
     foreach ($key in $arguments.Keys) { if ($arguments[$key]) { $command += ' -' + $key + ' ' + (Quote-PS $arguments[$key]) } }
     $command += ' -NonInteractive'
     if ($Replace) { $command += ' -ReplaceModified' }
+    # Preserve the backend's exit 2 for a failed read-only check under -EncodedCommand.
+    $command += '; exit $LASTEXITCODE'
     $encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($command))
     $start = New-Object Diagnostics.ProcessStartInfo
     $executable = if ($PSVersionTable.PSEdition -eq 'Core') { 'pwsh.exe' } else { 'powershell.exe' }
     $start.FileName = Join-Path $PSHOME $executable
-    $start.Arguments = '-NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand ' + $encoded
+    $start.Arguments = '-NoLogo -NoProfile -NonInteractive -OutputFormat Text -ExecutionPolicy Bypass -EncodedCommand ' + $encoded
     $start.UseShellExecute = $false
     $start.CreateNoWindow = $true
     $start.WindowStyle = [Diagnostics.ProcessWindowStyle]::Hidden
@@ -125,7 +170,10 @@ function Start-ImportAction([string]$Action, [bool]$Replace = $false) {
         $script:ui.CopyButton.Visibility = 'Collapsed'
         $script:ui.BackupButton.Visibility = 'Collapsed'
         $script:ui.Progress.Visibility = 'Visible'
-        Show-ImportResult '正在处理，请稍候…' '正在校验文件并保留已有配置。' $true
+        $busyTitle = switch ($Action) { 'Check' { '正在检查安装，请稍候…' }; 'Uninstall' { '正在移到备份，请稍候…' }; default { '正在导入，请稍候…' } }
+        if ($Action -eq 'Check') { $script:ui.CheckButton.Content = '正在检查…' }
+        Show-ImportResult $busyTitle '正在校验文件并保留已有配置。' $true
+        Set-OperationStatus $busyTitle
         $script:timer.Start()
     } catch {
         $process.Dispose()
@@ -144,19 +192,24 @@ function Complete-ImportAction {
     $script:ui.SettingsPanel.IsEnabled = $true
     foreach ($name in @('ImportButton','CheckButton','RemoveButton','BackupButton')) { $script:ui[$name].IsEnabled = $true }
     $script:ui.Progress.Visibility = 'Collapsed'
+    $script:ui.CheckButton.Content = '检查安装'
+    $script:ui.Footer.Text = '个人偏好、插件 Skill 与作品规则独立保存，更新时保留。'
     try {
         $preview = Get-InstallPreview -BundleRoot $PSScriptRoot -Destination $script:destination -UserHome $UserHome -ValidateBundle
         Set-PreviewStatus $preview
         $script:ui.RemoveButton.IsEnabled = $preview.Installed
     } catch { $script:ui.VersionText.Text = '检测未完成：' + $_.Exception.Message }
-    $script:ui.LogBox.Text = ($stdout + "`r`n" + $stderr).Trim()
     $result = $null
     foreach ($line in ($stdout -split "`r?`n")) {
         if ($line.TrimStart().StartsWith('{')) { try { $result = $line | ConvertFrom-Json } catch {} }
     }
+    # WinPS may serialize redirected information/warning streams as CLIXML.
+    # Display only structured backend facts instead of opaque XML or guessed encodings.
+    $script:ui.LogBox.Text = Format-ImportDetails $result $exitCode $job.Target
     if ($result -and $result.action -eq 'error' -and $result.requires_backup) {
         Show-ImportResult '发现已有改动，已保留原文件' '此目录的技能被改过，或不是由本包安装。可以先将特调迁到 user.md，再选择“备份后继续”。' $false
         $script:ui.BackupButton.Visibility = 'Visible'
+        Set-OperationStatus '发现已有改动 · 请核对并备份后继续' 'warning'
     } elseif ($exitCode -eq 0 -and $result -and $result.action -in @('installed','already_current','check')) {
         $title = switch ($result.action) { 'installed' { '导入完成' }; 'already_current' { '已经是此包版本' }; 'check' { '安装文件校验通过' } }
         $body = '下一步：建议先停用其他功能重叠的 LetsGal／引擎创作类 Skill，保留原文件与特调，避免调度冲突和额外上下文开销。安装器不会自动停用或删除其他技能。然后打开 Agent 新会话，粘贴验证提示词并核对实际加载路径。'
@@ -178,6 +231,7 @@ function Complete-ImportAction {
         $script:ui.ResultTitle.Text += '（有提示）'
         $script:ui.ResultPanel.Background = '#FFF2DE'
         $script:ui.ResultBody.Text += "`n" + ($result.completion_warnings -join "`n")
+        Set-OperationStatus ($script:ui.ResultTitle.Text + ' · 请查看提示') 'warning'
     }
     $script:window.UpdateLayout()
     $script:ui.ResultPanel.BringIntoView()
@@ -214,7 +268,7 @@ try {
     $script:ui.RiskSummary.Text = $notice.Summary
     $script:ui.RiskLegal.Text = $notice.Legal
     $script:ui.RiskDetails.Text = $notice.Text
-    $choices = @(@('Codex','Codex'),@('Claude','Claude Code'),@('Cursor','Cursor'),@('Copilot','GitHub Copilot'),@('DSH','DSH'),@('Manual','其他 Agent'))
+    $choices = @(@('Codex','Codex'),@('Claude','Claude Code'),@('Cursor','Cursor'),@('Copilot','GitHub Copilot'),@('DSH','DSH'),@('Manual','其他 Agent / 指定目录'))
     foreach ($choice in $choices) {
         $item = New-Object Windows.Controls.ComboBoxItem
         $item.Tag = $choice[0]; $item.Content = $choice[1]
