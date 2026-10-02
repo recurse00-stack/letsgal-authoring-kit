@@ -18,7 +18,7 @@
 
 可用 `python "<技能目录>/scripts/inspect_version.py" --studio-exe "<当前 Studio EXE>" --project-version "<项目约定的完整版本>"` 读取 Windows EXE 的 **FileVersion**，不使用可能丢失 Beta 后缀的 ProductVersion。其他平台或已确认实例可用 `--studio-version` 传入完整版本；这表示调用者提供的证据，不宣称脚本读取了实例。可加 `--channel stable|beta` 核对通道、`--sdk "<目标扩展 sdk>"` 记录有限类型文件指纹及可读出的 SDK_VERSION 自报值。自报值不是来源证明，不能以数字相似推定宿主配套。
 
-2.0.0／2.0.1 路由至 [Stable 2.0](versions/stable-2.0.md)，2.3.0-beta.1 路由至 [Beta 2.3](versions/beta-2.3.md)，2.4.0-beta.1 路由至 [Beta 2.4](versions/beta-2.4.md)。只读程序不会从官网“最新”或 `project.json.version` 猜宿主，不自动更新 SDK。缺少宿主、冲突、其他版本或未维护通道返回 UNKNOWN／退出码 2，留在本页查证。退出码 0 只表示选出了资料；SDK 指纹不表示来源或接口兼容通过。
+2.0.0／2.0.1 路由至 [Stable 2.0](versions/stable-2.0.md)，2.3.0-beta.1 路由至 [Beta 2.3](versions/beta-2.3.md)，2.4.0-beta.1／2.4.0-beta.2 路由至 [Beta 2.4](versions/beta-2.4.md)。只读程序不会从官网“最新”或 `project.json.version` 猜宿主，不自动更新 SDK。缺少宿主、冲突、其他版本或未维护通道返回 UNKNOWN／退出码 2，留在本页查证。退出码 0 只表示选出了资料；SDK 指纹不表示来源或接口兼容通过。
 
 累计清单也记录2.1／2.2的公告来源，但不因此新增这些宿主的已确认资料路由。对这两个Beta或其他完整版本，工具仍返回UNKNOWN；要实际写入时补该版本样本，不以2.3替代。
 

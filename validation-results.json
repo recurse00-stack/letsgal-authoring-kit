@@ -1,5 +1,5 @@
 {
-  "version": "0.1.7",
+  "version": "0.1.8",
   "date": "2026-10-02",
   "status": "content-validation-complete",
   "parts": {
@@ -11,63 +11,79 @@
   },
   "static_checks": {
     "version_routing": {
-      "passed": 26,
-      "failed": 0
+      "passed": 31,
+      "failed": 0,
+      "revision": "0.1.8"
     },
     "authoring": {
       "passed": 26,
       "failed": 0,
-      "added_empty_narration_boundary_cases": 6
+      "added_empty_narration_boundary_cases": 6,
+      "evidence_revision": "0.1.7; checker and authoring tests unchanged, not rerun"
     },
     "skill_structure": "valid"
   },
   "host": {
-    "full_version": "2.4.0-beta.1",
+    "full_version": "2.4.0-beta.2",
     "channel": "beta",
     "version_evidence": [
       "EXE FileVersion",
-      "native welcome/editor",
       "official latest-beta and history"
     ],
-    "installed_sdk_declaration": "2.4.0-beta.1",
-    "sdk_api_compatibility": "not_verified",
-    "native_editing": [
-      "empty narration save without content",
-      "ordinary Tab visible controls",
-      "differential role and empty skin preset save"
-    ],
-    "playback_save_export": "not tested in this revision"
+    "native_editing": "not tested in this revision",
+    "playback_save_export": "not tested in this revision",
+    "sdk_api_compatibility": "not_verified"
   },
   "source_research": {
-    "official_beta_announcement_items": 13,
-    "cumulative_beta_items": 51,
-    "fresh_pages": [
-      "official character manual",
-      "official dialogue manual",
-      "official extension development"
+    "official_beta_announcement_items": 5,
+    "cumulative_beta_items": 56,
+    "fresh_sources": [
+      "official latest-beta.json",
+      "official latest-stable.json",
+      "official releases-history.json"
     ],
+    "stable_manual_pages": "Last refreshed for0.1.7; not refetched this revision",
     "complete_beta_schema": "UNKNOWN"
   },
   "historical_evidence": {
     "versions": [
       "0.1.4",
       "0.1.5",
-      "0.1.6"
+      "0.1.6",
+      "0.1.7"
     ],
     "beta_host": "2.3.0-beta.1",
-    "scope": "Retained original finite model/install/playback/export observations; no inferred2.4 acceptance"
+    "scope": "Original finite evidence retained by exact version; no inferred beta.2 feature acceptance",
+    "beta24_0_1_7": {
+      "full_version": "2.4.0-beta.1",
+      "channel": "beta",
+      "version_evidence": [
+        "EXE FileVersion",
+        "native welcome/editor",
+        "official latest-beta and history"
+      ],
+      "installed_sdk_declaration": "2.4.0-beta.1",
+      "sdk_api_compatibility": "not_verified",
+      "native_editing": [
+        "empty narration save without content",
+        "ordinary Tab visible controls",
+        "differential role and empty skin preset save"
+      ],
+      "playback_save_export": "not tested in this revision"
+    }
   },
   "channels": {
     "github_source": "see-separate-publication-receipts",
     "tag": "see-separate-publication-receipts",
     "release": "see-separate-publication-receipts",
     "attachments": "see-separate-publication-receipts",
-    "anonymous_download": "see-DOWNLOAD-VERIFICATION-0.1.7.json",
-    "published_baseline": "0.1.6",
+    "anonymous_download": "see-DOWNLOAD-VERIFICATION-0.1.8.json",
+    "published_baseline": "0.1.7",
     "workshop": "not-applicable",
-    "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.1.7"
+    "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.1.8"
   },
   "known_gaps": [
+    "Beta.2 Spine reuse/fallback, atlas handling and UI appearance fixes are official announcements; no native feature test this revision.",
     "Native installer browse/cancel/resize remains unverified in this revision.",
     "No new model task or2.4 playback/save/export/API task.",
     "2.4 skin composition, part-variable binding, per-pose avatar and long-held Tab require task-specific native samples.",

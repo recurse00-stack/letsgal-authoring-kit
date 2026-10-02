@@ -1,6 +1,6 @@
 # 社区Skill维护交接
 
-本包版本为0.1.7；源码、标签、Release、附件与匿名下载按独立发布凭证核对。旧发布资产及恢复材料保留。新版2.4.0-beta.1与旧2.3的证据分别记在HOST-VALIDATION.md；51项公告见累计差异，未知字段不猜写。
+本包版本为0.1.8，新增beta.2资料选择与五项公告排错，未新增宿主实测；源码、标签、Release、附件与匿名下载按独立发布凭证核对。旧发布资产及恢复材料保留。新版2.4.0-beta.1与旧2.3的证据分别记在HOST-VALIDATION.md；56项公告见累计差异，未知字段不猜写。
 
 Skill changed；安装程序verified-unchanged、说明changed；人类Markdown／离线HTML changed；无missing。按release-files.json白名单构建，bundle及校验随版更新。具体检查与缺口见VALIDATION.md；全部引擎验收不是Skill发布前置。
 
