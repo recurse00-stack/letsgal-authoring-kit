@@ -16,6 +16,12 @@ def run(scratch):
            ({'studio_version':'2.0.1'},'reference_selected'),
            ({'studio_version':'2.3.0-beta.1'},'reference_selected'),
            ({'studio_version':'2.3.0-beta.1+build.9'},'reference_selected'),
+           ({'studio_version':'2.4.0-beta.1'},'reference_selected'),
+           ({'studio_version':'2.4.0-beta.1+build.9'},'reference_selected'),
+           ({'studio_version':'2.4.0-beta.2'},'UNKNOWN'),
+           ({'studio_version':'2.4.0'},'UNKNOWN'),
+           ({'studio_version':'2.4.0-beta.1','channel':'stable'},'UNKNOWN'),
+           ({'studio_version':'2.4.0-beta.1','project_version':'2.3.0-beta.1'},'UNKNOWN'),
            ({'studio_version':'2.3.0-beta.2'},'UNKNOWN'),
            ({'studio_version':'2.3.0'},'UNKNOWN'),({'studio_version':'1.21.0'},'UNKNOWN'),
            ({'studio_version':'2.3.0-beta.1','channel':'stable'},'UNKNOWN'),
@@ -26,6 +32,9 @@ def run(scratch):
         value=inspector.inspect(**args)
         assert value['status']==status and value['read_only'] and value['runtime_compatibility']=='not_verified'
         assert (scripts.parent/value['reference']).is_file()
+        if value['status']=='reference_selected':
+            expected=inspector.PROFILES[inspector.parse_version(args['studio_version'])[0]]
+            assert value['reference']==expected
         checks.append({'case':args,'passed':True,'reference':value['reference']})
     for bad in ['2.3','2.3.0.0','2.3.0-beta.01','02.3.0','v2.3.0','2.3.0-beta.']:
         try: inspector.parse_version(bad)

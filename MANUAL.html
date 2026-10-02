@@ -1,10 +1,10 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LetsGal Authoring Kit 0.1.6 · 使用手册</title><style>body{max-width:960px;margin:36px auto;padding:0 20px;font:17px/1.75 system-ui,sans-serif;color:#243044;background:#fafbfc}h1,h2,h3{color:#12233e}a{color:#1556aa}table{border-collapse:collapse;width:100%;margin:20px 0}td,th{border:1px solid #ccd4df;padding:8px;text-align:left}th{background:#edf2f8}pre{overflow:auto;padding:16px;background:#eaf0f6;border-radius:8px}code{font-family:Consolas,monospace}blockquote{border-left:4px solid #7aa0cc;margin:16px 0;padding:4px 16px;background:#f0f5fa}</style></head><body><h1 id="使用手册">使用手册</h1>
-<p>本手册对应 <strong>0.1.6</strong>。下载与渠道状态以 GitHub Releases 的版本和附件为准。安装程序与可选检查工具沿用 0.1.5。可直接打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读与浏览器搜索。</p>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LetsGal Authoring Kit0.1.7 · 使用手册</title><style>body{max-width:960px;margin:36px auto;padding:0 20px;font:17px/1.75 system-ui,sans-serif;color:#243044;background:#fafbfc}h1,h2,h3{color:#12233e}a{color:#1556aa}table{border-collapse:collapse;width:100%;margin:20px 0}td,th{border:1px solid #ccd4df;padding:8px;text-align:left}th{background:#edf2f8}pre{overflow:auto;padding:16px;background:#eaf0f6;border-radius:8px}code{font-family:Consolas,monospace}blockquote{border-left:4px solid #7aa0cc;margin:16px 0;padding:4px 16px;background:#f0f5fa}</style></head><body><h1 id="使用手册">使用手册</h1>
+<p>本手册对应 <strong>0.1.7</strong>。安装程序沿用0.1.5，版本工具新增2.4.0-beta.1资料路由。可直接打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读与浏览器搜索。</p>
 <h2 id="这个包能做什么">这个包能做什么</h2>
 <p><code>letsgal-authoring</code> 是给 AI 编程工具读取的社区 Skill。它教 AI 查找 LetsGal 官方规范、制作剧情与章节 JSON、组织协作和 Git，并保护已有作品。它不包含引擎、模型账号或 MCP，也不会给聊天工具凭空增加文件访问能力。</p>
 <p>导入器只导入本包的 LetsGal Skill；“其他 Agent / 指定目录”用于选择 Agent 已配置的技能根目录，不是导入任意第三方 Skill。</p>
 <p>第一次使用可依次阅读安装、工程版本、选择练习及字段说明，再查工具参数、排错和升级。Beta 专项与插件开发按当前任务需要阅读。</p>
-<p>阅读入口：<a href="#第一次使用">第一次使用</a> · <a href="#安装位置怎样选择">安装位置</a> · <a href="#手动安装与命令行">手动安装与命令行</a> · <a href="#从选择练习走完一个最小完整案例">完整练习</a> · <a href="#23-beta-的用法与版本核对">Beta 用法</a> · <a href="#常见任务怎么提">工具参数</a> · <a href="#个人特调放哪里">个人区</a> · <a href="#常见问题">排错</a> · <a href="#更新卸载与恢复">更新与恢复</a>。</p>
+<p>阅读入口：<a href="#第一次使用">第一次使用</a> · <a href="#安装位置怎样选择">安装位置</a> · <a href="#手动安装与命令行">手动安装与命令行</a> · <a href="#从选择练习走完一个最小完整案例">完整练习</a> · <a href="#beta-用法与版本核对">Beta 用法</a> · <a href="#常见任务怎么提">工具参数</a> · <a href="#个人特调放哪里">个人区</a> · <a href="#常见问题">排错</a> · <a href="#更新卸载与恢复">更新与恢复</a>。</p>
 <h2 id="安装与启用前避免同类技能冲突">安装与启用前：避免同类技能冲突</h2>
 <p>建议安装或启用本技能前，在 Agent 的技能设置中暂时停用其他功能重叠的 LetsGal／引擎创作类 Skill，避免重复触发、相互矛盾的指令和额外上下文开销影响执行效果。也请核对个人与工程范围是否装了多个同名副本。保留原文件及特调；由你决定停用哪一份，安装器不会自动禁用或删除其他 Skill。</p>
 <p>停用后打开新会话，显式调用 <code>letsgal-authoring</code> 并核对实际来源。如果仍需其他专用技能，按任务单独调用，避免让多个入口同时接管同一项制作任务。停用方法以对应 Agent 当前的技能设置为准；没有停用入口时先查询其官方说明，不直接删除目录。</p>
@@ -129,7 +129,7 @@
 <blockquote>
 <p>使用 letsgal-authoring。先核对本作品的 Studio 完整版本和稳定／Beta 通道；涉及扩展时再核对相关 SDK。沿用作品当前版本；不要升级引擎、迁移 JSON 或启用未经确认的新功能。版本不明时只读定位，告诉我当前任务还缺哪项依据。</p>
 </blockquote>
-<p>实际2.3.0-beta.1官方新建空白工程的 <code>version</code> 和 <code>engineVersion</code> 均为 <code>1.0.0</code>，确切语义尚未确认；不要直接把它们传作宿主版本，也不要为消除冲突自动改值。版本信息可让 AI 写到工程 <code>LETSGAL.md</code>，以后重读沿用。版本与能力无法确认时，可以继续构思、文字草稿和只读查找；不要直接套用新 API。<a href="skills/letsgal-authoring/references/version-compatibility.md">详细兼容规则</a></p>
+<p>实际2.3.0-beta.1和本次2.4.0-beta.1官方新建空白工程的 <code>version</code> 和 <code>engineVersion</code> 均为 <code>1.0.0</code>，确切语义尚未确认；不要直接把它们传作宿主版本，也不要为消除冲突自动改值。版本信息可让 AI 写到工程 <code>LETSGAL.md</code>，以后重读沿用。版本与能力无法确认时，可以继续构思、文字草稿和只读查找；不要直接套用新 API。<a href="skills/letsgal-authoring/references/version-compatibility.md">详细兼容规则</a></p>
 <h2 id="从选择练习走完一个最小完整案例">从选择练习走完一个最小完整案例</h2>
 <p>随包的<a href="skills/letsgal-authoring/examples/选择练习.json">选择练习</a>包含一个完整章节：main 提问、两个选择、石桥／花园两个结果片段，以及返回 main 后的结束文字。它使用原创合成内容，不依赖角色、图像、音频或变量；已在 2.3.0-beta.1 有限预览过，加入你的作品后仍需从实际入口核对两条路线。</p>
 <ol>
@@ -231,14 +231,14 @@
 <li>重新构建桌面游戏，在此处快存、另存一个空槽位，退出游戏并确认进程结束。重开后分别快读和读取槽位，核对文字、变量和场景。</li>
 </ol>
 <p>选项“跳转片段”和“变量操作”是该面板的两种模式，切换后保存内容会改变。需要赋值后再调用片段时，将两个动作编排为明确的顺序，并按目标版本另做最小样例，不把此例硬改成同时支持两种动作。扩展追加历史不会自动随本例存档恢复；需要长期保留时，应先验扩展保存／恢复方案。</p>
-<h2 id="23-beta-的用法与版本核对">2.3 Beta 的用法与版本核对</h2>
+<h2 id="beta-用法与版本核对">Beta 用法与版本核对</h2>
 <h3 id="正式版到当前-beta-更新了什么">正式版到当前 Beta 更新了什么</h3>
-<p>按用户2026-10-01转述的官方答复，官网手册只更新正式版，Beta暂未同步；官方答复原文和可引用链接未取得。因此这里使用正式版文档作基础，并将具体Beta的公告、实测和推断分别说明。</p>
+<p>本指南以正式版资料作基础，Beta 差异依据完整版本公告、目标保存样本、相关 SDK 与实际运行分别补证。未取得完整的 Beta 参数规范时，字段与行为保留 UNKNOWN；网页与 Beta 观察的差异需按版本核对，页面之间的文字冲突单独记录。</p>
 <table>
 <thead>
 <tr>
 <th>来源版本</th>
-<th>2026-10-01 资料记录的变化</th>
+<th>2026-10-02累计资料记录的变化</th>
 <th>本包证据状态</th>
 </tr>
 </thead>
@@ -261,11 +261,28 @@
 <tr>
 <td>2.3.0-beta.1</td>
 <td>皮肤／差分重做、行内超链接、卡内选项、Tab输入、场景创建、Git、导航、列表点击／历史追加及性能／修复</td>
-<td>26项顶层公告已获取；不以普通剧情播放替代这些功能验收</td>
+<td>26项公告；有限实测保留原版范围</td>
+</tr>
+<tr>
+<td>2.4.0-beta.1</td>
+<td>差分皮肤预设、按姿势头像、Tab矩阵／固定菜单、布局与Git／工坊修复</td>
+<td>新增13项公告；新版原生取样与旧版结果分别记录</td>
 </tr>
 </tbody>
 </table>
-<p>完整<a href="skills/letsgal-authoring/references/versions/beta-differences.md">38项累计差异清单</a>逐条列出变化和需核对的证据，包含容易漏掉的操作优化及修复。38是公告条目数，一项可以包含多个变化；不是38个已支持新功能。中间版本的编辑方式可能在2.3重做，按当前实际版本使用；获取公告、生成样本、SDK确认和运行通过分别记录。</p>
+<p>完整<a href="skills/letsgal-authoring/references/versions/beta-differences.md">51项累计差异清单</a>逐条列出变化和需核对的证据，包含容易漏掉的操作优化及修复。51是公告条目数，一项可以包含多个变化；不是51个已通过功能。中间版本的编辑方式可能在2.3重做，按当前实际版本使用；获取公告、生成样本、SDK确认和运行通过分别记录。</p>
+<h3 id="24-beta的新入口怎样用">2.4 Beta的新入口怎样用</h3>
+<p>先确认实际宿主完整版本是 <strong>2.4.0-beta.1</strong>。皮肤预设用于组合一套差分部位素材，不能只根据名字套用2.3的皮肤结构。建议在副本依次做：</p>
+<ol>
+<li>选择一个差分角色及目标姿势，准备已有合法素材，配置并保存两个不同的皮肤预设；保留默认组合。</li>
+<li>在两句对白的正文打开Tab菜单，分别选择角色、姿势、预设，再按距离与位置矩阵选择站位。显示名和结束行为在菜单底部核对。</li>
+<li>为目标姿势设置头像裁剪，分别查看预览；每个姿势单独检查，避免把一份裁剪当作全部姿势。</li>
+<li>保存后让AI只读比对角色与章节，记录实际引用。没有该版本保存样本时，不让AI猜写预设、头像或绑定字段。</li>
+<li>从实际入口运行两句并恢复自动选择，观察换装、其他部位、站位、头像和对话结束后的状态。存读档与导出按当前作品需要另验。</li>
+</ol>
+<p>长按Tab固定菜单与普通Tab打开是两个操作；长按期间的侧栏显示、拖边调整尺寸和姿势列表布局先在当前界面核对。删除姿势、预设和预制包操作使用副本并保留原素材。工坊扩展修复公告只描述引擎变化；本指南不因此替作品更新扩展或修改源码。</p>
+<p>本版原生空白旁白可省略content；auto检查对此提示复核，不改原文件。新生成文本仍写数组，null／字符串／对象继续报错。</p>
+<p>具体十三项、实测范围及UNKNOWN见<a href="skills/letsgal-authoring/references/versions/beta-2.4.md">2.4专页</a>和<a href="HOST-VALIDATION.md">宿主验证</a>。下节旧版实测仍限定为2.3.0-beta.1。</p>
 <h3 id="官方公告以外我们实际观察到了什么">官方公告以外，我们实际观察到了什么</h3>
 <p>下表复用2026-09-30／10-01实际Windows <strong>2.3.0-beta.1</strong> 合成工程的记录。0.1.6 说明整理没有重新运行这些用例，也不能推广到正式版、其他Beta或所有入口。</p>
 <table>
@@ -383,7 +400,7 @@
 </table>
 <p>这些是待验证问题，不是新增功能承诺，不提供猜测字段或可直接复制的API。用户要使用其中能力时，先取样并验证需要的那一部分；不要把“可能”写成“已支持”。</p>
 <h3 id="安装与按需使用">安装与按需使用</h3>
-<p>使用 Beta 不需要换安装方式：从发布页下载实际已发布的完整 ZIP，完整解压并运行 <code>Install.cmd</code>，核对并复用原技能目录。0.1.6 是说明修订版，旧版包保留原样。不要单独运行摘出的 <code>Install.ps1</code>。资料和工具随同一个主 Skill 安装，预览先核对包版本及已装状态；个人偏好、插件库和旧备份保留。</p>
+<p>使用 Beta 不需要换安装方式：从发布页下载实际已发布的完整 ZIP，完整解压并运行 <code>Install.cmd</code>，核对并复用原技能目录。本包版本为0.1.7，旧版包保留原样。安装器不会联网自动升级；更新时下载新版完整ZIP，完整解压并在预览中选择原技能目录。不要单独运行摘出的 <code>Install.ps1</code>。资料和工具随同一个主 Skill 安装，预览先核对包版本及已装状态；个人偏好、插件库和旧备份保留。</p>
 <table>
 <thead>
 <tr>
@@ -395,7 +412,7 @@
 <tbody>
 <tr>
 <td>皮肤／差分换装</td>
-<td>指定角色、已有部位及属性变量，先比对 2.3 保存样本</td>
+<td>指定角色、已有部位及属性变量，按目标2.3／2.4的原生保存样本查证，不混用版本字段</td>
 <td>图片、层序、姿势和逐句部位正确</td>
 </tr>
 <tr>
@@ -420,9 +437,9 @@
 </tr>
 </tbody>
 </table>
-<p>完整说明、最小调查提示例子与未知字段见 <a href="skills/letsgal-authoring/references/versions/beta-2.3.md">Beta 专页</a>。没有实际 SDK／新字段样本时，先做不依赖它们的文案和设计。官方要求重新构建已导出作品才能应用本版运行时变化；本包更新不会替你构建或发布作品。</p>
+<p>完整说明、最小调查提示例子与未知字段按目标版本查<a href="skills/letsgal-authoring/references/versions/beta-2.3.md">2.3专页</a>或<a href="skills/letsgal-authoring/references/versions/beta-2.4.md">2.4专页</a>。没有实际 SDK／新字段样本时，先做不依赖它们的文案和设计。官方要求重新构建已导出作品才能应用该宿主的运行时变化；本包更新不会替你构建或发布作品。</p>
 <p>在完整解压包根目录，可交给 AI 运行以下只读命令（安装不要求 Python；工具需要 Python 3.9+）：</p>
-<pre><code class="language-powershell">python &quot;skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-exe &quot;&lt;当前 Studio EXE 的绝对路径&gt;&quot; --project-version &quot;2.3.0-beta.1&quot; --channel beta
+<pre><code class="language-powershell">python &quot;skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-exe &quot;&lt;当前 Studio EXE 的绝对路径&gt;&quot; --channel beta
 python &quot;skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-version &quot;2.0.1&quot; --channel stable
 </code></pre>
 <table>
@@ -463,7 +480,7 @@ python &quot;skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-
 </tr>
 </tbody>
 </table>
-<p>例子中 2.3 Beta 与 Stable 的命令是不同工程的选择，不能将前一个项目的版本沿用到下一个。工具不查询网络、不安装、不迁移。未知未来版本留在通用规则，不能按“更大版本号”假定兼容。</p>
+<p>Beta命令从实际EXE读取完整版本，没有写死工程版本；Stable命令只适用于已核实的2.0.1工程，不能将前一个项目的版本沿用到下一个。需要核对工程版本约定时另传已确认的 <code>--project-version</code>，与实际宿主冲突会返回UNKNOWN。工具不查询网络、不安装、不迁移。未知未来版本留在通用规则，不能按“更大版本号”假定兼容。</p>
 <h2 id="常见任务怎么提">常见任务怎么提</h2>
 <p><strong>制作一个小片段</strong></p>
 <blockquote>
@@ -667,5 +684,5 @@ python &quot;skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;�
 <p>恢复：先保全当前目录和新增内容，找到结果或安装日志里的准确备份路径，再比较并恢复相应 Skill；不能通过删除所有备份来排错。导入器没有自动清理备份功能。</p>
 <h2 id="验证范围与反馈">验证范围与反馈</h2>
 <p>Skill 的发布标准是：任务指引可用、关键用法有依据、安装和包完整、说明如实呈现限制。无需先替官方验收整个引擎。用户作品仍按本次使用的功能检查；版本未知时继续不依赖它的工作。</p>
-<p>0.1.5 已有有限真实 Codex 制作和安装入口读取任务；0.1.4 有从模型制作到两路线 Beta 播放的历史结果。0.1.6 本次只整理说明、检查包和同步文件，没有重新运行模型或宿主。原生安装器浏览／取消／缩放、其他 Agent 完整任务和更多版本／平台仍属补充覆盖，不是已确认的 Skill 故障。详见 <a href="VALIDATION.md">验证报告</a>。</p>
+<p>0.1.5已有有限真实Codex制作和安装入口读取任务；0.1.4有模型制作到两路线Beta播放的历史结果。0.1.7本次新增2.4路由、空旁白诊断修正、有限原生编辑／保存与完整包同步，没有新模型、2.4玩家／存读档／导出任务。原生安装器浏览／取消／缩放、其他Agent和更多版本／平台仍属补充覆盖。实际结果、旧版范围与未完成项见<a href="VALIDATION.md">验证报告</a>。</p>
 <p>反馈问题时提供 Skill 版本、Agent、实际 Studio 完整版本／通道、最小复现和脱敏结果。不要上传完整私人作品、账号或未经清理的截图。可到 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/issues">仓库 Issues</a> 提交。</p></body></html>

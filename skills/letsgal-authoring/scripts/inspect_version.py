@@ -12,7 +12,8 @@ from check_project import safe_path
 VERSION = re.compile(r'(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?')
 PROFILES = {'2.0.0':'references/versions/stable-2.0.md',
             '2.0.1':'references/versions/stable-2.0.md',
-            '2.3.0-beta.1':'references/versions/beta-2.3.md'}
+            '2.3.0-beta.1':'references/versions/beta-2.3.md',
+            '2.4.0-beta.1':'references/versions/beta-2.4.md'}
 SDK_FILES = ('constants.ts','index.ts','sdk-context.ts','extension-module.ts','extension-method.ts',
              'save-schema.ts','schedule-strategy.ts','internal-system-slots.ts')
 

@@ -100,6 +100,15 @@ def run(scratch,native_fixtures=None):
     case('unknown-inline-kept-unvalidated',v,0,lambda r:warning(r,'non-text inline'))
     v=copy.deepcopy(base);v['fragments'][0]['blocks']=[{'type':'future-command','props':{}}]
     case('unknown-command-counter-and-warning',v,0,lambda r:r['unchecked_blocks']==1 and warning(r,'supported subset'))
+    v=copy.deepcopy(base);v['fragments'][0]['blocks']=[{'type':'narration','props':{'keepDialogue':True}}]
+    case('native-empty-narration-auto-compatible',v,0,
+         lambda r:warning_code_at(r,'native_empty_narration','sample.json:fragments[0].blocks[0]'))
+    case('generated-narration-still-requires-content',v,1,lambda r:r['errors']==1,profile='fragments')
+    for bad in [None,'text',{}]:
+        v['fragments'][0]['blocks'][0]['content']=bad
+        case('malformed-narration-content-'+type(bad).__name__,v,1,lambda r:r['errors']==1)
+    v['fragments'][0]['blocks'][0]={'type':'dialogue','props':{}}
+    case('missing-dialogue-not-assumed-native-blank',v,1,lambda r:r['errors']==1)
     # These five shapes correspond to the saved 2.3.0-beta.1 native probe cases.
     # They test static readback only; no interpreter here predicts the observed playback order.
     def narration(marker):

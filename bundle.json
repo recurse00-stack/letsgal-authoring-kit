@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "profile_schema": 1,
   "files": [
     {
@@ -31,7 +31,7 @@
     },
     {
       "path": "references/json.md",
-      "sha256": "1eca6514910bf71b1afc2633d852425b0ebf41eb7ca1c528115b58e75a7f196a"
+      "sha256": "f165f700471d1ad8b1f67926423f5172b27f27c0013bd9b5f2193173c40de5ea"
     },
     {
       "path": "references/plugin-skills.md",
@@ -43,7 +43,7 @@
     },
     {
       "path": "references/research.md",
-      "sha256": "d99b0571ad3d5c7912bd90861076f041338facc2e5a365e41c332a75a8e2667a"
+      "sha256": "b5ef39a4e269589e7b3ab4d6bfe1e569ba2ef261230507b50f0340730e5ead31"
     },
     {
       "path": "references/risk-notice.md",
@@ -55,15 +55,19 @@
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "e6efeb0ffe42db518f0b81c8e4ba1e6d0a6d9d6b0460ba27a6ba1e4ed3d676e5"
+      "sha256": "8d0bb33062ce9cfd0298b17c68c26c68010fd1bbc73d6322b286900ec55736a9"
     },
     {
       "path": "references/versions/beta-2.3.md",
-      "sha256": "93e98dd543e802090ffa378dd0d0941245df8df3297b2e980a54e84db9ce4531"
+      "sha256": "2dbe2a2d161f1ea269bdfecca1dba492f8141bfbe98300a190bc756d979182fe"
+    },
+    {
+      "path": "references/versions/beta-2.4.md",
+      "sha256": "957f73fb63ddf3892dbfeed38e39ed776763d35613fc4cbe650f2abac2054338"
     },
     {
       "path": "references/versions/beta-differences.md",
-      "sha256": "e335c33dc3ccf5a682f97479442d197a2d672c71ac26dbf3fe84be3e308fd163"
+      "sha256": "5dd615e9a98c7fd83fbecc15ebbb362d31f19ca7194ca14c17d9044e4dea70b2"
     },
     {
       "path": "references/versions/stable-2.0.md",
@@ -71,15 +75,15 @@
     },
     {
       "path": "scripts/check_project.py",
-      "sha256": "4cd9dae0311f616644c5e7e5c9d1994f80c1ed1759770cf51f1264c4dc47eee1"
+      "sha256": "12cfe1d2d0e296752dd0a636d9106da303d14a6aaa4075d02cd7bbe1de26a93f"
     },
     {
       "path": "scripts/inspect_version.py",
-      "sha256": "87bb0607bbdf815ccbb1a4f9d4e03314e91c58bccd157311d64c08b5da0502f7"
+      "sha256": "12733a98bfc9d5cf95e10dbf5cff6aec13829e303a923d7f9a1829f077a3960d"
     },
     {
       "path": "SKILL.md",
-      "sha256": "380c7687da25605e90b38a061a2750b148e77c7a298b13790acb9cd3441dff18"
+      "sha256": "658941b1269e9b1c8a470f6a195de9149fe15d97e6b55eea99774ca26a1e1aa9"
     },
     {
       "path": "templates/LETSGAL.example.md",

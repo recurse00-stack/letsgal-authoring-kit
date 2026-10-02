@@ -180,7 +180,9 @@ def check(target, format_profile='auto'):
                     issue("warning", bl, "nested children are not checked; do not model branch targets here")
                 if isinstance(kind, str) and kind in TEXT:
                     content = block.get("content")
-                    if not isinstance(content, list):
+                    if kind == "narration" and "content" not in block and format_profile == "auto":
+                        issue("warning", bl, "native empty narration may omit content (observed in 2.4.0-beta.1); confirm the intended blank, text and runtime are not verified", "native_empty_narration")
+                    elif not isinstance(content, list):
                         issue("error", bl, "text-bearing instruction needs a content array")
                     else:
                         for inline in content:

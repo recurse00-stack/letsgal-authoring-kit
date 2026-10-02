@@ -1,8 +1,19 @@
 # 有限宿主观察记录
 
-本页保留 2026-09-30／10-01 在 Windows **2.3.0-beta.1** 隔离工程的真实观察。0.1.6 说明整理没有重跑宿主；各节“本轮”仅指该节注明的原用例。Agent 模型任务另见 [VALIDATION.md](VALIDATION.md)，不作为本页的宿主结论。
+本页按完整宿主版本保留有限观察；2026-10-02新增Windows **2.4.0-beta.1** 的隔离编辑证据，旧2.3结果保留原范围。各节“本轮”仅指该节注明的用例。Agent 模型任务另见 [VALIDATION.md](VALIDATION.md)，不作为本页的宿主结论。
 
-# 宿主原生证据
+## 2.4.0-beta.1 · 2026-10-02
+
+实际EXE FileVersion、欢迎页和编辑器显示2.4.0-beta.1；安装资源SDK常量声明相同完整版本，已读取类型文件和指纹。来源是本次官方安装包的资源目录，版本工具的通用来源字段仍为UNKNOWN；这不证明全部API、初始化器或插件运行兼容。
+
+| 隔离操作 | 观察与保存 | 未覆盖 |
+| --- | --- | --- |
+| 官方空白工程、空白旁白、普通Tab | 保存的narration只有id/type/props，没有content；auto检查已提示复核，生成检查仍要求数组；原生Tab显示名称／结束行为及八个尺寸调整点 | 空块玩家运行、长按固定、实际缩放和全部参数 |
+| 新建差分角色、立绘皮肤页、新建／命名／复制预设 | 界面显示部位与变量、预设名称和复制／删除入口；两个空素材预设保存于differentialPortraitAssembly.skinPresets，以不同UUID和空selections保存，复制名追加(2) | 素材换装、变量驱动、按姿势头像、删除、预制包及导出效果 |
+
+这是有限原生编辑和只读回读，未做2.4玩家、存读档、导出、新模型或扩展API任务。project.json仍保存version／engineVersion为1.0.0，字段语义UNKNOWN，不能据此替代实际宿主版本。十三项2.4公告不是十三项功能通过，累计五十一项见[差异清单](skills/letsgal-authoring/references/versions/beta-differences.md)。
+
+## 2.3.0-beta.1 · 历史宿主原生证据
 
 验证日期：2026-09-30。Windows LetsGal Studio 实际EXE FileVersion与原生界面版本均为 **2.3.0-beta.1**。以下仅是对应版本与入口的实际观察。
 
@@ -22,7 +33,7 @@
 
 因此当前Beta允许非循环callFragment→main的片段预览与返回。三个循环用例的回边没有重复输出；尚未确定一般循环检测算法或最大深度。
 
-[JSON执行模型](https://docs.avg-engine.com/reference/script-json)把callFragment目标与branch／if一起限定为非main；[调用片段手册](https://docs.avg-engine.com/manual/writing/blocks/call-fragment)允许main／自身，并声称循环最多静态展开30层。两页文字范围不同，且与上述Beta观察不一致。按用户2026-10-01转述，文档仅更新正式版，Beta未同步；答复原文／链接未取得。因此这里只记录正式版资料与Beta行为差异，不能单凭Beta实测认定正式版文档错误；页面间文字冲突另行核查。默认制作仍使用无环普通复用片段，不能将默认约定写成引擎绝对禁止。
+[JSON执行模型](https://docs.avg-engine.com/reference/script-json)把callFragment目标与branch／if一起限定为非main；[调用片段手册](https://docs.avg-engine.com/manual/writing/blocks/call-fragment)允许main／自身，并声称循环最多静态展开30层。两页文字范围不同，且与上述Beta观察不一致。此处记录两页资料的文字差异与2.3.0-beta.1的有限观察；正式版行为及其他Beta需独立核对，不能单凭该Beta实测判定正式版文档错误。默认制作仍使用无环普通复用片段，不能将默认约定写成引擎绝对禁止。
 
 本证据未覆盖Stable／其他版本、无循环main调用的全局入口／独立玩家／导出、branch／if／扩展流接口、一般循环策略和深度边界。原始截图、AX及路径保留在维护者私有凭证，不公开账号或作品。
 

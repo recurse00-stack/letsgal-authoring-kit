@@ -1,13 +1,9 @@
-# 社区 Skill 维护交接
+# 社区Skill维护交接
 
-当前维护内容为 **0.1.6 说明修订版**；0.1.5 的原发布凭证与资产保留，0.1.6 渠道状态以本版发布／下载记录为准。纯 Skill 仅 GitHub／社区，工坊 not-applicable。旧发布版本、标签、附件及恢复材料保留；不从源码版本推定外部发布。
+本包版本为0.1.7；源码、标签、Release、附件与匿名下载按独立发布凭证核对。旧发布资产及恢复材料保留。新版2.4.0-beta.1与旧2.3的证据分别记在HOST-VALIDATION.md；51项公告见累计差异，未知字段不猜写。
 
-相对 0.1.5：Skill changed；辅助安装程序 verified-unchanged、说明 changed；人类 Markdown／离线 HTML 手册 changed；没有 missing。程序、示例、Agent 元数据与许可证原字节保留。按白名单 66 文件和 bundle 21 载荷重建本地新材料并做本次读回，个人偏好、插件知识和旧版备份保留。
+Skill changed；安装程序verified-unchanged、说明changed；人类Markdown／离线HTML changed；无missing。按release-files.json白名单构建，bundle及校验随版更新。具体检查与缺口见VALIDATION.md；全部引擎验收不是Skill发布前置。
 
-README／手册专注安装与用法，模型／安装／下载证据看 VALIDATION.md，实际 2.3.0-beta.1 宿主记录看 HOST-VALIDATION.md；38 项公告与所需证据看 Beta 累计差异。官方文档只维护正式版是用户转述，原文未取得。
+主Skill按主Skill安装器安装，插件知识进入版本化用户插件库。使用现有绑定同步，保留个人区、旧版本、备份、HEAD与索引。Windows用完整包，其他平台手动安装；不能单独运行摘出的Install.ps1。
 
-Skill 的成熟标准是可用的任务指引、正确资料依据、完整安装交付和诚实说明；全部引擎／平台／存档类型验收不是普遍发行门槛。目前没有已确认核心发布阻断问题。原生安装目录浏览／取消／缩放、其他 Agent、Stable 与更多 Beta 能力是补充覆盖；具体作品需要时再补相关验证。
-
-写前／写后按所属工程规则做 Git 保护，保留 HEAD、索引和未提交内容。使用当前绑定同步自用及加载副本，不建立重复发现入口；主 Skill 不嵌套为自己的子插件，插件 Skill 优先放版本化用户插件库。自动安装支持 Windows，其他平台按手动说明；不得单独运行摘出的 Install.ps1。
-
-公共源码／材料不包含个人区、作品、账号、本机绝对路径或内部保护记录。外部更新需本次具体授权；先完成可审查的新版本材料，再分别记录 GitHub 源码、tag、Release、附件与匿名下载。旧资产不覆盖。
+对外文字统一采用发行者口吻，资料依据／适用范围／未知结果保持真实。内部转述及协作过程不得随包发行。外部更新另需本次具体授权；GitHub源码、tag、Release、附件和匿名下载分开核对，工坊not-applicable。

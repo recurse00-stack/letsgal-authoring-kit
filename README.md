@@ -2,7 +2,7 @@
 
 `letsgal-authoring` 帮助 AI 在 LetsGal Studio 工程中制作剧情、分支、变量与章节 JSON，查找官方资料、处理扩展及 Git 协作。它是独立社区 Skill，不包含引擎、模型、账号或 MCP；实际能力取决于 Agent 的工具和项目权限。
 
-本包版本 **0.1.6**。下载与渠道状态以 [GitHub Releases](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/latest) 的版本和附件为准。0.1.6 保持程序和安装流程，整理说明与证据表述；旧版本和下载凭证保留。
+本包版本 **0.1.7**，新增2.4.0-beta.1资料路由及说明修正。下载见[GitHub Releases](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/latest)；旧版本与凭证保留。源码、标签、附件和匿名下载的核验结果见各版独立发布凭证。
 
 入口：[使用手册](MANUAL.md) · [离线 HTML](MANUAL.html) · [Agent 与目录兼容](COMPATIBILITY.md) · [验证范围](VALIDATION.md) · [资料来源](SOURCES.md) · [版本记录](RELEASE-NOTES.md)。
 
@@ -41,9 +41,9 @@ Codex 个人安装沿用唯一已有的 `~/.codex/skills/letsgal-authoring` 或 
 
 Skill 包版本和引擎版本独立。稳定版、Beta 和旧工程均先核对目标宿主；不以作者本机 Beta 为默认，不因更新 Skill 升级引擎、迁移作品或刷新已导出的游戏。
 
-版本工具对已核实的 2.0.0／2.0.1 选择 Stable 资料，对 2.3.0-beta.1 选择 Beta 资料。未知、冲突和其他完整版本返回 UNKNOWN；[资料路由](skills/letsgal-authoring/references/version-compatibility.md) 与真实宿主运行分别记录。
+版本工具对已核实的 2.0.0／2.0.1 选择 Stable 资料，对 2.3.0-beta.1／2.4.0-beta.1 分别选择对应 Beta 资料。未知、冲突和其他完整版本返回 UNKNOWN；[资料路由](skills/letsgal-authoring/references/version-compatibility.md) 与真实宿主运行分别记录。
 
-Beta 资料包含正式版基线到 2.1／2.2／2.3 的 [38 项公告](skills/letsgal-authoring/references/versions/beta-differences.md)、[有限实测与用法](skills/letsgal-authoring/references/versions/beta-2.3.md) 及待确认线索。公告不等于 API 规范；官方说明、保存样本、SDK 声明和运行观察分别注明。官网文档只维护正式版是用户转述，尚未取得官方答复原文。
+Beta资料包含正式版基线到2.1／2.2／2.3／2.4的[51项公告](skills/letsgal-authoring/references/versions/beta-differences.md)，[2.4用法](skills/letsgal-authoring/references/versions/beta-2.4.md)与[2.3有限实测](skills/letsgal-authoring/references/versions/beta-2.3.md)分别维护。公告、保存样本、SDK声明和运行观察分开，不推定所有能力已通过。
 
 ## 个人偏好、插件资料与升级
 
