@@ -2,7 +2,7 @@
 
 `letsgal-authoring` 帮助 AI 在 LetsGal Studio 工程中制作剧情、分支、变量与章节 JSON，查找官方资料、处理扩展及 Git 协作。它是独立社区 Skill，不包含引擎、模型、账号或 MCP；实际能力取决于 Agent 的工具和项目权限。
 
-本包版本 **0.1.8**，补充2.4.0-beta.2版本识别与头像／界面排错说明。公开可下载版本以发布页实际列出的版本为准。下载见[GitHub Releases](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/latest)；旧版本与凭证保留。源码、标签、附件和匿名下载的核验结果见各版独立发布凭证。
+本包版本 **0.1.9**，新增2.5.0-beta.1版本识别、浮动文字／动态模型制作与构建排错指引；累计68项Beta公告按证据说明。公开可下载版本以发布页实际列出的版本为准。下载见[GitHub Releases](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/latest)；旧版本与凭证保留。源码、标签、附件和匿名下载的核验结果见各版独立发布凭证。
 
 入口：[使用手册](MANUAL.md) · [离线 HTML](MANUAL.html) · [Agent 与目录兼容](COMPATIBILITY.md) · [验证范围](VALIDATION.md) · [资料来源](SOURCES.md) · [版本记录](RELEASE-NOTES.md)。
 
@@ -43,7 +43,7 @@ Skill 包版本和引擎版本独立。稳定版、Beta 和旧工程均先核对
 
 版本工具对已核实的 2.0.0／2.0.1 选择 Stable 资料，对 2.3.0-beta.1／2.4.0-beta.1／2.4.0-beta.2 分别选择对应 Beta 资料。未知、冲突和其他完整版本返回 UNKNOWN；[资料路由](skills/letsgal-authoring/references/version-compatibility.md) 与真实宿主运行分别记录。
 
-Beta资料包含正式版基线到2.1／2.2／2.3／2.4的[56项公告](skills/letsgal-authoring/references/versions/beta-differences.md)，[2.4用法](skills/letsgal-authoring/references/versions/beta-2.4.md)与[2.3有限实测](skills/letsgal-authoring/references/versions/beta-2.3.md)分别维护。公告、保存样本、SDK声明和运行观察分开，不推定所有能力已通过。
+Beta资料包含正式版基线到2.1／2.2／2.3／2.4／2.5的[68项公告](skills/letsgal-authoring/references/versions/beta-differences.md)，[2.5制作与排错](skills/letsgal-authoring/references/versions/beta-2.5.md)、[2.4用法](skills/letsgal-authoring/references/versions/beta-2.4.md)与[2.3有限实测](skills/letsgal-authoring/references/versions/beta-2.3.md)分别维护。公告、保存样本、SDK声明和运行观察分开，不推定所有能力已通过。
 
 ## 个人偏好、插件资料与升级
 

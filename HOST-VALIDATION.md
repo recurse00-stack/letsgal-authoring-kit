@@ -1,6 +1,6 @@
 # 有限宿主观察记录
 
-0.1.8未新增beta.2宿主实测；本页按完整宿主版本保留有限观察；2026-10-02新增Windows **2.4.0-beta.1** 的隔离编辑证据，旧2.3结果保留原范围。各节“本轮”仅指该节注明的用例。Agent 模型任务另见 [VALIDATION.md](VALIDATION.md)，不作为本页的宿主结论。
+0.1.9核对实际2.5.0-beta.1 EXE与随包SDK声明，未新增该版功能／接口／播放器／存读档／导出实测；本页按完整宿主版本保留有限观察；2026-10-02新增Windows **2.4.0-beta.1** 的隔离编辑证据，旧2.3结果保留原范围。各节“本轮”仅指该节注明的用例。Agent 模型任务另见 [VALIDATION.md](VALIDATION.md)，不作为本页的宿主结论。
 
 ## 2.4.0-beta.1 · 2026-10-02
 
@@ -11,7 +11,7 @@
 | 官方空白工程、空白旁白、普通Tab | 保存的narration只有id/type/props，没有content；auto检查已提示复核，生成检查仍要求数组；原生Tab显示名称／结束行为及八个尺寸调整点 | 空块玩家运行、长按固定、实际缩放和全部参数 |
 | 新建差分角色、立绘皮肤页、新建／命名／复制预设 | 界面显示部位与变量、预设名称和复制／删除入口；两个空素材预设保存于differentialPortraitAssembly.skinPresets，以不同UUID和空selections保存，复制名追加(2) | 素材换装、变量驱动、按姿势头像、删除、预制包及导出效果 |
 
-这是有限原生编辑和只读回读，未做2.4玩家、存读档、导出、新模型或扩展API任务。project.json仍保存version／engineVersion为1.0.0，字段语义UNKNOWN，不能据此替代实际宿主版本。十三项2.4公告不是十三项功能通过，当前累计五十六项见[差异清单](skills/letsgal-authoring/references/versions/beta-differences.md)。
+这是有限原生编辑和只读回读，未做2.4玩家、存读档、导出、新模型或扩展API任务。project.json仍保存version／engineVersion为1.0.0，字段语义UNKNOWN，不能据此替代实际宿主版本。十三项2.4公告不是十三项功能通过，累计公告见[差异清单](skills/letsgal-authoring/references/versions/beta-differences.md)。
 
 ## 2.3.0-beta.1 · 历史宿主原生证据
 

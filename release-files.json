@@ -67,6 +67,7 @@
     "Import.Preflight.ps1",
     "maintenance/Test-Preflight.ps1",
     "HOST-VALIDATION.md",
-    "skills/letsgal-authoring/references/versions/beta-2.4.md"
+    "skills/letsgal-authoring/references/versions/beta-2.4.md",
+    "skills/letsgal-authoring/references/versions/beta-2.5.md"
   ]
 }

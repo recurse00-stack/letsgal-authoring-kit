@@ -21,6 +21,12 @@ def run(scratch):
            ({'studio_version':'2.4.0-beta.2'},'reference_selected'),
            ({'studio_version':'2.4.0-beta.2+build.9'},'reference_selected'),
            ({'studio_version':'2.4.0-beta.3'},'UNKNOWN'),
+           ({'studio_version':'2.5.0-beta.1'},'reference_selected'),
+           ({'studio_version':'2.5.0-beta.1+build.9'},'reference_selected'),
+           ({'studio_version':'2.5.0-beta.2'},'UNKNOWN'),
+           ({'studio_version':'2.5.0-beta.1','channel':'stable'},'UNKNOWN'),
+           ({'studio_version':'2.5.0-beta.1','project_version':'2.4.0-beta.2'},'UNKNOWN'),
+           ({'studio_version':'2.5.0'},'UNKNOWN'),
            ({'studio_version':'2.4.0-beta.2','channel':'stable'},'UNKNOWN'),
            ({'studio_version':'2.4.0-beta.2','project_version':'2.4.0-beta.1'},'UNKNOWN'),
            ({'studio_version':'2.4.0'},'UNKNOWN'),
@@ -63,6 +69,12 @@ def run(scratch):
     assert result.returncode==0 and value['reference']=='references/versions/beta-2.4.md'
     assert value['runtime_compatibility']=='not_verified' and value['sdk']['api_compatibility']=='not_verified'
     checks.append({'case':'CLI beta.2 selects reference without claiming runtime or SDK acceptance','passed':True})
+    result=subprocess.run([sys.executable,'-B',str(scripts/'inspect_version.py'),
+                           '--studio-version','2.5.0-beta.1','--channel','beta'],capture_output=True)
+    value=json.loads(result.stdout)
+    assert result.returncode==0 and value['reference']=='references/versions/beta-2.5.md'
+    assert value['runtime_compatibility']=='not_verified' and value['sdk']['api_compatibility']=='not_verified'
+    checks.append({'case':'CLI2.5 selects its own profile without runtime or SDK claim','passed':True})
     report={'passed':len(checks),'failed':0,'checks':checks,
             'scope':'Version routing and read-only SDK fingerprint; no engine runtime acceptance'}
     (scratch/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')

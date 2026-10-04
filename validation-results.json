@@ -1,7 +1,7 @@
 {
-  "version": "0.1.8",
-  "date": "2026-10-02",
-  "status": "content-validation-complete",
+  "version": "0.1.9",
+  "date": "2026-10-04",
+  "status": "content-validation-complete; publication validated in independent release receipt",
   "parts": {
     "skill": "changed",
     "installer_code": "verified-unchanged",
@@ -11,9 +11,9 @@
   },
   "static_checks": {
     "version_routing": {
-      "passed": 31,
+      "passed": 38,
       "failed": 0,
-      "revision": "0.1.8"
+      "revision": "0.1.9"
     },
     "authoring": {
       "passed": 26,
@@ -24,25 +24,27 @@
     "skill_structure": "valid"
   },
   "host": {
-    "full_version": "2.4.0-beta.2",
+    "full_version": "2.5.0-beta.1",
     "channel": "beta",
     "version_evidence": [
       "EXE FileVersion",
-      "official latest-beta and history"
+      "official latest-beta and history",
+      "installed SDK constants"
     ],
     "native_editing": "not tested in this revision",
     "playback_save_export": "not tested in this revision",
-    "sdk_api_compatibility": "not_verified"
+    "sdk_api_compatibility": "not_verified",
+    "installed_sdk_declaration": "2.5.0-beta.1"
   },
   "source_research": {
-    "official_beta_announcement_items": 5,
-    "cumulative_beta_items": 56,
+    "official_beta_announcement_items": 12,
+    "cumulative_beta_items": 68,
     "fresh_sources": [
       "official latest-beta.json",
       "official latest-stable.json",
       "official releases-history.json"
     ],
-    "stable_manual_pages": "Last refreshed for0.1.7; not refetched this revision",
+    "stable_manual_pages": "floating text, dynamic visuals, characters and build refreshed2026-10-04",
     "complete_beta_schema": "UNKNOWN"
   },
   "historical_evidence": {
@@ -50,7 +52,8 @@
       "0.1.4",
       "0.1.5",
       "0.1.6",
-      "0.1.7"
+      "0.1.7",
+      "0.1.8"
     ],
     "beta_host": "2.3.0-beta.1",
     "scope": "Original finite evidence retained by exact version; no inferred beta.2 feature acceptance",
@@ -73,21 +76,43 @@
     }
   },
   "channels": {
-    "github_source": "see-separate-publication-receipts",
-    "tag": "see-separate-publication-receipts",
-    "release": "see-separate-publication-receipts",
-    "attachments": "see-separate-publication-receipts",
-    "anonymous_download": "see-DOWNLOAD-VERIFICATION-0.1.8.json",
-    "published_baseline": "0.1.7",
+    "github_source": "see-independent-publication-receipt",
+    "tag": "see-independent-publication-receipt",
+    "release": "see-independent-publication-receipt",
+    "attachments": "see-independent-publication-receipt",
+    "anonymous_download": "see-independent-publication-receipt",
     "workshop": "not-applicable",
-    "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.1.8"
+    "previous_published_baseline": "0.1.8"
   },
   "known_gaps": [
-    "Beta.2 Spine reuse/fallback, atlas handling and UI appearance fixes are official announcements; no native feature test this revision.",
-    "Native installer browse/cancel/resize remains unverified in this revision.",
-    "No new model task or2.4 playback/save/export/API task.",
-    "2.4 skin composition, part-variable binding, per-pose avatar and long-held Tab require task-specific native samples.",
-    "Stable and other Agent full tasks remain unverified; historical2.3 results do not establish2.4 behavior.",
-    "Official stable-themed pages do not provide complete2.4 schemas; unobserved fields remain UNKNOWN."
-  ]
+    "2.5 new feature native editing/player/save/export not tested this revision.",
+    "Installed SDK declaration and fingerprints do not prove API or project compatibility.",
+    "Complete2.5 JSON schemas and developer analytics service/API remain UNKNOWN.",
+    "Native installer browse/cancel/resize, model writing/playback task, Stable and other Agent full tasks retained as task-specific coverage gaps."
+  ],
+  "ai_assistance": {
+    "skill_version": "0.1.9",
+    "date": "2026-10-04",
+    "agent": "Codex CLI0.160.0 configured default model",
+    "invocation": "fresh installed-skill-name-only; read-only sandbox; ephemeral",
+    "exit_code": 0,
+    "turn_completed": true,
+    "elapsed_seconds": 70.719,
+    "reviewed_criteria": 13,
+    "status": "passed",
+    "actual_reads": [
+      "installed SKILL.md",
+      "beta-2.5",
+      "version-compatibility",
+      "beta-differences",
+      "production",
+      "research",
+      "fixture rules and scenario",
+      "EXE version information"
+    ],
+    "host_version": "2.5.0-beta.1",
+    "scope": "floating location label assistance: ordered nodes,persistence,nonwaiting,history,targeted hide and optional analytics; no inventedJSON fields",
+    "fixture_skill_personal_and_config_git_unchanged": true,
+    "json_write_native_playback_save_export": "not-tested"
+  }
 }

@@ -1,6 +1,6 @@
 # 资料来源与查阅范围
 
-本包依据官方资料、目标版本样本和有限实测独立编写。0.1.8于2026-10-02刷新官方Beta／Stable清单和发布历史，补充2.4.0-beta.2的五项公告；0.1.7读取的角色／对白／扩展页面保留原日期；各项实测按完整版本注明。历史来源仍保留原日期，不保证网页此后保持原样。
+本包依据官方资料、目标版本样本和有限实测独立编写。0.1.9于2026-10-04刷新官方Beta／Stable清单和发布历史，补充2.5.0-beta.1的12项公告；本版重读浮字、动态图像、角色与构建页面，其他页面保留原查阅日期；各项实测按完整版本注明。历史来源仍保留原日期，不保证网页此后保持原样。
 
 ## 版本与证据日期
 
@@ -13,6 +13,8 @@
 | 2026-10-01 0.1.5 | 该版 Studio 官方向导初始化 SDK 及有限 history API 运行；原生编辑、两个导出玩家和桌面读档 | 只覆盖记录中的接口／样本，其他项目 SDK 单独查证 |
 | 2026-10-02／0.1.7 | Beta清单与历史列2.4.0-beta.1，新增13项公告；Stable清单仍2.0.0；角色、对白及扩展页读取 | 网页未提供完整2.4参数规范；版本相关字段按目标保存样本／SDK补证 |
 | 2026-10-02／0.1.8 | Beta清单与历史列2.4.0-beta.2，1项优化和4项修复；Stable清单仍2.0.0 | 仅取得公告，无beta.2宿主、SDK接口或新增JSON字段实测 |
+| 2026-10-04／0.1.9 | Beta清单与历史列2.5.0-beta.1，8项新增／优化和4项修复；Stable清单仍2.0.0 | 公告一致、EXE与随包SDK声明核对；新增功能／SDK接口／玩家／保存／导出未测 |
+| 2026-10-04／0.1.9 | 重读浮动文字、动态图像、角色与构建手册 | 页面作基础检索；完整Beta字段、运营统计参数和运行结果UNKNOWN |
 
 原始响应、哈希、工具输出和含私人界面的截图留在维护凭证，公共包只带脱敏摘要。版本早期“新历史 API UNKNOWN”是当时状态；后续探针的已确认范围见 [宿主记录](HOST-VALIDATION.md)，不能将已取得探针来源扩展到所有 API。
 
@@ -39,4 +41,6 @@
 
 安全默认、Git 协作、个人／项目分层、安装器与有限检查器是本包设计，不是官方对所有用户的强制流程。示例采用原创文本和独立 ID，不包含私人作品或第三方 SDK；静态检查器不是完整官方 schema。[JSON 工作法](skills/letsgal-authoring/references/json.md) 说明其范围。
 
-本版补充读取：[角色管理](https://docs.avg-engine.com/manual/creating/characters/)、[对白](https://docs.avg-engine.com/manual/writing/blocks/dialogue/)、[创建扩展](https://docs.avg-engine.com/extensions/develop/)。前两页用于正式资料基线；2.4具体差异按公告与目标样本分别判断。根目录llms.txt本次仍404，已改走正式页面，未将404当作无更新。
+0.1.7补充读取：[角色管理](https://docs.avg-engine.com/manual/creating/characters/)、[对白](https://docs.avg-engine.com/manual/writing/blocks/dialogue/)、[创建扩展](https://docs.avg-engine.com/extensions/develop/)。前两页用于正式资料基线；2.4具体差异按公告与目标样本分别判断。根目录llms.txt本次仍404，已改走正式页面，未将404当作无更新。
+
+0.1.9页面入口：[浮动文字](https://docs.avg-engine.com/manual/writing/blocks/floating-text)、[动态图像](https://docs.avg-engine.com/manual/creating/dynamic-visuals)、[构建](https://docs.avg-engine.com/manual/overview/build)。基础浮字页的等待措辞与公告不同；构建页未列完整运营统计参数，因此不猜写字段。

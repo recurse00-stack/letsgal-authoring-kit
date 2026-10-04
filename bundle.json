@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "profile_schema": 1,
   "files": [
     {
@@ -39,7 +39,7 @@
     },
     {
       "path": "references/production.md",
-      "sha256": "b249ddaae010e02d71f14fdbe2c2714f56249aa1861bdf7dbc11c90bc6507994"
+      "sha256": "6aa38401811ae93469dfef22766a756e2bbd9a9eeaa66a58f3be7d833ace5904"
     },
     {
       "path": "references/research.md",
@@ -55,7 +55,7 @@
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "4c989651e72ef86c0524c7bd7ea0250832a50c3e2bf76b4ebadc5667b1d03ad4"
+      "sha256": "731c9da21c1068d1696bfc35513bc9557d885ebd1ddfc1f04dea1615a43e4be9"
     },
     {
       "path": "references/versions/beta-2.3.md",
@@ -66,8 +66,12 @@
       "sha256": "51857b719ccc071bbf5ed61d3fbbb2bec4b019fc63bca1bff5035f6b08d72774"
     },
     {
+      "path": "references/versions/beta-2.5.md",
+      "sha256": "7f626558fedf8d91523669570c7d770d18a59b7253072507f521913cca9292e8"
+    },
+    {
       "path": "references/versions/beta-differences.md",
-      "sha256": "4e2c68d0558b8d4199cf55f0249ab4460d9758f649496045bd7c9f7649a79a55"
+      "sha256": "61ad5d81d2f5ef2d745a3ba437f2f3a9741a12b30d2e81a1e9ac2477fc563964"
     },
     {
       "path": "references/versions/stable-2.0.md",
@@ -79,11 +83,11 @@
     },
     {
       "path": "scripts/inspect_version.py",
-      "sha256": "896d0a92a42c9c9ef82bb90e484856b106cf12a44c2dea65a1f4bd49dbe43d37"
+      "sha256": "1cf5e27176ece3fcad711376ba2a3267b0ff07679b8d098c5d326c3a930c7b95"
     },
     {
       "path": "SKILL.md",
-      "sha256": "9149fb175033f26188c9f5486cfe66b8971b61623226d17b31156c45d535a958"
+      "sha256": "3be148e456e84535ceea2c01c9615478bf25cb1ef0d1a6e0df07c65c53caff2f"
     },
     {
       "path": "templates/LETSGAL.example.md",
