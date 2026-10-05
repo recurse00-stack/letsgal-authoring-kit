@@ -1,7 +1,7 @@
 {
-  "version": "0.1.9",
-  "date": "2026-10-04",
-  "status": "content-validation-complete; publication validated in independent release receipt",
+  "version": "0.2.0",
+  "date": "2026-10-05",
+  "status": "release-functional-validation; publication-evidence-separate",
   "parts": {
     "skill": "changed",
     "installer_code": "verified-unchanged",
@@ -9,43 +9,54 @@
     "human_manual": "changed",
     "missing": []
   },
-  "static_checks": {
-    "version_routing": {
-      "passed": 38,
-      "failed": 0,
-      "revision": "0.1.9"
-    },
-    "authoring": {
-      "passed": 26,
-      "failed": 0,
-      "added_empty_narration_boundary_cases": 6,
-      "evidence_revision": "0.1.7; checker and authoring tests unchanged, not rerun"
-    },
-    "skill_structure": "valid"
+  "checks": {
+    "version_routing": 44,
+    "authoring": 26,
+    "operands": 21,
+    "backend_full_package": 46,
+    "previous_package_preflight": 31,
+    "wpf_component_ordinary_user": 20,
+    "installer_safety_ordinary_user": 17,
+    "user_area": 32,
+    "recovery": 8,
+    "current_dsh_provider": 26,
+    "release_boundaries": 23,
+    "risk_notice": 18
   },
   "host": {
-    "full_version": "2.5.0-beta.1",
-    "channel": "beta",
-    "version_evidence": [
-      "EXE FileVersion",
-      "official latest-beta and history",
-      "installed SDK constants"
+    "full_version": "2.5.0",
+    "channel": "stable",
+    "actual_evidence": [
+      "EXE",
+      "native welcome",
+      "official blank project"
     ],
-    "native_editing": "not tested in this revision",
-    "playback_save_export": "not tested in this revision",
-    "sdk_api_compatibility": "not_verified",
-    "installed_sdk_declaration": "2.5.0-beta.1"
+    "native_variable_if_samples": "saved-and-readback",
+    "two_routes_rejoin_endChapter": "native-debug two routes; Windows routeB and localWeb routeA separately; rejoin/cross-chapter",
+    "if_reuse": "same If remained true after variable change; independent If false; internal mechanism UNKNOWN",
+    "windows_save": "quick save/read and full-exit slot1 read",
+    "main_call": "noncyclic realtime fragment preview only",
+    "sdk": "native initialization; 29 interfaces match installed resources; source build and program preview; not fullAPI/player/save acceptance",
+    "script_exports": "six native files saved/readback; one chapter3fragments10blocks; RenPy9/10 skips endChapter",
+    "preview_inheritance": "same second-chapter numeric position ON1/OFF0/ON1; finite slot variable only"
   },
-  "source_research": {
-    "official_beta_announcement_items": 12,
-    "cumulative_beta_items": 68,
-    "fresh_sources": [
-      "official latest-beta.json",
-      "official latest-stable.json",
-      "official releases-history.json"
-    ],
-    "stable_manual_pages": "floating text, dynamic visuals, characters and build refreshed2026-10-04",
-    "complete_beta_schema": "UNKNOWN"
+  "ai_assistance": {
+    "version": "0.2.0",
+    "agent": "Codex CLI0.160.0 configured default model",
+    "invocation": "explicit candidate path; ephemeral synthetic production task",
+    "exit_code": 0,
+    "elapsed_seconds": 261.828,
+    "independent_criteria": 12,
+    "status": "passed",
+    "model_output_host": "two native-debug routes/rejoin/endChapter/cross chapter passed",
+    "automatic_discovery": "official app-server forceReload; two cwd; unique enabled original entry; config unchanged",
+    "installed_name_task": {
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 230.078,
+      "independent_criteria": 12,
+      "scope": "single-reference repair; five other files preserved; selected plugin1.0.0; future2.6.0 UNKNOWN; no player acceptance"
+    }
   },
   "historical_evidence": {
     "versions": [
@@ -75,44 +86,29 @@
       "playback_save_export": "not tested in this revision"
     }
   },
+  "source_research": {
+    "stable": "2.5.0",
+    "stable_announcement_items": 31,
+    "historical_beta_announcement_items": 68,
+    "complete_schema": "UNKNOWN",
+    "statistics": "official docs; no account/key/service operation"
+  },
   "channels": {
-    "github_source": "see-independent-publication-receipt",
-    "tag": "see-independent-publication-receipt",
-    "release": "see-independent-publication-receipt",
-    "attachments": "see-independent-publication-receipt",
-    "anonymous_download": "see-independent-publication-receipt",
-    "workshop": "not-applicable",
-    "previous_published_baseline": "0.1.8"
+    "version": "0.2.0",
+    "github_source": "see-versioned-publication-evidence",
+    "tag": "see-versioned-publication-evidence",
+    "release": "see-versioned-publication-evidence",
+    "attachments": "see-versioned-publication-evidence",
+    "anonymous_download": "see-DOWNLOAD-VERIFICATION-0.2.0.json",
+    "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.0",
+    "historical_baseline": "0.1.9",
+    "workshop": "not-applicable"
   },
   "known_gaps": [
-    "2.5 new feature native editing/player/save/export not tested this revision.",
-    "Installed SDK declaration and fingerprints do not prove API or project compatibility.",
-    "Complete2.5 JSON schemas and developer analytics service/API remain UNKNOWN.",
-    "Native installer browse/cancel/resize, model writing/playback task, Stable and other Agent full tasks retained as task-specific coverage gaps."
-  ],
-  "ai_assistance": {
-    "skill_version": "0.1.9",
-    "date": "2026-10-04",
-    "agent": "Codex CLI0.160.0 configured default model",
-    "invocation": "fresh installed-skill-name-only; read-only sandbox; ephemeral",
-    "exit_code": 0,
-    "turn_completed": true,
-    "elapsed_seconds": 70.719,
-    "reviewed_criteria": 13,
-    "status": "passed",
-    "actual_reads": [
-      "installed SKILL.md",
-      "beta-2.5",
-      "version-compatibility",
-      "beta-differences",
-      "production",
-      "research",
-      "fixture rules and scenario",
-      "EXE version information"
-    ],
-    "host_version": "2.5.0-beta.1",
-    "scope": "floating location label assistance: ordered nodes,persistence,nonwaiting,history,targeted hide and optional analytics; no inventedJSON fields",
-    "fixture_skill_personal_and_config_git_unchanged": true,
-    "json_write_native_playback_save_export": "not-tested"
-  }
+    "Current installer OS mouse browsing/cancel/scaling; WPF components not native clicks.",
+    "Other Agent full model tasks/platforms/cloud deployment and all engine features not certified.",
+    "Full JSON schema, If cache mechanism and general cycle algorithm UNKNOWN.",
+    "More save types/slots/extension state and Web persistence not verified.",
+    "RenPy runtime/Word application rendering/localization/resources/export roundtrip not tested."
+  ]
 }

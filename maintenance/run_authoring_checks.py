@@ -18,7 +18,7 @@ def run(scratch,native_fixtures=None):
         # Check the structured contract as well as individual diagnostic wording.
         assert report.get('read_only') is True
         assert report.get('engine_compatibility')=='not_verified'
-        assert report.get('schema_basis')=='authoring-subset-v0.1.4'
+        assert report.get('schema_basis')=='authoring-subset-v0.2.0'
         assert report['errors']==sum(i['level']=='error' for i in report['issues'])
         assert report['warnings']==sum(i['level']=='warning' for i in report['issues'])
         return p.returncode,report

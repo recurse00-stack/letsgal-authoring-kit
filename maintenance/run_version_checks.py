@@ -26,7 +26,12 @@ def run(scratch):
            ({'studio_version':'2.5.0-beta.2'},'UNKNOWN'),
            ({'studio_version':'2.5.0-beta.1','channel':'stable'},'UNKNOWN'),
            ({'studio_version':'2.5.0-beta.1','project_version':'2.4.0-beta.2'},'UNKNOWN'),
-           ({'studio_version':'2.5.0'},'UNKNOWN'),
+           ({'studio_version':'2.5.0'},'reference_selected'),
+           ({'studio_version':'2.5.0+build.9','channel':'stable'},'reference_selected'),
+           ({'studio_version':'2.5.0','channel':'beta'},'UNKNOWN'),
+           ({'studio_version':'2.5.0','project_version':'2.5.0-beta.1'},'UNKNOWN'),
+           ({'studio_version':'2.5.1'},'UNKNOWN'),
+           ({'studio_version':'2.6.0'},'UNKNOWN'),
            ({'studio_version':'2.4.0-beta.2','channel':'stable'},'UNKNOWN'),
            ({'studio_version':'2.4.0-beta.2','project_version':'2.4.0-beta.1'},'UNKNOWN'),
            ({'studio_version':'2.4.0'},'UNKNOWN'),
@@ -75,6 +80,12 @@ def run(scratch):
     assert result.returncode==0 and value['reference']=='references/versions/beta-2.5.md'
     assert value['runtime_compatibility']=='not_verified' and value['sdk']['api_compatibility']=='not_verified'
     checks.append({'case':'CLI2.5 selects its own profile without runtime or SDK claim','passed':True})
+    result=subprocess.run([sys.executable,'-B',str(scripts/'inspect_version.py'),
+                           '--studio-version','2.5.0','--channel','stable'],capture_output=True)
+    value=json.loads(result.stdout)
+    assert result.returncode==0 and value['reference']=='references/versions/stable-2.5.md'
+    assert value['runtime_compatibility']=='not_verified' and value['sdk']['api_compatibility']=='not_verified'
+    checks.append({'case':'Stable2.5 CLI selects formal guidance without inheriting Beta runtime acceptance','passed':True})
     report={'passed':len(checks),'failed':0,'checks':checks,
             'scope':'Version routing and read-only SDK fingerprint; no engine runtime acceptance'}
     (scratch/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')

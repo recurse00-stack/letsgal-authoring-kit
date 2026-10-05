@@ -89,6 +89,70 @@ def check(target, format_profile='auto'):
             return None
         return decoded
 
+    def required_string(value, loc, label, allow_blank=False):
+        if not isinstance(value, str) or (not allow_blank and not value.strip()):
+            issue('error', loc, label + ' requires a string' + ('' if allow_blank else ' with a value'),
+                  'operand_shape')
+
+    def assignment_shape(operation, loc):
+        """Only documented operand shapes; never evaluate or resolve variables."""
+        if not isinstance(operation, dict):
+            issue('error', loc, 'variable operation must be an object', 'operand_shape')
+            return
+        required_string(operation.get('key'), loc, 'assignment key')
+        op = operation.get('op', '=')
+        if op not in ('=', '+=', '-=', '*=', '/='):
+            issue('error', loc, 'invalid assignment operator', 'operand_shape')
+        for side, default, allowed in [('a', 'lit', ('lit', 'var')), ('b', 'none', ('none', 'lit', 'var'))]:
+            source = operation.get(side+'Kind', default)
+            if source not in allowed:
+                issue('error', loc, 'invalid '+side+'Kind', 'operand_shape')
+            elif source == 'lit':
+                required_string(operation.get(side+'Lit'), loc, side+' literal')
+            elif source == 'var':
+                required_string(operation.get(side+'Var'), loc, side+' variable key')
+        if op != '=' and operation.get('bKind', 'none') != 'none':
+            issue('error', loc, 'compound assignment cannot use a second operand', 'operand_shape')
+        if operation.get('bKind', 'none') != 'none' and operation.get('binOp', '+') not in ('+', '-', '*', '/'):
+            issue('error', loc, 'invalid binary operator', 'operand_shape')
+
+    def condition_shapes(conditions, loc):
+        unsupported = False
+        unary = ('isEmpty', 'isNotEmpty', 'exists', 'notExists')
+        operators = ('==', '!=', '>', '>=', '<', '<=', 'contains', 'notContains', 'startsWith', 'endsWith', 'custom') + unary
+        for i, condition in enumerate(conditions or []):
+            cl = loc + '.conditions[%d]' % i
+            if not isinstance(condition, dict):
+                issue('error', cl, 'condition must be an object', 'condition_shape')
+                continue
+            source = condition.get('sourceKind', 'variable')
+            if source not in ('variable', 'extension-method'):
+                unsupported = True
+                issue('warning', cl, 'unrecognized condition source; preserved and not validated', 'condition_source_unknown')
+                continue
+            op = condition.get('op')
+            if op not in operators:
+                issue('error', cl, 'invalid condition operator', 'condition_shape')
+            if source == 'extension-method':
+                required_string(condition.get('extensionMethod'), cl, 'method id')
+                if 'extensionParams' in condition and not isinstance(condition['extensionParams'], dict):
+                    issue('error', cl, 'extensionParams must be an object', 'condition_shape')
+                issue('warning', cl, 'method schema, return type and effects require the actual extension', 'condition_method_unverified')
+            elif op != 'custom':
+                required_string(condition.get('left'), cl, 'left variable key')
+            if op in unary:
+                continue
+            right = condition.get('rightKind')
+            if op == 'custom':
+                required_string(condition.get('rightLiteral'), cl, 'custom expression')
+            elif right == 'literal':
+                required_string(condition.get('rightLiteral'), cl, 'right literal', allow_blank=True)
+            elif right == 'variable':
+                required_string(condition.get('rightRef'), cl, 'right variable key')
+            else:
+                issue('error', cl, 'invalid rightKind', 'condition_shape')
+        return unsupported
+
     def chapter(path, is_entry=False, in_linear_order=False):
         nonlocal chapters_checked, unsupported_chapters, unsupported_blocks, unchecked_blocks
         where = path.name
@@ -122,6 +186,7 @@ def check(target, format_profile='auto'):
         ids = {f.get("id") for f in fragments if isinstance(f, dict) and isinstance(f.get("id"), str)}
         main = fragments[0].get("id") if isinstance(fragments[0], dict) else None
         edges = {key: set() for key in ids}
+        ref_counts = {key: 0 for key in ids}
 
         def ref(value, loc, origin, allow_empty=False, call_fragment=False):
             if allow_empty and value == "":
@@ -131,13 +196,14 @@ def check(target, format_profile='auto'):
                 return
             if value == main:
                 if call_fragment:
-                    issue("warning", loc, "callFragment targeting main: official JSON reference and Call Fragment guide differ; noncyclic A-to-main executed and returned in 2.3.0-beta.1 native fragment preview; other hosts, entry paths and exports require their own evidence; preserve existing references",
+                    issue("warning", loc, "callFragment targeting main: official JSON reference and Call Fragment guide differ; noncyclic A-to-main executed and returned in 2.3.0-beta.1 and 2.5.0 native fragment previews; other hosts, entry paths and exports require their own evidence; preserve existing references",
                           'main_call_version_sensitive')
                 else:
                     issue("error", loc, "branch/if target must be a non-main fragment id in the documented subset")
                     return
             if origin in edges:
                 edges[origin].add(value)
+                ref_counts[value] += 1
 
         for fi, fragment in enumerate(fragments):
             loc = where + ":fragments[%d]" % fi
@@ -220,27 +286,37 @@ def check(target, format_profile='auto'):
                             if not isinstance(choice.get("varOps"), list):
                                 issue("error", cl, "vars choice requires varOps array")
                             else:
-                                issue("warning", cl, "variable operations and keys require project-specific validation")
+                                for oi, operation in enumerate(choice['varOps']):
+                                    assignment_shape(operation, cl+'.varOps[%d]' % oi)
+                                issue("warning", cl, "operand shape checked; literal meaning, variable declarations and runtime require project-specific validation")
                         else:
                             issue("error", cl, "new choice requires jump or vars mode")
                     if defaults > 1:
                         issue("error", bl, "only one default choice allowed")
                 elif kind == "if":
-                    embedded(props, "conditions", bl)
+                    conditions = embedded(props, "conditions", bl)
+                    if condition_shapes(conditions, bl):
+                        unsupported_blocks += 1
                     ref(props.get("thenFragmentId"), bl, origin)
                     ref(props.get("elseFragmentId", ""), bl, origin, True)
                     if props.get("logicOp", "and") not in ("and", "or"):
                         issue("error", bl, "invalid logicOp")
-                    issue("warning", bl, "condition expression fields, types and variables need semantic validation")
+                    issue("warning", bl, "condition shape checked; expression meaning, types, variables and repeated If behavior need target-host validation")
                 elif kind == "callFragment":
                     if props.get('fragmentId') == '' and format_profile == 'auto':
                         issue('warning', bl, 'empty callFragment target is a documented editor no-op; select a real target for generated playable content')
                     else:
                         ref(props.get("fragmentId"), bl, origin, call_fragment=True)
                 elif kind == "setver":
-                    if not isinstance(props.get("key"), str) or not props["key"]:
-                        issue("error", bl, "assignment requires variable key")
-                    issue("warning", bl, "assignment operands and variable declarations are not validated")
+                    assignment_shape(props, bl)
+                    issue("warning", bl, "operand shape checked; literal meaning, variable declarations and runtime are not validated")
+        for fragment in fragments:
+            if (isinstance(fragment, dict) and isinstance(fragment.get('id'), str)
+                    and ref_counts.get(fragment['id'], 0) > 1
+                    and isinstance(fragment.get('blocks'), list)
+                    and any(isinstance(b, dict) and b.get('type') == 'if' for b in fragment['blocks'])):
+                issue('warning', where, 'multiple stored calls to a fragment containing If: 2.5.0 same-block reuse retained the earlier decision after a variable changed; an independent If selected the current-value branch in native debug, Windows and local Web players. Verify the actual path; this is not a reachability or cache-mechanism proof',
+                      'if_reuse_decision_risk')
         # Iterative traversal avoids Python recursion on long, valid chapter chains.
         state = {}
         has_cycle = False
@@ -326,7 +402,7 @@ def check(target, format_profile='auto'):
             "unsupported_chapters": unsupported_chapters, "unsupported_blocks": unsupported_blocks,
             "unchecked_blocks": unchecked_blocks, "format_profile": format_profile, "read_only":True,
             "engine_compatibility": "not_verified",
-            "schema_basis": "authoring-subset-v0.1.4",
+            "schema_basis": "authoring-subset-v0.2.0",
             "warnings": sum(i["level"] == "warning" for i in issues),
             "scope": "Read-only subset; not full parameter/type/asset/variable validation, a compiler, engine load or runtime-flow acceptance.",
             "issues": issues}

@@ -161,7 +161,7 @@ def run(bundle, scratch):
         new_skill=newer/'skills'/'letsgal-authoring'
         (new_skill/'references'/'production.md').write_text((new_skill/'references'/'production.md').read_text('utf-8')+'\nNew release fixture.\n','utf-8')
         manifest=json.loads((newer/'bundle.json').read_text('utf-8'))
-        manifest['version']='0.1.1-test'
+        manifest['version']='0.2.1-test'
         for item in manifest['files']:
             item['sha256']=hashlib.sha256((new_skill/item['path']).read_bytes()).hexdigest()
         (newer/'bundle.json').write_text(json.dumps(manifest,ensure_ascii=False),'utf-8')
@@ -183,9 +183,15 @@ def run(bundle, scratch):
         command="New-Item -ItemType Junction -Path '%s' -Target '%s' | Out-Null" % (str(link).replace("'","''"),str(outside).replace("'","''"))
         p=subprocess.run([shell,'-NoProfile','-Command',command],capture_output=True)
         if p.returncode==0:
-            args=[shell,'-NoProfile','-ExecutionPolicy','Bypass','-File',str(bundle/'Install.ps1'),'-Harness','Codex','-Scope','User','-UserHome',str(junction_home),'-NonInteractive']
-            q=subprocess.run(args,capture_output=True)
-            record(label+' junction-target-rejected',q.returncode!=0 and not list(outside.iterdir()))
+            try:
+                args=[shell,'-NoProfile','-ExecutionPolicy','Bypass','-File',str(bundle/'Install.ps1'),'-Harness','Codex','-Scope','User','-UserHome',str(junction_home),'-NonInteractive']
+                q=subprocess.run(args,capture_output=True)
+                record(label+' junction-target-rejected',q.returncode!=0 and not list(outside.iterdir()))
+            finally:
+                # Remove only the exact junction created above, never its target.
+                # Leaving it behind breaks ordinary release-directory protection.
+                if link.exists() and getattr(link.lstat(), 'st_file_attributes', 0) & 0x400:
+                    link.rmdir()
         else:
             record(label+' junction-target-rejected',False,'Could not create test junction')
     report={'checks':results,'passed':sum(r['passed'] for r in results),'failed':sum(not r['passed'] for r in results),

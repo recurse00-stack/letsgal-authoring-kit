@@ -1,6 +1,6 @@
 # 资料来源与查阅范围
 
-本包依据官方资料、目标版本样本和有限实测独立编写。0.1.9于2026-10-04刷新官方Beta／Stable清单和发布历史，补充2.5.0-beta.1的12项公告；本版重读浮字、动态图像、角色与构建页面，其他页面保留原查阅日期；各项实测按完整版本注明。历史来源仍保留原日期，不保证网页此后保持原样。
+本包依据官方资料、目标版本样本和有限实测独立编写。0.2.0于2026-10-05核对2.5.0正式版清单与31条汇总，重读编辑器、JSON、调用片段、扩展开发及相关操作页面；配套SDK来自该版Studio原生初始化，29接口文件与安装资源逐项一致。实际模型、调试、Windows／本地Web、有限Windows存档、预览继承与六类剧本导出分别记录。旧Beta68条公告与历史页面保留原归属，不保证网页此后保持原样，也不宣称完整schema或全部API已通过。
 
 ## 版本与证据日期
 
@@ -44,3 +44,11 @@
 0.1.7补充读取：[角色管理](https://docs.avg-engine.com/manual/creating/characters/)、[对白](https://docs.avg-engine.com/manual/writing/blocks/dialogue/)、[创建扩展](https://docs.avg-engine.com/extensions/develop/)。前两页用于正式资料基线；2.4具体差异按公告与目标样本分别判断。根目录llms.txt本次仍404，已改走正式页面，未将404当作无更新。
 
 0.1.9页面入口：[浮动文字](https://docs.avg-engine.com/manual/writing/blocks/floating-text)、[动态图像](https://docs.avg-engine.com/manual/creating/dynamic-visuals)、[构建](https://docs.avg-engine.com/manual/overview/build)。基础浮字页的等待措辞与公告不同；构建页未列完整运营统计参数，因此不猜写字段。
+
+## 0.1.10正式版资料刷新 · 2026-10-05
+
+Stable清单的Windows／mac条目及发布历史列2.5.0，Windows正式公告逐字一致；Beta清单仍列2.5.0-beta.1。正式公告31条是多个Beta阶段的汇总，68条旧Beta记录保留历史基线，不相加为新增功能数。公告来源与本机实际版本分别判断；本次读取EXE仍为2.5.0-beta.1，没有升级引擎。
+
+重读编辑器、If、浮动文字、角色、动态图像、构建、译稿校对和扩展AI指导，新增读取[游戏数据统计](https://docs.avg-engine.com/manual/overview/game-stats)。编辑器页仍写章节局部预览，与2.5.0“继承上文”公告按开关／版本分别说明；浮字“阻塞”与Beta“等待结束”名称仍需目标样本映射。统计页补足流程与密钥语义，但不证明服务端／API实测。根llms.txt与sitemap.xml本次仍404，具体页面正文成功读取；不声称官方已全面同步2.5手册。
+
+正式版玩法、保存字段、SDK初始化及运行未测；旧Beta证据不改写为Stable通过。见[正式版指引](skills/letsgal-authoring/references/versions/stable-2.5.md)与[本版验证](VALIDATION.md)。原始响应和哈希只留内部凭证，不随包公开。

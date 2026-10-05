@@ -1,6 +1,6 @@
 # Beta 2.5：浮动文字、动态模型与构建排错
 
-适用完整版本：**2.5.0-beta.1**。2026-10-04核对[官方Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)和[发布历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json)，两者公告一致；实际Windows EXE与随包SDK常量也声明此版。资料选择和SDK声明已核对，新增功能的原生保存、播放、存读档与导出本轮未实测。其他完整版本回[兼容规则](../version-compatibility.md)，不按版本大小继承结论。
+适用完整版本：**2.5.0-beta.1**。这是历史Beta资料；2026-10-05发布的2.5.0正式版按[独立专页](stable-2.5.md)读取。以下2026-10-04“本轮”均指当时Beta核对，不是正式版证据。2026-10-04核对[官方Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)和[发布历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json)，两者公告一致；实际Windows EXE与随包SDK常量也声明此版。资料选择和SDK声明已核对，新增功能的原生保存、播放、存读档与导出本轮未实测。其他完整版本回[兼容规则](../version-compatibility.md)，不按版本大小继承结论。
 
 ## 先选择AI能完成的部分
 
@@ -45,3 +45,5 @@ AI可读取工程已有对象、核对素材引用、比较保存差异、整理
 统计密钥、账号和玩家数据仅按当前任务处理，不写进公共Skill、示例或发行说明。当前构建手册未提供完整统计参数，本轮也未验证服务端收集／展示：字段、协议版本、平台覆盖、失败行为和SDK入口为UNKNOWN。需要实现时查该版构建界面及开发者中心实际说明，不编造上传API。
 
 完整12项公告摘要及证据层次见[累计差异](beta-differences.md)。本页是制作与排错指引，不是全功能通过清单。
+
+后续资料：2026-10-05已读取[官方游戏数据统计](https://docs.avg-engine.com/manual/overview/game-stats)，提供开启、上报范围、统计口径、关闭与换新密钥说明；见[正式版整理](stable-2.5.md#创作者统计与玩家运营统计分开)。这补充资料入口，不证明旧Beta与正式版服务／接口运行相同。

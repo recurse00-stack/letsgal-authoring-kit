@@ -64,10 +64,12 @@
     "maintenance/run_version_checks.py",
     "AUDIT.md",
     "maintenance/run_authoring_checks.py",
+    "maintenance/run_operand_checks.py",
     "Import.Preflight.ps1",
     "maintenance/Test-Preflight.ps1",
     "HOST-VALIDATION.md",
     "skills/letsgal-authoring/references/versions/beta-2.4.md",
-    "skills/letsgal-authoring/references/versions/beta-2.5.md"
+    "skills/letsgal-authoring/references/versions/beta-2.5.md",
+    "skills/letsgal-authoring/references/versions/stable-2.5.md"
   ]
 }

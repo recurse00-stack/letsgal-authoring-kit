@@ -1,11 +1,7 @@
 # 社区Skill维护交接
 
-本包版本0.1.9，新增2.5.0-beta.1精确资料路由、12项公告与具体制作／排错路径，累计68项。实际EXE与随包SDK声明核对，新增功能未做原生运行；旧2.3／2.4证据保留原版范围。0.1.8及更早版本的原凭证保留，0.1.9渠道结果见独立发布／下载记录。
+0.2.0是基于实际2.5.0 Stable、官方资料及合成运行的全面修订。工作法、条件／赋值检查、If复用、章索引、main、SDK初始化／构建和六类剧本导出均更新；实际模型、原生调试、Windows／本地Web和有限Windows读档分别记录。旧Beta历史保留完整版本，未覆盖接口或平台不猜兼容。
 
-Skill changed；安装程序verified-unchanged／说明changed；人类Markdown／HTML changed，无missing。使用release-files.json白名单构建，bundle和校验随版刷新。主Skill通过完整安装器更新原加载入口，个人偏好和版本化插件知识保留；不创建重复入口或自己的子插件。
+Skill changed；辅助安装程序verified-unchanged／说明changed；人类Markdown／离线HTML changed，无missing。Windows使用完整包，其他平台手动说明，不单独运行摘出的Install.ps1。主Skill用原入口，不嵌套成自己子插件；插件知识在用户版本化库。个人区、旧版本、备份和原Git状态保留。
 
-浮字显示／等待／历史／隐藏、模型实体／表情／文件依赖、素材撤销范围、姿势、构建诊断及可选统计见2.5专页。资料路由、SDK声明、文件更新和宿主运行分别报告，未知字段不猜写。完整引擎验收不是Skill发行前置，具体检查见VALIDATION.md。
-
-公开文案统一发行者口吻，内部记录不得随包发行。外部发布按本次具体授权执行，源码／tag／Release／附件／匿名下载分别核验，不覆盖旧资产；工坊not-applicable。Windows使用完整包，其他平台手动安装，不单独运行摘出的Install.ps1。
-
-0.1.9另有一次安装入口技能名真实AI只读辅助：70.719秒、exit0、turn.completed，13项证据核对通过，地点牌流程／等待／历史／单ID隐藏与可选统计判断正确；缺失字段保持UNKNOWN。此结果不扩展为JSON写入或宿主运行，见VALIDATION.md。
+本版为0.2.0社区发行材料；源码、tag、Release、附件和匿名下载分别取证，结果以同版本发布凭证为准。后续外部发布仍按具体授权执行，不覆盖旧资产，工坊not-applicable。按release-files白名单、bundle和校验构建，版本材料独立保存。对外采用统一发行者口吻；内部凭证、路径、账号与真实作品不公开。真实范围和补充缺口见[VALIDATION](../VALIDATION.md)。

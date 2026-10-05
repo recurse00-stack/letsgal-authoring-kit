@@ -1,4 +1,6 @@
-# 正式版到 2.5.0-beta.1 的累计差异
+# 从Stable 2.0到2.5.0-beta.1的历史累计差异
+
+本表以Stable 2.0为历史比较基线。2026-10-05正式版已为2.5.0；当前正式版制作与31条汇总见[Stable 2.5](stable-2.5.md)。不要将本表68项继续称为“比当前正式版新增”，也不将它们加上正式汇总重复计数。
 
 2026-10-04 读取[官方发布历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json)、[Beta 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)与[Stable 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)。Windows Beta 清单及历史均列2.5.0-beta.1；Stable清单仍列2.0.0，历史另列2.0.1。清单用于公告定位，实际工程的宿主证据决定资料选择。
 
