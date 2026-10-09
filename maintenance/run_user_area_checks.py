@@ -1,4 +1,5 @@
 """Verify user-owned bytes survive installs, real upgrades and failures in NEW isolated homes."""
+from bundle_layout import payload, manifest_path, with_channel
 import argparse
 import hashlib
 import json
@@ -49,8 +50,8 @@ for shell in filter(None,[shutil.which('powershell.exe'),shutil.which('pwsh.exe'
     root=args.scratch/label
     root.mkdir()
     def run(home,action='Install',source=bundle):
-        result=subprocess.run([shell,'-NoProfile','-ExecutionPolicy','Bypass','-File',str(source/'Install.ps1'),
-                               '-Harness','Codex','-Scope','User','-UserHome',str(home),'-Action',action,'-NonInteractive'],capture_output=True)
+        result=subprocess.run(with_channel([shell,'-NoProfile','-ExecutionPolicy','Bypass','-File',str(source/'Install.ps1'),
+                               '-Harness','Codex','-Scope','User','-UserHome',str(home),'-Action',action,'-NonInteractive']),capture_output=True)
         rows=result.stdout.decode('utf-8','replace').splitlines()
         parsed=[json.loads(s) for s in rows if s.startswith('{')]
         return result.returncode,parsed[-1] if parsed else {}
@@ -95,7 +96,7 @@ for shell in filter(None,[shutil.which('powershell.exe'),shutil.which('pwsh.exe'
 
     # Corrupted source must stop before changing either public Skill or user area.
     bad_bundle=root/'corrupt bundle'; shutil.copytree(bundle,bad_bundle)
-    (bad_bundle/'skills/letsgal-authoring/SKILL.md').write_bytes(b'CORRUPTED MANIFEST CONTENT')
+    (payload(bad_bundle)/'SKILL.md').write_bytes(b'CORRUPTED MANIFEST CONTENT')
     intact_skill=snapshot(old_target); intact_user=user_snapshot(old_area)
     code,result=run(old_home,source=bad_bundle)
     record(label+' failed update preserves existing skill preferences and plugins',code!=0 and snapshot(old_target)==intact_skill and user_snapshot(old_area)==intact_user)

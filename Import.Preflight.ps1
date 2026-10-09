@@ -53,7 +53,30 @@ function Record-Map($Records) {
     return $map
 }
 
-function Get-InstallPreview([string]$BundleRoot, $Destination, [string]$UserHome, [switch]$ValidateBundle) {
+function Read-SelectedBundle([string]$BundleRoot, [string]$Channel) {
+    if ($Channel) { $Channel = $Channel.ToLowerInvariant() }
+    $bundle = Full-Path $BundleRoot
+    $index = Read-Json (Join-Path $bundle 'bundle.json')
+    $payloadRoot = $bundle
+    $manifest = $index
+    if ($index.schema -eq 2) {
+        if ($Channel -notin @('stable','beta')) { throw '请先选择正式版（stable）或 Beta；安装器不会猜测工程通道。' }
+        if ($index.owner -ne 'letsgal-authoring-kit' -or $index.skill -ne 'letsgal-authoring') { throw 'Unsupported channel index identity.' }
+        $selected = @($index.channels | Where-Object { $_.id -ceq $Channel })
+        if ($selected.Count -ne 1 -or $selected[0].bundle -cne "channels/$Channel/bundle.json") { throw 'Invalid channel manifest location.' }
+        $payloadRoot = Join-Path $bundle "channels/$Channel"
+        $manifest = Read-Json (Join-Path $payloadRoot 'bundle.json')
+        if ($manifest.channel -cne $Channel -or $manifest.version -cne $index.version) { throw 'Channel manifest identity/version mismatch.' }
+    }
+    if ($manifest.schema -ne 1 -or $manifest.skill -ne 'letsgal-authoring' -or $manifest.owner -ne 'letsgal-authoring-kit' -or
+        -not ($manifest.version -is [string]) -or [string]::IsNullOrWhiteSpace($manifest.version)) { throw 'Unsupported bundle identity/schema/version.' }
+    $selectedChannel = if ($manifest.PSObject.Properties['channel']) { [string]$manifest.channel } else { 'legacy' }
+    if ($selectedChannel -notin @('stable','beta','legacy')) { throw 'Unsupported payload channel.' }
+    if ($Channel -and $selectedChannel -ne 'legacy' -and $selectedChannel -cne $Channel) { throw 'Selected channel differs from this single-channel bundle.' }
+    return [pscustomobject]@{Manifest=$manifest;Source=(Join-Path $payloadRoot 'skills/letsgal-authoring');Channel=$selectedChannel}
+}
+
+function Get-InstallPreview([string]$BundleRoot, $Destination, [string]$UserHome, [switch]$ValidateBundle, [string]$Channel) {
     $homeRoot = Full-Path $UserHome
     Assert-OrdinaryPath $homeRoot
     if (-not (Test-Path -LiteralPath $homeRoot -PathType Container)) { throw 'User home does not exist.' }
@@ -61,7 +84,8 @@ function Get-InstallPreview([string]$BundleRoot, $Destination, [string]$UserHome
     Assert-OptionalFile (Join-Path $area.Root 'installer-state.json')
     $bundle = Full-Path $BundleRoot
     Assert-OrdinaryPath $bundle
-    $source = Join-Path (Join-Path $bundle 'skills') 'letsgal-authoring'
+    $selection = Read-SelectedBundle $bundle $Channel
+    $source = $selection.Source
     $target = Full-Path $Destination.Target
     Assert-OrdinaryPath $target
     if ($source.Equals($target,[StringComparison]::OrdinalIgnoreCase) -or
@@ -76,11 +100,7 @@ function Get-InstallPreview([string]$BundleRoot, $Destination, [string]$UserHome
     }
     $backupRoot = Join-Path ([IO.Path]::GetDirectoryName($Destination.SkillsRoot)) '.letsgal-authoring-backups'
     Assert-OrdinaryPath $backupRoot
-    $manifest = Read-Json (Join-Path $bundle 'bundle.json')
-    if ($manifest.schema -ne 1 -or $manifest.skill -ne 'letsgal-authoring' -or $manifest.owner -ne 'letsgal-authoring-kit' -or
-        -not ($manifest.version -is [string]) -or [string]::IsNullOrWhiteSpace($manifest.version)) {
-        throw 'Unsupported bundle identity/schema/version.'
-    }
+    $manifest = $selection.Manifest
     $expected = Record-Map $manifest.files
     if (-not $expected.ContainsKey('SKILL.md')) { throw 'Bundle manifest is missing SKILL.md.' }
     if ($ValidateBundle -and -not (Same-Map (Tree-Map $source) $expected)) {
@@ -91,6 +111,7 @@ function Get-InstallPreview([string]$BundleRoot, $Destination, [string]$UserHome
     $clean = $false
     $receipt = $null
     $installedVersion = $null
+    $installedChannel = $null
     $current = @{}
     if ($installed) {
         if (-not (Test-Path -LiteralPath $target -PathType Container)) { throw 'Target exists but is not a directory.' }
@@ -103,6 +124,7 @@ function Get-InstallPreview([string]$BundleRoot, $Destination, [string]$UserHome
                 if ($managed) {
                     $clean = Same-Map $current (Record-Map $receipt.files)
                     if ($receipt.PSObject.Properties['version'] -and $receipt.version -is [string]) { $installedVersion = $receipt.version }
+                    $installedChannel = if ($receipt.PSObject.Properties['channel'] -and $receipt.channel -in @('stable','beta')) { [string]$receipt.channel } else { 'legacy' }
                 }
             } catch { $managed = $false; $clean = $false; $installedVersion = $null }
         }
@@ -110,13 +132,15 @@ function Get-InstallPreview([string]$BundleRoot, $Destination, [string]$UserHome
     $status = 'not_installed'
     if ($installed) {
         if (-not $managed -or -not $clean) { $status = 'requires_backup' }
-        elseif (Same-Map $current $expected) { $status = 'current' }
+        elseif ($installedChannel -ne 'legacy' -and $installedChannel -ne $selection.Channel) { $status = 'channel_change' }
+        elseif ((Same-Map $current $expected) -and $installedChannel -eq $selection.Channel) { $status = 'current' }
         else { $status = 'update_available' }
     }
     # Detection creates no folders, locks, state, receipts or backups. The caller
     # must recheck immediately before its eventual installation transaction.
     return [pscustomobject]@{
         Target=$target; BundleVersion=$manifest.version; InstalledVersion=$installedVersion;
+        Channel=$selection.Channel; InstalledChannel=$installedChannel;
         Installed=$installed; Managed=$managed; Clean=$clean; Status=$status;
         Expected=$expected; CurrentMap=$current; Receipt=$receipt; Manifest=$manifest;
         BackupRoot=$backupRoot; Source=$source; BundleRoot=$bundle

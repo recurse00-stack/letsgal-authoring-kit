@@ -1,0 +1,4 @@
+interface:
+  display_name: "LetsGal Beta 创作与协作"
+  short_description: "面向 LetsGal Beta 的剧情、分支与素材协作，核对版本、保护已有内容并验证改动"
+  default_prompt: "使用 $letsgal-authoring，核对本 Skill 的Beta通道与目标工程，再完成已授权内容和相关验证。"

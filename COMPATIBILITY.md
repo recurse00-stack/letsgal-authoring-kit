@@ -1,10 +1,12 @@
 # Harness 适配边界
 
-本说明对应0.2.0。Windows安装程序及目录规则沿用原版；正式版2.5.0、旧Beta和UNKNOWN分别选择资料，实际运行证据按宿主完整版本记录。
+安装时先按目标工程选择正式版或Beta载荷，同一位置只保留一份同名Skill。正式版保持原生／离线流程；Beta优先获准的官方MCP，未启用时保留文件／原生流程。MCP是可选能力，安装Skill不注册服务。直接写磁盘前关闭目标工程；当前实例状态、工具目录和批准分别核对，见[Beta MCP工作流](channels/beta/skills/letsgal-authoring/references/mcp-workflow.md)。
 
-手动导入前阅读 [风险说明与免责声明](skills/letsgal-authoring/references/risk-notice.md)，完整复制 Skill 目录以保留随包说明；导入不授予 AI 额外文件权限。
+本说明对应0.2.1。Windows安装程序新增正式版／Beta选择和切换，原有目录选择与个人区保留机制继续使用；所选载荷按完整宿主版本选择资料，未知或冲突标UNKNOWN，运行证据按实际宿主记录。
 
-Agent 的导入目录兼容与 LetsGal 引擎版本兼容分别判断。稳定版、Beta、旧工程和未知版本均走 [项目版本规则](skills/letsgal-authoring/references/version-compatibility.md)，不以“最新版文档”替代目标宿主证据。下表只说明 Agent 的技能入口。
+手动导入前阅读 [风险说明与免责声明](channels/beta/skills/letsgal-authoring/references/risk-notice.md)，完整复制 Skill 目录以保留随包说明；导入不授予 AI 额外文件权限。
+
+Agent的导入目录兼容与LetsGal引擎版本兼容分别判断。安装后按所选通道的[正式版规则](channels/stable/skills/letsgal-authoring/references/version-compatibility.md)或[Beta规则](channels/beta/skills/letsgal-authoring/references/version-compatibility.md)读取版本资料；通道不符先改装对应载荷，未知继续无版本依赖工作，不以“最新版文档”替代宿主证据。下表只说明Agent技能入口。
 
 2026-09-30 按当前官方目录文档重新复核；DSH 安装 provider 的运行结果仍是注明版本的历史证据。以下为当前格式／目录适配，不代表全部客户端版本、远程环境或真实 AI 行为均已验收。
 
@@ -26,7 +28,7 @@ Cursor 也支持 `.cursor/skills`，Copilot 也有 `.copilot/skills`（个人）
 
 安装器不会自动解析自定义 `CODEX_HOME`、扫描便携／迁移目录或读取 Agent 配置来猜位置。这些情况先核对 Agent 实际读取的 `skills` 根，再选“其他 Agent / 指定目录”；不选程序文件夹或末级 `letsgal-authoring`。DSH 的首次进程环境默认值及保存选择见下文。自选目录不修改 Agent 的发现设置；文件校验通过后仍须在新会话核对实际来源。
 
-必须使用具有项目文件访问能力的模式；只在普通聊天里贴技能文字不赋予编辑器控制能力。`agents/openai.yaml` 只提供 Codex 界面元数据，核心工作流不依赖它。未硬编码任何一家工具的函数名、模型或 MCP 地址。
+必须使用具有项目文件访问能力的模式；只在普通聊天里贴技能文字不赋予编辑器控制能力。`agents/openai.yaml` 只提供 Codex 界面元数据，核心工作流不依赖它。官方 MCP 工作流按当前服务的工具名和 schema 适配，不固定模型或作者本机地址；无 MCP 的使用方式保持可用。
 
 工具目录有跨客户端发现时，同名个人／项目／其他 harness 副本可能同时出现。不要为去重删除未知副本；先看客户端的加载列表、作用域与优先级。
 
@@ -36,7 +38,7 @@ Cursor 也支持 `.cursor/skills`，Copilot 也有 `.copilot/skills`（个人）
 
 ## 当前引擎资料路由
 
-[只读版本工具](skills/letsgal-authoring/scripts/inspect_version.py)对已核实的 2.0.0／2.0.1、2.5.0 分别选择对应 Stable 资料，对 2.3.0-beta.1／2.4.0-beta.1／2.4.0-beta.2／2.5.0-beta.1 分别选择对应 Beta 资料；缺失／冲突／其他版本返回 UNKNOWN，不推定兼容。资料实现、EXE 版本读取、SDK 指纹与真实宿主运行分别记录，见 [验证范围](VALIDATION.md)。下载清单与发布历史可能不同，选择不依赖“最新”标签。安装主 Skill 不嵌套为自己的插件。
+两份载荷各有只读版本工具：[正式版](channels/stable/skills/letsgal-authoring/scripts/inspect_version.py)只选择已核实的2.0.0／2.0.1／2.5.0资料；[Beta](channels/beta/skills/letsgal-authoring/scripts/inspect_version.py)只选择2.3.0-beta.1／2.4.0-beta.1／2.4.0-beta.2／2.5.0-beta.1／2.6.0-beta.1资料。通道不符、缺失、冲突或未登记版本返回UNKNOWN，不推定兼容。资料实现、EXE读取、SDK指纹与真实运行分别记录，见[验证范围](VALIDATION.md)。下载清单与发布历史可能不同，不依赖“最新”标签。主Skill不嵌套为自己的插件。
 
 ## DSH
 

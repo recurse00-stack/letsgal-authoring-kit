@@ -18,7 +18,7 @@ def main():
         raise SystemExit('Use a NEW absolute scratch directory.')
     scratch.mkdir(parents=True, exist_ok=False)
     kit = Path(__file__).resolve().parents[1]
-    relative = Path('skills/letsgal-authoring/references/risk-notice.md')
+    relative = Path('RISK-NOTICE.md')
     notice = kit / relative
     checks = []
 
@@ -26,7 +26,7 @@ def main():
         checks.append({'name': name, 'passed': bool(passed)})
 
     def run(shell, bundle, home, action='Install'):
-        command = '[Console]::OutputEncoding = New-Object Text.UTF8Encoding($false); & ' + "'" + str(bundle/'Install.ps1').replace("'", "''") + "'" + ' -Harness Codex -NonInteractive -Action ' + action + ' -UserHome ' + "'" + str(home).replace("'", "''") + "'"
+        command = '[Console]::OutputEncoding = New-Object Text.UTF8Encoding($false); & ' + "'" + str(bundle/'Install.ps1').replace("'", "''") + "'" + ' -Harness Codex -Channel beta -NonInteractive -Action ' + action + ' -UserHome ' + "'" + str(home).replace("'", "''") + "'"
         result = subprocess.run([shell, '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-Command', command], capture_output=True)
         stdout = result.stdout.decode('utf-8', errors='replace')
         report = next((json.loads(line) for line in reversed(stdout.splitlines()) if line.startswith('{')), {})

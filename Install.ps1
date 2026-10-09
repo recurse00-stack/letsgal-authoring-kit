@@ -4,6 +4,7 @@ param(
     [ValidateSet('Install','Check','Uninstall')][string]$Action = 'Install',
     [ValidateSet('Codex','Claude','Cursor','Copilot','DSH','Manual')][string]$Harness,
     [ValidateSet('User','Project')][string]$Scope,
+    [ValidateSet('stable','beta')][string]$Channel,
     [string]$ProjectPath,
     [string]$SkillsDirectory,
     [string]$DshHome,
@@ -107,6 +108,14 @@ try {
     Assert-OptionalFile $profileFile
     Assert-OptionalFile $stateFile
     $previous = Read-InstallerChoices $stateFile
+    $index = Read-Json (Join-Path $PSScriptRoot 'bundle.json')
+    if ($index.schema -eq 2 -and -not $Channel) {
+        if ($NonInteractive) { throw 'Channel is required: use -Channel stable or -Channel beta. No files changed.' }
+        $choice = Read-Host '选择目标工程的引擎通道：1 正式版，2 Beta（必选）'
+        if ($choice -eq '1') { $Channel = 'stable' }
+        elseif ($choice -eq '2') { $Channel = 'beta' }
+        else { throw '请选择正式版或 Beta；原文件保留。' }
+    }
     if (-not $Harness) {
         if ($NonInteractive) { throw 'Harness is required in non-interactive mode.' }
         Write-Host 'LetsGal 创作与协作 - 独立社区技能安装器' -ForegroundColor Cyan
@@ -155,7 +164,7 @@ try {
     $scopeRoot = $destination.ScopeRoot
     $target = $destination.Target
     if ($destination.DshHome) { $DshHome = $destination.DshHome }
-    $preview = Get-InstallPreview -BundleRoot $PSScriptRoot -Destination $destination -UserHome $homeRoot -ValidateBundle:($Action -eq 'Install')
+    $preview = Get-InstallPreview -BundleRoot $PSScriptRoot -Destination $destination -UserHome $homeRoot -Channel $Channel -ValidateBundle:($Action -eq 'Install')
     $bundle = $preview.BundleRoot
     $source = $preview.Source
     $backupRoot = $preview.BackupRoot
@@ -169,6 +178,7 @@ try {
         catch { throw 'Another installer may be using this location, or its lock cannot be opened. Close the other installer or check folder access; no skill files changed.' }
     }
     Write-Host "目标：$target"
+    Write-Host "所选通道：$($preview.Channel)；已安装通道：$($preview.InstalledChannel)"
     Write-Host "保留个人偏好：$profileFile"
     Write-Host "保留插件资料：$pluginsRoot"
     if ($destination.Note) { Write-Host $destination.Note }
@@ -181,14 +191,14 @@ try {
         }
     }
     # Re-read after taking the install/uninstall lock. Check remains read-only.
-    $preview = Get-InstallPreview -BundleRoot $PSScriptRoot -Destination $destination -UserHome $homeRoot
+    $preview = Get-InstallPreview -BundleRoot $PSScriptRoot -Destination $destination -UserHome $homeRoot -Channel $Channel
     $installed = $preview.Installed
     $receipt = $preview.Receipt
     $managed = $preview.Managed
     $clean = $preview.Clean
     $currentMap = $preview.CurrentMap
     if ($Action -eq 'Check') {
-        [ordered]@{action='check';installed=$installed;managed=$managed;unchanged=$clean;target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';installed_version=$preview.InstalledVersion;bundle_version=$preview.BundleVersion;status=$preview.Status;matches_bundle=($preview.Status -eq 'current');completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
+        [ordered]@{action='check';channel=$preview.Channel;installed_channel=$preview.InstalledChannel;installed=$installed;managed=$managed;unchanged=$clean;target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';installed_version=$preview.InstalledVersion;bundle_version=$preview.BundleVersion;status=$preview.Status;matches_bundle=($preview.Status -eq 'current');completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
         if (-not $installed -or -not $managed -or -not $clean) { exit 2 }
         exit 0
     }
@@ -207,10 +217,10 @@ try {
         exit 0
     }
     if ($installed -and (-not $managed -or -not $clean)) { Confirm-Replacement "The existing skill has local edits or is unmanaged: $target" }
-    if ($installed -and $managed -and $clean -and (Same-Map $currentMap $expected)) {
+    if ($preview.Status -eq 'current') {
         Initialize-UserArea $homeRoot
-        Write-CompletionRecord $stateFile @{Harness=$Harness;Scope=$Scope;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome} -Replace
-        @{action='already_current';target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';risk_notice=$noticeRecord;completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
+        Write-CompletionRecord $stateFile @{Harness=$Harness;Scope=$Scope;Channel=$preview.Channel;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome} -Replace
+        @{action='already_current';channel=$preview.Channel;version=$manifest.version;target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';risk_notice=$noticeRecord;completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
         exit 0
     }
     if (-not $NonInteractive -and (Read-Host '以上位置正确吗？回车安装，输入 N 取消') -match '^[Nn]') { throw 'Cancelled.' }
@@ -224,7 +234,7 @@ try {
         [IO.File]::Copy((Join-Path $source $relative), $output, $false)
     }
     if (-not (Same-Map (Tree-Map $stage) $expected)) { throw 'Staging verification failed; original untouched.' }
-    Write-Json (Join-Path $stage '.install-receipt.json') @{owner=$Owner;skill=$SkillName;version=$manifest.version;installed_at=(Get-Date -Format o);files=$manifest.files;risk_notice=$noticeRecord}
+    Write-Json (Join-Path $stage '.install-receipt.json') @{owner=$Owner;skill=$SkillName;version=$manifest.version;channel=$preview.Channel;installed_at=(Get-Date -Format o);files=$manifest.files;risk_notice=$noticeRecord}
     # Initialize only missing user-area items before moving any installed Skill.
     Initialize-UserArea $homeRoot
     Ensure-Directory $skillsRoot
@@ -248,10 +258,10 @@ try {
         if ($backup -and (Test-Path -LiteralPath $backup) -and -not (Test-Path -LiteralPath $target)) { [IO.Directory]::Move($backup, $target) }
         throw
     }
-    Write-CompletionRecord $stateFile @{Harness=$Harness;Scope=$Scope;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome} -Replace
-    Write-CompletionRecord (Join-Path $backupRoot ($stamp + '-install.json')) @{target=$target;previous=$backup;version=$manifest.version;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot;risk_notice=$noticeRecord}
+    Write-CompletionRecord $stateFile @{Harness=$Harness;Scope=$Scope;Channel=$preview.Channel;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome} -Replace
+    Write-CompletionRecord (Join-Path $backupRoot ($stamp + '-install.json')) @{target=$target;previous=$backup;version=$manifest.version;channel=$preview.Channel;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot;risk_notice=$noticeRecord}
     Write-Host '文件安装并校验完成。建议先停用其他同类 LetsGal／引擎创作 Skill，保留原文件与特调；安装器不会自动停用它们。打开新的 AI 会话，按 README 核对技能实际来源。' -ForegroundColor Green
-    @{action='installed';version=$manifest.version;target=$target;backup=$backup;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';risk_notice=$noticeRecord;completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
+    @{action='installed';version=$manifest.version;channel=$preview.Channel;target=$target;backup=$backup;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';risk_notice=$noticeRecord;completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
     exit 0
 } catch {
     Write-Host ("安装器停止：" + $_.Exception.Message) -ForegroundColor Red

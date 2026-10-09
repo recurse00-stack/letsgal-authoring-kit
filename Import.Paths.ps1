@@ -11,7 +11,7 @@ function Assert-OptionalFile([string]$Path) {
 }
 function Read-InstallerChoices([string]$Path) {
     Assert-OptionalFile $Path
-    $choices = @{Harness=$null;Scope=$null;ProjectPath=$null;SkillsDirectory=$null;DshHome=$null}
+    $choices = @{Harness=$null;Scope=$null;Channel=$null;ProjectPath=$null;SkillsDirectory=$null;DshHome=$null}
     if (Test-Path -LiteralPath $Path -PathType Leaf) {
         try {
             $saved = [IO.File]::ReadAllText($Path) | ConvertFrom-Json
@@ -22,6 +22,7 @@ function Read-InstallerChoices([string]$Path) {
             }
             if ($choices.Harness -notin @('Codex','Claude','Cursor','Copilot','DSH','Manual')) { $choices.Harness = $null }
             if ($choices.Scope -notin @('User','Project')) { $choices.Scope = $null }
+            if ($choices.Channel -notin @('stable','beta')) { $choices.Channel = $null }
         } catch { Write-Warning 'Previous installer choices could not be read; choose again. Existing file was not changed.' }
     }
     return [pscustomobject]$choices

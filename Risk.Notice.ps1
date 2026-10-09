@@ -1,6 +1,6 @@
 ﻿# Shared local notice; records delivery metadata, never presumed consent.
 function Get-RiskNotice {
-    $path = Join-Path $PSScriptRoot 'skills/letsgal-authoring/references/risk-notice.md'
+    $path = Join-Path $PSScriptRoot 'RISK-NOTICE.md'
     Assert-OptionalFile $path
     $bytes = [IO.File]::ReadAllBytes($path)
     $content = [Text.Encoding]::UTF8.GetString($bytes)

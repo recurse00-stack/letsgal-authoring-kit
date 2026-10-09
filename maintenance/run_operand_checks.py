@@ -1,10 +1,11 @@
 """Boundary cases for read-only operand shape checks; not an engine interpreter."""
+from bundle_layout import payload, manifest_path, with_channel
 import argparse, copy, hashlib, json, subprocess, sys
 from pathlib import Path
 
 def run(scratch):
     scratch.mkdir(parents=True, exist_ok=False)
-    checker=Path(__file__).resolve().parents[1]/'skills/letsgal-authoring/scripts/check_project.py'
+    checker=payload(Path(__file__).resolve().parents[1])/'scripts/check_project.py'
     base={'id':'chapter-probe','name':'sample','fragments':[
         {'id':'main-probe','name':'main','blocks':[]},
         {'id':'true-probe','name':'true','blocks':[]},

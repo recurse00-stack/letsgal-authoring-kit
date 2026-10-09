@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "owner": "letsgal-authoring-kit",
+  "skill": "letsgal-authoring",
+  "version": "0.2.1",
+  "channel": "beta",
+  "profile_schema": 1,
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "sha256": "18f2f6f458a9d2b122559ef0ef67a2e213cfe8371081bfbcfa82e1391da9d3b2"
+    },
+    {
+      "path": "examples/选择练习.json",
+      "sha256": "1d8801f117d396a291125301b60ba0eeb0e8b636a09a68da8b97f9b59f1c82d3"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "fcef40a59a4b0cdad8c0071be365ab049614791339ee82fac2b0ea6d352df1e1"
+    },
+    {
+      "path": "references/collaboration-git.md",
+      "sha256": "87661f01dbc4a018300b6b50a3511c012bb768872c91aaca0b0dfd2bf981078a"
+    },
+    {
+      "path": "references/customization.md",
+      "sha256": "bb355b0e3879ef2d1439c5d4acbe0ce7e326c67f6f8513cfac78866278e20f41"
+    },
+    {
+      "path": "references/extensions.md",
+      "sha256": "bd9d4b127d58cfbcd795fa65ed6c07ead02723550345dd9563386eb5a5e43704"
+    },
+    {
+      "path": "references/json.md",
+      "sha256": "e6f11501d2881c084bf5827290aeed532b533472f41e96114d01ffffa4a19da2"
+    },
+    {
+      "path": "references/mcp-workflow.md",
+      "sha256": "5f92fd241841e69bfcc815c149df0ce3035016749f95f1fd9eb24ca5d1bc09dc"
+    },
+    {
+      "path": "references/plugin-skills.md",
+      "sha256": "ba08cf3fdc48fe182b966350a7879b44e2899657a98d68544d6dfe21253e6b68"
+    },
+    {
+      "path": "references/production.md",
+      "sha256": "92e18dbe9411d451b3f7235d1cd40aa9db21be73f8ca0fe88213933d8d4fa138"
+    },
+    {
+      "path": "references/research.md",
+      "sha256": "7ff6fa80c00ffacb2f5394de21ff24799b5a0271677371a6f355989f38551f16"
+    },
+    {
+      "path": "references/risk-notice.md",
+      "sha256": "814b5d9deac0b417f7ac2625403ba80262ff9b3409f67480909b238ed99e830f"
+    },
+    {
+      "path": "references/safety.md",
+      "sha256": "005e8e1a15e18237c8a77e906e37e389b470ade27bb04aa42877f8c600009b93"
+    },
+    {
+      "path": "references/version-compatibility.md",
+      "sha256": "6e07f1b35d748031bfa8ffd0e49e4d783cdd2547ab95841c1bc5fa70b37132f9"
+    },
+    {
+      "path": "references/versions/beta-2.3.md",
+      "sha256": "2dbe2a2d161f1ea269bdfecca1dba492f8141bfbe98300a190bc756d979182fe"
+    },
+    {
+      "path": "references/versions/beta-2.4.md",
+      "sha256": "51857b719ccc071bbf5ed61d3fbbb2bec4b019fc63bca1bff5035f6b08d72774"
+    },
+    {
+      "path": "references/versions/beta-2.5.md",
+      "sha256": "b45cf1e912a4a9f75b283daf9747fcfe9c558f267868193f06c298a6aa73d946"
+    },
+    {
+      "path": "references/versions/beta-2.6.md",
+      "sha256": "c93893c33bca7fda279093fdb817a31fc01ffa1fbe7500045d18771bf6961859"
+    },
+    {
+      "path": "references/versions/beta-differences.md",
+      "sha256": "d67a397a611b57f1f6f99f9de881f98fbcbecc064a7cb74389e2601f5b667df6"
+    },
+    {
+      "path": "scripts/check_project.py",
+      "sha256": "61737e4e0f1afcc082a985ae2168092be94e595bb9e94c8c8b2949d20817c1fc"
+    },
+    {
+      "path": "scripts/inspect_version.py",
+      "sha256": "342ece4317d3a7da882346e12f753110e2799b2f524e79cdc4c0359ab0a1948f"
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "9429f9b4d9b2446a4f8afa4e970e1bd832ecef07519814ddfb7372967508396d"
+    },
+    {
+      "path": "templates/LETSGAL.example.md",
+      "sha256": "f8756e51eb5bf1a69b383ceabaf98a1b2a1c8fbeea0e1b8d2f973e3bc3b2d6d5"
+    },
+    {
+      "path": "templates/PLUGIN-SKILL.example.md",
+      "sha256": "6a24accc53747f475c4c9fb4aac24923927b168c7bdfb6d5107c0ca49c791b5c"
+    }
+  ]
+}

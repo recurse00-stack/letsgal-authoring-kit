@@ -1,4 +1,5 @@
 """Run isolated checks. Supply a NEW absolute --scratch directory. Never uses real AI homes."""
+from bundle_layout import payload, manifest_path, with_channel
 import argparse
 import copy
 import hashlib
@@ -14,7 +15,7 @@ import sys
 def run(bundle, scratch):
     scratch.mkdir(parents=True, exist_ok=False)
     results = []
-    skill = bundle / 'skills' / 'letsgal-authoring'
+    skill = payload(bundle)
     checker = skill / 'scripts' / 'check_project.py'
     example = json.loads((skill / 'examples' / '选择练习.json').read_text('utf-8'))
 
@@ -115,7 +116,7 @@ def run(bundle, scratch):
         def install(*extra, source=bundle):
             args=[shell,'-NoLogo','-NoProfile','-ExecutionPolicy','Bypass','-File',str(source/'Install.ps1'),
                   '-Harness','Codex','-Scope','User','-UserHome',str(home),'-NonInteractive',*extra]
-            p=subprocess.run(args,capture_output=True)
+            p=subprocess.run(with_channel(args),capture_output=True)
             output=p.stdout.decode('utf-8',errors='replace') + p.stderr.decode('utf-8',errors='replace')
             return p.returncode, output
 
@@ -143,13 +144,13 @@ def run(bundle, scratch):
         # Tampered distribution must fail before replacing an installed good copy.
         bad=scratch/(label+' bad-bundle')
         shutil.copytree(bundle,bad)
-        (bad/'skills'/'letsgal-authoring'/'SKILL.md').write_text('corrupted', 'utf-8')
+        (payload(bad)/'SKILL.md').write_text('corrupted', 'utf-8')
         good=hashes(target)
         code,out=install(source=bad)
         record(label+' corrupted-bundle-rejected',code!=0 and hashes(target)==good)
-        malicious=json.loads((bad/'bundle.json').read_text('utf-8'))
+        malicious=json.loads(manifest_path(bad).read_text('utf-8'))
         malicious['files'][0]['path']='../../outside.txt'
-        (bad/'bundle.json').write_text(json.dumps(malicious),'utf-8')
+        manifest_path(bad).write_text(json.dumps(malicious),'utf-8')
         code,out=install(source=bad)
         record(label+' manifest-traversal-rejected',code!=0 and hashes(target)==good)
         code,out=install('-Action','Uninstall')
@@ -158,20 +159,21 @@ def run(bundle, scratch):
         code,out=install()
         newer=scratch/(label+' newer-bundle')
         shutil.copytree(bundle,newer)
-        new_skill=newer/'skills'/'letsgal-authoring'
+        new_skill=payload(newer)
         (new_skill/'references'/'production.md').write_text((new_skill/'references'/'production.md').read_text('utf-8')+'\nNew release fixture.\n','utf-8')
-        manifest=json.loads((newer/'bundle.json').read_text('utf-8'))
+        manifest=json.loads(manifest_path(newer).read_text('utf-8'))
         manifest['version']='0.2.1-test'
+        index=json.loads((newer/'bundle.json').read_text('utf-8'));index['version']='0.2.1-test';(newer/'bundle.json').write_text(json.dumps(index),'utf-8')
         for item in manifest['files']:
             item['sha256']=hashlib.sha256((new_skill/item['path']).read_bytes()).hexdigest()
-        (newer/'bundle.json').write_text(json.dumps(manifest,ensure_ascii=False),'utf-8')
+        manifest_path(newer).write_text(json.dumps(manifest,ensure_ascii=False),'utf-8')
         code,out=install(source=newer)
         record(label+' version-upgrade-retains-personal-configuration',code==0 and profile.read_bytes()==original_profile and 'New release fixture.' in (target/'references'/'production.md').read_text('utf-8'))
         # All harness path choices and project installation preserve the project rules.
         for harness in ['Codex','Claude','Cursor','Copilot']:
             args=[shell,'-NoLogo','-NoProfile','-ExecutionPolicy','Bypass','-File',str(bundle/'Install.ps1'),
                   '-Harness',harness,'-Scope','Project','-ProjectPath',str(project),'-UserHome',str(home),'-NonInteractive']
-            p=subprocess.run(args,capture_output=True)
+            p=subprocess.run(with_channel(args),capture_output=True)
             directory='.claude' if harness=='Claude' else '.agents'
             record(label+' project-path-'+harness,p.returncode==0 and (project/directory/'skills'/'letsgal-authoring'/'SKILL.md').exists() and project_rules.read_text('utf-8')=='# 作品自己的约定\n')
         # Junction to a separate fixture must be rejected, not written through.
@@ -185,7 +187,7 @@ def run(bundle, scratch):
         if p.returncode==0:
             try:
                 args=[shell,'-NoProfile','-ExecutionPolicy','Bypass','-File',str(bundle/'Install.ps1'),'-Harness','Codex','-Scope','User','-UserHome',str(junction_home),'-NonInteractive']
-                q=subprocess.run(args,capture_output=True)
+                q=subprocess.run(with_channel(args),capture_output=True)
                 record(label+' junction-target-rejected',q.returncode!=0 and not list(outside.iterdir()))
             finally:
                 # Remove only the exact junction created above, never its target.

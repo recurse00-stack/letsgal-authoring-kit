@@ -27,7 +27,7 @@
 | 官方空白工程、空白旁白、普通Tab | 保存的narration只有id/type/props，没有content；auto检查已提示复核，生成检查仍要求数组；原生Tab显示名称／结束行为及八个尺寸调整点 | 空块玩家运行、长按固定、实际缩放和全部参数 |
 | 新建差分角色、立绘皮肤页、新建／命名／复制预设 | 界面显示部位与变量、预设名称和复制／删除入口；两个空素材预设保存于differentialPortraitAssembly.skinPresets，以不同UUID和空selections保存，复制名追加(2) | 素材换装、变量驱动、按姿势头像、删除、预制包及导出效果 |
 
-这是有限原生编辑和只读回读，未做2.4玩家、存读档、导出、新模型或扩展API任务。project.json仍保存version／engineVersion为1.0.0，字段语义UNKNOWN，不能据此替代实际宿主版本。十三项2.4公告不是十三项功能通过，累计公告见[差异清单](skills/letsgal-authoring/references/versions/beta-differences.md)。
+这是有限原生编辑和只读回读，未做2.4玩家、存读档、导出、新模型或扩展API任务。project.json仍保存version／engineVersion为1.0.0，字段语义UNKNOWN，不能据此替代实际宿主版本。十三项2.4公告不是十三项功能通过，累计公告见[差异清单](channels/beta/skills/letsgal-authoring/references/versions/beta-differences.md)。
 
 ## 2.3.0-beta.1 · 历史宿主原生证据
 

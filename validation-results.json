@@ -1,114 +1,732 @@
 {
-  "version": "0.2.0",
-  "date": "2026-10-05",
+  "version": "0.2.1",
+  "date": "2026-10-09",
   "status": "release-functional-validation; publication-evidence-separate",
   "parts": {
     "skill": "changed",
-    "installer_code": "verified-unchanged",
+    "installer_code": "changed",
     "installer_instructions": "changed",
     "human_manual": "changed",
     "missing": []
   },
   "checks": {
-    "version_routing": 44,
-    "authoring": 26,
-    "operands": 21,
-    "backend_full_package": 46,
-    "previous_package_preflight": 31,
-    "wpf_component_ordinary_user": 20,
-    "installer_safety_ordinary_user": 17,
-    "user_area": 32,
-    "recovery": 8,
-    "current_dsh_provider": 26,
-    "release_boundaries": 23,
-    "risk_notice": 18
+    "channel_installer": 24,
+    "channel_version_routing": 50,
+    "backend_and_static_regression": 46,
+    "installer_safety": 17,
+    "WPF_component_events_and_render": 26,
+    "release_review_regression": 23,
+    "skill_frontmatter": "both passed",
+    "manual_html": "regenerated from Markdown; no browser visual acceptance",
+    "scope": "isolated file/installer/component/routing tests; no new Studio writes, native mouse, Agent discovery or model evaluation",
+    "source_links": {
+      "links": 285,
+      "anchors": 35
+    },
+    "selected_beta_three_public_copies": 24,
+    "local_install_check": "current; Beta; complete bundle installation and receipt readback",
+    "privacy_and_publisher_voice": "whitelist and public-material audit passed during final package verification",
+    "evidence_scope": "Latest applicable checks reused under original stage; this revision changes documentation only"
   },
   "host": {
-    "full_version": "2.5.0",
-    "channel": "stable",
-    "actual_evidence": [
-      "EXE",
-      "native welcome",
-      "official blank project"
-    ],
-    "native_variable_if_samples": "saved-and-readback",
-    "two_routes_rejoin_endChapter": "native-debug two routes; Windows routeB and localWeb routeA separately; rejoin/cross-chapter",
-    "if_reuse": "same If remained true after variable change; independent If false; internal mechanism UNKNOWN",
-    "windows_save": "quick save/read and full-exit slot1 read",
-    "main_call": "noncyclic realtime fragment preview only",
-    "sdk": "native initialization; 29 interfaces match installed resources; source build and program preview; not fullAPI/player/save acceptance",
-    "script_exports": "six native files saved/readback; one chapter3fragments10blocks; RenPy9/10 skips endChapter",
-    "preview_inheritance": "same second-chapter numeric position ON1/OFF0/ON1; finite slot variable only"
+    "full_version": "2.6.0-beta.1",
+    "channel": "beta",
+    "scope": "Current executable version read only; engine runtime evidence retained under its original version and scope",
+    "project_writes": "NOT_RUN",
+    "native_git_commit_restore": "NOT_RUN",
+    "new_independent_model_test": "NOT_RUN"
   },
-  "ai_assistance": {
-    "version": "0.2.0",
-    "agent": "Codex CLI0.160.0 configured default model",
-    "invocation": "explicit candidate path; ephemeral synthetic production task",
-    "exit_code": 0,
-    "elapsed_seconds": 261.828,
-    "independent_criteria": 12,
-    "status": "passed",
-    "model_output_host": "two native-debug routes/rejoin/endChapter/cross chapter passed",
-    "automatic_discovery": "official app-server forceReload; two cwd; unique enabled original entry; config unchanged",
-    "installed_name_task": {
-      "status": "passed",
-      "exit_code": 0,
-      "elapsed_seconds": 230.078,
-      "independent_criteria": 12,
-      "scope": "single-reference repair; five other files preserved; selected plugin1.0.0; future2.6.0 UNKNOWN; no player acceptance"
-    }
-  },
-  "historical_evidence": {
-    "versions": [
-      "0.1.4",
-      "0.1.5",
-      "0.1.6",
-      "0.1.7",
-      "0.1.8"
-    ],
-    "beta_host": "2.3.0-beta.1",
-    "scope": "Original finite evidence retained by exact version; no inferred beta.2 feature acceptance",
-    "beta24_0_1_7": {
-      "full_version": "2.4.0-beta.1",
-      "channel": "beta",
-      "version_evidence": [
-        "EXE FileVersion",
-        "native welcome/editor",
-        "official latest-beta and history"
-      ],
-      "installed_sdk_declaration": "2.4.0-beta.1",
-      "sdk_api_compatibility": "not_verified",
-      "native_editing": [
-        "empty narration save without content",
-        "ordinary Tab visible controls",
-        "differential role and empty skin preset save"
-      ],
-      "playback_save_export": "not tested in this revision"
-    }
-  },
-  "source_research": {
-    "stable": "2.5.0",
-    "stable_announcement_items": 31,
-    "historical_beta_announcement_items": 68,
-    "complete_schema": "UNKNOWN",
-    "statistics": "official docs; no account/key/service operation"
-  },
+  "known_gaps": [
+    "No stable speed, token-cost, model-capability or weaker-model-benefit estimate from these small unequal-context samples.",
+    "Phase2 model-produced branches lack runtime acceptance; no new player/save/export testing.",
+    "Permission and failure scenarios are simulations; no actual read-only bypass, network fault injection or new Computer Use exercise.",
+    "Partial adoption remains unreliable in some Luna samples; warm-session completion must be checked against actual results.",
+    "A malformed wait string in one fixture proves only raw preservation; valid wait markers were preserved elsewhere, not timed in playback.",
+    "Channel-split instructions have no new independent model/Agent discovery or native Studio checkpoint/restore acceptance; instructions do not guarantee model compliance.",
+    "WPF component tests are not OS mouse acceptance; macOS/Linux manual installation not exercised."
+  ],
   "channels": {
-    "version": "0.2.0",
+    "version": "0.2.1",
     "github_source": "see-versioned-publication-evidence",
     "tag": "see-versioned-publication-evidence",
     "release": "see-versioned-publication-evidence",
     "attachments": "see-versioned-publication-evidence",
-    "anonymous_download": "see-DOWNLOAD-VERIFICATION-0.2.0.json",
-    "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.0",
-    "historical_baseline": "0.1.9",
+    "anonymous_download": "see-DOWNLOAD-VERIFICATION-0.2.1.json",
+    "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.1",
+    "historical_baseline": "0.2.0",
     "workshop": "not-applicable"
   },
-  "known_gaps": [
-    "Current installer OS mouse browsing/cancel/scaling; WPF components not native clicks.",
-    "Other Agent full model tasks/platforms/cloud deployment and all engine features not certified.",
-    "Full JSON schema, If cache mechanism and general cycle algorithm UNKNOWN.",
-    "More save types/slots/extension state and Web persistence not verified.",
-    "RenPy runtime/Word application rendering/localization/resources/export roundtrip not tested."
-  ]
+  "earlier_candidate_2026_10_08": {
+    "version": "0.2.1",
+    "date": "2026-10-08",
+    "status": "local-candidate-verified; external-publication-not-performed",
+    "parts": {
+      "skill": "changed",
+      "installer_code": "verified-unchanged",
+      "installer_instructions": "changed",
+      "human_manual": "changed",
+      "missing": []
+    },
+    "checks": {
+      "version_routing": 51,
+      "skill_frontmatter": "passed",
+      "actual_exe_reference": "2.6.0-beta.1 -> beta-2.6.md",
+      "public_file_audit": 72,
+      "public_voice": "passed",
+      "links": {
+        "local_links": 216,
+        "anchors": 31
+      },
+      "manual_html": "regenerated from Markdown with original style",
+      "original_function_payloads": "byte-identical checker/example/agent metadata/licenses/installer",
+      "local_update": "complete-source installer install and check=current;26 payload files in three copies",
+      "personal_files_unchanged": 101,
+      "installer_owned_state": "installer-state.json updated",
+      "git_head_index": "preserved"
+    },
+    "host": {
+      "full_version": "2.6.0-beta.1",
+      "channel": "beta",
+      "status_read": "passed",
+      "current_connection_access": "pending",
+      "project_writes": "not_run"
+    },
+    "known_gaps": [
+      "MCP project write/undo/revision conflict/bulk commit and rollback/debug/player not tested in this revision.",
+      "Current installer OS mouse browsing/cancel/scaling; WPF components not native clicks.",
+      "Other Agent full model tasks/platforms/cloud deployment and all engine features not certified.",
+      "Full JSON schema, If cache mechanism and general cycle algorithm UNKNOWN.",
+      "More save types/slots/extension state and Web persistence not verified.",
+      "RenPy runtime/Word application rendering/localization/resources/export roundtrip not tested."
+    ],
+    "channels": {
+      "github_source": "not-published",
+      "tag": "not-created",
+      "release": "not-published",
+      "attachments": "not-uploaded",
+      "anonymous_download": "not-run",
+      "workshop": "not-applicable"
+    },
+    "historical_0_2_0": {
+      "version": "0.2.0",
+      "date": "2026-10-05",
+      "status": "release-functional-validation; publication-evidence-separate",
+      "parts": {
+        "skill": "changed",
+        "installer_code": "verified-unchanged",
+        "installer_instructions": "changed",
+        "human_manual": "changed",
+        "missing": []
+      },
+      "checks": {
+        "version_routing": 44,
+        "authoring": 26,
+        "operands": 21,
+        "backend_full_package": 46,
+        "previous_package_preflight": 31,
+        "wpf_component_ordinary_user": 20,
+        "installer_safety_ordinary_user": 17,
+        "user_area": 32,
+        "recovery": 8,
+        "current_dsh_provider": 26,
+        "release_boundaries": 23,
+        "risk_notice": 18
+      },
+      "host": {
+        "full_version": "2.5.0",
+        "channel": "stable",
+        "actual_evidence": [
+          "EXE",
+          "native welcome",
+          "official blank project"
+        ],
+        "native_variable_if_samples": "saved-and-readback",
+        "two_routes_rejoin_endChapter": "native-debug two routes; Windows routeB and localWeb routeA separately; rejoin/cross-chapter",
+        "if_reuse": "same If remained true after variable change; independent If false; internal mechanism UNKNOWN",
+        "windows_save": "quick save/read and full-exit slot1 read",
+        "main_call": "noncyclic realtime fragment preview only",
+        "sdk": "native initialization; 29 interfaces match installed resources; source build and program preview; not fullAPI/player/save acceptance",
+        "script_exports": "six native files saved/readback; one chapter3fragments10blocks; RenPy9/10 skips endChapter",
+        "preview_inheritance": "same second-chapter numeric position ON1/OFF0/ON1; finite slot variable only"
+      },
+      "ai_assistance": {
+        "version": "0.2.0",
+        "agent": "Codex CLI0.160.0 configured default model",
+        "invocation": "explicit candidate path; ephemeral synthetic production task",
+        "exit_code": 0,
+        "elapsed_seconds": 261.828,
+        "independent_criteria": 12,
+        "status": "passed",
+        "model_output_host": "two native-debug routes/rejoin/endChapter/cross chapter passed",
+        "automatic_discovery": "official app-server forceReload; two cwd; unique enabled original entry; config unchanged",
+        "installed_name_task": {
+          "status": "passed",
+          "exit_code": 0,
+          "elapsed_seconds": 230.078,
+          "independent_criteria": 12,
+          "scope": "single-reference repair; five other files preserved; selected plugin1.0.0; future2.6.0 UNKNOWN; no player acceptance"
+        }
+      },
+      "historical_evidence": {
+        "versions": [
+          "0.1.4",
+          "0.1.5",
+          "0.1.6",
+          "0.1.7",
+          "0.1.8"
+        ],
+        "beta_host": "2.3.0-beta.1",
+        "scope": "Original finite evidence retained by exact version; no inferred beta.2 feature acceptance",
+        "beta24_0_1_7": {
+          "full_version": "2.4.0-beta.1",
+          "channel": "beta",
+          "version_evidence": [
+            "EXE FileVersion",
+            "native welcome/editor",
+            "official latest-beta and history"
+          ],
+          "installed_sdk_declaration": "2.4.0-beta.1",
+          "sdk_api_compatibility": "not_verified",
+          "native_editing": [
+            "empty narration save without content",
+            "ordinary Tab visible controls",
+            "differential role and empty skin preset save"
+          ],
+          "playback_save_export": "not tested in this revision"
+        }
+      },
+      "source_research": {
+        "stable": "2.5.0",
+        "stable_announcement_items": 31,
+        "historical_beta_announcement_items": 68,
+        "complete_schema": "UNKNOWN",
+        "statistics": "official docs; no account/key/service operation"
+      },
+      "channels": {
+        "version": "0.2.0",
+        "github_source": "see-versioned-publication-evidence",
+        "tag": "see-versioned-publication-evidence",
+        "release": "see-versioned-publication-evidence",
+        "attachments": "see-versioned-publication-evidence",
+        "anonymous_download": "see-DOWNLOAD-VERIFICATION-0.2.0.json",
+        "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.0",
+        "historical_baseline": "0.1.9",
+        "workshop": "not-applicable"
+      },
+      "known_gaps": [
+        "Current installer OS mouse browsing/cancel/scaling; WPF components not native clicks.",
+        "Other Agent full model tasks/platforms/cloud deployment and all engine features not certified.",
+        "Full JSON schema, If cache mechanism and general cycle algorithm UNKNOWN.",
+        "More save types/slots/extension state and Web persistence not verified.",
+        "RenPy runtime/Word application rendering/localization/resources/export roundtrip not tested."
+      ]
+    }
+  },
+  "release_number_policy": "0.2.1 remains unpublished; internal candidate revisions use dated records, not a new release number",
+  "iteration_rounds": [
+    {
+      "round": 1,
+      "date": "2026-10-09",
+      "focus": "targeting, paging and legacy missing block IDs",
+      "actual_checks": {
+        "legacy_search_exposes_null_id": true,
+        "legacy_json_has_no_fabricated_id": true,
+        "script_complete_and_roundtrip_safe": true,
+        "legacy_script_dryrun_accepted": true,
+        "paged_revisions_agree": true,
+        "known_id_read_is_targeted": true,
+        "post_change_known_id_task": true,
+        "post_change_legacy_lookup_preserves_original": true,
+        "no_actual_host_write": true
+      },
+      "simulated": "duplicate-name selection, mixed revision pages, unsafe legacy text route",
+      "host_writes": "dry run only; original content unchanged",
+      "independent_model_ab": false
+    },
+    {
+      "round": 2,
+      "date": "2026-10-09",
+      "focus": "富文本修改保真",
+      "actual_checks": {
+        "negative_display_text_loses_markup": true,
+        "negative_undo_restores_content": true,
+        "json_styles_present": true,
+        "positive_exact_diff_only": true,
+        "positive_markup_and_wait_preserved": true,
+        "non_target_unchanged": true,
+        "local_compile_and_references": true,
+        "original_chapter_restored": true,
+        "original_outline_restored": true
+      },
+      "simulated": [],
+      "limitations": [
+        "No player visual, audio, localization or every inline node acceptance",
+        "No independent model A/B or token measurements"
+      ],
+      "independent_model_ab": false
+    },
+    {
+      "round": 3,
+      "date": "2026-10-09",
+      "focus": "冲突、权限与恢复",
+      "actual_checks": {
+        "stale_write_rejected": true,
+        "early_undo_rejected": true,
+        "conflicts_preserve_fresh_content": true,
+        "merge_exact_change_only": true,
+        "merge_uses_fresh_revision": true,
+        "outline_restored": true,
+        "original_restored": true
+      },
+      "simulated": [
+        {
+          "input": "只读连接收到改字请求",
+          "decision": "交付精确草稿，若仍需写入说明需用户批准；不改用界面写入",
+          "result": "同上下文合成演练，路由符合当前指导"
+        },
+        {
+          "input": "写工具缺失且对应工具组关闭",
+          "decision": "视为权限配置，不按版本不支持处理，不自行开组",
+          "result": "同上下文合成演练，路由符合当前指导"
+        },
+        {
+          "input": "SESSION_PENDING_APPROVAL",
+          "decision": "提示批准当前连接并等待，不重复注册或借旧连接",
+          "result": "同上下文合成演练，路由符合当前指导"
+        },
+        {
+          "input": "界面侧栏折叠未被MCP提供；当前测试窗口已获准",
+          "decision": "可用当前官方Computer Use在该窗口操作；实际执行证据复用前期两次点击",
+          "result": "同上下文合成演练，路由符合当前指导"
+        },
+        {
+          "input": "无MCP，目标已正常保存关闭",
+          "decision": "走原文件流程，核文件变化与范围；离线改字证据复用前期样本",
+          "result": "同上下文合成演练，路由符合当前指导"
+        },
+        {
+          "input": "写入结果不明，读回已完成",
+          "decision": "不重写或重复插入，报告读回结果；不称为网络故障实测",
+          "result": "同上下文合成演练，路由符合当前指导"
+        },
+        {
+          "input": "写入结果不明，读回只有部分目标",
+          "decision": "在当前内容上重新确定剩余差异，保留已完成和后来内容；结果仍不可读则保持未决",
+          "result": "同上下文合成演练，路由符合当前指导"
+        },
+        {
+          "input": "PROJECT_MISMATCH且新工程不在授权范围",
+          "decision": "失效旧ID和revision；只确认身份，不继续把旧补丁写到新工程",
+          "result": "同上下文合成演练，路由符合当前指导"
+        }
+      ],
+      "limitations": [
+        "Same connection ordered writes, not real concurrent human authors",
+        "Permission, no-MCP and uncertain outcome decisions are same-context synthetic exercises; prior bounded UI/offline evidence reused"
+      ],
+      "independent_model_ab": false
+    },
+    {
+      "round": 4,
+      "date": "2026-10-09",
+      "focus": "局部采用与创作改向",
+      "actual_checks": {
+        "discussion_leaves_original": true,
+        "partial_adoption_only_target": true,
+        "direction_change_only_target": true,
+        "non_adopted_candidate_excluded": true
+      },
+      "simulated": [
+        "discussion no engineering write",
+        "partial adoption excludes rest of candidate",
+        "tone change preserves motivation",
+        "relationship ambiguity asks one key question"
+      ],
+      "limitations": [
+        "same-context self-review, no independent literary score",
+        "No new host, permission or network test"
+      ],
+      "independent_model_ab": false
+    },
+    {
+      "round": 5,
+      "date": "2026-10-09",
+      "focus": "整体收敛与交付",
+      "actual_checks": {
+        "known_target_one_block": true,
+        "no_project_write": true,
+        "original_revision_preserved": true,
+        "target_idle_and_restored": true
+      },
+      "simulated": [],
+      "limitations": [
+        "No new host write, playback or installer GUI test",
+        "No independent A/B or token claims"
+      ],
+      "independent_model_ab": false
+    }
+  ],
+  "phase1_snapshot": {
+    "status": "local-candidate-verified; five-iteration-review-complete; external-publication-not-performed",
+    "parts": {
+      "skill": "changed",
+      "installer_code": "verified-unchanged",
+      "installer_instructions": "changed",
+      "human_manual": "changed",
+      "missing": []
+    },
+    "checks": {
+      "skill_frontmatter": "passed",
+      "mcp_host_invariants": {
+        "single_only_target_changed": true,
+        "batch_only_targets_changed": true,
+        "stale_revision_rejected": true,
+        "same_op_id_deduplicated": true,
+        "undo_restores_seed": true,
+        "local_compile": true,
+        "branch_references_compile": true,
+        "unsupported_script_flag": true,
+        "unsupported_block_preserved": true,
+        "linear_branch_A": true,
+        "linear_branch_B": true,
+        "original_chapter_unchanged": true,
+        "test_chapter_removed": true
+      },
+      "scenario_review": {
+        "cases": 12,
+        "layer": "same-context review, not independent model benchmark"
+      },
+      "version_routing": "unchanged; reuse earlier 2026-10-08 evidence for this 0.2.1 candidate (51 cases)",
+      "model_ab": "phase2: 102 attempts across A/B/C, targeted, held-out and repeat cases; C rejected",
+      "token_usage": "actual per-task client events retained in internal test records; not a controlled cost estimate",
+      "computer_use_native": "passed bounded chapter sidebar collapse/expand via official Windows Computer Use; other UI untested",
+      "source_links": {
+        "links": 215,
+        "anchors": 31
+      },
+      "three_public_copies": 26,
+      "local_install_check": "current",
+      "installer_and_existing_scripts": "byte-identical to earlier 0.2.1 candidate; applicable test evidence reused",
+      "manual_html": "regenerated from Markdown with existing style; final package readback recorded separately",
+      "privacy_and_publisher_voice": "passed before packaging",
+      "release_number": "0.2.1 source, installed payload and candidate; workflow content preserved",
+      "practical_smoke": {
+        "replace_pagination_followed": true,
+        "only_selected_matches_replaced": true,
+        "parameter_outside_match_set_preserved": true,
+        "ids_and_props_preserved": true,
+        "changed_direction_keeps_opening_and_message": true,
+        "unknown_result_readback_matches": true,
+        "unknown_result_no_duplicate_write": true,
+        "invalid_draft_refused_before_write": true,
+        "local_validation_passed": true,
+        "original_content_restored": true,
+        "original_structure_restored": true
+      },
+      "offline_file_workflow": "passed one-line synthetic file edit and unchanged ID/fields; checker read-only; not Stable runtime",
+      "unknown_result_recovery": "real write with response withheld by local test harness, followed by targeted readback and no duplicate write; no network fault injection",
+      "five_iteration_review": "phase1 preserved; phase2 five rounds completed with candidate withdrawal"
+    },
+    "host": {
+      "full_version": "2.6.0-beta.1",
+      "channel": "beta",
+      "project_writes": "passed bounded fixture",
+      "preview": "phase1 bounded linear routes passed; phase2 model-produced routes NOT_ACCEPTED (WINDOW_HIDDEN); separate evidence",
+      "restoration": "original chapter/structure unchanged; temporary chapter undone"
+    },
+    "known_gaps": [
+      "No independent model A/B, real token/cost comparison or cross-client performance claim.",
+      "Computer Use tested only for chapter sidebar collapse/expand; typing, dialogs and cross-client UI untested.",
+      "Read-only/disabled-tool situations remain synthetic response rehearsals; creative direction exercised in a bounded same-context task, not independently graded.",
+      "Network timeout injection, external file-edit rollback, advanced scheduling/debug/player/save/export not tested in this revision."
+    ]
+  },
+  "parts_comparison": "parts compares 0.2.1 with published 0.2.0; phase2.parts compares with the frozen phase1 0.2.1",
+  "phase2": {
+    "date": "2026-10-09",
+    "rounds_completed": 5,
+    "attempts": 102,
+    "attempt_limit": 102,
+    "models": {
+      "gpt-6-astra": 33,
+      "gpt-6.1-sol": 33,
+      "gpt-6-luna": 36
+    },
+    "reasoning_effort": "high",
+    "groups": {
+      "A": "official MCP and official guide",
+      "B": "frozen phase1 0.2.1",
+      "C": "phase2 experimental candidate"
+    },
+    "decision": "C withdrawn; retain B payload",
+    "reasons": [
+      "Luna C omitted offered dry runs on seven actual writes.",
+      "After fixture reset, warm-session T8 made zero calls and falsely reported completed/read-back edits; exact readback failed. This does not establish causation by a specific rule."
+    ],
+    "parts": {
+      "skill": "verified-unchanged",
+      "installer_code": "verified-unchanged",
+      "installer_instructions": "verified-unchanged",
+      "human_manual": "changed",
+      "missing": []
+    },
+    "text_readback": {
+      "baseline_C2_C3_C5": "18 passed",
+      "candidate_C2_C3_C5": "9 passed; dry-run compliance separate",
+      "H2": "9 passed; parameter retry and dry-run compliance separate",
+      "T8": "FAIL"
+    },
+    "runtime": "C4 structure passed for all three C models; routes NOT_ACCEPTED, WINDOW_HIDDEN; not replaced by historical route evidence",
+    "repeats": {
+      "scope": "simulation, two independent A/C sessions per model",
+      "Astra": {
+        "A": 2,
+        "C": 2
+      },
+      "Sol": {
+        "A": 1,
+        "C": 2
+      },
+      "Luna": {
+        "A": 1,
+        "C": 2
+      }
+    },
+    "token_source": "actual app-server input/output/cached-input events; no fixed savings or monetary claim",
+    "restoration": "temporary chapters and variable undone via official MCP; original chapter revision and structure preserved; owned test helpers exited normally"
+  },
+  "before_content_protection_snapshot": {
+    "status": "unpublished-local-candidate; phase2-complete; candidate-C-withdrawn; frozen-B-payload-retained",
+    "checks": {
+      "skill_frontmatter": "passed",
+      "mcp_host_invariants": {
+        "single_only_target_changed": true,
+        "batch_only_targets_changed": true,
+        "stale_revision_rejected": true,
+        "same_op_id_deduplicated": true,
+        "undo_restores_seed": true,
+        "local_compile": true,
+        "branch_references_compile": true,
+        "unsupported_script_flag": true,
+        "unsupported_block_preserved": true,
+        "linear_branch_A": true,
+        "linear_branch_B": true,
+        "original_chapter_unchanged": true,
+        "test_chapter_removed": true
+      },
+      "scenario_review": {
+        "cases": 12,
+        "layer": "same-context review, not independent model benchmark"
+      },
+      "version_routing": "unchanged; reuse earlier 2026-10-08 evidence for this 0.2.1 candidate (51 cases)",
+      "model_ab": "phase2: 102 attempts across A/B/C, targeted, held-out and repeat cases; C rejected",
+      "token_usage": "actual per-task client events retained in internal test records; not a controlled cost estimate",
+      "computer_use_native": "passed bounded chapter sidebar collapse/expand via official Windows Computer Use; other UI untested",
+      "source_links": {
+        "links": 217,
+        "anchors": 31
+      },
+      "three_public_copies": 26,
+      "local_install_check": "current; read-only complete-bundle check",
+      "installer_and_existing_scripts": "byte-identical to earlier 0.2.1 candidate; applicable test evidence reused",
+      "manual_html": "Markdown regenerated; actual in-app browser anchor and two changed-section screenshots reviewed; no overlap observed",
+      "privacy_and_publisher_voice": "whitelist audit and public-material review passed during final build",
+      "release_number": "0.2.1 source, installed payload and candidate; workflow content preserved",
+      "practical_smoke": {
+        "replace_pagination_followed": true,
+        "only_selected_matches_replaced": true,
+        "parameter_outside_match_set_preserved": true,
+        "ids_and_props_preserved": true,
+        "changed_direction_keeps_opening_and_message": true,
+        "unknown_result_readback_matches": true,
+        "unknown_result_no_duplicate_write": true,
+        "invalid_draft_refused_before_write": true,
+        "local_validation_passed": true,
+        "original_content_restored": true,
+        "original_structure_restored": true
+      },
+      "offline_file_workflow": "passed one-line synthetic file edit and unchanged ID/fields; checker read-only; not Stable runtime",
+      "unknown_result_recovery": "real write with response withheld by local test harness, followed by targeted readback and no duplicate write; no network fault injection",
+      "five_iteration_review": "phase1 preserved; phase2 five rounds completed with candidate withdrawal"
+    },
+    "host": {
+      "full_version": "2.6.0-beta.1",
+      "channel": "beta",
+      "project_writes": "passed bounded fixture",
+      "preview": "phase1 bounded linear routes passed; phase2 model-produced routes NOT_ACCEPTED (WINDOW_HIDDEN); separate evidence",
+      "restoration": "original chapter/structure unchanged; temporary chapter undone"
+    }
+  },
+  "content_protection_revision": {
+    "date": "2026-10-09",
+    "parts": {
+      "skill": "changed",
+      "installer_code": "verified-unchanged",
+      "installer_instructions": "verified-unchanged",
+      "human_manual": "changed",
+      "missing": []
+    },
+    "scope": "existing/adopted/finalized content needs explicit scoped authorization; current commissioned unfinished AI drafts can iterate; native local Git checkpoints before/after project batches and at finalization",
+    "review": "Eight same-context policy scenarios reviewed; not independent model or host testing",
+    "official_basis": [
+      "https://docs.avg-engine.com/manual/overview/version-control",
+      "Official MCP not-exposed reference: Studio Git commits not exposed; project history is separate"
+    ],
+    "external_publication": false
+  },
+  "before_channel_split_snapshot": {
+    "status": "unpublished-local-candidate; content-protection-added; phase2-C-remains-withdrawn",
+    "parts": {
+      "skill": "changed",
+      "installer_code": "verified-unchanged",
+      "installer_instructions": "changed",
+      "human_manual": "changed",
+      "missing": []
+    },
+    "checks": {
+      "historical_runtime": "See before_content_protection_snapshot and phase2; not rerun for this documentation-only rule change",
+      "manual_html": "Regenerated from Markdown with existing style; new browser visual review NOT_RUN",
+      "source_links": {
+        "links": 224,
+        "anchors": 31
+      },
+      "three_public_copies": 26,
+      "local_install_check": "current; complete source installer install and check",
+      "privacy_and_publisher_voice": "whitelist and public-material audit passed during final package verification",
+      "installer_and_scripts": "unchanged from immediately preceding 0.2.1 candidate; prior evidence reused"
+    },
+    "host": {
+      "full_version": "2.6.0-beta.1",
+      "channel": "beta",
+      "scope": "Current executable version read only; engine runtime evidence retained under its original version and scope",
+      "project_writes": "NOT_RUN",
+      "native_git_commit_restore": "NOT_RUN",
+      "new_independent_model_test": "NOT_RUN"
+    },
+    "known_gaps": [
+      "No stable speed, token-cost, model-capability or weaker-model-benefit estimate from these small unequal-context samples.",
+      "Phase2 model-produced branches lack runtime acceptance; no new player/save/export testing.",
+      "Permission and failure scenarios are simulations; no actual read-only bypass, network fault injection or new Computer Use exercise.",
+      "Partial adoption remains unreliable in some Luna samples; warm-session completion must be checked against actual results.",
+      "A malformed wait string in one fixture proves only raw preservation; valid wait markers were preserved elsewhere, not timed in playback.",
+      "Content-protection supplement has no new independent model or native Studio Git commit/restore test; instruction compliance is not guaranteed."
+    ],
+    "content_protection_revision": {
+      "date": "2026-10-09",
+      "parts": {
+        "skill": "changed",
+        "installer_code": "verified-unchanged",
+        "installer_instructions": "verified-unchanged",
+        "human_manual": "changed",
+        "missing": []
+      },
+      "scope": "existing/adopted/finalized content needs explicit scoped authorization; current commissioned unfinished AI drafts can iterate; native local Git checkpoints before/after project batches and at finalization",
+      "review": "Eight same-context policy scenarios reviewed; not independent model or host testing",
+      "official_basis": [
+        "https://docs.avg-engine.com/manual/overview/version-control",
+        "Official MCP not-exposed reference: Studio Git commits not exposed; project history is separate"
+      ],
+      "external_publication": false
+    }
+  },
+  "channel_split_revision": {
+    "version": "0.2.1",
+    "channels": {
+      "stable": 20,
+      "beta": 24
+    },
+    "installed_name": "letsgal-authoring",
+    "public_protection": "at least one effective recovery mechanism covering the change; native history preferred; Git optional",
+    "personal_tuning": "unchanged",
+    "parts": {
+      "skill": "changed",
+      "installer_code": "changed",
+      "installer_instructions": "changed",
+      "human_manual": "changed",
+      "missing": []
+    }
+  },
+  "prepublication_revision": {
+    "date": "2026-10-09",
+    "parts": {
+      "skill": "verified-unchanged",
+      "installer_code": "changed",
+      "installer_instructions": "changed",
+      "human_manual": "changed",
+      "missing": []
+    },
+    "new_checks": {
+      "channel_install_and_case_normalization": 24,
+      "backup_restore": 8,
+      "previous_release_upgrade_and_preview": 31,
+      "notice_delivery": 18
+    },
+    "reused_checks": "previous channel split and applicable prior evidence, not recounted",
+    "case_regression": "Before: -Channel Beta rejected; after: case-insensitive selection returns canonical beta/stable",
+    "payload_changed": false,
+    "installed_or_personal_changed": false,
+    "external_publication": false,
+    "source_links": {
+      "links": 275,
+      "anchors": 32
+    },
+    "manual_html": "Markdown-derived HTML content and local anchors checked; no new browser visual acceptance",
+    "source_and_archive": "whitelist and exact-byte readback passed in release preparation",
+    "privacy_and_publisher_voice": "reviewed for complete source and release materials"
+  },
+  "manual_benefits_revision": {
+    "date": "2026-10-09",
+    "scope": "Human manual qualitative summary of existing tests; no new performance experiment",
+    "parts": {
+      "skill": "verified-unchanged",
+      "installer_code": "verified-unchanged",
+      "installer_instructions": "verified-unchanged",
+      "human_manual": "changed",
+      "missing": []
+    },
+    "observed": "Some batch tasks used fewer calls; some recovery and variable tasks avoided omitted checks or semantic mistakes",
+    "limits": "No general speed, token saving, capability percentage or guaranteed weaker-model benefit; Stable has task evidence but no matched full with/without comparison; installation checks are reliability evidence",
+    "new_model_or_host_test": false,
+    "external_publication": false,
+    "manual_html": "Markdown-derived content and local links checked; browser visual acceptance not rerun",
+    "source_links": {
+      "links": 279,
+      "anchors": 34
+    }
+  },
+  "release_consolidation_revision": {
+    "date": "2026-10-09",
+    "parts": {
+      "skill": "verified-unchanged",
+      "installer_code": "verified-unchanged",
+      "installer_instructions": "changed",
+      "human_manual": "changed",
+      "missing": []
+    },
+    "scope": "Consolidated current release documentation, installation guidance and channel copy; payload and executable behavior unchanged",
+    "historical_corrections": [
+      "Installer changed relative to 0.2.0; unchanged only in individual earlier phases",
+      "Mandatory Git was superseded by at least one effective recovery mechanism",
+      "Retained working method is not byte equality with the pre-split experiment baseline"
+    ],
+    "reused_installation_checks": {
+      "channel_install_and_case_normalization": 24,
+      "backup_restore": 8,
+      "previous_release_upgrade_and_preview": 31,
+      "notice_delivery": 18
+    },
+    "new_model_or_host_test": false,
+    "new_installer_test": false,
+    "external_publication": false
+  },
+  "publication_material_revision": {
+    "parts": {
+      "skill": "verified-unchanged",
+      "installer_code": "verified-unchanged",
+      "installer_instructions": "verified-unchanged",
+      "human_manual": "changed: publication-status links only",
+      "missing": []
+    },
+    "scope": "Publication status prose and evidence links only; unchanged behavior checks reused"
+  }
 }

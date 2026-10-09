@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "owner": "letsgal-authoring-kit",
+  "skill": "letsgal-authoring",
+  "version": "0.2.1",
+  "channel": "stable",
+  "profile_schema": 1,
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "sha256": "262e2fa5403fac2146dadd0f467b03b5dc7baf98ce9a9396777d2a520888ac12"
+    },
+    {
+      "path": "examples/选择练习.json",
+      "sha256": "1d8801f117d396a291125301b60ba0eeb0e8b636a09a68da8b97f9b59f1c82d3"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "fcef40a59a4b0cdad8c0071be365ab049614791339ee82fac2b0ea6d352df1e1"
+    },
+    {
+      "path": "references/collaboration-git.md",
+      "sha256": "009b042e2464d26e07ad76c375926268d761ceff6ce031848c3c8ad6e5bf2fc9"
+    },
+    {
+      "path": "references/customization.md",
+      "sha256": "bb355b0e3879ef2d1439c5d4acbe0ce7e326c67f6f8513cfac78866278e20f41"
+    },
+    {
+      "path": "references/extensions.md",
+      "sha256": "1a00d35f0f1f1a99d55b56178f84da611b7eadeeac6b54c3b72a05a31b523907"
+    },
+    {
+      "path": "references/json.md",
+      "sha256": "ded0420a5f7ef90aa8aa013ae28dc17612f1592a6370f40f079a5058e7117f87"
+    },
+    {
+      "path": "references/plugin-skills.md",
+      "sha256": "ba08cf3fdc48fe182b966350a7879b44e2899657a98d68544d6dfe21253e6b68"
+    },
+    {
+      "path": "references/production.md",
+      "sha256": "2c171c2bad7e95f1857b8b6cf70cb5e77d8f4a19cfa6947f349a730be05394bd"
+    },
+    {
+      "path": "references/research.md",
+      "sha256": "f3e158fecead3e43c56bf19a01b5d60c766a14b150ddb7276a6ba9580c98247f"
+    },
+    {
+      "path": "references/risk-notice.md",
+      "sha256": "814b5d9deac0b417f7ac2625403ba80262ff9b3409f67480909b238ed99e830f"
+    },
+    {
+      "path": "references/safety.md",
+      "sha256": "cd41e40d4b9e04a713e185efb615219d523420c532d47eee169dcd92033de77e"
+    },
+    {
+      "path": "references/version-compatibility.md",
+      "sha256": "d1f37c0d8df71bee7c700981b0bff98c5c0bdbe27b27e1c1de824c9158feffbe"
+    },
+    {
+      "path": "references/versions/stable-2.0.md",
+      "sha256": "88f02cd991177cdc8ac1f7df4f0478875239583457627c0431a33c68e5fe3f9f"
+    },
+    {
+      "path": "references/versions/stable-2.5.md",
+      "sha256": "9068eaa5271545f2dc0bb3683381c652e0b774fb8879989ee99c7c5b8f5ec92d"
+    },
+    {
+      "path": "scripts/check_project.py",
+      "sha256": "61737e4e0f1afcc082a985ae2168092be94e595bb9e94c8c8b2949d20817c1fc"
+    },
+    {
+      "path": "scripts/inspect_version.py",
+      "sha256": "7bc73ffd36facde495ac35c12118e22b4a42dbee6a48013547c5f2401bfc8a41"
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "9f2e0371c6984579fee451ced2c5c2c386ecf0ae0afab9d28f5adac84781d0af"
+    },
+    {
+      "path": "templates/LETSGAL.example.md",
+      "sha256": "f8756e51eb5bf1a69b383ceabaf98a1b2a1c8fbeea0e1b8d2f973e3bc3b2d6d5"
+    },
+    {
+      "path": "templates/PLUGIN-SKILL.example.md",
+      "sha256": "6a24accc53747f475c4c9fb4aac24923927b168c7bdfb6d5107c0ca49c791b5c"
+    }
+  ]
+}

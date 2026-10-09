@@ -60,7 +60,7 @@ function Invoke-PreviewCase(
     $before = Snapshot-TestTrees @($Scratch,$kitRoot)
     $preview = $null
     $failure = $null
-    try { $preview = Get-InstallPreview -BundleRoot $BundleRoot -Destination $Destination -UserHome $fixtureHome -ValidateBundle }
+    try { $preview = Get-InstallPreview -BundleRoot $BundleRoot -Destination $Destination -UserHome $fixtureHome -Channel beta -ValidateBundle }
     catch { $failure = $_.Exception.Message }
     $after = Snapshot-TestTrees @($Scratch,$kitRoot)
     Record-Check ($Name + ' leaves all files directories and links unchanged') (Same-Map $before $after)
@@ -75,7 +75,9 @@ function Invoke-PreviewCase(
 function Invoke-BundleBackend([string]$BundleRoot,[string]$fixtureHome) {
     # Call the backend from its complete bundle; never extract/copy Install.ps1 alone.
     $backend = Join-Path $BundleRoot 'Install.ps1'
-    $output = & $shell -NoLogo -NoProfile -ExecutionPolicy Bypass -File $backend -Harness Codex -Scope User -UserHome $fixtureHome -NonInteractive
+    $channelArgs = @()
+    if ((Read-Json (Join-Path $BundleRoot 'bundle.json')).schema -eq 2) { $channelArgs = @('-Channel','beta') }
+    $output = & $shell -NoLogo -NoProfile -ExecutionPolicy Bypass -File $backend -Harness Codex -Scope User -UserHome $fixtureHome -NonInteractive @channelArgs
     $code = $LASTEXITCODE
     $rows = @($output | Where-Object { $_ -is [string] -and $_.TrimStart().StartsWith('{') })
     $result = $null
@@ -183,7 +185,7 @@ $userAreaDestination = Resolve-SkillDestination 'Manual' 'User' $fixtureHome '' 
 [void](Invoke-PreviewCase 'target inside personal user area' $kitRoot $userAreaDestination $fixtureHome '' -Reject)
 $badBundle = Join-Path $Scratch 'corrupted complete bundle'
 Copy-Item -LiteralPath $kitRoot -Destination $badBundle -Recurse
-[IO.File]::WriteAllBytes((Join-Path $badBundle 'skills/letsgal-authoring/SKILL.md'),[Text.Encoding]::UTF8.GetBytes('Corrupted payload; manifest remains unchanged.'))
+[IO.File]::WriteAllBytes((Join-Path $badBundle 'channels/beta/skills/letsgal-authoring/SKILL.md'),[Text.Encoding]::UTF8.GetBytes('Corrupted payload; manifest remains unchanged.'))
 [void](Invoke-PreviewCase 'corrupted complete bundle' $badBundle $destination $fixtureHome '' -Reject)
 
 $linkedHome = Join-Path $Scratch 'linked home'

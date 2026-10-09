@@ -1,4 +1,5 @@
 """DSH adapter and official provider checks. Uses only a NEW isolated --scratch folder."""
+from bundle_layout import payload, manifest_path, with_channel
 import argparse
 import json
 import os
@@ -36,7 +37,7 @@ for shell in filter(None,[shutil.which('powershell.exe'),shutil.which('pwsh.exe'
     env=dict(os.environ)
     env.pop('DSH_HOME',None)
     def run(*extra,environment=env):
-        result=subprocess.run([shell,'-NoProfile','-ExecutionPolicy','Bypass','-File',str(bundle/'Install.ps1'),'-Harness','DSH','-UserHome',str(home),'-NonInteractive',*extra],env=environment,capture_output=True)
+        result=subprocess.run([shell,'-NoProfile','-ExecutionPolicy','Bypass','-File',str(bundle/'Install.ps1'),'-Harness','DSH','-UserHome',str(home),'-Channel','beta','-NonInteractive',*extra],env=environment,capture_output=True)
         if result.returncode:
             raise RuntimeError(result.stdout.decode('utf-8','replace')+result.stderr.decode('utf-8','replace'))
     run('-Scope','User')

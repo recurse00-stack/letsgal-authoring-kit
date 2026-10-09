@@ -17,13 +17,12 @@ def main():
     opts=args.parse_args()
     if opts.archive and not opts.zip: args.error('--archive requires --zip')
     root=Path(__file__).resolve().parents[1]
-    skill=root/'skills/letsgal-authoring'
     manifest=json.loads((root/'bundle.json').read_text('utf-8'))
     version=manifest['version']
     package_name=manifest['owner']
     assert re.fullmatch(r'[0-9A-Za-z.\-]+',package_name)
     assert re.fullmatch(r'[0-9A-Za-z.\-]+',version)
-    assert re.search(r'^  version: '+re.escape(version)+r'$',(skill/'SKILL.md').read_text('utf-8'),re.M), 'Skill and bundle versions differ'
+    assert manifest['schema']==2 and {x['id'] for x in manifest['channels']}=={'stable','beta'}, 'Expected two explicit channel payloads'
     files=release_files(root)
     assert not any(p.is_symlink() or (hasattr(p,'is_junction') and p.is_junction()) for p in files), 'Linked content is not distributable'
     assert not any('__pycache__' in p.parts or p.suffix=='.pyc' for p in files), 'Remove generated Python caches before release'
@@ -33,9 +32,23 @@ def main():
     for file in (p for p in files if p.suffix=='.cmd'):
         file.write_bytes(file.read_text('ascii').replace('\r\n','\n').replace('\n','\r\n').encode('ascii'))
     digest=lambda file:hashlib.sha256(file.read_bytes()).hexdigest()
-    skill_files=[p for p in files if skill in p.parents]
-    manifest['files']=[{'path':p.relative_to(skill).as_posix(),'sha256':digest(p)} for p in skill_files]
-    (root/'bundle.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n','utf-8')
+    payload_counts={}
+    for row in manifest['channels']:
+        channel=row['id']
+        assert row['bundle']==f'channels/{channel}/bundle.json'
+        channel_root=root/'channels'/channel
+        skill=channel_root/'skills/letsgal-authoring'
+        front=(skill/'SKILL.md').read_text('utf-8')
+        assert re.search(r'^  version: '+re.escape(version)+r'$',front,re.M), 'Skill and bundle versions differ'
+        assert re.search(r'^  channel: '+channel+r'$',front,re.M), 'Skill channel differs'
+        payload=[p for p in files if skill in p.parents]
+        assert set(payload)=={p for p in skill.rglob('*') if p.is_file()}, 'Unlisted payload file'
+        assert (skill/'references/risk-notice.md').read_bytes()==(root/'RISK-NOTICE.md').read_bytes(), 'Risk notice differs'
+        selected=json.loads((channel_root/'bundle.json').read_text('utf-8'))
+        assert selected['version']==version and selected['channel']==channel and selected['schema']==1
+        selected['files']=[{'path':p.relative_to(skill).as_posix(),'sha256':digest(p)} for p in payload]
+        (channel_root/'bundle.json').write_text(json.dumps(selected,ensure_ascii=False,indent=2)+'\n','utf-8')
+        payload_counts[channel]=len(payload)
     for file in (p for p in files if p.suffix=='.md'):
         for link in re.findall(r'\]\(([^)]+)\)',file.read_text('utf-8')):
             if '://' not in link and not link.startswith('#') and '<' not in link:
@@ -62,7 +75,7 @@ def main():
                 assert z.read(package_name+'/'+file.relative_to(root).as_posix())==file.read_bytes()
         print(json.dumps({'archive':str(archive),'files':len(all_files),'bytes':archive.stat().st_size,'sha256':digest(archive),'zip_readback':'all files match'},ensure_ascii=False))
     else:
-        print(json.dumps({'version':version,'skill_files':len(manifest['files']),'local_links':'valid','checksums':'refreshed'}))
+        print(json.dumps({'version':version,'skill_files':payload_counts,'local_links':'valid','checksums':'refreshed'}))
 
 if __name__=='__main__':
     main()

@@ -4,6 +4,7 @@ param(
     [ValidateSet('Install','Check','Uninstall')][string]$InitialAction = 'Install',
     [ValidateSet('Codex','Claude','Cursor','Copilot','DSH','Manual')][string]$Harness,
     [ValidateSet('User','Project')][string]$Scope,
+    [ValidateSet('stable','beta')][string]$Channel,
     [string]$UserHome = [Environment]::GetFolderPath('UserProfile'),
     [string]$ProjectPath,
     [string]$DshHome,
@@ -26,6 +27,8 @@ $script:prompt = ''
 function Quote-PS([string]$Value) { return "'" + $Value.Replace("'", "''") + "'" }
 function Get-SelectedAgent { return [string]$script:ui.AgentBox.SelectedItem.Tag }
 function Get-SelectedScope { if ($script:ui.ScopeBox.SelectedIndex -eq 1) { return 'Project' }; return 'User' }
+function Get-SelectedChannel { return [string]$script:ui.ChannelBox.SelectedItem.Tag }
+function Channel-Label([string]$Value) { switch ($Value) { 'stable' { '正式版' }; 'beta' { 'Beta' }; 'legacy' { '旧合并版' }; default { '未选择／未安装' } } }
 function Set-OperationStatus([string]$Text, [string]$State = 'info') {
     $script:ui.OperationText.Text = $Text
     $colors = switch ($State) {
@@ -59,7 +62,7 @@ function Format-ImportDetails($Result, [int]$ExitCode, [string]$Target) {
     }
     $lines.Add('操作：' + $actionText)
     if ($Target) { $lines.Add('目标目录：' + $Target) }
-    foreach ($field in @(@('version','导入版本'),@('installed_version','已安装版本'),@('bundle_version','本包版本'),@('backup','完整备份'),@('message','原因'))) {
+    foreach ($field in @(@('channel','所选通道'),@('installed_channel','已安装通道'),@('version','导入版本'),@('installed_version','已安装版本'),@('bundle_version','本包版本'),@('backup','完整备份'),@('message','原因'))) {
         $property = $Result.PSObject.Properties[$field[0]]
         if ($property -and $property.Value) { $lines.Add($field[1] + '：' + [string]$property.Value) }
     }
@@ -74,11 +77,12 @@ function Format-ImportDetails($Result, [int]$ExitCode, [string]$Target) {
 }
 function Set-PreviewStatus($Preview) {
     $installedDisplay = if ($Preview.InstalledVersion) { $Preview.InstalledVersion } elseif ($Preview.Installed) { '未知' } else { '未安装' }
-    $script:ui.VersionText.Text = '本包 ' + $Preview.BundleVersion + '  ·  已装 ' + $installedDisplay
+    $script:ui.VersionText.Text = '将使用 ' + (Channel-Label $Preview.Channel) + ' ' + $Preview.BundleVersion + '  ·  已装 ' + (Channel-Label $Preview.InstalledChannel) + ' ' + $installedDisplay
     $statusText = switch ($Preview.Status) {
         'not_installed' { '未安装；确认位置后可导入。' }
         'current' { '当前版本；重复导入不会替换技能文件。' }
         'update_available' { '可更新；原版本将完整保存在备份中。' }
+        'channel_change' { '将切换通道；原通道完整备份，只保留一份生效的 letsgal-authoring。' }
         'requires_backup' { '已有改动或非本包安装；需要先备份再继续。' }
     }
     $script:ui.PathNote.Text = $script:destination.Note + "`n" + $statusText
@@ -103,8 +107,15 @@ function Update-Destination {
         $script:ui.ProfileText.Text = '个人偏好：' + $area.Profile
         $script:ui.PluginsText.Text = '插件 Skill：' + $area.Plugins
         $script:destination = Resolve-SkillDestination $agent $scopeName $UserHome $script:ui.ProjectBox.Text $script:ui.ManualBox.Text $script:ui.DshBox.Text
-        $preview = Get-InstallPreview -BundleRoot $PSScriptRoot -Destination $script:destination -UserHome $UserHome -ValidateBundle
         $script:ui.DestinationText.Text = $script:destination.Target
+        if (-not (Get-SelectedChannel)) {
+            $script:ui.VersionText.Text = '请先选择目标工程使用的正式版或 Beta。'
+            $script:ui.PathNote.Text = '只安装所选通道；不会升级或切换 LetsGal Studio。'
+            foreach ($name in @('ImportButton','CheckButton','RemoveButton')) { $script:ui[$name].IsEnabled = $false }
+            Set-OperationStatus '请选择引擎通道 · 正式版或 Beta'
+            return
+        }
+        $preview = Get-InstallPreview -BundleRoot $PSScriptRoot -Destination $script:destination -UserHome $UserHome -Channel (Get-SelectedChannel) -ValidateBundle
         Set-PreviewStatus $preview
         $script:ui.ImportButton.IsEnabled = $true
         $script:ui.CheckButton.IsEnabled = $true
@@ -139,7 +150,7 @@ function Start-ImportAction([string]$Action, [bool]$Replace = $false) {
     }
     $script:lastAction = $Action
     $arguments = @{
-        Action=$Action;Harness=(Get-SelectedAgent);Scope=(Get-SelectedScope);UserHome=$UserHome;
+        Action=$Action;Harness=(Get-SelectedAgent);Scope=(Get-SelectedScope);Channel=(Get-SelectedChannel);UserHome=$UserHome;
         ProjectPath=$script:ui.ProjectBox.Text;DshHome=$script:ui.DshBox.Text;SkillsDirectory=$script:ui.ManualBox.Text
     }
     $command = '[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false); & ' + (Quote-PS (Join-Path $PSScriptRoot 'Install.ps1'))
@@ -195,7 +206,7 @@ function Complete-ImportAction {
     $script:ui.CheckButton.Content = '检查安装'
     $script:ui.Footer.Text = '个人偏好、插件 Skill 与作品规则独立保存，更新时保留。'
     try {
-        $preview = Get-InstallPreview -BundleRoot $PSScriptRoot -Destination $script:destination -UserHome $UserHome -ValidateBundle
+        $preview = Get-InstallPreview -BundleRoot $PSScriptRoot -Destination $script:destination -UserHome $UserHome -Channel (Get-SelectedChannel) -ValidateBundle
         Set-PreviewStatus $preview
         $script:ui.RemoveButton.IsEnabled = $preview.Installed
     } catch { $script:ui.VersionText.Text = '检测未完成：' + $_.Exception.Message }
@@ -211,12 +222,12 @@ function Complete-ImportAction {
         $script:ui.BackupButton.Visibility = 'Visible'
         Set-OperationStatus '发现已有改动 · 请核对并备份后继续' 'warning'
     } elseif ($exitCode -eq 0 -and $result -and $result.action -in @('installed','already_current','check')) {
-        $title = switch ($result.action) { 'installed' { '导入完成' }; 'already_current' { '已经是此包版本' }; 'check' { '安装文件校验通过' } }
+        $title = switch ($result.action) { 'installed' { '导入完成' }; 'already_current' { '已经是此包版本' }; 'check' { if ($result.matches_bundle) { '安装文件校验通过' } else { '安装文件完整，与所选通道或版本不同' } } }
         $body = '下一步：建议先停用其他功能重叠的 LetsGal／引擎创作类 Skill，保留原文件与特调，避免调度冲突和额外上下文开销。安装器不会自动停用或删除其他技能。然后打开 Agent 新会话，粘贴验证提示词并核对实际加载路径。'
         if ($result.action -eq 'check' -and $result.PSObject.Properties['bundle_version']) { $body = '已装 ' + $result.installed_version + '，本包 ' + $result.bundle_version + '。' + $(if ($result.matches_bundle) { '与本包一致。' } else { '安装文件完整，可导入本包更新。' }) + "`n" + $body }
         if ($result.PSObject.Properties['backup'] -and $result.backup) { $body += "`n旧技能完整备份：" + $result.backup }
         Show-ImportResult $title $body $true
-        $script:prompt = "使用 letsgal-authoring。只读检查：核对实际读取的技能路径是否为 $($job.Target)；读取个人偏好 $($result.profile) 和工程 LETSGAL.md（不存在就明确说不存在）；插件 Skill 位于 $($result.plugins)，只按当前项目的插件 ID 和实际版本定位相关资料，不默认全部启用。定位当前工程与章节，说明写 JSON 前要查哪一页官方规范。不要修改文件或启动引擎。"
+        $script:prompt = "使用 letsgal-authoring。只读检查：核对实际读取的技能路径是否为 $($job.Target)，metadata.channel 是否为 $($result.channel)，并与目标工程的实际 Studio 通道核对；不匹配时说明需切换安装，先不写工程。读取个人偏好 $($result.profile) 和工程 LETSGAL.md（不存在就明确说不存在）；插件 Skill 位于 $($result.plugins)，只按当前项目的插件 ID 和实际版本定位相关资料，不默认全部启用。说明本次改动可用的保护方式和相关官方资料。不要修改文件或启动引擎。"
         $script:ui.CopyButton.Visibility = 'Visible'
         $script:ui.CopyButton.Content = '复制验证提示词'
     } elseif ($exitCode -eq 0 -and $result -and $result.action -eq 'uninstalled_to_backup') {
@@ -249,6 +260,7 @@ try {
         if (-not $ProjectPath) { $ProjectPath = $saved.ProjectPath }
         if (-not $SkillsDirectory) { $SkillsDirectory = $saved.SkillsDirectory }
         if (-not $DshHome -and $saved.PSObject.Properties['DshHome']) { $DshHome = $saved.DshHome }
+        if (-not $Channel -and $saved.PSObject.Properties['Channel'] -and $saved.Channel -in @('stable','beta')) { $Channel = $saved.Channel }
     }
     if (-not $Harness) { $Harness = 'Codex' }
     if (-not $Scope) { $Scope = 'User' }
@@ -268,6 +280,13 @@ try {
     $script:ui.RiskSummary.Text = $notice.Summary
     $script:ui.RiskLegal.Text = $notice.Legal
     $script:ui.RiskDetails.Text = $notice.Text
+    foreach ($choice in @(@('','请选择目标工程的引擎通道'),@('stable','正式版 · 原生界面／文件流程'),@('beta','Beta · 官方 MCP 优先'))) {
+        $item = New-Object Windows.Controls.ComboBoxItem
+        $item.Tag = $choice[0]; $item.Content = $choice[1]
+        [void]$script:ui.ChannelBox.Items.Add($item)
+        if ($choice[0] -eq $Channel) { $script:ui.ChannelBox.SelectedItem = $item }
+    }
+    if ($script:ui.ChannelBox.SelectedIndex -lt 0) { $script:ui.ChannelBox.SelectedIndex = 0 }
     $choices = @(@('Codex','Codex'),@('Claude','Claude Code'),@('Cursor','Cursor'),@('Copilot','GitHub Copilot'),@('DSH','DSH'),@('Manual','其他 Agent / 指定目录'))
     foreach ($choice in $choices) {
         $item = New-Object Windows.Controls.ComboBoxItem
@@ -288,6 +307,7 @@ try {
     $script:timer.Add_Tick({ try { Complete-ImportAction } catch { $script:timer.Stop(); Show-ImportResult '结果显示失败' $_.Exception.Message $false } })
     $script:ui.AgentBox.Add_SelectionChanged({ Update-Destination })
     $script:ui.ScopeBox.Add_SelectionChanged({ Update-Destination })
+    $script:ui.ChannelBox.Add_SelectionChanged({ Update-Destination })
     foreach ($name in @('ProjectBox','DshBox','ManualBox')) { $script:ui[$name].Add_TextChanged({ Update-Destination }) }
     $script:ui.ProjectBrowse.Add_Click({ Select-Folder $script:ui.ProjectBox '选择要使用技能的项目文件夹' })
     $script:ui.DshBrowse.Add_Click({ Select-Folder $script:ui.DshBox '选择 DSH 数据文件夹（例如 .dsh）' })

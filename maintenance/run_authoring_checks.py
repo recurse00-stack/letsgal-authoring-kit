@@ -1,10 +1,11 @@
 """Exercise static authoring diagnostics; optionally read native-saved fixtures. Python 3.9+."""
+from bundle_layout import payload, manifest_path, with_channel
 import argparse,copy,hashlib,json,subprocess,sys
 from pathlib import Path
 
 def run(scratch,native_fixtures=None):
     scratch.mkdir(parents=True,exist_ok=False)
-    scripts=Path(__file__).resolve().parents[1]/'skills/letsgal-authoring/scripts'
+    scripts=payload(Path(__file__).resolve().parents[1])/'scripts'
     checks=[]
     base={'id':'chapter-a','name':'sample','fragments':[{'id':'main-a','name':'main','blocks':[]},
                                                        {'id':'sub-a','name':'sub','blocks':[]}]}

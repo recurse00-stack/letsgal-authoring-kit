@@ -1,6 +1,6 @@
 # 使用手册
 
-本手册对应 **0.2.0**。本版整理制作与排错路径、补查条件／赋值形态，记录2.5.0正式版的有限运行及If复用限制。Windows导入程序沿用原版，安装、更新方法与旧Beta记录保留。可直接打开随包 [MANUAL.html](MANUAL.html) 离线阅读与浏览器搜索。
+本手册对应 **0.2.1**，正式版与Beta分别维护、安装时选一份。两套都支持按任务协作和内容保护；具体制作路径见各通道指南。2.5.0正式版的制作、条件／赋值检查、有限运行及If复用记录继续保留。Windows导入程序新增通道选择、切换与检查反馈；保留原有目录选择、备份和个人区保留机制。可直接打开随包 [MANUAL.html](MANUAL.html) 离线阅读与浏览器搜索。
 
 ## 这个包能做什么
 
@@ -10,7 +10,7 @@
 
 第一次使用可依次阅读安装、工程版本、选择练习及字段说明，再查工具参数、排错和升级。Beta 专项与插件开发按当前任务需要阅读。
 
-阅读入口：[第一次使用](#第一次使用) · [安装位置](#安装位置怎样选择) · [手动安装与命令行](#手动安装与命令行) · [完整练习](#从选择练习走完一个最小完整案例) · [正式版与Beta用法](#正式版与beta用法和版本核对) · [工具参数](#常见任务怎么提) · [个人区](#个人特调放哪里) · [排错](#常见问题) · [更新与恢复](#更新卸载与恢复)。
+阅读入口：[第一次使用](#第一次使用) · [MCP与原有流程](#官方-mcp-与无-mcp-两种用法) · [安装位置](#安装位置怎样选择) · [手动安装与命令行](#手动安装与命令行) · [完整练习](#从选择练习走完一个最小完整案例) · [正式版与Beta用法](#正式版与beta用法和版本核对) · [工具参数](#常见任务怎么提) · [个人区](#个人特调放哪里) · [排错](#常见问题) · [更新与恢复](#更新卸载与恢复)。
 
 ## 安装与启用前：避免同类技能冲突
 
@@ -20,7 +20,7 @@
 
 ## 使用前的风险与保护
 
-**使用前请阅读：AI 可能误改、误删或泄露资料。请先备份作品并限制 Agent 可写范围；技能备份不包含作品。** 本包按现状提供，不提供担保；作者及贡献者不对使用或无法使用本包造成的任何损失承担责任。详见[风险说明与免责声明](skills/letsgal-authoring/references/risk-notice.md)。
+**使用前请阅读：AI 可能误改、误删或泄露资料。请先备份作品并限制 Agent 可写范围；技能备份不包含作品。** 本包按现状提供，不提供担保；作者及贡献者不对使用或无法使用本包造成的任何损失承担责任。详见[风险说明与免责声明](channels/beta/skills/letsgal-authoring/references/risk-notice.md)。
 
 首次操作请先在工程副本上尝试，核对备份和恢复方法，再限制 Agent 的可写范围。安装器不负责备份整个作品；Git 也不一定包含未跟踪文件、素材或未提交修改。遇到删除、覆盖或批量迁移，先审查精确对象和影响，再授权。
 
@@ -28,11 +28,40 @@
 
 手动复制 Skill 时，完整说明随 references/risk-notice.md 一起保留。AI 首次准备写工程时应核对可写范围、备份与关键风险；已说明且未变化时不必重复宣读，操作范围或风险变化时再作针对性提醒。
 
+## 选择正式版或 Beta
+
+0.2.1起分开维护两套内容，安装时按目标工程的实际Studio通道选择一份：
+
+| 选择 | 制作方式与独立指南 |
+| --- | --- |
+| 正式版 stable | 原生界面／已关闭工程的文件流程；[正式版指南](channels/stable/MANUAL.md) |
+| Beta beta | 已获准的官方MCP优先，未覆盖能力由获准原生界面补充；[Beta指南](channels/beta/MANUAL.md) |
+
+名称仍为letsgal-authoring，安装目录只保留所选通道；切换时先备份旧版，保留个人区，不改变引擎、MCP配置或权限。界面显示“将使用”和“已装”的通道与版本；同为0.2.1仍可能需要切换。新安装先选择，非交互命令行必须传-Channel stable或-Channel beta，不猜测目标工程通道。
+
+不同通道工程建议分别用项目范围，并核对Agent真实加载优先级；已有全局入口不自动删除。不把安装器运行电脑的Beta当成所有工程的默认。已安装载荷与实际宿主不符时，先提示切换安装并继续无版本依赖工作，不自动改装或升级。
+
+## 已有内容、草稿与定稿怎样保护
+
+| 内容状态 | AI可以怎样处理 |
+| --- | --- |
+| 你此前做好的内容、先前任务的正文 | 未经明确范围授权，不自行修改或删除 |
+| AI本次受托新作、尚未定稿的草稿 | 在委托范围内修订、替换或撤去自己的草稿，保留已有设定和非目标内容 |
+| 明确采用／定稿的内容 | 立即按已有内容保护，与最初由谁写成无关 |
+
+“只改这句语气”授权对应修改，不必逐字批准；“这段定稿，其余继续打磨”保护该段。只采用部分方案不等于采用其余临时设定，讨论或沉默不等于允许落盘。
+
+**工程修改至少要有一种实际可用、覆盖本次改动的保护。** 优先原生项目历史／检查点或支持本次操作的撤销；Git、时光机和核验过的文件备份也可。不强制Git、不要求每次叠加多套全工程备份；已有有效保护可复用，定稿保留清楚的恢复标识。无保护时先草稿／补丁。
+
+项目历史覆盖剧情、角色、变量、界面和相关配置，图片、音频等素材不在覆盖范围；改删这些文件时补时光机、文件备份或已有Git。[项目历史](https://docs.avg-engine.com/manual/overview/history)与[时光机](https://docs.avg-engine.com/manual/overview/backup)互补。只看到“已保存”或“历史已开启”不代表本次原文已有快照，应核实际记录。
+
+Beta可通过history_checkpoint建立检查点；支持的AI操作通过history_undo按opId先核影响，冲突时保留后来编辑。正式版可在原生界面查看恢复记录；文件编辑前仍须保存并关闭工程。恢复快照先看影响，按Studio确认执行，优先小范围恢复。Git作为可选方案，本地提交不等于上传，“同步项目”还可能合并和上传，不能为保护自动使用。项目原有更具体要求继续保留。
+
 ## 第一次使用
 
 1. 从社区提供的 [GitHub Releases](https://github.com/recurse00-stack/letsgal-authoring-kit/releases) 下载 `letsgal-authoring-kit-<版本>.zip`，完整解压后可交给 Agent 按本手册协助安装。不要只下载 `Install.cmd`，也不要直接在压缩包中运行。
-2. 双击 `Install.cmd`，选择实际使用的 Agent。一般保留“个人 · 所有项目”；只给一个作品用时选择“项目 · 仅此工程”，再浏览项目文件夹。
-3. 检查蓝色预览区域中的安装位置、本包版本、已安装版本及状态；确定是你实际使用的 Agent 和范围后，点击“导入到 …”。窗口底部的固定状态栏会显示正在处理以及完成结果，无需在长页面里寻找反馈。
+2. 双击 `Install.cmd`，先选择正式版或Beta，再选择实际使用的 Agent。一般保留“个人 · 所有项目”；只给一个作品用时选择“项目 · 仅此工程”，再浏览项目文件夹。
+3. 检查蓝色预览区域中的安装位置、所选／已装通道、本包版本、已安装版本及状态；确定是你实际使用的 Agent 和范围后，点击“导入到 …”。窗口底部的固定状态栏会显示正在处理以及完成结果，无需在长页面里寻找反馈。
 4. 看到“导入完成”后，可展开“更多选项”点击“检查安装”。底部显示“检查安装 · 校验通过”（结果框标题为“安装文件校验通过”）后，点击“复制验证提示词”；在 Agent 中打开作品目录，建立新会话并粘贴。核对它实际读取的 Skill 路径，而不只看一句“已加载”。
 
 普通导入使用 Windows 自带 PowerShell，不要求 Python、Node 或管理员权限。可选 JSON 检查器与版本资料工具需要 Python 3.9+。macOS／Linux、WSL 和远程环境请按 [兼容表](COMPATIBILITY.md) 手动复制到实际运行 Agent 的环境。
@@ -86,17 +115,86 @@ DSH：选择其数据文件夹，默认通常为 `~/.dsh`。如果启动器另�
 
 ## 手动安装与命令行
 
-macOS／Linux、WSL、容器或远程环境：把完整 `skills/letsgal-authoring` 文件夹复制到 [兼容表](COMPATIBILITY.md) 中该环境实际使用的技能根目录，保留目录里的许可证、参考文件和风险说明。个人区按需建立在实际 AI 用户主目录；已有偏好、插件库和旧版本不覆盖。安装后开新会话核对来源。本机安装不自动同步到远程环境。
+macOS／Linux、WSL、容器或远程环境：把完整 `channels/stable/skills/letsgal-authoring`（正式版）或 `channels/beta/skills/letsgal-authoring`（Beta） 文件夹复制到 [兼容表](COMPATIBILITY.md) 中该环境实际使用的技能根目录，保留目录里的许可证、参考文件和风险说明。个人区按需建立在实际 AI 用户主目录；已有偏好、插件库和旧版本不覆盖。安装后开新会话核对来源。本机安装不自动同步到远程环境。
 
 Windows 完整包根目录的命令行入口：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex -Scope User
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex -Scope User -Channel stable
 .\Check.cmd
 .\Uninstall.cmd
 ```
 
-`-Harness` 取 Codex、Claude、Cursor、Copilot、DSH 或 Manual；`-Scope` 为 User 或 Project。项目模式配 `-ProjectPath "<工程绝对路径>"`，Manual 配 `-SkillsDirectory "<已配置的 skills 根目录>"`，DSH 可配 `-DshHome "<实际数据目录>"`。`-NonInteractive` 适用于自动化；已有特调需先比较，明确使用 `-ReplaceModified` 才允许先完整备份再继续。命令行参数名与有效值以随包 `Install.ps1` 的参数声明为准；不要在其他工作目录单独运行摘出的脚本。
+`-Harness` 取 Codex、Claude、Cursor、Copilot、DSH 或 Manual；`-Scope` 为 User 或 Project。项目模式配 `-ProjectPath "<工程绝对路径>"`，Manual 配 `-SkillsDirectory "<已配置的 skills 根目录>"`，DSH 可配 `-DshHome "<实际数据目录>"`。`-Channel` 按目标工程选 `stable` 或 `beta`；上例为正式版。`-NonInteractive` 适用于自动化，必须明确给出通道；已有特调需先比较，明确使用 `-ReplaceModified` 才允许先完整备份再继续。命令行参数名与有效值以随包 `Install.ps1` 的参数声明为准；不要在其他工作目录单独运行摘出的脚本。
+
+## 官方 MCP 与无 MCP 两种用法
+
+**安装这份 Skill 不要求启用 MCP。** 没有 MCP 的正式版仍可让 AI 制作剧情、检查 JSON、维护扩展源码与说明，再通过原生界面验证。Beta 载荷在官方 MCP 已接入当前 Agent 时优先通过 Studio 读取和修改当前工程；正式版载荷保持原生／离线工作法。
+
+| 你的环境 | 怎么使用 |
+| --- | --- |
+| 正式版没有 MCP，或尚未启用／配置 | 沿用原有流程；需要 AI 直接改工程文件时，先保存并关闭该工程，修改后再打开验证 |
+| 官方 MCP 已连接且批准了本次所需权限 | AI 先核当前工程、版本和工具，再通过 Studio 修改并读回 |
+| 只读、待批准、工具组缺失或临时断线 | 先完成只读检查、草稿和补丁；处理所需缺项，不绕过批准改活动工程 |
+| 扩展独立源码、Skill、Git、发行材料 | 继续使用原有文件和构建工具，按这些工程各自规则维护 |
+
+2.6.0-beta.1 已提供官方 MCP；这不表示所有 Beta 都有它，也不表示正式版以后不能使用。Skill 按完整版本选资料，再看当前工具是否真正可用。更新 Skill 不会替你切换引擎、开启服务或改为全放行。
+
+### 第一次连接
+
+操作优先使用官方 MCP。遇到 MCP 尚未提供的界面能力，你可以授权 AI 使用 Computer Use／原生界面控制，在指定应用与工程内继续；已经授权的范围不必每次点击再批准。AI须确认当前窗口、工程和输入状态，避免打断正在编辑的内容。具体能否控制界面取决于 Agent 实际提供的工具。关闭的工具组、只读连接或明确拒绝属于权限限制，一般的“允许操作界面”不会解除它们；Skill 不会自动开权限。
+
+在 Studio 的 MCP 页面启用服务，复制当前页面的“接入提示词”交给 Agent。Agent 核对实际地址后，将配置合并到自己的用户级设置一次；已有配置直接复用，避免重复添加。需要重新加载 MCP 或重启客户端时按该客户端提示处理，随后先调用状态工具确认。
+
+第一次读取工程可能需要在 Studio 批准连接；按当前任务选择只读或允许修改。AI 首次使用时读取官方服务指导和快速指南，同一上下文与版本可以复用，更新宿主或指导变化时再读。安装器只安装 Skill，不替你配置或更改 MCP。详情以[官方接入说明](https://docs.avg-engine.com/manual/overview/mcp)及当前 Studio 页面为准。
+
+### 按任务协作，避免不必要的等待
+
+0.2.1按任务范围组织读取、修改与验证。讨论使用已有上下文；改几句对白定位到相关块并读回；新增分支再检查引用和路线；持久数据改变时才增加存读档验证。没有必要为了改一句话先扫描全部素材、角色或执行全工程验收。明确的项目保护与工具确认仍保留。下面按实际用法说明；本版新测、沿用的历史结果和未测范围统一见[验证说明](VALIDATION.md)。
+
+定位时提供“章节名＋片段名＋原句”通常就够；每章都可能有main，只说“改main”可能选错对象。已有明确目标时AI应直接读相关内容，只有重名或上下文不足才扩大查找。旧工程某些区块可能没有ID，AI不能猜ID或把序号当ID；应核对完整片段能否安全用脚本修改，或使用已授权的界面操作。
+
+仅把讨论稿保存到指定文字文件时，核对所属文件规则、已有内容和写后结果即可；不因此查询 Studio 或递归寻找可选工程入口。工程正文的修改仍按其保护与验证要求执行。
+
+你可以这样表达：
+
+> 先讨论两个方向，保持主角的动机，不写入工程。说明各自对玩家体验的影响。
+
+> 把这一段对白改得更克制，保留信息、角色和演出。可直接完成这个范围内的修改，读回差异；遇到会改变剧情走向的取舍再问我。
+
+> 已采用第二个方案，请更新原章节并实现两条选择路线；不要改动其他设定，分别检查结果与返回。
+
+只改措辞时，AI应保留粗体、停顿、变量标记与演出参数，从原始内容改字，不能把去掉格式的显示文字整句写回。已有录音不会自动随文字更新；需要改配音时另行处理。
+
+批量替换前先检查命中预览，再选择需要的条目；工具不会保证搜索全部字段。本版有限样例中，普通文本匹配到了，同名的消息框标题没有列入命中，应单独定位后处理。不要因一个字段未出现在结果里就推定它不存在。
+
+AI应区分提案和已采用内容，保留声线，重要歧义集中询问；你已明确委托的可逆工作不必逐步批准。若改变方向，说明要保留的决定和要替换的部分即可。检查通过只证明对应工程范围，文字是否自然、选择是否有意义仍需创作审阅。
+
+也可以只采用方案中的一部分，例如：“用第二方案的第一句，其他对白和等人的动机保留，再把语气改冷一点。”AI应整合到已委托修改的原文，不附带采用方案里的新设定；若只是讨论，则继续给草稿。跨方案采用仍可能混入未选动作，交付前应对照采用要求检查整合稿；文件已保存不等于创作要求全部满足。
+
+本版的三模型有限对照显示，Skill 能帮助部分工具选择与检查，但不能保证每次遵守流程。第二阶段实验曾出现漏掉可用预演、沿用旧任务状态并错误报告完成的结果，因此该实验规则未纳入当前包。当前包保留此前规则；重要修改应以本次实际差异和读回结果判断，不以一句“已完成”代替证据。具体范围见[验证记录](VALIDATION.md)。
+
+本次优化不改变模型、工具权限或引擎版本，不保证固定提速或token节省比例。当前客户端支持工具搜索、结果筛选和并行读取时才利用这些能力；不要求额外安装代理服务。真实验证范围见[验证说明](VALIDATION.md)。
+
+### 让 AI 完成一次修改
+
+> 使用 letsgal-authoring。先确认当前 Studio 打开的是我要修改的工程及其完整版本。官方 MCP 可用时优先使用，首次读取官方快速指南，同一上下文／版本已读可复用，再只修改我指定的对白，保留角色、ID和其他区块，读回并验证。没有 MCP 时先准备补丁，确认工程已关闭后再写磁盘。不要改变服务权限、升级引擎或发布作品。
+
+只读批准不能写入；已允许修改仍须核对任务范围。正常修改使用内容工具，先读最新 revision，冲突时重新读取。不要为了方便反复要求开全工具或关闭确认。
+
+如果写入提示超时，AI应先确认内容是否已经保存，避免重复插入；遇到冲突，应保留你刚做的修改再合并。撤销也有冲突检查，不能用旧快照或共享撤销快捷键盖掉后来的内容。工具组被关闭属于权限限制；真正未提供的界面功能才可在你授权的范围内用 Computer Use 补充。
+
+### 外部批量编辑与原有文件方式
+
+打开“外部批量编辑”权限不代表可以随时改文件。AI 必须先通过官方工具开启本次编辑会话，取得精确允许范围，修改后校验并提交或放弃。超时／断线后不能继续沿用旧会话。章节结构、UI、数据库及配置等不能借此任意修改，详细边界见 [MCP 工作流](channels/beta/skills/letsgal-authoring/references/mcp-workflow.md)。
+
+不用 MCP 时，原有能力保留。Studio 打开工程时会自动保存内存内容，因此等待“保存完成”还不够：请先保存并关闭该工程，再让 AI 修改磁盘，之后重新打开检查。仍打开时可通过原生界面操作，或先生成不覆盖工程的草稿。
+
+### 常见连接问题
+
+同一聊天重连可能产生新 MCP 会话，需要核对新连接的批准状态。看到两个同名客户端时，先让 AI 查当前连接 ID、配置和活动日志；不要反复添加服务或盲目断开当前连接。“断开”可能导致自动重连，旧记录是否需要清理按日志判断，不能只凭同名就认定重复安装或故障。
+
+MCP 脚本文本并非所有区块都能无损写回；AI 遇到不支持往返的区块应逐块修改。局部预览也不是完整调试：高级调度、前处理及片段流程要用对应调试／玩家入口。连接、文件校验、实际写入、运行、存读档分别记录；本版已完成有限 MCP 修改、冲突处理、撤销与选择性替换实测；完整外部编辑回滚、玩家和存档仍按各自证据判断，见 [验证报告](VALIDATION.md)。
 
 ## 先明确工程版本
 
@@ -106,14 +204,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex
 
 > 使用 letsgal-authoring。先核对本作品的 Studio 完整版本和稳定／Beta 通道；涉及扩展时再核对相关 SDK。沿用作品当前版本；不要升级引擎、迁移 JSON 或启用未经确认的新功能。版本不明时只读定位，告诉我当前任务还缺哪项依据。
 
-2.5.0正式版及此前2.3.0-beta.1／2.4.0-beta.1官方空白工程的 `version` 和 `engineVersion` 均为 `1.0.0`，确切语义尚未确认；不要直接把它们传作宿主版本，也不要为消除冲突自动改值。版本信息可让 AI 写到工程 `LETSGAL.md`，以后重读沿用。版本与能力无法确认时，可以继续构思、文字草稿和只读查找；不要直接套用新 API。[详细兼容规则](skills/letsgal-authoring/references/version-compatibility.md)
+2.5.0正式版及此前2.3.0-beta.1／2.4.0-beta.1官方空白工程的 `version` 和 `engineVersion` 均为 `1.0.0`，确切语义尚未确认；不要直接把它们传作宿主版本，也不要为消除冲突自动改值。版本信息可让 AI 写到工程 `LETSGAL.md`，以后重读沿用。版本与能力无法确认时，可以继续构思、文字草稿和只读查找；不要直接套用新 API。[详细兼容规则](channels/beta/skills/letsgal-authoring/references/version-compatibility.md)
 
 ## 从选择练习走完一个最小完整案例
 
-随包的[选择练习](skills/letsgal-authoring/examples/选择练习.json)包含一个完整章节：main 提问、两个选择、石桥／花园两个结果片段，以及返回 main 后的结束文字。它使用原创合成内容，不依赖角色、图像、音频或变量；已在 2.3.0-beta.1 有限预览过，加入你的作品后仍需从实际入口核对两条路线。
+随包的[选择练习](channels/beta/skills/letsgal-authoring/examples/选择练习.json)包含一个完整章节：main 提问、两个选择、石桥／花园两个结果片段，以及返回 main 后的结束文字。它使用原创合成内容，不依赖角色、图像、音频或变量；已在 2.3.0-beta.1 有限预览过，加入你的作品后仍需从实际入口核对两条路线。
 
 1. 在 Studio 新建官方空白工程，或复制现有工程作为练习副本。确认 AI 当前打开的是这个副本，按前节核对完整宿主版本与通道。
-2. 让 AI 读取包内例子，重新生成章节及三个片段的唯一 ID，并同步替换选项中的目标 ID。若副本已有“选择练习”章节，先另取章节名，不覆盖原章；章节名和文件名一起修改。
+2. 本例以下磁盘步骤用于无 MCP 路线：先保存并关闭练习工程，再让 AI 读取包内例子，重新生成章节及三个片段的唯一 ID，并同步替换选项中的目标 ID。若副本已有“选择练习”章节，先另取章节名，不覆盖原章；章节名和文件名一起修改。
 3. 将完整章节保存到副本的 `chapters/选择练习.json`；已另取名字时，文件名同步采用该名字。在已有 `project.json` 的 `chapterOrder` 中登记该章，同时核对 `chapterTreeOrder` 的目录排序；保留原入口、其他章节及配置；不要用一小段索引示意覆盖整个 `project.json`。
 4. 对新章节和副本做只读静态检查，确认名称、引用及登记位置正确。章节中所有片段 ID 和 `choices` 内的目标 ID 必须对应；检查器的零错误还需要后续预览。
 5. 在 Studio 重新读取副本，打开练习章节的 main，从片段开头预览。先选“查看石桥”；重新从 main 开头预览，再选“查看花园”。只预览一个结果片段不能验证选项及回流。
@@ -128,9 +226,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex
 
 > 使用 letsgal-authoring。只在当前练习副本加入包内“选择练习”章节，先核对实际 Studio 版本。重生成章节及片段 ID，并同步选项目标；保留原入口、索引和其他配置。若同名章节已存在，使用新名字。完成后只读检查，告诉我在 Studio 应从哪里预览，以及两项选择的预期文字顺序；未实际预览就明确说明。
 
+如果已接入官方 MCP，使用相同两路线目标，但由当前可用的结构工具创建章节／片段并取得真实 ID，再写入选项与文字，读回核对。不要同时按上面的磁盘步骤改活动工程；MCP 外部编辑会话也不用于创建章节结构。
+
 ### 本例的必要字段
 
-这些字段帮助你读懂例子；完整结构仍按目标版本保存样本及 [JSON 工作法](skills/letsgal-authoring/references/json.md)核对。
+这些字段帮助你读懂例子；完整结构仍按目标版本保存样本及 [JSON 工作法](channels/beta/skills/letsgal-authoring/references/json.md)核对。
 
 | 字段／概念 | 在本例中的用途 | 修改时要保留什么 |
 | --- | --- | --- |
@@ -146,11 +246,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex
 
 ## 变量与扩展的验证
 
-涉及变量时，先列变量 key、类型、初值及保留方式。当前存档随读档恢复，跨存档共享，启动重置另设开关。回标题、读档和预览刷新不是全新启动；启动行为最终用导出游戏观察。[制作流程与变量](skills/letsgal-authoring/references/production.md)
+涉及变量时，先列变量 key、类型、初值及保留方式。当前存档随读档恢复，跨存档共享，启动重置另设开关。回标题、读档和预览刷新不是全新启动；启动行为最终用导出游戏观察。[制作流程与变量](channels/beta/skills/letsgal-authoring/references/production.md)
 
 2.5.0程序扩展的实际初始化路径：个性化 → 项目设置 → 扩展 → 新建，保留生成的清单ID；纯界面扩展需要程序时再点“初始化程序”。读取生成的package.json：本次模板提供`build`和`watch`，不假定存在`dev`。在源码改一个可辨识标题，安装工程依赖后运行`npm run build`，核对宿主程序预览标题及项目发行物；这仍不证明剧本方法、存档或独立玩家兼容。
 
-扩展开发时区分作者设置与玩家存档，slot／shared／session 各自测试。代码写源码并构建，SDK 通过宿主同步，保持已使用清单 ID；扩展资源是否进入导出包要单独核实。[扩展工作法](skills/letsgal-authoring/references/extensions.md)
+扩展开发时区分作者设置与玩家存档，slot／shared／session 各自测试。代码写源码并构建，SDK 通过宿主同步，保持已使用清单 ID；扩展资源是否进入导出包要单独核实。[扩展工作法](channels/beta/skills/letsgal-authoring/references/extensions.md)
 
 ### 一个已实测的选择赋值例子（仅2.3.0-beta.1）
 
@@ -165,7 +265,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex
 
 ### 2.5.0正式版怎样用
 
-2026-10-05正式版清单和历史均列2.5.0。该版汇总多个Beta阶段的功能，并继续完善预览；31条公告不是31个比beta.1新增的功能。AI应先核本机实际完整版本和目标作品，不会因更新Skill自动换引擎通道。2.5.0和2.5.0-beta.1分别选择资料，旧Beta的有限测试不等于正式版通过。[正式版制作专页](skills/letsgal-authoring/references/versions/stable-2.5.md)
+2026-10-05正式版清单和历史均列2.5.0。该版汇总多个Beta阶段的功能，并继续完善预览；31条公告不是31个比beta.1新增的功能。AI应先核本机实际完整版本和目标作品，不会因更新Skill自动换引擎通道。2.5.0和2.5.0-beta.1分别选择资料，旧Beta的有限测试不等于正式版通过。[正式版制作专页](channels/stable/skills/letsgal-authoring/references/versions/stable-2.5.md)
 
 | 需求 | 怎么做 | 要核对什么 |
 | --- | --- | --- |
@@ -209,7 +309,7 @@ Ren’Py只转换兼容指令；实测`endChapter`标为不支持并跳过，得
 | 2.4.0-beta.2 | Spine头像复用／静态回退、图集加载与界面外观修复 | 5项公告，未新增宿主功能实测 |
 | 2.5.0-beta.1 | 浮字编辑与时序、动态图像模型库、素材撤销、构建诊断、可选开发者统计 | 12项公告；该Beta阶段EXE和SDK声明已核，新增功能运行未测 |
 
-完整[68项累计差异清单](skills/letsgal-authoring/references/versions/beta-differences.md)逐条列出变化和需核对的证据，包含容易漏掉的操作优化及修复。68是公告条目数，一项可以包含多个变化；不是68个已通过功能。中间版本的编辑方式可能在2.3重做，按当前实际版本使用；获取公告、生成样本、SDK确认和运行通过分别记录。
+完整[68项累计差异清单](channels/beta/skills/letsgal-authoring/references/versions/beta-differences.md)逐条列出变化和需核对的证据，包含容易漏掉的操作优化及修复。68是公告条目数，一项可以包含多个变化；不是68个已通过功能。中间版本的编辑方式可能在2.3重做，按当前实际版本使用；获取公告、生成样本、SDK确认和运行通过分别记录。
 
 ### 2.4 Beta的新入口怎样用
 
@@ -225,17 +325,17 @@ Ren’Py只转换兼容指令；实测`endChapter`标为不支持并跳过，得
 
 2.4.0-beta.1原生空白旁白可省略content；auto检查对此提示复核，不改原文件。新生成文本仍写数组，null／字符串／对象继续报错。
 
-beta.1十三项、beta.2五项及各自实测范围见[2.4专页](skills/letsgal-authoring/references/versions/beta-2.4.md)和[宿主验证](HOST-VALIDATION.md)。下节旧版实测仍限定为2.3.0-beta.1。
+beta.1十三项、beta.2五项及各自实测范围见[2.4专页](channels/beta/skills/letsgal-authoring/references/versions/beta-2.4.md)和[宿主验证](HOST-VALIDATION.md)。下节旧版实测仍限定为2.3.0-beta.1。
 
 ### beta.2的头像与界面问题怎样排查
 
-2.4.0-beta.2公告集中修复Spine对白头像加载／叠加，以及历史记录阴影和三态图片按钮背景。AI可以先核对宿主版本、已有角色资源引用和界面样式；不要直接把Spine图集改成静态头像、删除备用头像或清空主题样式。连续说话、角色来回对话、切换表情和加载失败回退分别观察；具体步骤见[2.4排错说明](skills/letsgal-authoring/references/versions/beta-2.4.md#240-beta2头像与界面排错)。
+2.4.0-beta.2公告集中修复Spine对白头像加载／叠加，以及历史记录阴影和三态图片按钮背景。AI可以先核对宿主版本、已有角色资源引用和界面样式；不要直接把Spine图集改成静态头像、删除备用头像或清空主题样式。连续说话、角色来回对话、切换表情和加载失败回退分别观察；具体步骤见[2.4排错说明](channels/beta/skills/letsgal-authoring/references/versions/beta-2.4.md#240-beta2头像与界面排错)。
 
 这些是依据公告编写的排错方法，beta.2实际效果尚未测试，也没有新增自动控制编辑器的工具。已经导出的游戏需要重新构建才能应用引擎运行时修复；更新Skill不会自动更新旧游戏。
 
 ### 2.5 Beta：一个地点牌练习与排错路径
 
-先核对当前实例完整版本为2.5.0-beta.1。下列路径依据官方公告与基础手册编写，本版新增功能还没有原生运行实测；按钮名称和保存字段以实际界面为准。完整AI指引见[2.5专页](skills/letsgal-authoring/references/versions/beta-2.5.md)。
+先核对当前实例完整版本为2.5.0-beta.1。下列路径依据官方公告与基础手册编写，本版新增功能还没有原生运行实测；按钮名称和保存字段以实际界面为准。完整AI指引见[2.5专页](channels/beta/skills/letsgal-authoring/references/versions/beta-2.5.md)。
 
 在练习副本做一张地点牌：
 
@@ -287,7 +387,7 @@ beta.1十三项、beta.2五项及各自实测范围见[2.4专页](skills/letsgal
 | 历史追加 | 官方配套 SDK 的 `history.append`／`appendBatch`，text-only 方法一次追加三条；同文不去重 | SDK 说明不自动持久化；实测跨重启未恢复追加条目，要保留须实现扩展保存／恢复 |
 | 桌面读档 | 一个快存和普通槽位 1，在完整退出重开后恢复位置、变量 42 和场景 | 未覆盖 Web 重启、所有槽位／类型或长期扩展状态 |
 
-历史探针的 SDK 由该版 Studio 官方扩展向导初始化，`SDK_VERSION` 为 `2.3.0-beta.1`；只对上述探针确认来源。其他工程的 SDK 仍须独立核对。最小方法及原生链接配置见 [Beta 专页](skills/letsgal-authoring/references/versions/beta-2.3.md#最小历史方法先从官方模板初始化)。
+历史探针的 SDK 由该版 Studio 官方扩展向导初始化，`SDK_VERSION` 为 `2.3.0-beta.1`；只对上述探针确认来源。其他工程的 SDK 仍须独立核对。最小方法及原生链接配置见 [Beta 专页](channels/beta/skills/letsgal-authoring/references/versions/beta-2.3.md#最小历史方法先从官方模板初始化)。
 
 ### 可能成立，但还不能当作用法的线索
 
@@ -301,7 +401,7 @@ beta.1十三项、beta.2五项及各自实测范围见[2.4专页](skills/letsgal
 
 ### 安装与按需使用
 
-使用 Beta 不需要换安装方式：从发布页下载实际已发布的完整 ZIP，完整解压并运行 `Install.cmd`，核对并复用原技能目录。本包版本为0.2.0，旧版包保留原样。安装器不会联网自动升级；更新时下载新版完整ZIP，完整解压并在预览中选择原技能目录。不要单独运行摘出的 `Install.ps1`。资料和工具随同一个主 Skill 安装，预览先核对包版本及已装状态；个人偏好、插件库和旧备份保留。
+使用 Beta 不需要换安装方式：从发布页下载实际已发布的完整 ZIP，完整解压并运行 `Install.cmd`，核对并复用原技能目录。本包版本为0.2.1，旧版包保留原样。安装器不会联网自动升级；更新时下载新版完整ZIP，完整解压并在预览中选择原技能目录。不要单独运行摘出的 `Install.ps1`。资料和工具随同一个主 Skill 安装，预览先核对包版本及已装状态；个人偏好、插件库和旧备份保留。
 
 | 能力 | 怎样让 AI 帮忙 | 需要观察的结果 |
 | --- | --- | --- |
@@ -311,13 +411,13 @@ beta.1十三项、beta.2五项及各自实测范围见[2.4专页](skills/letsgal
 | 选项卡片 | 明确文字、文案变量、选择后赋值、样式和目标片段 | 文案变量替换与选择后赋值分别验证，每条路线单独观察 |
 | 历史追加／列表点击 | 指定目标扩展和实际 SDK | 类型、动作参数、重复注册与历史持久行为核实 |
 
-完整说明、最小调查提示例子与未知字段按目标版本查[2.3专页](skills/letsgal-authoring/references/versions/beta-2.3.md)、[2.4专页](skills/letsgal-authoring/references/versions/beta-2.4.md)或[2.5专页](skills/letsgal-authoring/references/versions/beta-2.5.md)。没有实际 SDK／新字段样本时，先做不依赖它们的文案和设计。官方要求重新构建已导出作品才能应用该宿主的运行时变化；本包更新不会替你构建或发布作品。
+完整说明、最小调查提示例子与未知字段按目标版本查[2.3专页](channels/beta/skills/letsgal-authoring/references/versions/beta-2.3.md)、[2.4专页](channels/beta/skills/letsgal-authoring/references/versions/beta-2.4.md)或[2.5专页](channels/beta/skills/letsgal-authoring/references/versions/beta-2.5.md)。没有实际 SDK／新字段样本时，先做不依赖它们的文案和设计。官方要求重新构建已导出作品才能应用该宿主的运行时变化；本包更新不会替你构建或发布作品。
 
 在完整解压包根目录，可交给 AI 运行以下只读命令（安装不要求 Python；工具需要 Python 3.9+）：
 
 ```powershell
-python "skills/letsgal-authoring/scripts/inspect_version.py" --studio-exe "<当前 Studio EXE 的绝对路径>" --channel beta
-python "skills/letsgal-authoring/scripts/inspect_version.py" --studio-version "2.5.0" --channel stable
+python "channels/beta/skills/letsgal-authoring/scripts/inspect_version.py" --studio-exe "<当前 Studio EXE 的绝对路径>" --channel beta
+python "channels/stable/skills/letsgal-authoring/scripts/inspect_version.py" --studio-version "2.5.0" --channel stable
 ```
 
 | 参数／结果 | 含义 |
@@ -345,9 +445,11 @@ Beta命令从实际EXE读取完整版本，没有写死工程版本；Stable示�
 本地检查命令（在完整解压包根运行）：
 
 ```powershell
-python "skills/letsgal-authoring/scripts/check_project.py" "<章节或工程绝对路径>"
-python "skills/letsgal-authoring/scripts/check_project.py" "<章节或工程绝对路径>" --format json-only
+python "channels/stable/skills/letsgal-authoring/scripts/check_project.py" "<章节或工程绝对路径>"
+python "channels/stable/skills/letsgal-authoring/scripts/check_project.py" "<章节或工程绝对路径>" --format json-only
 ```
+
+上例使用正式版随包路径；Beta 将 `channels/stable/` 替换为 `channels/beta/`。从已安装目录运行时，以实际 Skill 目录为起点。
 
 默认 auto 识别片段结构；未知章节格式返回 `unsupported_format`。旧分支省略 mode 时按官方兼容默认 jump 检查并提示，原文件不改动；显式 `--format fragments` 仍只检查有限结构约定，不保证新建字段完整、角色引用或全部参数类型正确。`json-only` 只检查 JSON 语法。退出码 0 表示所选范围没有发现错误，1 表示有问题，2 表示无法检查／格式未覆盖；任何结果都不等于引擎运行通过。不要把“新版检查器不认识”当作删除旧字段的依据。
 
@@ -367,7 +469,7 @@ python "skills/letsgal-authoring/scripts/check_project.py" "<章节或工程绝�
 
 在作品目录工作时改用 `python "<实际 Skill 绝对目录>/scripts/check_project.py" "<章节绝对路径>"`，版本工具同理。不要把包内相对路径直接当成任何工作目录都可运行的命令。
 
-检查器对 `callFragment → main` 保留资料争议及目标版本核对提示，对存储引用环和深链给风险提示。它不运行 Studio 转换器，不推定禁用块是否转换、运行可达性或真实展开层数。前处理章节不因未列入普通章索引而建议加入。完整边界见 [JSON 工作法](skills/letsgal-authoring/references/json.md)及[修订记录](AUDIT.md)。
+检查器对 `callFragment → main` 保留资料争议及目标版本核对提示，对存储引用环和深链给风险提示。它不运行 Studio 转换器，不推定禁用块是否转换、运行可达性或真实展开层数。前处理章节不因未列入普通章索引而建议加入。完整边界见 [JSON 工作法](channels/beta/skills/letsgal-authoring/references/json.md)及[修订记录](AUDIT.md)。
 
 ### main 调用及循环：按完整宿主版本区分
 
@@ -380,6 +482,10 @@ python "skills/letsgal-authoring/scripts/check_project.py" "<章节或工程绝�
 **多人或多个 AI 协作**
 
 > 按现有协作方式拆分任务，明确各自可写章节和共享文件的整合者。同一 JSON 不安排同时写入。保留已有 Git 暂存改动，完成后留下简短交接；没有授权不启动额外代理或付费服务。
+
+## 公版与个人设置怎样配合
+
+每个安装位置只保留所选通道的一份Skill载荷；正式版与Beta分别维护，本机连接位置、偏好与工程索引放独立个人区。已有MCP配置可复用，连接状态和当前工程仍实时核对。个人配置不随公共包发布，不能替代当前权限或把一台机器的Beta当作所有工程默认。
 
 ## 个人特调放哪里
 
@@ -398,7 +504,7 @@ python "skills/letsgal-authoring/scripts/check_project.py" "<章节或工程绝�
 
 > 分析这个插件并生成插件 Skill，按规范保存到用户插件区，更新索引。不要改插件代码和项目启用状态。已有内容先保全；只按真实接口编写，并说明验证范围。
 
-AI 应自动写到 `~/.letsgal-authoring/plugins/<插件ID>/<版本>/SKILL.md`，并在 `plugins/INDEX.md` 登记入口。索引按需建立，安装器不填充任何真实插件。用户指定位置优先；无文件权限时交付文件和目标路径，不宣称写入完成。完整流程见 [插件 Skill 规范](skills/letsgal-authoring/references/plugin-skills.md)。
+AI 应自动写到 `~/.letsgal-authoring/plugins/<插件ID>/<版本>/SKILL.md`，并在 `plugins/INDEX.md` 登记入口。索引按需建立，安装器不填充任何真实插件。用户指定位置优先；无文件权限时交付文件和目标路径，不宣称写入完成。完整流程见 [插件 Skill 规范](channels/beta/skills/letsgal-authoring/references/plugin-skills.md)。
 
 个人偏好和插件知识分开维护。项目 LETSGAL.md 记录实际使用的插件 ID、版本和资料入口，主 Skill 按需读取；有资料不等于已启用。旧作品可以继续读取旧插件版本的 Skill，不自动取最新版本。公共包更新不修改插件资料或插件代码，插件升级后的资料复核由用户发起。
 
@@ -440,6 +546,16 @@ AI 应自动写到 `~/.letsgal-authoring/plugins/<插件ID>/<版本>/SKILL.md`�
 安装完成时会显示本次旧技能备份路径。日志位于 skills 旁 `.letsgal-authoring-backups` 的 `*-install.json`／`*-uninstall.json`。如果选项或日志保存失败，界面显示“有提示”，保留真实完成结果与旧记录；不要因此删除目录或反复强制覆盖，下次重新核对位置即可。项目内的备份可能带私有特调，提交 Git 前检查排除规则，安装器不修改项目的 .gitignore。
 
 恢复：先保全当前目录和新增内容，找到结果或安装日志里的准确备份路径，再比较并恢复相应 Skill；不能通过删除所有备份来排错。导入器没有自动清理备份功能。
+
+2.6.0-beta.1 的 MCP 专项资料见 [Beta 2.6](channels/beta/skills/letsgal-authoring/references/versions/beta-2.6.md)；只读资料路由并不探测或开启服务。没有 MCP 的正式版仍使用原有路径。
+
+## 从测试中看到的实际帮助
+
+**主要帮助是少犯操作错误、少漏必要检查，让AI更有条理地完成创作任务。** 官方MCP提供读取和修改Studio的能力，Skill补充任务判断、资料选择、操作范围和检查方法。此前小样本对照中，部分批量任务减少了重复调用；部分恢复任务补齐了官方预演（dry-run），也纠正过将“变量加1”误做成“设为1”的错误。
+
+这些改善并不出现在所有模型、所有任务上：有的任务需要增加必要检查，创作反馈中的“只采用一部分建议”也仍可能处理不准。现有结果不足以给出整体提速、节省token或能力提升的百分比，也不能保证较弱模型一定受益更多。未通过验证的第二阶段简化规则没有保留。
+
+正式版不依赖MCP，继续提供版本资料、JSON／引用规则和制作步骤指导；已有实际制作任务完成记录，但没有与“不用Skill”进行条件一致的完整对照。最近补测主要确认安装、升级、通道切换、备份恢复和个人区保留的可靠性，不作为模型能力提升的证据。具体范围见[验证说明](VALIDATION.md)。
 
 ## 验证范围与反馈
 

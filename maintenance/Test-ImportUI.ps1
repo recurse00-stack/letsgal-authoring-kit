@@ -42,8 +42,13 @@ function Click-And-Wait($Button) {
 try {
     $script:window.Show()
     Pump
+    Record 'fresh GUI requires explicit channel' (-not $script:ui.ImportButton.IsEnabled -and $script:ui.ChannelBox.SelectedIndex -eq 0)
+    $script:ui.ChannelBox.SelectedIndex = 1
+    Record 'Stable selection enables import and displays channel' ($script:ui.ImportButton.IsEnabled -and $script:ui.VersionText.Text.Contains('正式版'))
+    $script:ui.ChannelBox.SelectedIndex = 2
+    Record 'Beta selection displays channel' ($script:ui.ImportButton.IsEnabled -and $script:ui.VersionText.Text.Contains('Beta'))
     Record 'DSH initial selection and destination' ($script:ui.DestinationText.Text -eq (Join-Path $fixtureDsh 'skills/letsgal-authoring'))
-    $expectedNotice = [IO.File]::ReadAllText((Join-Path (Split-Path $PSScriptRoot -Parent) 'skills/letsgal-authoring/references/risk-notice.md'),[Text.Encoding]::UTF8)
+    $expectedNotice = [IO.File]::ReadAllText((Join-Path (Split-Path $PSScriptRoot -Parent) 'RISK-NOTICE.md'),[Text.Encoding]::UTF8)
     Record 'Risk summary visible before any import' ($script:ui.RiskSummary.IsVisible -and $script:ui.RiskLegal.IsVisible -and $null -eq $script:job)
     $script:ui.RiskExpander.IsExpanded = $true
     Pump
@@ -70,6 +75,14 @@ try {
     Record 'Success offers correct verification prompt' ($script:ui.CopyButton.Visibility -eq 'Visible' -and $script:prompt.Contains($script:destination.Target))
     Record 'GUI separates actual preference and plugin paths' ($script:ui.ProfileText.Text.Contains((Join-Path $fixtureHome '.letsgal-authoring/preferences/user.md')) -and $script:ui.PluginsText.Text.Contains((Join-Path $fixtureHome '.letsgal-authoring/plugins')))
     Capture 'after-import.png'
+    $script:ui.ChannelBox.SelectedIndex = 1
+    Click-And-Wait $script:ui.CheckButton
+    Record 'GUI check distinguishes installed Beta from selected Stable' ($script:ui.ResultTitle.Text -eq '安装文件完整，与所选通道或版本不同')
+    Click-And-Wait $script:ui.ImportButton
+    Record 'GUI switches to Stable with backup' ((Get-Content -LiteralPath (Join-Path $script:destination.Target '.install-receipt.json') -Raw | ConvertFrom-Json).channel -eq 'stable' -and $script:ui.ResultBody.Text.Contains('旧技能完整备份'))
+    $script:ui.ChannelBox.SelectedIndex = 2
+    Click-And-Wait $script:ui.ImportButton
+    Record 'GUI switches back to Beta' ((Get-Content -LiteralPath (Join-Path $script:destination.Target '.install-receipt.json') -Raw | ConvertFrom-Json).channel -eq 'beta')
     $profile = Join-Path $fixtureHome '.letsgal-authoring/preferences/user.md'
     [IO.File]::WriteAllText($profile,'PRESERVE ME')
     Click-And-Wait $script:ui.ImportButton

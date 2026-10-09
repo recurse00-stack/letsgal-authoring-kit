@@ -1,0 +1,86 @@
+{
+  "id": "ch-authoring-demo-46a280fd",
+  "name": "选择练习",
+  "fragments": [
+    {
+      "id": "frag-demo-main-891d",
+      "name": "main",
+      "blocks": [
+        {
+          "type": "narration",
+          "props": {
+            "keepDialogue": false
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "路口竖着两块路牌。你准备先查看哪一边？",
+              "styles": {}
+            }
+          ]
+        },
+        {
+          "type": "branch",
+          "props": {
+            "choices": "[{\"mode\": \"jump\", \"text\": \"查看石桥\", \"fragmentId\": \"frag-demo-bridge-a315\"}, {\"mode\": \"jump\", \"text\": \"查看花园\", \"fragmentId\": \"frag-demo-garden-470c\"}]"
+          }
+        },
+        {
+          "type": "narration",
+          "props": {
+            "keepDialogue": false
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "记下观察结果后，你回到了路口。",
+              "styles": {}
+            }
+          ]
+        },
+        {
+          "type": "endChapter",
+          "props": {}
+        }
+      ]
+    },
+    {
+      "id": "frag-demo-bridge-a315",
+      "name": "石桥",
+      "blocks": [
+        {
+          "type": "narration",
+          "props": {
+            "keepDialogue": false
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "桥栏上留着一道新划痕。",
+              "styles": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frag-demo-garden-470c",
+      "name": "花园",
+      "blocks": [
+        {
+          "type": "narration",
+          "props": {
+            "keepDialogue": false
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "花园门旁放着一把尚未收起的伞。",
+              "styles": {}
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

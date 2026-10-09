@@ -1,19 +1,23 @@
 # LetsGal Authoring Kit · 社区 Skill
 
+本版分 **正式版 / Beta** 两份Skill，安装时按目标工程选择一份，名称仍为`letsgal-authoring`。切换时备份旧版并保留个人区。公版至少一种有效恢复保护，优先引擎项目历史；Git可选。见[正式版指南](channels/stable/MANUAL.md)、[Beta指南](channels/beta/MANUAL.md)。
+
 `letsgal-authoring` 帮助 AI 在 LetsGal Studio 工程中制作剧情、分支、变量与章节 JSON，查找官方资料、处理扩展及 Git 协作。它是独立社区 Skill，不包含引擎、模型、账号或 MCP；实际能力取决于 Agent 的工具和项目权限。
 
-本包版本 **0.2.0**，全面整理制作工作法与正式版2.5.0资料：补查条件／赋值内部形态，记录同一If复用限制与独立判断做法，区分原生编辑、玩家和存档证据，保留旧Beta及未知／冲突处理。正式公告31条汇总与68条历史Beta公告分开，不重复计成功能或运行验收。公开可下载版本以发布页实际列出的版本为准。下载见[GitHub Releases](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/latest)；旧版本与凭证保留。源码、标签、附件和匿名下载的核验结果见各版独立发布凭证。
+本包版本 **0.2.1**。正式版与Beta分开安装；Beta支持官方MCP优先的制作流程，两份都包含按任务读取、创作反馈整合和已有内容保护。安装器支持更新、通道切换、完整备份与文件检查；不会更新引擎。公开下载以[GitHub Releases](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/latest)实际列出的版本为准，旧版本与发布凭证保留。
 
 入口：[使用手册](MANUAL.md) · [离线 HTML](MANUAL.html) · [Agent 与目录兼容](COMPATIBILITY.md) · [验证范围](VALIDATION.md) · [资料来源](SOURCES.md) · [版本记录](RELEASE-NOTES.md)。
 
-**使用前请备份作品并限制 Agent 可写范围。AI 可能误改、误删或泄露资料；安装器的 Skill 备份不包含作品。** 本包按现状提供，不提供担保；作者及贡献者不对因使用或无法使用本包造成的损失承担责任。详见 [风险说明与免责声明](skills/letsgal-authoring/references/risk-notice.md) 和 [隐私说明](PRIVACY.md)。
+已有小样本测试中，Skill帮助部分任务减少重复调用、漏检和具体操作错误；不承诺普遍提速或固定消耗收益。安装、升级与恢复检查另行记录。简述见[实际帮助](MANUAL.md#从测试中看到的实际帮助)。
+
+**使用前请备份作品并限制 Agent 可写范围。AI 可能误改、误删或泄露资料；安装器的 Skill 备份不包含作品。** 本包按现状提供，不提供担保；作者及贡献者不对因使用或无法使用本包造成的损失承担责任。详见 [风险说明与免责声明](channels/beta/skills/letsgal-authoring/references/risk-notice.md) 和 [隐私说明](PRIVACY.md)。
 
 ## Windows 安装
 
 1. 下载完整的 `letsgal-authoring-kit-<版本>.zip`，解压到普通文件夹，再双击 `Install.cmd`。不要在 ZIP 内运行，不要单独运行摘出的 `Install.ps1`。
-2. 选择实际使用的 Agent，一般采用“个人 · 所有项目”；只给一个作品用时选择“项目 · 仅此工程”并浏览工程目录。
-3. 核对最终目录、本包／已装版本及预览状态，点击“导入到 …”。底部固定状态栏显示处理和完成结果。
-4. 展开“更多选项”，点击“检查安装”。底部显示“检查安装 · 校验通过”，页面结果框标题为“安装文件校验通过”。再复制验证提示词，在 Agent 新会话中核对实际加载路径。
+2. 先选目标工程对应的正式版或 Beta，再选择实际使用的 Agent，一般采用“个人 · 所有项目”；只给一个作品用时选择“项目 · 仅此工程”并浏览工程目录。
+3. 核对最终目录、所选／已装通道、本包／已装版本及预览状态，点击“导入到 …”。底部固定状态栏显示处理和完成结果。
+4. 展开“更多选项”，点击“检查安装”。底部显示“检查安装 · 校验通过”，页面结果框标题为“安装文件校验通过”。如果通道或版本不同，会明确显示差异，需要导入所选版本；文件完整不等于与所选通道一致。再复制验证提示词，在 Agent 新会话中核对实际加载路径与 metadata.channel。
 
 普通导入需要 Windows PowerShell 5.1 或 PowerShell 7，不要求 Python、Node 或管理员权限。可选只读工具需要 Python 3.9+。macOS／Linux 等环境按 [手动安装](MANUAL.md#手动安装与命令行) 复制完整 Skill，自动安装器仅支持 Windows。
 
@@ -26,6 +30,12 @@ Codex 个人安装沿用唯一已有的 `~/.codex/skills/letsgal-authoring` 或 
 如果 Agent 另设了数据或技能目录，先确认它实际读取的位置，再选“其他 Agent / 指定目录”，点击“浏览…”或粘贴已配置的 **skills 根目录**。安装器追加 `letsgal-authoring`，不要选择末级 Skill 文件夹或程序文件夹。DSH 可在专用选项中选择实际数据目录。
 
 安装器不扫描整盘、不读取账号配置、不自动解析所有便携目录或自定义 `CODEX_HOME`，也不修改 Agent 的发现设置。文件校验通过只证明安装文件状态，加载仍需在新会话确认。详见 [安装位置说明](MANUAL.md#安装位置怎样选择)。
+
+## 官方 MCP 可选接入
+
+Beta 载荷在已有官方 MCP 时，优先使用当前实例提供的工具；首次读取官方快速指南，按目标工程、权限和 revision 工作。接入方式见 [人类手册](MANUAL.md#官方-mcp-与无-mcp-两种用法)。安装器只导入 Skill，不配置 MCP、不改变确认选项。
+
+没有 MCP 的正式版及未启用环境继续使用原有功能；直接编辑磁盘前须保存并关闭目标工程。Beta 标签本身不要求启用 MCP，也不为使用 Skill 自动升级引擎。
 
 ## 开始一个任务
 
@@ -41,9 +51,9 @@ Codex 个人安装沿用唯一已有的 `~/.codex/skills/letsgal-authoring` 或 
 
 Skill 包版本和引擎版本独立。稳定版、Beta 和旧工程均先核对目标宿主；不以作者本机 Beta 为默认，不因更新 Skill 升级引擎、迁移作品或刷新已导出的游戏。
 
-版本工具对已核实的 2.0.0／2.0.1 选择 Stable 资料，对2.5.0选择当前正式版资料，对2.3.0-beta.1／2.4.0-beta.1／2.4.0-beta.2／2.5.0-beta.1分别选择对应Beta资料。未知、冲突和其他完整版本返回 UNKNOWN；[资料路由](skills/letsgal-authoring/references/version-compatibility.md) 与真实宿主运行分别记录。
+正式版载荷只路由已核实的2.0.0／2.0.1／2.5.0；Beta载荷只路由2.3.0-beta.1／2.4.0-beta.1／2.4.0-beta.2／2.5.0-beta.1／2.6.0-beta.1。安装通道不匹配时提示改装对应载荷，不跨通道套用资料。未知、冲突和其他完整版本返回 UNKNOWN；[资料路由](channels/beta/skills/letsgal-authoring/references/version-compatibility.md) 与真实宿主运行分别记录。
 
-Beta资料包含正式版基线到2.1／2.2／2.3／2.4／2.5的[68项公告](skills/letsgal-authoring/references/versions/beta-differences.md)，[2.5制作与排错](skills/letsgal-authoring/references/versions/beta-2.5.md)、[2.4用法](skills/letsgal-authoring/references/versions/beta-2.4.md)与[2.3有限实测](skills/letsgal-authoring/references/versions/beta-2.3.md)分别维护。公告、保存样本、SDK声明和运行观察分开，不推定所有能力已通过。
+Beta资料包含正式版基线到2.1／2.2／2.3／2.4／2.5的[68项公告](channels/beta/skills/letsgal-authoring/references/versions/beta-differences.md)，[2.5制作与排错](channels/beta/skills/letsgal-authoring/references/versions/beta-2.5.md)、[2.4用法](channels/beta/skills/letsgal-authoring/references/versions/beta-2.4.md)与[2.3有限实测](channels/beta/skills/letsgal-authoring/references/versions/beta-2.3.md)分别维护。公告、保存样本、SDK声明和运行观察分开，不推定所有能力已通过。
 
 ## 个人偏好、插件资料与升级
 

@@ -1,4 +1,5 @@
 """Version-safety and release-boundary regression checks in a NEW scratch directory."""
+from bundle_layout import payload, manifest_path, with_channel
 import argparse
 import hashlib
 import json
@@ -17,7 +18,7 @@ def main():
     if not args.scratch.is_absolute() or args.scratch.exists(): parser.error('Use a new absolute scratch directory')
     args.scratch.mkdir()
     kit=Path(__file__).resolve().parents[1]
-    checker=kit/'skills/letsgal-authoring/scripts/check_project.py'
+    checker=payload(kit)/'scripts/check_project.py'
     checks=[]
     def record(name,ok):
         checks.append({'name':name,'passed':bool(ok)})

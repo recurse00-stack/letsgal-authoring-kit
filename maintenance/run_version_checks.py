@@ -1,99 +1,58 @@
-"""Check version routing in a NEW isolated --scratch directory. Python 3.9+."""
+"""Check both channels in a NEW isolated --scratch directory. Python 3.9+."""
 import argparse
 import hashlib
+import importlib.util
 import json
-from pathlib import Path
 import subprocess
 import sys
+from pathlib import Path
+from bundle_layout import payload
 
 def run(scratch):
-    scratch.mkdir(parents=True,exist_ok=False)
-    scripts=Path(__file__).resolve().parents[1]/'skills/letsgal-authoring/scripts'
-    sys.path.insert(0,str(scripts))
-    import inspect_version as inspector
+    scratch.mkdir(parents=True, exist_ok=False)
+    kit=Path(__file__).resolve().parents[1]
     checks=[]
-    cases=[({},'UNKNOWN'),({'studio_version':'2.0.0'},'reference_selected'),
-           ({'studio_version':'2.0.1'},'reference_selected'),
-           ({'studio_version':'2.3.0-beta.1'},'reference_selected'),
-           ({'studio_version':'2.3.0-beta.1+build.9'},'reference_selected'),
-           ({'studio_version':'2.4.0-beta.1'},'reference_selected'),
-           ({'studio_version':'2.4.0-beta.1+build.9'},'reference_selected'),
-           ({'studio_version':'2.4.0-beta.2'},'reference_selected'),
-           ({'studio_version':'2.4.0-beta.2+build.9'},'reference_selected'),
-           ({'studio_version':'2.4.0-beta.3'},'UNKNOWN'),
-           ({'studio_version':'2.5.0-beta.1'},'reference_selected'),
-           ({'studio_version':'2.5.0-beta.1+build.9'},'reference_selected'),
-           ({'studio_version':'2.5.0-beta.2'},'UNKNOWN'),
-           ({'studio_version':'2.5.0-beta.1','channel':'stable'},'UNKNOWN'),
-           ({'studio_version':'2.5.0-beta.1','project_version':'2.4.0-beta.2'},'UNKNOWN'),
-           ({'studio_version':'2.5.0'},'reference_selected'),
-           ({'studio_version':'2.5.0+build.9','channel':'stable'},'reference_selected'),
-           ({'studio_version':'2.5.0','channel':'beta'},'UNKNOWN'),
-           ({'studio_version':'2.5.0','project_version':'2.5.0-beta.1'},'UNKNOWN'),
-           ({'studio_version':'2.5.1'},'UNKNOWN'),
-           ({'studio_version':'2.6.0'},'UNKNOWN'),
-           ({'studio_version':'2.4.0-beta.2','channel':'stable'},'UNKNOWN'),
-           ({'studio_version':'2.4.0-beta.2','project_version':'2.4.0-beta.1'},'UNKNOWN'),
-           ({'studio_version':'2.4.0'},'UNKNOWN'),
-           ({'studio_version':'2.4.0-beta.1','channel':'stable'},'UNKNOWN'),
-           ({'studio_version':'2.4.0-beta.1','project_version':'2.3.0-beta.1'},'UNKNOWN'),
-           ({'studio_version':'2.3.0-beta.2'},'UNKNOWN'),
-           ({'studio_version':'2.3.0'},'UNKNOWN'),({'studio_version':'1.21.0'},'UNKNOWN'),
-           ({'studio_version':'2.3.0-beta.1','channel':'stable'},'UNKNOWN'),
-           ({'studio_version':'2.3.0-beta.1','project_version':'2.0.1'},'UNKNOWN'),
-           ({'project_version':'2.3.0-beta.1'},'UNKNOWN'),
-           ({'studio_version':'2.3.0-rc.1'},'UNKNOWN')]
-    for args,status in cases:
-        value=inspector.inspect(**args)
-        assert value['status']==status and value['read_only'] and value['runtime_compatibility']=='not_verified'
-        assert (scripts.parent/value['reference']).is_file()
-        if value['status']=='reference_selected':
-            expected=inspector.PROFILES[inspector.parse_version(args['studio_version'])[0]]
-            assert value['reference']==expected
-        checks.append({'case':args,'passed':True,'reference':value['reference']})
-    for bad in ['2.3','2.3.0.0','2.3.0-beta.01','02.3.0','v2.3.0','2.3.0-beta.']:
-        try: inspector.parse_version(bad)
-        except ValueError: checks.append({'invalid_version':bad,'passed':True})
-        else: raise AssertionError(bad)
-    sdk=scratch/'sdk'
-    sdk.mkdir()
-    (sdk/'index.ts').write_text('export type Example = number;','utf-8')
-    (sdk/'sdk-context.ts').write_text('export interface Example {}','utf-8')
-    hashes=lambda:{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sdk.iterdir()}
-    before=hashes()
-    value=inspector.inspect(studio_version='2.3.0-beta.1',sdk=sdk)
-    assert value['sdk']['files']==before and hashes()==before and value['sdk']['api_compatibility']=='not_verified'
-    checks.append({'case':'SDK fingerprint and unchanged bytes','passed':True})
-    result=subprocess.run([sys.executable,'-B',str(scripts/'inspect_version.py'),
-                           '--studio-version','2.3.0-beta.1','--channel','stable'],capture_output=True)
-    assert result.returncode==2 and json.loads(result.stdout)['status']=='UNKNOWN'
-    checks.append({'case':'CLI conflict fails closed','passed':True})
-    result=subprocess.run([sys.executable,'-B',str(scripts/'inspect_version.py'),
-                           '--studio-version','2.4.0-beta.2','--channel','beta'],capture_output=True)
-    value=json.loads(result.stdout)
-    assert result.returncode==0 and value['reference']=='references/versions/beta-2.4.md'
-    assert value['runtime_compatibility']=='not_verified' and value['sdk']['api_compatibility']=='not_verified'
-    checks.append({'case':'CLI beta.2 selects reference without claiming runtime or SDK acceptance','passed':True})
-    result=subprocess.run([sys.executable,'-B',str(scripts/'inspect_version.py'),
-                           '--studio-version','2.5.0-beta.1','--channel','beta'],capture_output=True)
-    value=json.loads(result.stdout)
-    assert result.returncode==0 and value['reference']=='references/versions/beta-2.5.md'
-    assert value['runtime_compatibility']=='not_verified' and value['sdk']['api_compatibility']=='not_verified'
-    checks.append({'case':'CLI2.5 selects its own profile without runtime or SDK claim','passed':True})
-    result=subprocess.run([sys.executable,'-B',str(scripts/'inspect_version.py'),
-                           '--studio-version','2.5.0','--channel','stable'],capture_output=True)
-    value=json.loads(result.stdout)
-    assert result.returncode==0 and value['reference']=='references/versions/stable-2.5.md'
-    assert value['runtime_compatibility']=='not_verified' and value['sdk']['api_compatibility']=='not_verified'
-    checks.append({'case':'Stable2.5 CLI selects formal guidance without inheriting Beta runtime acceptance','passed':True})
-    report={'passed':len(checks),'failed':0,'checks':checks,
-            'scope':'Version routing and read-only SDK fingerprint; no engine runtime acceptance'}
-    (scratch/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')
-    print(json.dumps({'passed':len(checks),'failed':0}))
+    known={'stable':['2.0.0','2.0.1','2.5.0'], 'beta':['2.3.0-beta.1','2.4.0-beta.1','2.4.0-beta.2','2.5.0-beta.1','2.6.0-beta.1']}
+    for ch in ['stable','beta']:
+        scripts=payload(kit,ch)/'scripts'
+        sys.path.insert(0,str(scripts))
+        spec=importlib.util.spec_from_file_location('inspector_'+ch,scripts/'inspect_version.py')
+        module=importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        cases=[({},'UNKNOWN'),({'project_version':'2.5.0'},'UNKNOWN')]
+        for host in known['stable']+known['beta']:
+            cases.append(({'studio_version':host},'reference_selected' if host in known[ch] else 'UNKNOWN'))
+        for host in ['2.6.0','2.6.0-beta.2','1.21.0','2.3.0-rc.1']:
+            cases.append(({'studio_version':host},'UNKNOWN'))
+        host=known[ch][-1]
+        cases.extend([({'studio_version':host+'+build.9'},'reference_selected'),({'studio_version':host,'channel':'beta' if ch=='stable' else 'stable'},'UNKNOWN'),({'studio_version':host,'project_version':'9.0.0'},'UNKNOWN')])
+        for args,status in cases:
+            d=module.inspect(**args)
+            assert d['status']==status and d['skill_channel']==ch and d['read_only'] and d['runtime_compatibility']=='not_verified',(ch,args,d)
+            assert (scripts.parent/d['reference']).is_file()
+            checks.append({'channel':ch,'case':args,'passed':True})
+        for invalid in ['2.3','2.3.0.0','2.3.0-beta.01','02.3.0','v2.3.0','2.3.0-beta.']:
+            try: module.parse_version(invalid)
+            except ValueError: checks.append({'channel':ch,'invalid':invalid,'passed':True})
+            else: raise AssertionError(invalid)
+        sdk=scratch/ch
+        sdk.mkdir()
+        (sdk/'index.ts').write_text('export type Example = number;','utf-8')
+        before=hashlib.sha256((sdk/'index.ts').read_bytes()).hexdigest()
+        d=module.inspect(studio_version=host,sdk=sdk)
+        assert d['sdk']['files']['index.ts']==before and hashlib.sha256((sdk/'index.ts').read_bytes()).hexdigest()==before and d['sdk']['api_compatibility']=='not_verified'
+        checks.append({'channel':ch,'case':'SDK fingerprint is read-only, not acceptance','passed':True})
+        p=subprocess.run([sys.executable,'-B',str(scripts/'inspect_version.py'),'--studio-version',known['beta' if ch=='stable' else 'stable'][-1]],capture_output=True)
+        assert p.returncode==2 and json.loads(p.stdout)['status']=='UNKNOWN'
+        checks.append({'channel':ch,'case':'opposite-channel CLI returns UNKNOWN','passed':True})
+    report={'passed':len(checks),'failed':0,'checks':checks,'scope':'routing only, no engine or SDK compatibility acceptance'}
+    (scratch/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n','utf-8')
+    return report
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--scratch',type=Path,required=True)
-    args=parser.parse_args()
-    if not args.scratch.is_absolute() or args.scratch.exists(): parser.error('Use a NEW absolute scratch directory')
-    run(args.scratch)
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--scratch',type=Path,required=True)
+    a=p.parse_args()
+    if not a.scratch.is_absolute() or a.scratch.exists(): p.error('Use a NEW absolute scratch directory')
+    r=run(a.scratch)
+    print(json.dumps({'passed':r['passed'],'failed':r['failed'],'scope':r['scope']},ensure_ascii=False))

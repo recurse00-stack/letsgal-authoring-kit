@@ -26,7 +26,7 @@ def main():
         if not ok:
             raise AssertionError(name)
     def invoke(action):
-        proc = subprocess.run(['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(bundle/'Install.ps1'), '-Action', action, '-Harness', 'Codex', '-Scope', 'User', '-UserHome', str(home), '-NonInteractive'], capture_output=True)
+        proc = subprocess.run(['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(bundle/'Install.ps1'), '-Action', action, '-Harness', 'Codex', '-Scope', 'User', '-UserHome', str(home), '-Channel', 'beta', '-NonInteractive'], capture_output=True)
         text = proc.stdout.decode('utf-8', errors='replace')
         rows = [json.loads(line) for line in text.splitlines() if line.startswith('{')]
         if not rows:

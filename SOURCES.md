@@ -1,6 +1,17 @@
 # 资料来源与查阅范围
 
+0.2.1于2026-10-08读取2.6.0-beta.1实际服务 instructions，以及 studio://guide/quickstart、studio://script/syntax、studio://advanced/file-edit、studio://guide/errors、studio://guide/preview-testing；核对实际 EXE 完整版本与状态返回，并查[官方接入页](https://docs.avg-engine.com/manual/overview/mcp)。本次是MCP专项路由与指引更新，不宣称2.6全部功能、写入／回滚或玩家实测通过。
+
 本包依据官方资料、目标版本样本和有限实测独立编写。0.2.0于2026-10-05核对2.5.0正式版清单与31条汇总，重读编辑器、JSON、调用片段、扩展开发及相关操作页面；配套SDK来自该版Studio原生初始化，29接口文件与安装资源逐项一致。实际模型、调试、Windows／本地Web、有限Windows存档、预览继承与六类剧本导出分别记录。旧Beta68条公告与历史页面保留原归属，不保证网页此后保持原样，也不宣称完整schema或全部API已通过。
+
+## 0.2.1 工作流设计依据
+
+2026-10-09：依据2.6.0-beta.1当前工具schema与官方快速指南，按任务细化读取范围、写入方式和错误处理。以下研究用于设计与评测方法，不把其他产品或模型的效果数字作为本Skill收益：
+
+- [OpenAI：Skill 与提示设计](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)：按需读取、清晰决策边界；特定模型建议不当作所有客户端保证。
+- [Anthropic：工具设计与评测](https://www.anthropic.com/engineering/writing-tools-for-agents)：定向查询、相关返回及质量／调用／时间指标。
+- [OpenAI：工具搜索](https://developers.openai.com/api/docs/guides/tools-tool-search)：能力由客户端提供，Skill不自行实现延迟加载。
+- [Google：Wordcraft 创作者研究](https://magenta.withgoogle.com/wordcraft-writers-workshop)：通过创作者反馈改进构思与改写协作，避免以候选数量替代质量。
 
 ## 版本与证据日期
 
@@ -39,7 +50,9 @@
 
 文档根 llms.txt 曾返回 404，部分版本管理、变量、赋值和导出页面正文曾抓取失败；这些失败不证明产品缺少功能，也不计为已阅读正文。需要的字段回到成功读取资料、实际 SDK 和目标工程保存样本。网页更新、SDK 声明、保存形式、预览、读档和导出分别判断。
 
-安全默认、Git 协作、个人／项目分层、安装器与有限检查器是本包设计，不是官方对所有用户的强制流程。示例采用原创文本和独立 ID，不包含私人作品或第三方 SDK；静态检查器不是完整官方 schema。[JSON 工作法](skills/letsgal-authoring/references/json.md) 说明其范围。
+2026-10-09已读取[官方版本管理正文](https://docs.avg-engine.com/manual/overview/version-control)：本地提交与同步／上传分别处理，保存、项目历史和Git不能互相替代；素材实际覆盖另核。当前官方MCP的未开放能力说明明确包括Studio Git提交。已有／定稿内容授权与至少一种有效恢复保护属于本Skill的协作约定，不宣称为引擎强制机制，也不等于已实测原生Git恢复。
+
+安全默认、Git 协作、个人／项目分层、安装器与有限检查器是本包设计，不是官方对所有用户的强制流程。示例采用原创文本和独立 ID，不包含私人作品或第三方 SDK；静态检查器不是完整官方 schema。[JSON 工作法](channels/beta/skills/letsgal-authoring/references/json.md) 说明其范围。
 
 0.1.7补充读取：[角色管理](https://docs.avg-engine.com/manual/creating/characters/)、[对白](https://docs.avg-engine.com/manual/writing/blocks/dialogue/)、[创建扩展](https://docs.avg-engine.com/extensions/develop/)。前两页用于正式资料基线；2.4具体差异按公告与目标样本分别判断。根目录llms.txt本次仍404，已改走正式页面，未将404当作无更新。
 
@@ -51,4 +64,4 @@ Stable清单的Windows／mac条目及发布历史列2.5.0，Windows正式公告�
 
 重读编辑器、If、浮动文字、角色、动态图像、构建、译稿校对和扩展AI指导，新增读取[游戏数据统计](https://docs.avg-engine.com/manual/overview/game-stats)。编辑器页仍写章节局部预览，与2.5.0“继承上文”公告按开关／版本分别说明；浮字“阻塞”与Beta“等待结束”名称仍需目标样本映射。统计页补足流程与密钥语义，但不证明服务端／API实测。根llms.txt与sitemap.xml本次仍404，具体页面正文成功读取；不声称官方已全面同步2.5手册。
 
-正式版玩法、保存字段、SDK初始化及运行未测；旧Beta证据不改写为Stable通过。见[正式版指引](skills/letsgal-authoring/references/versions/stable-2.5.md)与[本版验证](VALIDATION.md)。原始响应和哈希只留内部凭证，不随包公开。
+正式版玩法、保存字段、SDK初始化及运行未测；旧Beta证据不改写为Stable通过。见[正式版指引](channels/stable/skills/letsgal-authoring/references/versions/stable-2.5.md)与[本版验证](VALIDATION.md)。原始响应和哈希只留内部凭证，不随包公开。

@@ -23,7 +23,7 @@
         <StackPanel Margin="0,0,0,20">
       <TextBlock Text="LETSGAL  /  COMMUNITY SKILL" FontSize="12" FontWeight="SemiBold" Foreground="#506982"/>
       <TextBlock Text="把制作技能导入你的 AI" FontSize="27" FontWeight="SemiBold" Margin="0,8,0,7"/>
-      <TextBlock Text="选择你使用的 Agent，导入后在新会话中调用 letsgal-authoring。" Foreground="#506177"/>
+      <TextBlock Text="按目标工程选择正式版或 Beta，再选择 Agent；导入后调用 letsgal-authoring。" Foreground="#506177"/>
       <Border Background="#FFF2DE" BorderBrush="#C98D29" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,12,0,0">
         <StackPanel>
           <TextBlock Text="使用前请阅读 · 数据风险与免责声明" FontWeight="SemiBold" Foreground="#633F06"/>
@@ -37,7 +37,10 @@
     </StackPanel>
         <Border Background="White" CornerRadius="12" Padding="22">
           <StackPanel Name="SettingsPanel">
-            <TextBlock Text="1  选择 Agent 与导入范围" FontSize="17" FontWeight="SemiBold" Margin="0,0,0,16"/>
+            <TextBlock Text="1  选择引擎通道" FontSize="17" FontWeight="SemiBold" Margin="0,0,0,12"/>
+            <ComboBox Name="ChannelBox" AutomationProperties.Name="选择正式版或 Beta"/>
+            <TextBlock Text="只安装所选通道的 Skill。切换时备份旧版、保留个人区，不升级或切换引擎。多个通道工程建议分别使用项目范围。" FontSize="12" Foreground="#506177" Margin="0,8,0,18"/>
+            <TextBlock Text="2  选择 Agent 与导入范围" FontSize="17" FontWeight="SemiBold" Margin="0,0,0,16"/>
             <Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="18"/><ColumnDefinition/></Grid.ColumnDefinitions>
               <StackPanel><TextBlock Text="Agent" Margin="0,0,0,6"/><ComboBox Name="AgentBox" AutomationProperties.Name="选择 Agent"/></StackPanel>
               <StackPanel Grid.Column="2"><TextBlock Text="使用范围" Margin="0,0,0,6"/><ComboBox Name="ScopeBox" AutomationProperties.Name="使用范围"/></StackPanel>
@@ -58,7 +61,7 @@
               <DockPanel><Button Name="ManualBrowse" DockPanel.Dock="Right" Content="浏览…" Margin="10,0,0,0"/><TextBox Name="ManualBox" AutomationProperties.Name="自选 skills 目录"/></DockPanel>
               <TextBlock Text="选择 Agent 已配置的 skills 文件夹，不选软件安装文件夹或末级 letsgal-authoring。安装器会追加技能名称，但不会替你配置 Agent 的读取目录。" FontSize="12" Foreground="#506177" Margin="0,7,0,0"/>
             </StackPanel>
-            <TextBlock Text="2  确认导入位置" FontSize="17" FontWeight="SemiBold" Margin="0,23,0,10"/>
+            <TextBlock Text="3  确认导入位置与通道" FontSize="17" FontWeight="SemiBold" Margin="0,23,0,10"/>
             <Border Background="#EEF4FF" CornerRadius="7" Padding="13">
               <StackPanel>
                 <TextBox Name="DestinationText" Text="请选择 Agent" IsReadOnly="True" BorderThickness="0" Background="Transparent" Padding="0" TextWrapping="Wrap" FontFamily="Consolas" FontSize="13"/>
@@ -67,7 +70,7 @@
               </StackPanel>
             </Border>
             <TextBlock Text="建议启用前停用其他同类 LetsGal／引擎创作 Skill，保留原文件与特调，避免重复调度和额外上下文开销。安装器不会自动停用它们。" Foreground="#506177" FontSize="12" Margin="0,12,0,0"/>
-            <TextBlock Text="导入内容：制作流程、官方教程查找、JSON、安全约束与 Git 协作。" Foreground="#506177" FontSize="12" Margin="0,12,0,0"/>
+            <TextBlock Text="导入内容：所选通道的制作流程、资料与 JSON 指南、内容授权和可恢复保护。" Foreground="#506177" FontSize="12" Margin="0,12,0,0"/>
             <Border Background="#F6F8FA" CornerRadius="7" Padding="13" Margin="0,14,0,0">
               <StackPanel>
                 <TextBlock Text="用户区 · 两部分独立保留" FontWeight="SemiBold"/>
