@@ -12,7 +12,7 @@ def run(scratch):
     scratch.mkdir(parents=True, exist_ok=False)
     kit=Path(__file__).resolve().parents[1]
     checks=[]
-    known={'stable':['2.0.0','2.0.1','2.5.0'], 'beta':['2.3.0-beta.1','2.4.0-beta.1','2.4.0-beta.2','2.5.0-beta.1','2.6.0-beta.1']}
+    known={'stable':['2.5.0'], 'beta':['2.6.0-beta.1']}
     for ch in ['stable','beta']:
         scripts=payload(kit,ch)/'scripts'
         sys.path.insert(0,str(scripts))
@@ -22,7 +22,7 @@ def run(scratch):
         cases=[({},'UNKNOWN'),({'project_version':'2.5.0'},'UNKNOWN')]
         for host in known['stable']+known['beta']:
             cases.append(({'studio_version':host},'reference_selected' if host in known[ch] else 'UNKNOWN'))
-        for host in ['2.6.0','2.6.0-beta.2','1.21.0','2.3.0-rc.1']:
+        for host in ['2.0.0','2.0.1','2.3.0-beta.1','2.4.0-beta.1','2.4.0-beta.2','2.5.0-beta.1','2.6.0','2.6.0-beta.2','1.21.0','2.3.0-rc.1']:
             cases.append(({'studio_version':host},'UNKNOWN'))
         host=known[ch][-1]
         cases.extend([({'studio_version':host+'+build.9'},'reference_selected'),({'studio_version':host,'channel':'beta' if ch=='stable' else 'stable'},'UNKNOWN'),({'studio_version':host,'project_version':'9.0.0'},'UNKNOWN')])

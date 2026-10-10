@@ -11,7 +11,7 @@ from check_project import safe_path
 
 VERSION = re.compile(r'(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?')
 SKILL_CHANNEL = 'stable'
-PROFILES = {'2.0.0': 'references/versions/stable-2.0.md', '2.0.1': 'references/versions/stable-2.0.md', '2.5.0': 'references/versions/stable-2.5.md'}
+PROFILES = {'2.5.0': 'references/current-capabilities.md'}
 SDK_FILES = ('constants.ts','index.ts','sdk-context.ts','extension-module.ts','extension-method.ts',
              'save-schema.ts','schedule-strategy.ts','internal-system-slots.ts')
 
@@ -51,6 +51,8 @@ def inspect(studio_version=None, project_version=None, channel='auto', studio_ex
     if actual:
         normalized, inferred = parse_version(actual)
         profile = PROFILES.get(normalized)
+        if inferred == SKILL_CHANNEL and not profile:
+            issues.append('Host is outside this channel current maintained target; keep version-dependent facts UNKNOWN and continue independent work')
         if inferred != SKILL_CHANNEL:
             issues.append('Installed Skill channel differs from host; select the matching installer channel')
     else:

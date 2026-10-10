@@ -76,12 +76,12 @@ function Format-ImportDetails($Result, [int]$ExitCode, [string]$Target) {
     return ($lines -join "`r`n")
 }
 function Set-PreviewStatus($Preview) {
-    $installedDisplay = if ($Preview.InstalledVersion) { $Preview.InstalledVersion } elseif ($Preview.Installed) { '未知' } else { '未安装' }
-    $script:ui.VersionText.Text = '将使用 ' + (Channel-Label $Preview.Channel) + ' ' + $Preview.BundleVersion + '  ·  已装 ' + (Channel-Label $Preview.InstalledChannel) + ' ' + $installedDisplay
+    $installedDisplay = if ($Preview.InstalledVersion) { Format-ReleaseLabel $Preview.InstalledVersion $Preview.InstalledRevision } elseif ($Preview.Installed) { '未知' } else { '未安装' }
+    $script:ui.VersionText.Text = '将使用 ' + (Channel-Label $Preview.Channel) + ' ' + (Format-ReleaseLabel $Preview.BundleVersion $Preview.BundleRevision) + '  ·  已装 ' + (Channel-Label $Preview.InstalledChannel) + ' ' + $installedDisplay
     $statusText = switch ($Preview.Status) {
         'not_installed' { '未安装；确认位置后可导入。' }
-        'current' { '当前版本；重复导入不会替换技能文件。' }
-        'update_available' { '可更新；原版本将完整保存在备份中。' }
+        'current' { '文件与本包一致；重复导入不会替换技能文件。' }
+        'replacement_available' { '内容不同；不代表本包更新。请核对版本／修订，导入前将完整备份原安装。' }
         'channel_change' { '将切换通道；原通道完整备份，只保留一份生效的 letsgal-authoring。' }
         'requires_backup' { '已有改动或非本包安装；需要先备份再继续。' }
     }
@@ -222,9 +222,9 @@ function Complete-ImportAction {
         $script:ui.BackupButton.Visibility = 'Visible'
         Set-OperationStatus '发现已有改动 · 请核对并备份后继续' 'warning'
     } elseif ($exitCode -eq 0 -and $result -and $result.action -in @('installed','already_current','check')) {
-        $title = switch ($result.action) { 'installed' { '导入完成' }; 'already_current' { '已经是此包版本' }; 'check' { if ($result.matches_bundle) { '安装文件校验通过' } else { '安装文件完整，与所选通道或版本不同' } } }
+        $title = switch ($result.action) { 'installed' { '导入完成' }; 'already_current' { '已经是此包版本' }; 'check' { if ($result.matches_bundle) { '安装文件校验通过' } else { '安装文件完整，但与本包内容不同' } } }
         $body = '下一步：建议先停用其他功能重叠的 LetsGal／引擎创作类 Skill，保留原文件与特调，避免调度冲突和额外上下文开销。安装器不会自动停用或删除其他技能。然后打开 Agent 新会话，粘贴验证提示词并核对实际加载路径。'
-        if ($result.action -eq 'check' -and $result.PSObject.Properties['bundle_version']) { $body = '已装 ' + $result.installed_version + '，本包 ' + $result.bundle_version + '。' + $(if ($result.matches_bundle) { '与本包一致。' } else { '安装文件完整，可导入本包更新。' }) + "`n" + $body }
+        if ($result.action -eq 'check' -and $result.PSObject.Properties['bundle_version']) { $body = '已装 ' + (Format-ReleaseLabel $result.installed_version $result.installed_revision) + '，本包 ' + (Format-ReleaseLabel $result.bundle_version $result.bundle_revision) + '。' + $(if ($result.matches_bundle) { '文件与本包一致。' } else { '安装文件完整，但与本包不同；请核对通道、版本和修订后决定是否替换。' }) + "`n" + $body }
         if ($result.PSObject.Properties['backup'] -and $result.backup) { $body += "`n旧技能完整备份：" + $result.backup }
         Show-ImportResult $title $body $true
         $script:prompt = "使用 letsgal-authoring。只读检查：核对实际读取的技能路径是否为 $($job.Target)，metadata.channel 是否为 $($result.channel)，并与目标工程的实际 Studio 通道核对；不匹配时说明需切换安装，先不写工程。读取个人偏好 $($result.profile) 和工程 LETSGAL.md（不存在就明确说不存在）；插件 Skill 位于 $($result.plugins)，只按当前项目的插件 ID 和实际版本定位相关资料，不默认全部启用。说明本次改动可用的保护方式和相关官方资料。不要修改文件或启动引擎。"

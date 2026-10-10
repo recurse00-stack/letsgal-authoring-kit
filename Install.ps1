@@ -198,7 +198,7 @@ try {
     $clean = $preview.Clean
     $currentMap = $preview.CurrentMap
     if ($Action -eq 'Check') {
-        [ordered]@{action='check';channel=$preview.Channel;installed_channel=$preview.InstalledChannel;installed=$installed;managed=$managed;unchanged=$clean;target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';installed_version=$preview.InstalledVersion;bundle_version=$preview.BundleVersion;status=$preview.Status;matches_bundle=($preview.Status -eq 'current');completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
+        [ordered]@{action='check';channel=$preview.Channel;installed_channel=$preview.InstalledChannel;installed=$installed;managed=$managed;unchanged=$clean;target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';installed_version=$preview.InstalledVersion;bundle_version=$preview.BundleVersion;installed_revision=$preview.InstalledRevision;bundle_revision=$preview.BundleRevision;status=$preview.Status;matches_bundle=($preview.Status -eq 'current');completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
         if (-not $installed -or -not $managed -or -not $clean) { exit 2 }
         exit 0
     }
@@ -234,7 +234,7 @@ try {
         [IO.File]::Copy((Join-Path $source $relative), $output, $false)
     }
     if (-not (Same-Map (Tree-Map $stage) $expected)) { throw 'Staging verification failed; original untouched.' }
-    Write-Json (Join-Path $stage '.install-receipt.json') @{owner=$Owner;skill=$SkillName;version=$manifest.version;channel=$preview.Channel;installed_at=(Get-Date -Format o);files=$manifest.files;risk_notice=$noticeRecord}
+    Write-Json (Join-Path $stage '.install-receipt.json') @{owner=$Owner;skill=$SkillName;version=$manifest.version;revision=$preview.BundleRevision;channel=$preview.Channel;installed_at=(Get-Date -Format o);files=$manifest.files;risk_notice=$noticeRecord}
     # Initialize only missing user-area items before moving any installed Skill.
     Initialize-UserArea $homeRoot
     Ensure-Directory $skillsRoot

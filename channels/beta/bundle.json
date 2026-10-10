@@ -20,7 +20,11 @@
     },
     {
       "path": "references/collaboration-git.md",
-      "sha256": "87661f01dbc4a018300b6b50a3511c012bb768872c91aaca0b0dfd2bf981078a"
+      "sha256": "a9333f295c13301727e547e4b0dc7c7c148d7b54b10bf144554796babb966804"
+    },
+    {
+      "path": "references/current-capabilities.md",
+      "sha256": "e6d289e17a95a1b42dda124afba41dae846b7953ffb15e8118d2d97dec386bde"
     },
     {
       "path": "references/customization.md",
@@ -28,15 +32,15 @@
     },
     {
       "path": "references/extensions.md",
-      "sha256": "bd9d4b127d58cfbcd795fa65ed6c07ead02723550345dd9563386eb5a5e43704"
+      "sha256": "dbbd1166b43eba67176528d2cea697e491f16068005ed642fedea06c2fddf385"
     },
     {
       "path": "references/json.md",
-      "sha256": "e6f11501d2881c084bf5827290aeed532b533472f41e96114d01ffffa4a19da2"
+      "sha256": "e412ecec084be1ae84a7eeb89bedf410b0c412ef870c549c7795e22d6a19a5b2"
     },
     {
       "path": "references/mcp-workflow.md",
-      "sha256": "5f92fd241841e69bfcc815c149df0ce3035016749f95f1fd9eb24ca5d1bc09dc"
+      "sha256": "50cecb28e10fa19790dd70677bc67f4dfb6d43e3c50d35ae7d4bbe2d551e4429"
     },
     {
       "path": "references/plugin-skills.md",
@@ -44,11 +48,11 @@
     },
     {
       "path": "references/production.md",
-      "sha256": "92e18dbe9411d451b3f7235d1cd40aa9db21be73f8ca0fe88213933d8d4fa138"
+      "sha256": "aac3cda93918dd3eb5dab966175901ff28773f5106618c9d7cb30c1436c722fa"
     },
     {
       "path": "references/research.md",
-      "sha256": "7ff6fa80c00ffacb2f5394de21ff24799b5a0271677371a6f355989f38551f16"
+      "sha256": "dfb8bb0056ad957bcf4833e3d7ba4f8a520b03ba4e50d98a1a9ebcf63c906f19"
     },
     {
       "path": "references/risk-notice.md",
@@ -56,31 +60,11 @@
     },
     {
       "path": "references/safety.md",
-      "sha256": "005e8e1a15e18237c8a77e906e37e389b470ade27bb04aa42877f8c600009b93"
+      "sha256": "53d5660f30f5993ad2c85d2ea3efdcf9182e23b0ff19270344186ab321792f75"
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "6e07f1b35d748031bfa8ffd0e49e4d783cdd2547ab95841c1bc5fa70b37132f9"
-    },
-    {
-      "path": "references/versions/beta-2.3.md",
-      "sha256": "2dbe2a2d161f1ea269bdfecca1dba492f8141bfbe98300a190bc756d979182fe"
-    },
-    {
-      "path": "references/versions/beta-2.4.md",
-      "sha256": "51857b719ccc071bbf5ed61d3fbbb2bec4b019fc63bca1bff5035f6b08d72774"
-    },
-    {
-      "path": "references/versions/beta-2.5.md",
-      "sha256": "b45cf1e912a4a9f75b283daf9747fcfe9c558f267868193f06c298a6aa73d946"
-    },
-    {
-      "path": "references/versions/beta-2.6.md",
-      "sha256": "c93893c33bca7fda279093fdb817a31fc01ffa1fbe7500045d18771bf6961859"
-    },
-    {
-      "path": "references/versions/beta-differences.md",
-      "sha256": "d67a397a611b57f1f6f99f9de881f98fbcbecc064a7cb74389e2601f5b667df6"
+      "sha256": "3a8cc038b29a9cd1f6fbdecb182e15168b1e7a4e72569c37d68171e637bb2f4c"
     },
     {
       "path": "scripts/check_project.py",
@@ -88,11 +72,11 @@
     },
     {
       "path": "scripts/inspect_version.py",
-      "sha256": "342ece4317d3a7da882346e12f753110e2799b2f524e79cdc4c0359ab0a1948f"
+      "sha256": "633bc9b30d95ac613bf2bc7cac9c0d1d5d89a0dc4229e1eaab90e2e30068245a"
     },
     {
       "path": "SKILL.md",
-      "sha256": "9429f9b4d9b2446a4f8afa4e970e1bd832ecef07519814ddfb7372967508396d"
+      "sha256": "538aa9c1b6032d1a8370de50c23af3bd6cb35a1dc02b936dac3edc6dbfa0cc13"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -102,5 +86,6 @@
       "path": "templates/PLUGIN-SKILL.example.md",
       "sha256": "6a24accc53747f475c4c9fb4aac24923927b168c7bdfb6d5107c0ca49c791b5c"
     }
-  ]
+  ],
+  "revision": "20261010-reviewed-guides"
 }

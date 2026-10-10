@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "source_channel": "stable",
+  "target_channel": "beta",
+  "files": [
+    "LICENSE",
+    "examples/选择练习.json",
+    "references/collaboration-git.md",
+    "references/customization.md",
+    "references/extensions.md",
+    "references/json.md",
+    "references/plugin-skills.md",
+    "references/production.md",
+    "references/research.md",
+    "references/risk-notice.md",
+    "references/safety.md",
+    "scripts/check_project.py",
+    "templates/LETSGAL.example.md",
+    "templates/PLUGIN-SKILL.example.md"
+  ],
+  "rule": "Shared content is authored in stable; merge any channel differences before deliberate sync. Channel entries, workflow, current capabilities and version selection stay independent."
+}

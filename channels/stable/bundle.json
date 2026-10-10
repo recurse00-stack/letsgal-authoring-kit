@@ -20,7 +20,11 @@
     },
     {
       "path": "references/collaboration-git.md",
-      "sha256": "009b042e2464d26e07ad76c375926268d761ceff6ce031848c3c8ad6e5bf2fc9"
+      "sha256": "a9333f295c13301727e547e4b0dc7c7c148d7b54b10bf144554796babb966804"
+    },
+    {
+      "path": "references/current-capabilities.md",
+      "sha256": "744b679675695840a8f6f3db21cd930cf785a1e6f272139b7572b294da62cecc"
     },
     {
       "path": "references/customization.md",
@@ -28,11 +32,15 @@
     },
     {
       "path": "references/extensions.md",
-      "sha256": "1a00d35f0f1f1a99d55b56178f84da611b7eadeeac6b54c3b72a05a31b523907"
+      "sha256": "dbbd1166b43eba67176528d2cea697e491f16068005ed642fedea06c2fddf385"
+    },
+    {
+      "path": "references/file-workflow.md",
+      "sha256": "6476ceb993c6df6155031b3a8f85d0c7f2375ce84c8c995f3110387e19ed08a4"
     },
     {
       "path": "references/json.md",
-      "sha256": "ded0420a5f7ef90aa8aa013ae28dc17612f1592a6370f40f079a5058e7117f87"
+      "sha256": "e412ecec084be1ae84a7eeb89bedf410b0c412ef870c549c7795e22d6a19a5b2"
     },
     {
       "path": "references/plugin-skills.md",
@@ -40,11 +48,11 @@
     },
     {
       "path": "references/production.md",
-      "sha256": "2c171c2bad7e95f1857b8b6cf70cb5e77d8f4a19cfa6947f349a730be05394bd"
+      "sha256": "aac3cda93918dd3eb5dab966175901ff28773f5106618c9d7cb30c1436c722fa"
     },
     {
       "path": "references/research.md",
-      "sha256": "f3e158fecead3e43c56bf19a01b5d60c766a14b150ddb7276a6ba9580c98247f"
+      "sha256": "dfb8bb0056ad957bcf4833e3d7ba4f8a520b03ba4e50d98a1a9ebcf63c906f19"
     },
     {
       "path": "references/risk-notice.md",
@@ -52,19 +60,11 @@
     },
     {
       "path": "references/safety.md",
-      "sha256": "cd41e40d4b9e04a713e185efb615219d523420c532d47eee169dcd92033de77e"
+      "sha256": "53d5660f30f5993ad2c85d2ea3efdcf9182e23b0ff19270344186ab321792f75"
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "d1f37c0d8df71bee7c700981b0bff98c5c0bdbe27b27e1c1de824c9158feffbe"
-    },
-    {
-      "path": "references/versions/stable-2.0.md",
-      "sha256": "88f02cd991177cdc8ac1f7df4f0478875239583457627c0431a33c68e5fe3f9f"
-    },
-    {
-      "path": "references/versions/stable-2.5.md",
-      "sha256": "9068eaa5271545f2dc0bb3683381c652e0b774fb8879989ee99c7c5b8f5ec92d"
+      "sha256": "d1d64989d81a6380f620c195352a89c67559c24525d86b0c65ff97f57f695fb1"
     },
     {
       "path": "scripts/check_project.py",
@@ -72,11 +72,11 @@
     },
     {
       "path": "scripts/inspect_version.py",
-      "sha256": "7bc73ffd36facde495ac35c12118e22b4a42dbee6a48013547c5f2401bfc8a41"
+      "sha256": "0a8e70d067a569da4f1911a24c0a9628dc2aa480720cc5c79de76aaf46b39cce"
     },
     {
       "path": "SKILL.md",
-      "sha256": "9f2e0371c6984579fee451ced2c5c2c386ecf0ae0afab9d28f5adac84781d0af"
+      "sha256": "e44fedd72d9868df0c24e8b2f9f156774930e70200083a79d97a2569156ec720"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -86,5 +86,6 @@
       "path": "templates/PLUGIN-SKILL.example.md",
       "sha256": "6a24accc53747f475c4c9fb4aac24923927b168c7bdfb6d5107c0ca49c791b5c"
     }
-  ]
+  ],
+  "revision": "20261010-reviewed-guides"
 }

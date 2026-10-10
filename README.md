@@ -1,5 +1,7 @@
 # LetsGal Authoring Kit · 社区 Skill
 
+**0.2.1 · 20261010-reviewed-guides 发行修订。** [下载当前完整包](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.1/letsgal-authoring-kit-0.2.1-20261010-reviewed-guides.zip)；版本号仍为0.2.1，初版附件保留。请按发布页置顶链接选择带修订标识的ZIP。
+
 本版分 **正式版 / Beta** 两份Skill，安装时按目标工程选择一份，名称仍为`letsgal-authoring`。切换时备份旧版并保留个人区。公版至少一种有效恢复保护，优先引擎项目历史；Git可选。见[正式版指南](channels/stable/MANUAL.md)、[Beta指南](channels/beta/MANUAL.md)。
 
 `letsgal-authoring` 帮助 AI 在 LetsGal Studio 工程中制作剧情、分支、变量与章节 JSON，查找官方资料、处理扩展及 Git 协作。它是独立社区 Skill，不包含引擎、模型、账号或 MCP；实际能力取决于 Agent 的工具和项目权限。
@@ -14,10 +16,10 @@
 
 ## Windows 安装
 
-1. 下载完整的 `letsgal-authoring-kit-<版本>.zip`，解压到普通文件夹，再双击 `Install.cmd`。不要在 ZIP 内运行，不要单独运行摘出的 `Install.ps1`。
+1. 下载完整的 `letsgal-authoring-kit-0.2.1-20261010-reviewed-guides.zip`，解压到普通文件夹，再双击 `Install.cmd`。不要在 ZIP 内运行，不要单独运行摘出的 `Install.ps1`。
 2. 先选目标工程对应的正式版或 Beta，再选择实际使用的 Agent，一般采用“个人 · 所有项目”；只给一个作品用时选择“项目 · 仅此工程”并浏览工程目录。
 3. 核对最终目录、所选／已装通道、本包／已装版本及预览状态，点击“导入到 …”。底部固定状态栏显示处理和完成结果。
-4. 展开“更多选项”，点击“检查安装”。底部显示“检查安装 · 校验通过”，页面结果框标题为“安装文件校验通过”。如果通道或版本不同，会明确显示差异，需要导入所选版本；文件完整不等于与所选通道一致。再复制验证提示词，在 Agent 新会话中核对实际加载路径与 metadata.channel。
+4. 展开“更多选项”，点击“检查安装”。底部显示“检查安装 · 校验通过”，页面结果框标题为“安装文件校验通过”。如果通道、版本或修订内容不同，会明确显示差异；核对后决定是否导入，不据此判断本包更新；文件完整不等于与所选通道一致。再复制验证提示词，在 Agent 新会话中核对实际加载路径与 metadata.channel。
 
 普通导入需要 Windows PowerShell 5.1 或 PowerShell 7，不要求 Python、Node 或管理员权限。可选只读工具需要 Python 3.9+。macOS／Linux 等环境按 [手动安装](MANUAL.md#手动安装与命令行) 复制完整 Skill，自动安装器仅支持 Windows。
 
@@ -33,7 +35,7 @@ Codex 个人安装沿用唯一已有的 `~/.codex/skills/letsgal-authoring` 或 
 
 ## 官方 MCP 可选接入
 
-Beta 载荷在已有官方 MCP 时，优先使用当前实例提供的工具；首次读取官方快速指南，按目标工程、权限和 revision 工作。接入方式见 [人类手册](MANUAL.md#官方-mcp-与无-mcp-两种用法)。安装器只导入 Skill，不配置 MCP、不改变确认选项。
+Beta 推荐官方 MCP；尚未接入时简短说明一次优势和回退，不自动注册。在已有官方 MCP 时，优先使用当前实例提供的工具；首次读取官方快速指南，按目标工程、权限和 revision 工作。接入方式见 [人类手册](MANUAL.md#官方-mcp-与无-mcp-两种用法)。安装器只导入 Skill，不配置 MCP、不改变确认选项。
 
 没有 MCP 的正式版及未启用环境继续使用原有功能；直接编辑磁盘前须保存并关闭目标工程。Beta 标签本身不要求启用 MCP，也不为使用 Skill 自动升级引擎。
 
@@ -51,9 +53,9 @@ Beta 载荷在已有官方 MCP 时，优先使用当前实例提供的工具；�
 
 Skill 包版本和引擎版本独立。稳定版、Beta 和旧工程均先核对目标宿主；不以作者本机 Beta 为默认，不因更新 Skill 升级引擎、迁移作品或刷新已导出的游戏。
 
-正式版载荷只路由已核实的2.0.0／2.0.1／2.5.0；Beta载荷只路由2.3.0-beta.1／2.4.0-beta.1／2.4.0-beta.2／2.5.0-beta.1／2.6.0-beta.1。安装通道不匹配时提示改装对应载荷，不跨通道套用资料。未知、冲突和其他完整版本返回 UNKNOWN；[资料路由](channels/beta/skills/letsgal-authoring/references/version-compatibility.md) 与真实宿主运行分别记录。
+正式版当前只登记 **2.5.0**，Beta 当前只登记 **2.6.0-beta.1**。通道不符、未知、旧版或冲突返回 UNKNOWN；无版本依赖工作继续，不自动升级引擎。每份安装载荷自包含，另一通道无需同时安装。
 
-Beta资料包含正式版基线到2.1／2.2／2.3／2.4／2.5的[68项公告](channels/beta/skills/letsgal-authoring/references/versions/beta-differences.md)，[2.5制作与排错](channels/beta/skills/letsgal-authoring/references/versions/beta-2.5.md)、[2.4用法](channels/beta/skills/letsgal-authoring/references/versions/beta-2.4.md)与[2.3有限实测](channels/beta/skills/letsgal-authoring/references/versions/beta-2.3.md)分别维护。公告、保存样本、SDK声明和运行观察分开，不推定所有能力已通过。
+有效知识按[正式版当前能力](channels/stable/skills/letsgal-authoring/references/current-capabilities.md)和[Beta当前能力](channels/beta/skills/letsgal-authoring/references/current-capabilities.md)融合，历史公告与测试过程另存。局部修改从目标开始，分支、素材、扩展和导出按需读专题；安全、恢复和创作协作规则各有主要维护位置。预期减少重复阅读，没有新增模型效果测量。
 
 ## 个人偏好、插件资料与升级
 

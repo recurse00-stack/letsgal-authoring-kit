@@ -1,21 +1,13 @@
-# 正式版通道与目标工程
+# 正式版当前维护边界
 
-本载荷是 **正式版**，版本号0.2.1是Skill发行号，与Studio版本不同。正式版和Beta分别维护；安装只选择一份，名称仍为letsgal-authoring。项目通道和本载荷不符时提示重新选择安装，先完成讨论、读取和草稿，不自动换引擎、复制另一通道或猜测兼容。
+本载荷仅登记 **2.5.0**；0.2.1是Skill发行号。2026-10-10核对官方清单，当前内容已按主题融合，不要求先读旧版本增量。
 
-## 核对实际版本
+按目标工程约定与实际Studio完整版本／通道核对，运行实例、关于页或EXE FileVersion可作宿主证据。project.json中的version／engineVersion及SDK自报值不必是宿主版本，保留原值；扩展另外核SDK来源。
 
-读取目标LETSGAL.md或开发说明，再核实际Studio完整版本与通道；当前运行实例／关于页面或EXE FileVersion作为证据，不能仅用文件名或project.json.version推断。曾在多个官方空白工程见version／engineVersion=1.0.0，它们不代表宿主。扩展另外核目标SDK来源、声明与样本。
+scripts/inspect_version.py支持原有--studio-version、--studio-exe、--project-version、--channel、--sdk。本目标且无冲突时返回reference_selected／退出码0，并指向[当前能力](current-capabilities.md)；其他版本、缺失或冲突返回UNKNOWN／退出码2，说明具体原因。输出和退出码只表示资料选择，不证明运行兼容。
 
-项目约定与实际宿主冲突、版本缺失或未收录时标UNKNOWN。只追问影响当前写入的缺项；同工程、宿主和SDK未变可复用，换工程或有冲突再刷新。当前官网描述不等于旧版支持；不要自动迁移工程或SDK。
+旧版和未知新版不套用当前版本专属结论，也不自动升级、迁移或换通道。先继续讨论、读取、草稿及已有证据覆盖的工作；确需该版本能力时再查目标资料或[旧发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。新版本不能仅按版本号大小推断兼容。
 
-## 本通道资料
+通道不匹配时提示选择对应载荷；同时维护不同通道工程可用项目范围安装，核实际发现优先级，同一位置不并装两个同名入口。历史资料留在维护归档与旧包，不进入日常载荷。
 
-2.0.0／2.0.1：[Stable 2.0](versions/stable-2.0.md)；2.5.0：[Stable 2.5](versions/stable-2.5.md)。
-
-运行scripts/inspect_version.py --studio-version <完整版本>，或Windows下--studio-exe <实际EXE>；可传--project-version、--channel和--sdk核对。程序只读；通道不符、未知或冲突返回UNKNOWN／退出码2，退出码0只表示选到资料，不证明运行兼容。其他版本按目标官方公告／样本另核，不用最近版本替代。
-
-对具体字段／API先看目标保存样本与SDK类型，再核该版本官方说明；未知结构、稳定ID和既有引用保留。基础章节、蓝图、前处理和片段流程按当前工程实际启用方式判断。静态检查、宿主预览、存读档和导出分别报告。
-
-## 不同通道工程
-
-同时制作正式版和Beta工程时，优先为各工程选择项目范围安装，并核Agent实际读取位置；若已有个人全局安装，先核客户端优先级，避免两处同名入口冲突。不自动删除旧入口；用户区偏好与插件知识保留，项目版本约定优先于一般个人偏好。
+[正式清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json) · [Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)。官网资料、目标样本、SDK和运行分别标明证据；无证据时不猜字段。

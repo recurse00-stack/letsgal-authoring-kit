@@ -139,7 +139,7 @@ foreach ($pluginVersion in @('1.0.0','2.0.0-beta.1')) {
 [IO.File]::WriteAllBytes((Join-Path $area 'user-notes.bin'),[byte[]](255,0,128,10,13))
 $oldFiles = Tree-Map $target
 $userFiles = Snapshot-UserFiles $area
-$upgradePreview = Invoke-PreviewCase 'complete previous release preview' $kitRoot $destination $fixtureHome 'update_available'
+$upgradePreview = Invoke-PreviewCase 'complete previous release preview' $kitRoot $destination $fixtureHome 'replacement_available'
 Record-Check 'upgrade preview reports both versions and clean managed status' (
     $upgradePreview.Installed -and $upgradePreview.Managed -and $upgradePreview.Clean -and
     $upgradePreview.InstalledVersion -eq $oldManifest.version -and

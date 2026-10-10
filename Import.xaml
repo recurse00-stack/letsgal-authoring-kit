@@ -65,7 +65,7 @@
             <Border Background="#EEF4FF" CornerRadius="7" Padding="13">
               <StackPanel>
                 <TextBox Name="DestinationText" Text="请选择 Agent" IsReadOnly="True" BorderThickness="0" Background="Transparent" Padding="0" TextWrapping="Wrap" FontFamily="Consolas" FontSize="13"/>
-                <TextBlock Name="VersionText" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                <TextBlock Name="VersionText" FontWeight="SemiBold" Margin="0,8,0,0" TextWrapping="Wrap"/>
                 <TextBlock Name="PathNote" Foreground="#506177" FontSize="12" Margin="0,8,0,0"/>
               </StackPanel>
             </Border>

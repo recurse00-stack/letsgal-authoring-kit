@@ -4,6 +4,17 @@ function Read-Json([string]$Path) {
     return ([IO.File]::ReadAllText($Path, ([Text.Encoding]::UTF8)) | ConvertFrom-Json)
 }
 
+function Read-BundleRevision($Record) {
+    if ($Record -and $Record.PSObject.Properties['revision'] -and $Record.revision -is [string]) { return $Record.revision }
+    return $null
+}
+
+function Format-ReleaseLabel([string]$Version, [string]$Revision) {
+    if (-not $Version) { return '未知版本' }
+    if ($Revision) { return $Version + '（修订 ' + $Revision + '）' }
+    return $Version + '（修订未标注）'
+}
+
 function Hash-File([string]$Path) {
     $algorithm = [Security.Cryptography.SHA256]::Create()
     $stream = [IO.File]::OpenRead($Path)
@@ -134,12 +145,13 @@ function Get-InstallPreview([string]$BundleRoot, $Destination, [string]$UserHome
         if (-not $managed -or -not $clean) { $status = 'requires_backup' }
         elseif ($installedChannel -ne 'legacy' -and $installedChannel -ne $selection.Channel) { $status = 'channel_change' }
         elseif ((Same-Map $current $expected) -and $installedChannel -eq $selection.Channel) { $status = 'current' }
-        else { $status = 'update_available' }
+        else { $status = 'replacement_available' }
     }
     # Detection creates no folders, locks, state, receipts or backups. The caller
     # must recheck immediately before its eventual installation transaction.
     return [pscustomobject]@{
         Target=$target; BundleVersion=$manifest.version; InstalledVersion=$installedVersion;
+        BundleRevision=(Read-BundleRevision $manifest); InstalledRevision=(Read-BundleRevision $receipt);
         Channel=$selection.Channel; InstalledChannel=$installedChannel;
         Installed=$installed; Managed=$managed; Clean=$clean; Status=$status;
         Expected=$expected; CurrentMap=$current; Receipt=$receipt; Manifest=$manifest;

@@ -2,7 +2,7 @@
 
 安装时先按目标工程选择正式版或Beta载荷，同一位置只保留一份同名Skill。正式版保持原生／离线流程；Beta优先获准的官方MCP，未启用时保留文件／原生流程。MCP是可选能力，安装Skill不注册服务。直接写磁盘前关闭目标工程；当前实例状态、工具目录和批准分别核对，见[Beta MCP工作流](channels/beta/skills/letsgal-authoring/references/mcp-workflow.md)。
 
-本说明对应0.2.1。Windows安装程序新增正式版／Beta选择和切换，原有目录选择与个人区保留机制继续使用；所选载荷按完整宿主版本选择资料，未知或冲突标UNKNOWN，运行证据按实际宿主记录。
+本说明对应0.2.1。Windows安装程序保留正式版／Beta选择和切换，本修订更新同号内容差异提示、修订显示与收据，原有目录选择与个人区保留机制继续使用；所选载荷按完整宿主版本选择资料，未知或冲突标UNKNOWN，运行证据按实际宿主记录。
 
 手动导入前阅读 [风险说明与免责声明](channels/beta/skills/letsgal-authoring/references/risk-notice.md)，完整复制 Skill 目录以保留随包说明；导入不授予 AI 额外文件权限。
 
@@ -38,7 +38,9 @@ Cursor 也支持 `.cursor/skills`，Copilot 也有 `.copilot/skills`（个人）
 
 ## 当前引擎资料路由
 
-两份载荷各有只读版本工具：[正式版](channels/stable/skills/letsgal-authoring/scripts/inspect_version.py)只选择已核实的2.0.0／2.0.1／2.5.0资料；[Beta](channels/beta/skills/letsgal-authoring/scripts/inspect_version.py)只选择2.3.0-beta.1／2.4.0-beta.1／2.4.0-beta.2／2.5.0-beta.1／2.6.0-beta.1资料。通道不符、缺失、冲突或未登记版本返回UNKNOWN，不推定兼容。资料实现、EXE读取、SDK指纹与真实运行分别记录，见[验证范围](VALIDATION.md)。下载清单与发布历史可能不同，不依赖“最新”标签。主Skill不嵌套为自己的插件。
+两份载荷各有只读版本工具：[正式版](channels/stable/skills/letsgal-authoring/scripts/inspect_version.py)只登记2.5.0，[Beta](channels/beta/skills/letsgal-authoring/scripts/inspect_version.py)只登记2.6.0-beta.1。旧版、未来版本、通道不符、缺失和冲突返回UNKNOWN；讨论及通用工作继续，不推定兼容或自动升级。命令参数、JSON输出与退出码约定保留。SDK指纹和资料路由不等于运行通过，见[验证范围](VALIDATION.md)。主Skill不嵌套为自己的插件。
+
+0.2.1 的20261010-reviewed-guides修订将有效知识融合为当前专题，历史材料在维护归档和旧Release；本修订在原0.2.1发布页追加独立附件，初版附件和标签不变。
 
 ## DSH
 
@@ -58,7 +60,7 @@ DSH 来源：[文件系统技能提供器](https://github.com/deepseek-ai/deepse
 | 层次 | 当前已有证据 | 不能据此推定 |
 | --- | --- | --- |
 | 标准格式／目录 | 上表五款 Agent 的官方资料与本包路径规则 | 所有客户端版本、远程配置都能自动发现 |
-| Codex实际使用 | 旧技能名制作／发现记录保留；0.2.0当前模型与安装入口按本版验证摘要核对 | 单次制作不能保证所有模型、作品或宿主 |
+| Codex实际使用 | 历史制作／发现记录保留；本修订只做文件与安装核对，未重跑模型任务 | 单次制作不能保证所有模型、作品或宿主 |
 | DSH provider | 0.2.0-rc.1官方文件系统提供器26项隔离发现和正文读取，旧0.1.6-alpha.2保留历史 | 完整模型任务、更新后新会话调用 |
 | Claude Code、Cursor、Copilot | 格式与目录资料适配 | 完整模型制作或宿主播放 |
 | 安装程序 | 历史 Windows 后端安装／升级／保留验证，0.1.5 路径和 WPF 组件检查 | 原生浏览、取消、全流程和所有缩放通过 |

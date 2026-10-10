@@ -9,6 +9,7 @@ import zipfile
 from release_manifest import release_files
 from review_release import audit
 from stage_publication import ordinary, overlaps
+from sync_shared_skill import check_shared
 
 def main():
     args=argparse.ArgumentParser(description=__doc__)
@@ -17,6 +18,8 @@ def main():
     opts=args.parse_args()
     if opts.archive and not opts.zip: args.error('--archive requires --zip')
     root=Path(__file__).resolve().parents[1]
+    shared=check_shared(root)
+    assert shared['status']=='identical', 'Merge channel differences, then explicitly sync shared files before building'
     manifest=json.loads((root/'bundle.json').read_text('utf-8'))
     version=manifest['version']
     package_name=manifest['owner']
@@ -33,6 +36,7 @@ def main():
         file.write_bytes(file.read_text('ascii').replace('\r\n','\n').replace('\n','\r\n').encode('ascii'))
     digest=lambda file:hashlib.sha256(file.read_bytes()).hexdigest()
     payload_counts={}
+    revisions=set()
     for row in manifest['channels']:
         channel=row['id']
         assert row['bundle']==f'channels/{channel}/bundle.json'
@@ -41,14 +45,21 @@ def main():
         front=(skill/'SKILL.md').read_text('utf-8')
         assert re.search(r'^  version: '+re.escape(version)+r'$',front,re.M), 'Skill and bundle versions differ'
         assert re.search(r'^  channel: '+channel+r'$',front,re.M), 'Skill channel differs'
+        revision=re.search(r'^  revision: ([0-9A-Za-z._-]+)$',front,re.M)
+        assert revision, 'Skill revision is required for a new build'
+        revisions.add(revision[1])
         payload=[p for p in files if skill in p.parents]
         assert set(payload)=={p for p in skill.rglob('*') if p.is_file()}, 'Unlisted payload file'
         assert (skill/'references/risk-notice.md').read_bytes()==(root/'RISK-NOTICE.md').read_bytes(), 'Risk notice differs'
         selected=json.loads((channel_root/'bundle.json').read_text('utf-8'))
         assert selected['version']==version and selected['channel']==channel and selected['schema']==1
+        selected['revision']=revision[1]
         selected['files']=[{'path':p.relative_to(skill).as_posix(),'sha256':digest(p)} for p in payload]
         (channel_root/'bundle.json').write_text(json.dumps(selected,ensure_ascii=False,indent=2)+'\n','utf-8')
         payload_counts[channel]=len(payload)
+    assert len(revisions)==1, 'Channel revisions differ'
+    manifest['revision']=revisions.pop()
+    (root/'bundle.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n','utf-8')
     for file in (p for p in files if p.suffix=='.md'):
         for link in re.findall(r'\]\(([^)]+)\)',file.read_text('utf-8')):
             if '://' not in link and not link.startswith('#') and '<' not in link:

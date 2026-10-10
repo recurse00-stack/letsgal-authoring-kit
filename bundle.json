@@ -14,5 +14,6 @@
       "label": "Beta",
       "bundle": "channels/beta/bundle.json"
     }
-  ]
+  ],
+  "revision": "20261010-reviewed-guides"
 }

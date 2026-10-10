@@ -1,8 +1,10 @@
 # Beta Skill 使用指南 · 0.2.1
 
+当前维护目标为 **2.6.0-beta.1**；0.2.1 的 **20261010-reviewed-guides 发行修订**采用独立附件名。每条线路只安装当前指引，仍适用的旧知识按任务融合，历史公告和测试过程另存；旧宿主不自动套用当前结论。
+
 安装时选择 **Beta（beta）**，只导入本通道载荷，调用名仍是letsgal-authoring。另一通道不会同时装入。同一目录切换通道会先完整备份旧版，个人偏好和插件知识保留；不会安装或切换Studio。
 
-按实际完整Beta版本核对。官方MCP已接入且权限匹配时优先使用；首次读取当前官方指导，按真实ID与revision精确修改。未接入时保留原生／合法离线流程，不能绕过只读和拒绝。
+按实际完整Beta版本核对。官方MCP已接入且权限匹配时优先使用；首次读取当前官方指导，按真实ID与revision精确修改。推荐接入官方 MCP；尚未接入时简短说明一次优势及回退方法，不自动注册。可用的获准原生／合法离线流程继续保留，不能绕过只读、拒绝、待批准或关闭工具组。
 
 ## 从安装到一次改动
 
@@ -20,13 +22,15 @@
 
 ## 使用效果怎样看
 
-官方MCP提供工程操作能力，Skill帮助AI选对资料、工具和检查步骤。此前小样本对照中，部分批量任务减少了重复调用，部分恢复／变量任务减少了漏检或语义错误；也有任务增加了必要检查。不能保证每个模型、每项任务都更快或更省消耗，创作取舍仍需共同审阅。简要结论见[总手册](../../MANUAL.md#从测试中看到的实际帮助)。
+本次把当前能力、操作流程与通用协作分开，局部改字可从目标直接开始，只有相关任务才读版本、扩展和导出专题。预期能减少拼接旧版资料、重复提醒和错误入口；本修订没有模型对照或新增宿主实测，不能宣称已测得提速、token 节省或质量提升。历史有限结果见[总手册](../../MANUAL.md#从测试中看到的实际帮助)。
 
 ## 路径、排错和更新
 
+- 当前能力：[按任务查阅](skills/letsgal-authoring/references/current-capabilities.md)。
 - 源载荷：[SKILL.md](skills/letsgal-authoring/SKILL.md)；[制作案例](skills/letsgal-authoring/references/production.md)、[JSON与检查器](skills/letsgal-authoring/references/json.md)、[版本边界](skills/letsgal-authoring/references/version-compatibility.md)。
 - 安装通道与宿主不符：用同一安装器选择对应通道；不合并复制两套Skill。不同时全局装两份同名入口；多个通道工程可分别用项目范围，核对Agent加载优先级。
+- 同号修订：预览核对通道、版本与修订；“内容不同”不代表包更高或更新，旧包未标注修订时不猜先后。只有文件与本包一致才跳过替换。
 - 文件有个人改动：安装器先保留并提示，按明确选择完整备份后再替换。个人区不搬进公共Skill；目录外的项目版本约定不由安装器改动。
 - 命令行：完整包根运行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex -Scope User -Channel beta -NonInteractive`。检查另加 `-Action Check`；其他平台只复制本目录skills/letsgal-authoring，按[手动安装说明](../../MANUAL.md#手动安装与命令行)操作。
 
-文档、文件安装、模型行为、真实宿主、存读档和导出是不同层次。本次拆分不新增引擎功能验收，历史证据按原版本保留；当前范围见[验证说明](../../VALIDATION.md)。
+文档、文件安装、模型行为、真实宿主、存读档和导出是不同层次。本次重构不新增引擎功能验收，历史证据按原版本保留；当前范围见[验证说明](../../VALIDATION.md)。
