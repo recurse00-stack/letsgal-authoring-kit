@@ -1,5 +1,5 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LetsGal Authoring Kit 0.2.1 · 使用手册</title><style>body{max-width:960px;margin:36px auto;padding:0 20px;font:17px/1.75 system-ui,sans-serif;color:#243044;background:#fafbfc}h1,h2,h3{color:#12233e}a{color:#1556aa}table{border-collapse:collapse;width:100%;margin:20px 0}td,th{border:1px solid #ccd4df;padding:8px;text-align:left}th{background:#edf2f8}pre{overflow:auto;padding:16px;background:#eaf0f6;border-radius:8px}code{font-family:Consolas,monospace}blockquote{border-left:4px solid #7aa0cc;margin:16px 0;padding:4px 16px;background:#f0f5fa}</style></head><body><h1 id="使用手册">使用手册</h1>
-<p>本手册对应 <strong>0.2.1 · 20261010-reviewed-guides 发行修订</strong>。正式版当前维护 2.5.0，Beta 当前维护 2.6.0-beta.1，安装时只选一份。有效知识已融合为当前能力与任务专题；旧版公告、测试过程留在维护归档和旧 Release。初版0.2.1附件与原标签保留；本修订完整包文件名带20261010-reviewed-guides，请使用发布页置顶下载链接。可打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读。</p>
+<p>本手册对应 <strong>0.2.1 · 20261011-beta270-guides 发行修订</strong>。正式版当前维护2.5.0，Beta当前维护2.7.0-beta.1，安装时只选一份。<a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.1/letsgal-authoring-kit-0.2.1-20261011-beta270-guides.zip">下载本修订完整包</a>，完整解压后安装。原标签和旧附件保留；GitHub自动生成的Source code对应初版标签，安装本修订请使用带 <code>20261011-beta270-guides</code> 标识的完整ZIP。可打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读。</p>
 <h2 id="这个包能做什么">这个包能做什么</h2>
 <p><code>letsgal-authoring</code> 是给 AI 编程工具读取的社区 Skill。它教 AI 查找 LetsGal 官方规范、制作剧情与章节 JSON、组织协作和恢复保护（Git 可选），并保护已有作品。它不包含引擎、模型账号或 MCP，也不会给聊天工具凭空增加文件访问能力。</p>
 <p>导入器只导入本包的 LetsGal Skill；“其他 Agent / 指定目录”用于选择 Agent 已配置的技能根目录，不是导入任意第三方 Skill。</p>
@@ -200,11 +200,14 @@
 </tr>
 </tbody>
 </table>
-<p>2.6.0-beta.1 已提供官方 MCP；这不表示所有 Beta 都有它，也不表示正式版以后不能使用。Skill 按当前维护的完整版本选资料，再看当前工具是否真正可用。更新 Skill 不会替你切换引擎、开启服务或改为全放行。</p>
+<p>当前 2.7.0-beta.1 继续提供官方 MCP，并增加新连接自动批准选项；这不表示所有 Beta 都有它，也不表示正式版以后不能使用。Skill 按当前维护的完整版本选资料，再看当前工具是否真正可用。更新 Skill 不会替你切换引擎、开启服务或改为全放行。</p>
 <h3 id="第一次连接">第一次连接</h3>
 <p>操作优先使用官方 MCP。遇到 MCP 尚未提供的界面能力，你可以授权 AI 使用 Computer Use／原生界面控制，在指定应用与工程内继续；已经授权的范围不必每次点击再批准。AI须确认当前窗口、工程和输入状态，避免打断正在编辑的内容。具体能否控制界面取决于 Agent 实际提供的工具。关闭的工具组、只读连接或明确拒绝属于权限限制，一般的“允许操作界面”不会解除它们；Skill 不会自动开权限。</p>
 <p>在 Studio 的 MCP 页面启用服务，复制当前页面的“接入提示词”交给 Agent。Agent 核对实际地址后，将配置合并到自己的用户级设置一次；已有配置直接复用，避免重复添加。需要重新加载 MCP 或重启客户端时按该客户端提示处理，随后先调用状态工具确认。</p>
-<p>第一次读取工程可能需要在 Studio 批准连接；按当前任务选择只读或允许修改。AI 首次使用时读取官方服务指导和快速指南，同一上下文与版本可以复用，更新宿主或指导变化时再读。安装器只安装 Skill，不替你配置或更改 MCP。详情以<a href="https://docs.avg-engine.com/manual/overview/mcp">官方接入说明</a>及当前 Studio 页面为准。</p>
+<p>第一次读取工程可能需要在 Studio 批准连接；按当前任务选择只读或允许修改。即使支持自动批准，也以当前连接实际状态为准；AI 不自动开启该选项，不因关闭窗口光圈推断断开连接。AI 首次使用时读取官方服务指导和快速指南，同一上下文与版本可以复用，更新宿主或指导变化时再读。安装器只安装 Skill，不替你配置或更改 MCP。详情以<a href="https://docs.avg-engine.com/manual/overview/mcp">官方接入说明</a>及当前 Studio 页面为准。</p>
+<h3 id="beta-27多语言配音与相关变化">Beta 2.7：多语言配音与相关变化</h3>
+<p>例如：“只给第一章开场这三句补日语配音，保留中文原声和其他语言，先给我看匹配结果。”AI 应先核目标语言、稳定句子 ID 和音频，再预演；给音频标语言不等于已绑定对白。写后检查目标语言播放与缺音频回退，译文更新也不等于录音已更新。</p>
+<p>扩展方法可用参数分组／分页／预设，相关 SDK 新增立绘舞台位置与读档恢复标记；已有方法 ID、平铺参数和存档语义保留。预览到章末须确认下一步；导出游戏的运行时修复需重新构建并核实际功能。具体制作及验证边界见<a href="channels/beta/MANUAL.md#27-对使用方式的影响">Beta指南</a>。正式版2.5.0不套用这些新接口。</p>
 <h3 id="按任务协作避免不必要的等待">按任务协作，避免不必要的等待</h3>
 <p>0.2.1按任务范围组织读取、修改与验证。讨论使用已有上下文；改几句对白定位到相关块并读回；新增分支再检查引用和路线；持久数据改变时才增加存读档验证。没有必要为了改一句话先扫描全部素材、角色或执行全工程验收。明确的项目保护与工具确认仍保留。下面按实际用法说明；本版新测、沿用的历史结果和未测范围统一见<a href="VALIDATION.md">验证说明</a>。</p>
 <p>定位时提供“章节名＋片段名＋原句”通常就够；每章都可能有main，只说“改main”可能选错对象。已有明确目标时AI应直接读相关内容，只有重名或上下文不足才扩大查找。旧工程某些区块可能没有ID，AI不能猜ID或把序号当ID；应核对完整片段能否安全用脚本修改，或使用已授权的界面操作。</p>
@@ -338,7 +341,7 @@
 <h3 id="选择赋值怎样检查">选择赋值怎样检查</h3>
 <p>仅赋值选项和跳转选项分开配置；例如选择“记下线索”后把线索数加 1、继续下一句，应核当前 schema 的 mode、varOps 和变量 key，再核实际值与返回位置。加 1 不能写成设为 1；旧版本保存样本只作线索，不能直接冒充当前版字段依据。</p>
 <h2 id="正式版与beta用法和版本核对">正式版与Beta用法和版本核对</h2>
-<p>每个通道只维护一个当前目标：正式版 <strong>2.5.0</strong>、Beta <strong>2.6.0-beta.1</strong>。2026-10-10读取官方两通道清单确认；本机仍须单独核对实际版本。旧版、未来版本或通道冲突标 UNKNOWN，只暂停依赖该版本结论的工作，讨论、草稿和通用检查继续，不自动升级引擎。</p>
+<p>每个通道只维护一个当前目标：正式版 <strong>2.5.0</strong>、Beta <strong>2.7.0-beta.1</strong>。2026-10-11读取官方两通道清单确认；本机仍须单独核对实际版本。旧版、未来版本或通道冲突标 UNKNOWN，只暂停依赖该版本结论的工作，讨论、草稿和通用检查继续，不自动升级引擎。</p>
 <h3 id="按当前任务查能力">按当前任务查能力</h3>
 <table>
 <thead>

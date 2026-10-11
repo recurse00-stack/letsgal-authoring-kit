@@ -24,7 +24,7 @@
     },
     {
       "path": "references/current-capabilities.md",
-      "sha256": "e6d289e17a95a1b42dda124afba41dae846b7953ffb15e8118d2d97dec386bde"
+      "sha256": "a91622af96f89bd5e9a1ccd50e276da8eb63c0df072ecea3d36bdcbb158cea66"
     },
     {
       "path": "references/customization.md",
@@ -40,7 +40,7 @@
     },
     {
       "path": "references/mcp-workflow.md",
-      "sha256": "50cecb28e10fa19790dd70677bc67f4dfb6d43e3c50d35ae7d4bbe2d551e4429"
+      "sha256": "245de86b85ccdec756d5375b63ec7bc1c5a89bab7fea1dadb6b0adb8af1b5629"
     },
     {
       "path": "references/plugin-skills.md",
@@ -64,7 +64,7 @@
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "3a8cc038b29a9cd1f6fbdecb182e15168b1e7a4e72569c37d68171e637bb2f4c"
+      "sha256": "8694c508155fc79df83d5ab6e96eb8d00f4d39c43b799587488225787eb781f0"
     },
     {
       "path": "scripts/check_project.py",
@@ -72,11 +72,11 @@
     },
     {
       "path": "scripts/inspect_version.py",
-      "sha256": "633bc9b30d95ac613bf2bc7cac9c0d1d5d89a0dc4229e1eaab90e2e30068245a"
+      "sha256": "17fbe7d8b062306f453c00d24d496e4fd0d61e0633701b444ef967bfdd592bb0"
     },
     {
       "path": "SKILL.md",
-      "sha256": "538aa9c1b6032d1a8370de50c23af3bd6cb35a1dc02b936dac3edc6dbfa0cc13"
+      "sha256": "473326f8d7469c5e90537e85e23dd434aad25da778c487660f1741fd357a3eab"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -87,5 +87,5 @@
       "sha256": "6a24accc53747f475c4c9fb4aac24923927b168c7bdfb6d5107c0ca49c791b5c"
     }
   ],
-  "revision": "20261010-reviewed-guides"
+  "revision": "20261011-beta270-guides"
 }

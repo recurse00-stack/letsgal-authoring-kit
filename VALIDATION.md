@@ -1,28 +1,24 @@
 # 当前修订的验证范围
 
-**0.2.1 · 20261010-reviewed-guides 发行修订。** 本轮补齐指引、修正安装提示与修订收据，并复核两通道交付；没有新增模型对照、真实工程写入、原生界面、玩家、存读档或导出测试。
+**0.2.1 · 20261011-beta270-guides 发行修订。** 更新 Beta 2.7.0-beta.1 相关指引和精确版本路由，正式版目标仍为2.5.0。
 
 | 部分 | 状态 | 检查范围 |
 | --- | --- | --- |
-| Skill本体 | changed | 补回行内超链接／背景建场景；入口直达通道执行流程；元数据、共享文件、引用和版本边界 |
-| 辅助安装程序 | changed | 同号内容差异与修订显示、旧收据兼容、新收据、完整备份及重复导入 |
-| 安装与升级说明 | changed | 内容不同不等于更新、未标注修订不猜先后；参数与保留机制 |
-| 人类手册 | changed | 两通道独立维护、UNKNOWN工作范围、历史实测口径；Markdown／HTML同步 |
+| Skill本体 | changed | Beta语言配音、MCP设置、SDK语义与当前版本路由；Stable正文和14份共享文件原字节保留，仅同步修订元数据 |
+| 辅助安装程序 | verified-unchanged | 安装器代码与已发布修订原字节一致，复用原64项隔离安装／提示检查；本轮另对完整修订包做通道安装检查 |
+| 安装与升级说明 | changed | 明确当前完整包与旧附件；选择一份通道安装，备份旧安装并保留个人区 |
+| 人类手册 | changed | Beta 2.7操作边界与版本核对；Markdown／HTML同步 |
 
-本轮隔离检查分别为：11项同号修订与提示函数、22项通道安装及路由、31项旧包升级与只读预览。使用完整包和隔离用户目录；GUI文字函数使用替代控件验证，没有实际点击窗口或验收排版。版本文字已配置自动换行，实际视觉体验未另测。
+本轮重新运行56项版本路由检查，覆盖2.7.0-beta.1、旧2.6 Beta、正式版、未知未来版本、通道冲突与参数契约；版本选择仅证明资料路由，不证明引擎兼容。完整包另做22项隔离安装／通道检查，复用既有安装器行为用例。
 
-同通道文件完整但不同的安装状态为replacement_available，不再用update_available推断更新方向；Check增加bundle_revision／installed_revision。旧包或收据未标注时返回空值、界面明确显示未知修订。历史发行安装器保持原样，不因本修订自动改变。
+官方清单、2.7随包SDK声明、当前工具schema和只读状态分别作为资料依据。本修订仅作状态与声明核对，未取得新版quickstart、读取或写入工程、操作原生界面、运行模型任务或测试玩家／存读档／导出。后续制作按当前获准连接刷新指导。
 
-只读版本工具仍仅登记正式版2.5.0与Beta2.6.0-beta.1；代码、参数、JSON与退出码不变。上轮50项资料路由证据复用，只证明资料选择；本轮通道检查另含4个宿主路由案例。14份共享文件一致，两份载荷独立。JSON检查器和风险说明保持原字节。
-
-按release-files白名单构建并核对bundle、SHA、ZIP内容、隐私和统一发行口吻，功能、文件安装与网络发布分别核对；旧候选及初版0.2.1材料保留。链接／锚点与HTML生成检查不冒充浏览器视觉验收。
+包按release-files白名单核对载荷、共享文件、链接／锚点、HTML、SHA和ZIP逐文件读回；格式与文件一致性不冒充视觉或宿主通过。
 
 ## 沿用的证据与限制
 
-此前2.5.0有限宿主、2.6.0-beta.1有界MCP和模型证据继续保留原范围，见[宿主摘要](HOST-VALIDATION.md)。历史完整材料见[已发布0.2.1](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.1)。
+此前2.5.0有限宿主、2.6.0-beta.1有界MCP和模型证据继续保留原范围，见[宿主摘要](HOST-VALIDATION.md)。原64项隔离安装／提示组件检查不冒充本次新测，历史凭证见[已发布0.2.1](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.1)。
 
-此前小样本在部分工具选择、批量操作及恢复检查上受益，也存在漏检、错误完成和部分采用不准。第二阶段未通过保留门槛的实验规则已撤回，不能推出统一提升比例、稳定提速、token节省或弱模型必然受益更多。
+此前小样本只支持部分工具选择、批量操作与恢复检查的改善；也存在漏检、错误完成和部分采用不准。未通过门槛的实验规则保持撤回，不宣称统一提速、token节省或弱模型必然更受益。结构化结果见[validation-results.json](validation-results.json)。
 
-本轮减少资料拼接与误用入口属于**设计预期，没有新增效果测量**。文字质量和工程正确性分别判断；旧版／未来版本、所有Agent、恢复能力的全部范围及所有平台不因这些检查变为通过。结构化摘要见[validation-results.json](validation-results.json)。
-
-本修订源码同步到main，原v0.2.1标签仍指向初版；发布页新增独立命名的完整包和[下载核验记录](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.1/DOWNLOAD-VERIFICATION-0.2.1-20261010-reviewed-guides.json)。GitHub自动生成的Source code附件对应初版标签，安装本修订请使用带20261010-reviewed-guides的完整ZIP。文件下载成功不增加宿主或模型验收范围。
+本修订源码同步到main，原v0.2.1标签仍指向初版；发布页新增独立命名的完整包和[下载核验记录](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.1/DOWNLOAD-VERIFICATION-0.2.1-20261011-beta270-guides.json)。GitHub自动生成的Source code附件对应初版标签，安装本修订请使用带20261011-beta270-guides的完整ZIP。实际下载核验以该独立凭证为准，不增加宿主或模型验收范围。

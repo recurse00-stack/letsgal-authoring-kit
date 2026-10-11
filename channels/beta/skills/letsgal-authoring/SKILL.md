@@ -4,12 +4,12 @@ description: 在 LetsGal Studio 中协作制作剧情、分支、变量、素材
 metadata:
   version: 0.2.1
   channel: beta
-  revision: 20261010-reviewed-guides
+  revision: 20261011-beta270-guides
 ---
 
 # LetsGal Beta创作协作
 
-当前维护宿主 **2.6.0-beta.1**，Skill发行号独立。优先使用已获准的官方MCP；未接入时先简短推荐并说明当前回退方式，不自动注册或改权限。 本Skill不包含引擎、模型或MCP，不因安装而升级工程。
+当前维护宿主 **2.7.0-beta.1**，Skill发行号独立。优先使用已获准的官方MCP；未接入时先简短推荐并说明当前回退方式，不自动注册或改权限。 本Skill不包含引擎、模型或MCP，不因安装而升级工程。
 
 ## 从当前任务开始
 
@@ -21,6 +21,7 @@ metadata:
 | 几句对白／同目标批量修改 | [Beta执行流程](references/mcp-workflow.md)：定位目标和邻近上下文，精确修改后读回 |
 | 选项、变量、跨章与分支 | [制作](references/production.md)＋用到的[当前能力](references/current-capabilities.md)；核相关引用与真实状态 |
 | 字段／序列化／格式排错 | [JSON](references/json.md)，从问题对象扩大范围 |
+| 多语言配音 | [当前能力](references/current-capabilities.md#多语言配音)：先选语言槽与目标对白，保留原声及其他语言 |
 | 扩展与插件 | [开发](references/extensions.md)或[插件知识](references/plugin-skills.md)，只核相关SDK与真实对象 |
 
 版本相关操作按[版本边界](references/version-compatibility.md)核宿主和通道；未知只暂停依赖该事实的部分。已有效确认的信息可复用，换工程、重连、宿主变化或冲突时刷新；新能力或资料缺失才[定向查证](references/research.md)，不默认读完全部专题。

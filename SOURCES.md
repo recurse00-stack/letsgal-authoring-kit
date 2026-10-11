@@ -1,6 +1,8 @@
 # 资料来源与范围
 
-本指南依据官方资料、目标样本与注明版本的有限观察独立编写。2026-10-10读取[正式版清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)和[Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)，当前维护目标分别为2.5.0和2.6.0-beta.1。清单不证明本机安装或运行验收；本修订没有新增宿主和模型测试。
+本指南依据官方资料、目标样本与注明版本的有限观察独立编写。2026-10-11读取[正式版清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)和[Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)，当前维护目标分别为2.5.0和2.7.0-beta.1。清单不证明本机安装或运行验收；本修订没有新增宿主和模型测试。
+
+2.7.0-beta.1 的差异依据为官方 Beta 清单公告（Windows 发布时刻 2026-10-11T12:22:07.721Z）、该版本随包 SDK 的 `sdk-context.ts`、`extension-method.ts`、`types/block-schema.ts`、`types/schema.ts`，以及当前 MCP 的 `voice_edit`、`ext_settings_set` schema。核到了语言槽、长文本 expected 哈希、检查器布局、舞台位置及恢复标记的声明；未将这些声明写成运行通过。当前文档站仍主要描述正式版，新版 quickstart 需按实际获准连接刷新。
 
 ## 按任务查阅
 

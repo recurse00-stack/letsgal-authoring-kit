@@ -38,9 +38,9 @@ Cursor 也支持 `.cursor/skills`，Copilot 也有 `.copilot/skills`（个人）
 
 ## 当前引擎资料路由
 
-两份载荷各有只读版本工具：[正式版](channels/stable/skills/letsgal-authoring/scripts/inspect_version.py)只登记2.5.0，[Beta](channels/beta/skills/letsgal-authoring/scripts/inspect_version.py)只登记2.6.0-beta.1。旧版、未来版本、通道不符、缺失和冲突返回UNKNOWN；讨论及通用工作继续，不推定兼容或自动升级。命令参数、JSON输出与退出码约定保留。SDK指纹和资料路由不等于运行通过，见[验证范围](VALIDATION.md)。主Skill不嵌套为自己的插件。
+两份载荷各有只读版本工具：[正式版](channels/stable/skills/letsgal-authoring/scripts/inspect_version.py)只登记2.5.0，[Beta](channels/beta/skills/letsgal-authoring/scripts/inspect_version.py)只登记2.7.0-beta.1。旧版、未来版本、通道不符、缺失和冲突返回UNKNOWN；讨论及通用工作继续，不推定兼容或自动升级。命令参数、JSON输出与退出码约定保留。SDK指纹和资料路由不等于运行通过，见[验证范围](VALIDATION.md)。主Skill不嵌套为自己的插件。
 
-0.2.1 的20261010-reviewed-guides修订将有效知识融合为当前专题，历史材料在维护归档和旧Release；本修订在原0.2.1发布页追加独立附件，初版附件和标签不变。
+0.2.1 的20261011-beta270-guides在原发布页追加独立完整包；更新 Beta 2.7 相关指引和路由，正式版目标仍为2.5.0。原标签和旧附件保留，安装当前修订请使用发布页置顶的新完整包；新功能没有新增运行验收。
 
 ## DSH
 

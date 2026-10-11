@@ -62,7 +62,7 @@ def run(bundle,scratch,previous=None):
         oldtarget=oldhome/'.agents/skills/letsgal-authoring';old=hashes(oldtarget)
         record('old combined fixture installed through its original installer',code==0 and bool(old),data)
         code,data,err=call('beta',user=oldhome);record('old combined to selected Beta backs up original',code==0 and installed('beta',oldtarget) and hashes(Path(data['backup']))==old,data)
-    for ch,correct,wrong in [('stable','2.5.0','2.6.0-beta.1'),('beta','2.6.0-beta.1','2.5.0')]:
+    for ch,correct,wrong in [('stable','2.5.0','2.7.0-beta.1'),('beta','2.7.0-beta.1','2.5.0')]:
         inspector=bundle/f'channels/{ch}/skills/letsgal-authoring/scripts/inspect_version.py'
         for version,want in [(correct,0),(wrong,2)]:
             p=subprocess.run([sys.executable,'-B',str(inspector),'--studio-version',version],capture_output=True)

@@ -1,36 +1,56 @@
 {
   "version": "0.2.1",
-  "revision": "20261010-reviewed-guides",
-  "status": "functional-validation-passed; publication-evidence-separate",
+  "revision": "20261011-beta270-guides",
+  "status": "targeted-checks-passed; publication-evidence-separate",
   "parts": {
     "skill": "changed",
-    "installer_code": "changed",
+    "installer_code": "verified-unchanged",
     "installer_instructions": "changed",
     "human_manual": "changed",
     "missing": []
   },
   "checks": {
-    "same_version_revision_and_GUI_text_functions": 11,
-    "channel_installation": 22,
-    "previous_release_and_read_only_preview": 31
+    "status": "PASS",
+    "version_routes": 56,
+    "channel_installer_checks": 22,
+    "local_links_and_anchors": 177,
+    "manual_html_matches_markdown": true,
+    "installer_code_unchanged_files": 9,
+    "shared_files_unchanged": 14,
+    "stable_payload_change": "revision metadata only",
+    "new_host_runtime": "NOT_RUN"
   },
-  "scope": "Isolated complete-package CLI installation and actual GUI text functions with stub controls; no native GUI interaction. Packaging and local synchronization have separate receipts.",
   "reused_evidence": {
-    "version_routing": "Previous revision 50 checks; selector code unchanged; channel regression includes four host-route cases.",
-    "runtime": "Historical host and model evidence retains original version and sample boundaries."
+    "revision": "20261010-reviewed-guides",
+    "isolated_installer_checks": 64,
+    "runtime": "Historical 2.5 and 2.6 observations retain original scope"
   },
   "new_model_comparison": "NOT_RUN",
   "new_host_writes": "NOT_RUN",
   "new_native_UI": "NOT_RUN",
   "new_player_save_export": "NOT_RUN",
-  "efficiency": "Design expectation only; no new performance measurement",
-  "publication": {
+  "source_evidence": [
+    "Official channel manifests",
+    "2.7.0-beta.1 shipped SDK declarations",
+    "Current MCP schemas; status read only"
+  ],
+  "previous_publication": {
     "version": "0.2.1",
     "revision": "20261010-reviewed-guides",
     "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.1",
     "source": "main; exact commit in download receipt",
     "tag": "original v0.2.1 retained",
     "downloads": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.1/DOWNLOAD-VERIFICATION-0.2.1-20261010-reviewed-guides.json",
+    "old_assets": "retained",
+    "workshop": "not-applicable"
+  },
+  "publication": {
+    "version": "0.2.1",
+    "revision": "20261011-beta270-guides",
+    "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.1",
+    "source": "main; exact commit in download receipt",
+    "tag": "original v0.2.1 retained",
+    "downloads": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.1/DOWNLOAD-VERIFICATION-0.2.1-20261011-beta270-guides.json",
     "old_assets": "retained",
     "workshop": "not-applicable"
   },

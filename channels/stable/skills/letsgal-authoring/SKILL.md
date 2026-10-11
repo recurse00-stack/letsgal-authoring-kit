@@ -4,7 +4,7 @@ description: 在 LetsGal Studio 中协作制作剧情、分支、变量、素材
 metadata:
   version: 0.2.1
   channel: stable
-  revision: 20261010-reviewed-guides
+  revision: 20261011-beta270-guides
 ---
 
 # LetsGal 正式版创作协作
