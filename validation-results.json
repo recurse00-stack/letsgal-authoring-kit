@@ -1,6 +1,6 @@
 {
-  "version": "0.2.1",
-  "revision": "20261011-beta270-guides",
+  "version": "0.2.2",
+  "revision": "20261013-beta271-guides",
   "status": "targeted-checks-passed; publication-evidence-separate",
   "parts": {
     "skill": "changed",
@@ -11,40 +11,20 @@
   },
   "checks": {
     "status": "PASS",
-    "version_routes": 56,
+    "version_routes": 62,
     "channel_installer_checks": 22,
-    "local_links_and_anchors": 177,
+    "local_links_and_anchors": 178,
     "manual_html_matches_markdown": true,
     "installer_code_unchanged_files": 9,
     "shared_files_unchanged": 14,
-    "stable_payload_change": "revision metadata only",
+    "stable_payload_change": "version and revision metadata only",
+    "skill_format_checks": 2,
     "new_host_runtime": "NOT_RUN"
-  },
-  "reused_evidence": {
-    "revision": "20261010-reviewed-guides",
-    "isolated_installer_checks": 64,
-    "runtime": "Historical 2.5 and 2.6 observations retain original scope"
   },
   "new_model_comparison": "NOT_RUN",
   "new_host_writes": "NOT_RUN",
-  "new_native_UI": "NOT_RUN",
   "new_player_save_export": "NOT_RUN",
-  "source_evidence": [
-    "Official channel manifests",
-    "2.7.0-beta.1 shipped SDK declarations",
-    "Current MCP schemas; status read only"
-  ],
   "previous_publication": {
-    "version": "0.2.1",
-    "revision": "20261010-reviewed-guides",
-    "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.1",
-    "source": "main; exact commit in download receipt",
-    "tag": "original v0.2.1 retained",
-    "downloads": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.1/DOWNLOAD-VERIFICATION-0.2.1-20261010-reviewed-guides.json",
-    "old_assets": "retained",
-    "workshop": "not-applicable"
-  },
-  "publication": {
     "version": "0.2.1",
     "revision": "20261011-beta270-guides",
     "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.1",
@@ -54,10 +34,19 @@
     "old_assets": "retained",
     "workshop": "not-applicable"
   },
+  "publication": {
+    "version": "0.2.2",
+    "revision": "20261013-beta271-guides",
+    "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.2",
+    "source": "main and v0.2.2; exact commit in download receipt",
+    "downloads": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.2/DOWNLOAD-VERIFICATION-0.2.2.json",
+    "old_assets": "retained",
+    "workshop": "not-applicable"
+  },
   "publication_changes": {
     "skill": "verified-unchanged",
     "installer_code": "verified-unchanged",
-    "installer_instructions": "changed: revision download links",
+    "installer_instructions": "changed: version download links",
     "human_manual": "changed: publication status and download guidance",
     "new_host_or_model_tests": false
   }

@@ -11,7 +11,7 @@ from check_project import safe_path
 
 VERSION = re.compile(r'(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?')
 SKILL_CHANNEL = 'beta'
-PROFILES = {'2.7.0-beta.1': 'references/current-capabilities.md'}
+PROFILES = {'2.7.1-beta.1': 'references/current-capabilities.md'}
 SDK_FILES = ('constants.ts','index.ts','sdk-context.ts','extension-module.ts','extension-method.ts',
              'save-schema.ts','schedule-strategy.ts','internal-system-slots.ts')
 

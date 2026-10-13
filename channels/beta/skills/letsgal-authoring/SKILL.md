@@ -2,14 +2,14 @@
 name: letsgal-authoring
 description: 在 LetsGal Studio 中协作制作剧情、分支、变量、素材与扩展，修改既有内容并排查格式和流程；一般创作讨论不自动变成工程写入。
 metadata:
-  version: 0.2.1
+  version: 0.2.2
   channel: beta
-  revision: 20261011-beta270-guides
+  revision: 20261013-beta271-guides
 ---
 
 # LetsGal Beta创作协作
 
-当前维护宿主 **2.7.0-beta.1**，Skill发行号独立。优先使用已获准的官方MCP；未接入时先简短推荐并说明当前回退方式，不自动注册或改权限。 本Skill不包含引擎、模型或MCP，不因安装而升级工程。
+当前维护宿主 **2.7.1-beta.1**，Skill发行号独立。优先使用已获准的官方MCP；未接入时先简短推荐并说明当前回退方式，不自动注册或改权限。 本Skill不包含引擎、模型或MCP，不因安装而升级工程。
 
 ## 从当前任务开始
 
@@ -21,6 +21,7 @@ metadata:
 | 几句对白／同目标批量修改 | [Beta执行流程](references/mcp-workflow.md)：定位目标和邻近上下文，精确修改后读回 |
 | 选项、变量、跨章与分支 | [制作](references/production.md)＋用到的[当前能力](references/current-capabilities.md)；核相关引用与真实状态 |
 | 字段／序列化／格式排错 | [JSON](references/json.md)，从问题对象扩大范围 |
+| 游戏语言与蓝图排布 | [当前能力](references/current-capabilities.md#游戏语言与蓝图)：显示与配音独立设置，画布排布不改变剧情语义 |
 | 多语言配音 | [当前能力](references/current-capabilities.md#多语言配音)：先选语言槽与目标对白，保留原声及其他语言 |
 | 扩展与插件 | [开发](references/extensions.md)或[插件知识](references/plugin-skills.md)，只核相关SDK与真实对象 |
 

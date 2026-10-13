@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "channel": "stable",
   "profile_schema": 1,
   "files": [
@@ -64,7 +64,7 @@
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "d1d64989d81a6380f620c195352a89c67559c24525d86b0c65ff97f57f695fb1"
+      "sha256": "ef26cef9e70edf1486e35f988d67c5e15a4dd4fe72a6402e43eceb43b3b872d2"
     },
     {
       "path": "scripts/check_project.py",
@@ -76,7 +76,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "c4a452492992007bccfccd5aba4891eabe29cc793085d189328b74288372c814"
+      "sha256": "5347947c3851a379a8f9c046ceca9c0969ba7b63d43c06722a84ea2b9886529d"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -87,5 +87,5 @@
       "sha256": "6a24accc53747f475c4c9fb4aac24923927b168c7bdfb6d5107c0ca49c791b5c"
     }
   ],
-  "revision": "20261011-beta270-guides"
+  "revision": "20261013-beta271-guides"
 }

@@ -1,5 +1,5 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LetsGal Authoring Kit 0.2.1 · 使用手册</title><style>body{max-width:960px;margin:36px auto;padding:0 20px;font:17px/1.75 system-ui,sans-serif;color:#243044;background:#fafbfc}h1,h2,h3{color:#12233e}a{color:#1556aa}table{border-collapse:collapse;width:100%;margin:20px 0}td,th{border:1px solid #ccd4df;padding:8px;text-align:left}th{background:#edf2f8}pre{overflow:auto;padding:16px;background:#eaf0f6;border-radius:8px}code{font-family:Consolas,monospace}blockquote{border-left:4px solid #7aa0cc;margin:16px 0;padding:4px 16px;background:#f0f5fa}</style></head><body><h1 id="使用手册">使用手册</h1>
-<p>本手册对应 <strong>0.2.1 · 20261011-beta270-guides 发行修订</strong>。正式版当前维护2.5.0，Beta当前维护2.7.0-beta.1，安装时只选一份。<a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.1/letsgal-authoring-kit-0.2.1-20261011-beta270-guides.zip">下载本修订完整包</a>，完整解压后安装。原标签和旧附件保留；GitHub自动生成的Source code对应初版标签，安装本修订请使用带 <code>20261011-beta270-guides</code> 标识的完整ZIP。可打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读。</p>
+<p>本手册对应 <strong>0.2.2 · 20261013-beta271-guides</strong>。正式版当前维护2.5.0，Beta当前维护2.7.1-beta.1，安装时只选一份。<a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.2/letsgal-authoring-kit-0.2.2.zip">下载本版完整安装包</a>，完整解压后安装。旧发行材料保留。可打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读。</p>
 <h2 id="这个包能做什么">这个包能做什么</h2>
 <p><code>letsgal-authoring</code> 是给 AI 编程工具读取的社区 Skill。它教 AI 查找 LetsGal 官方规范、制作剧情与章节 JSON、组织协作和恢复保护（Git 可选），并保护已有作品。它不包含引擎、模型账号或 MCP，也不会给聊天工具凭空增加文件访问能力。</p>
 <p>导入器只导入本包的 LetsGal Skill；“其他 Agent / 指定目录”用于选择 Agent 已配置的技能根目录，不是导入任意第三方 Skill。</p>
@@ -33,7 +33,7 @@
 </tr>
 </tbody>
 </table>
-<p>名称仍为letsgal-authoring，安装目录只保留所选通道；切换时先备份旧版，保留个人区，不改变引擎、MCP配置或权限。界面显示“将使用”和“已装”的通道与版本；同为0.2.1仍可能需要切换。新安装先选择，非交互命令行必须传-Channel stable或-Channel beta，不猜测目标工程通道。</p>
+<p>名称仍为letsgal-authoring，安装目录只保留所选通道；切换时先备份旧版，保留个人区，不改变引擎、MCP配置或权限。界面显示“将使用”和“已装”的通道与版本；同一产品版本仍可能需要切换。新安装先选择，非交互命令行必须传-Channel stable或-Channel beta，不猜测目标工程通道。</p>
 <p>不同通道工程建议分别用项目范围，并核对Agent真实加载优先级；已有全局入口不自动删除。不把安装器运行电脑的Beta当成所有工程的默认。已安装载荷与实际宿主不符时，先提示切换安装并继续无版本依赖工作，不自动改装或升级。</p>
 <h2 id="已有内容草稿与定稿怎样保护">已有内容、草稿与定稿怎样保护</h2>
 <table>
@@ -200,7 +200,7 @@
 </tr>
 </tbody>
 </table>
-<p>当前 2.7.0-beta.1 继续提供官方 MCP，并增加新连接自动批准选项；这不表示所有 Beta 都有它，也不表示正式版以后不能使用。Skill 按当前维护的完整版本选资料，再看当前工具是否真正可用。更新 Skill 不会替你切换引擎、开启服务或改为全放行。</p>
+<p>当前 2.7.1-beta.1 继续提供官方 MCP，并增加新连接自动批准选项；这不表示所有 Beta 都有它，也不表示正式版以后不能使用。Skill 按当前维护的完整版本选资料，再看当前工具是否真正可用。更新 Skill 不会替你切换引擎、开启服务或改为全放行。</p>
 <h3 id="第一次连接">第一次连接</h3>
 <p>操作优先使用官方 MCP。遇到 MCP 尚未提供的界面能力，你可以授权 AI 使用 Computer Use／原生界面控制，在指定应用与工程内继续；已经授权的范围不必每次点击再批准。AI须确认当前窗口、工程和输入状态，避免打断正在编辑的内容。具体能否控制界面取决于 Agent 实际提供的工具。关闭的工具组、只读连接或明确拒绝属于权限限制，一般的“允许操作界面”不会解除它们；Skill 不会自动开权限。</p>
 <p>在 Studio 的 MCP 页面启用服务，复制当前页面的“接入提示词”交给 Agent。Agent 核对实际地址后，将配置合并到自己的用户级设置一次；已有配置直接复用，避免重复添加。需要重新加载 MCP 或重启客户端时按该客户端提示处理，随后先调用状态工具确认。</p>
@@ -341,7 +341,7 @@
 <h3 id="选择赋值怎样检查">选择赋值怎样检查</h3>
 <p>仅赋值选项和跳转选项分开配置；例如选择“记下线索”后把线索数加 1、继续下一句，应核当前 schema 的 mode、varOps 和变量 key，再核实际值与返回位置。加 1 不能写成设为 1；旧版本保存样本只作线索，不能直接冒充当前版字段依据。</p>
 <h2 id="正式版与beta用法和版本核对">正式版与Beta用法和版本核对</h2>
-<p>每个通道只维护一个当前目标：正式版 <strong>2.5.0</strong>、Beta <strong>2.7.0-beta.1</strong>。2026-10-11读取官方两通道清单确认；本机仍须单独核对实际版本。旧版、未来版本或通道冲突标 UNKNOWN，只暂停依赖该版本结论的工作，讨论、草稿和通用检查继续，不自动升级引擎。</p>
+<p>每个通道只维护一个当前目标：正式版 <strong>2.5.0</strong>、Beta <strong>2.7.1-beta.1</strong>。2026-10-13读取官方两通道清单确认；本机仍须单独核对实际版本。旧版、未来版本或通道冲突标 UNKNOWN，只暂停依赖该版本结论的工作，讨论、草稿和通用检查继续，不自动升级引擎。</p>
 <h3 id="按当前任务查能力">按当前任务查能力</h3>
 <table>
 <thead>
@@ -633,7 +633,7 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 </tbody>
 </table>
 <h2 id="更新卸载与恢复">更新、卸载与恢复</h2>
-<p>更新：下载新版完整包，解压到另一个普通目录，再运行 <code>Install.cmd</code>。预览核对本包／已装版本、状态及目标；Codex个人安装沿用唯一已有入口，两处都有时先明确选择，避免另建同名副本。相同安装位置会校验后更新，只有文件与本包一致才不替换；同为0.2.1也可能是不同修订。预览与检查显示已装／本包修订，旧包或收据缺少标识时显示“修订未标注”，不据此推断新旧。个人偏好、插件 Skill 和项目配置原样保留；缺失目录才创建，已有用户文件不重写。旧 Skill 位于所选 <code>skills</code> 目录旁的 <code>.letsgal-authoring-backups</code>，不会作为第二个 Skill 被发现。升级后打开新会话并重新核对实际加载来源，旧会话中的内容不能作为已使用新版的证据。</p>
+<p>更新：下载新版完整包，解压到另一个普通目录，再运行 <code>Install.cmd</code>。预览核对本包／已装版本、状态及目标；Codex个人安装沿用唯一已有入口，两处都有时先明确选择，避免另建同名副本。相同安装位置会校验后更新，只有文件与本包一致才不替换；同一产品版本也可能存在不同候选修订。预览与检查显示已装／本包修订，旧包或收据缺少标识时显示“修订未标注”，不据此推断新旧。个人偏好、插件 Skill 和项目配置原样保留；缺失目录才创建，已有用户文件不重写。旧 Skill 位于所选 <code>skills</code> 目录旁的 <code>.letsgal-authoring-backups</code>，不会作为第二个 Skill 被发现。升级后打开新会话并重新核对实际加载来源，旧会话中的内容不能作为已使用新版的证据。</p>
 <p>如果公共 Skill 被改过，导入器先停止。让 AI 比较原版与改动，将个人部分迁到外部配置；确认后用“备份后继续”。备份保留旧内容，但个人代码改动不会自动合并进新版。不要同时开两个导入窗口更新同一位置。</p>
 <p>卸载：在“更多选项”中选择卸载，或运行 <code>Uninstall.cmd</code>。它将技能移到备份，保留整个用户区（个人偏好、插件 Skill、旧版 user.md）、项目文件与历史备份。</p>
 <p>安装完成时会显示本次旧技能备份路径。日志位于 skills 旁 <code>.letsgal-authoring-backups</code> 的 <code>*-install.json</code>／<code>*-uninstall.json</code>。如果选项或日志保存失败，界面显示“有提示”，保留真实完成结果与旧记录；不要因此删除目录或反复强制覆盖，下次重新核对位置即可。项目内的备份可能带私有特调，提交 Git 前检查排除规则，安装器不修改项目的 .gitignore。</p>
@@ -646,4 +646,9 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 <h2 id="验证范围与反馈">验证范围与反馈</h2>
 <p>Skill 的发布标准是：任务指引可用、关键用法有依据、安装和包完整、说明如实呈现限制。无需先替官方验收整个引擎。用户作品仍按本次使用的功能检查；版本未知时继续不依赖它的工作。</p>
 <p>历史宿主与模型证据保留原版本范围；本轮修改了安装检测提示与修订显示，针对性隔离检查见验证报告；未改的宿主功能及恢复机制复用仍适用的历史证据。当前检查范围见<a href="VALIDATION.md">验证报告</a>，历史宿主摘要见<a href="HOST-VALIDATION.md">宿主范围</a>。</p>
-<p>反馈问题时提供 Skill 版本、Agent、实际 Studio 完整版本／通道、最小复现和脱敏结果。不要上传完整私人作品、账号或未经清理的截图。可到 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/issues">仓库 Issues</a> 提交。</p></body></html>
+<p>反馈问题时提供 Skill 版本、Agent、实际 Studio 完整版本／通道、最小复现和脱敏结果。不要上传完整私人作品、账号或未经清理的截图。可到 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/issues">仓库 Issues</a> 提交。</p>
+<h2 id="271-的语言配音与蓝图">2.7.1 的语言、配音与蓝图</h2>
+<p>游戏设置里，文字显示语言与配音语言可以分别选择，选项取自工程语言；单语言作品会隐藏这两行。Studio 自身界面语言是另一项设置。</p>
+<p>准备多语言录音时，先给原声匹配配音，并核对各语言录音在语音表中的同一编号／键。游戏按所选配音语言寻找对应文件，找不到时回退原声。个别句子需要特殊录音才设置语言覆盖；移除覆盖后恢复语音表匹配，并不表示静音。自动匹配先预演；目标语言已有表对应的行会跳过，缺少有效译文的行保持未匹配。实际试听、语言切换与缺失录音回退需在作品里检查。</p>
+<p>蓝图自动排列调整画布布局，可选择曲线或直角连线；剧情跳转、条件和章节顺序另行管理，不因整理画布改写剧情。章末提示改到右上角小胶囊，不代表完整路线已验收。</p>
+<p>本版界面显示、按钮闪烁和存档截图等运行时修复，需要重新构建已导出的游戏才能带入；自定义存档界面另核截图是否截入窗口自身。这里只说明官方能力与检查方法，不宣称所有作品已验证。</p></body></html>

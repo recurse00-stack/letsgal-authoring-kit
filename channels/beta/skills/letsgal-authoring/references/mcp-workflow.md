@@ -1,6 +1,6 @@
 # Beta执行：官方MCP优先
 
-按实际版本选资料，按当前连接、权限和对象选执行方式；通道不是永久能力开关。MCP 操作 Studio 管理的内容，独立源码／Skill／Git／发行继续原工具。当前维护2.7.0-beta.1。未接入MCP时先简短推荐官方接入并说明当前回退方式；同上下文不重复提醒，不自行安装／注册。正式版使用独立载荷。
+按实际版本选资料，按当前连接、权限和对象选执行方式；通道不是永久能力开关。MCP 操作 Studio 管理的内容，独立源码／Skill／Git／发行继续原工具。当前维护2.7.1-beta.1。未接入MCP时先简短推荐官方接入并说明当前回退方式；同上下文不重复提醒，不自行安装／注册。正式版使用独立载荷。
 
 ## 连接与上下文
 
@@ -30,7 +30,7 @@
 | 同一创作目标的多处修改 | story_edit_blocks 可合并多个 ops／片段，每个受影响片段带对应 baseRevisions；保持批次可审查、可撤销，不把无关目标凑在一起 |
 | 按文字批量替换 | story_replace_text 可能命中文本和可搜索参数；先 dry run 看实际范围及分页，选定 matchIds 后应用，不把同名条件／素材路径顺手替换，也不假定所有字段都会被搜索 |
 | 新增分支或结构 | 结构工具创建对象后使用返回的真实 ID，再写内容；按涉及的变量／角色／引用补读，验证相关路线 |
-| 多语言配音 | voice_edit 的 locale 选择音频语言或对白配音槽，依 op 区分；先预演匹配，带受影响片段的 baseRevisions，保留原声与其他语言，详见[配音](current-capabilities.md#多语言配音) |
+| 多语言配音 | voice_edit 的 locale 选择音频语言或对白配音槽，依 op 区分；常规先绑定原声并核语音表同键对应；locale 为单句语言覆盖，清除覆盖恢复表匹配／原声回退。先预演，带 baseRevisions，保留其他语言，详见[配音](current-capabilities.md#多语言配音) |
 | 扩展长文本设置 | 先 ext_read；返回 valueHash／valueTruncated.hash 时，将该哈希放入 ext_settings_set.changes[].expected.valueHash，并保留 expected.isDefault，不把截断显示当完整旧值。核设置类型、dryRun 和写后读回；冲突重读，不以猜测值覆盖 |
 | 修复错误 | 从错误 location 和关联对象查起；校验给出的 fix 只是建议，核范围及新 revision 后再用 |
 
@@ -77,4 +77,4 @@
 
 完成声明以本次实际操作与读回为准；工程重置或切换后不能沿用旧完成记录。
 
-依据：2.6.0-beta.1 官方指导的既有记录，以及 2.7.0-beta.1 公告、当前服务 instructions 和工具 schema；新版 quickstart 与专题须在当前获准连接按需刷新，旧记录不替代；[官方接入说明](https://docs.avg-engine.com/manual/overview/mcp)。接口依据与实际验收范围见包内验证说明，不表示所有客户端或操作均已实测。
+依据：2.6.0-beta.1 官方指导的既有记录，以及 2.7 系列公告、2.7.1-beta.1 当前服务 instructions 和工具声明；新版 quickstart 与专题须在当前获准连接按需刷新，旧记录不替代；[官方接入说明](https://docs.avg-engine.com/manual/overview/mcp)。接口依据与实际验收范围见包内验证说明，不表示所有客户端或操作均已实测。
