@@ -1,0 +1,30 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LetsGal 多人协作附加 Skill</title>
+<style>body{max-width:860px;margin:48px auto;padding:0 24px;background:#f5f4ef;color:#23313b;font:17px/1.85 system-ui,"Microsoft YaHei",sans-serif}h1{font-size:30px}h2{font-size:22px;margin-top:38px;border-bottom:1px solid #b9c6ca}a{color:#0c6470}code{background:#e6ebeb;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}blockquote{border-left:4px solid #237d8d;background:#eaf0ee;margin:18px 0;padding:12px 20px}li{margin:10px 0}p,li{overflow-wrap:anywhere}</style>
+<main><h1>LetsGal 多人协作附加 Skill 0.1.3</h1>
+<p>本包帮助 AI 在多人实时协作工程里确认自己能改哪里、处理版本冲突、检查保存和预览结果。适用证据为 Studio <strong>2.8.0-beta.1 内测</strong>，不是引擎扩展，也不提供房间服务。Authoring Kit 主包和正式版不需要被覆盖。</p>
+<p><a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3">发布页</a> · <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.3/letsgal-collaboration-0.1.3.zip">协作包 ZIP</a> · <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.3/letsgal-authoring-kit-0.2.3.zip">主包 ZIP</a>。本包源码位于主仓库 <code>addons/letsgal-collaboration/</code>，与主包分别安装。</p>
+<h2>安装</h2>
+<p>需要 Python 3.9+。先运行 <code>python install.py</code> 看安装预览；确认路径后运行 <code>python install.py --apply</code>，也可双击 Windows 的 <code>Install.cmd</code> 查看预览后选择安装。</p>
+<ul><li>已有 <code>letsgal-authoring</code>：进入当前 AI 用户主目录的 <code>.letsgal-authoring/addons/letsgal-collaboration/0.1.3/</code>，维护附加包索引，并在个人偏好末尾增加一个按需读取索引的入口。原偏好／索引改前备份，同版本内容不同则停止，不覆盖。</li><li>没有主 Skill：独立安装到所选 Agent 技能目录的 <code>letsgal-collaboration/</code>，不下载主 Skill。默认检测 Codex，可用 <code>--skills-root</code> 指定其他 Agent 技能目录；用 <code>--user-root</code> 指定该 Agent 实际用户主目录，远程与本机分开。</li><li>默认 Codex 路径遵循 <code>CODEX_HOME/skills</code>，未设置时为用户的 <code>.codex/skills</code>。安装后新聊天是否发现独立技能，须以该客户端实际列表为准；文件复制不能证明自动发现。</li></ul>
+<p>有主 Skill 时不额外注册同名独立 Skill。对 AI 说“用 LetsGal 的多人协作附加包检查当前房间”，主 Skill 经个人偏好读取索引即可。安装器也会给出 SKILL.md 的实际路径，可明确让 AI 读取该文件。</p>
+<p>再次执行同版本安装应返回 UNCHANGED。遇到已有不同内容，保留当前目录，先比较内容并保全原文，再按维护流程处理；未发布候选沿用既定发行号，只记录内部修订，不为绕过安装保护而升号；安装器没有强制覆盖选项。新版本在主包用户区并存，旧版保留。卸载本包时只处理其版本目录、对应索引行和自动入口；保留备份、其他附加包及个人偏好正文，不删除整个用户区。</p>
+<h2>第一次协作</h2>
+<p>在 Studio 的“实时协作”界面完成当前内测账号允许的加入操作，然后告诉 AI：你的昵称、可编辑的章节、这次想完成什么。无需提供口令、邀请密钥或完整账号资料。</p>
+<p>例如：</p>
+<blockquote>我已经加入协作工程。这次只修改我的“雨夜试作”章节，做一个两分钟短篇并预览；其他章节可以阅读，不要修改。先核对当前工程和同步状态。</blockquote>
+<p>昵称与章节的对应已经明确后，不应每次写一句都再确认。房间在线不等于每一章都允许改，选择中的章节也不等于自己的章节。成员占用行时换到获准的其他内容或等对方结束，不强制抢占。</p>
+<h2>遇到问题</h2>
+<p>“版本冲突”通常意味着内容在读取后变化了。让 AI 重读最新内容再应用局部修改；不能只换版本号继续覆盖。预检成功也不保证真正提交成功。</p>
+<p>“未同步”与“未保存”分别检查。让 AI 报告具体状态；不要删掉内容、关闭协作或用旧文件覆盖工程来消除提示。计数归零是本机报告，另一位成员看到了什么需要另外确认。</p>
+<p>预览没有画面时先保持 Studio 可见；锁屏后等解锁。选项不见了时重新读预览位置，从本片段再走一次，不能反复点旧选项。预览会移动本地光标，并运行剧情本身的效果。</p>
+<p>误改时优先撤销这次 AI 自己的操作，并读回目标。全工程历史恢复可能覆盖其他人的新内容，不应拿它恢复一行文字。</p>
+<p> ## 做一个带画面的短篇</p>
+<p>给 AI 一段明确的任务：“只在我的章节中做一个两分钟短篇，使用允许引用的背景和立绘，加入一次选择与一个按钮页面；先列需要新增的共享对象。其他章节保持原样。”</p>
+<p>AI 先核章节、共享资源和范围，再在最新内容上制作。已有角色只作引用时，优先用逐句参数安排表情和移动；新增页面不替换全作品系统页面。验收看实际画面变化、选择终点、按钮动作和返回剧情，不把写入成功当成体验通过。</p>
+<p>通用制作方法由主包维护，附加包补充归属、占用、共享对象和同步判断。两个客户端都能看见并播放新资源，才有对应远端证据；只有本机条件时，应明确只检查了本地结果。</p>
+<h2>版本与验证</h2>
+<p>0.1.3 重构了任务入口、范围／同步和冲突／恢复两份专题；测试过程移到独立的 <a href="VALIDATION.md">验证说明</a>，不要求每次制作先读全部内测记录。</p>
+<p>宿主证据来自 2026-10-20 的 2.8.0-beta.1 有限测试，本次重构没有重复运行房间测试。实际读写、过期提交拒绝、自己的撤销、两个选项到结尾及本地同步状态做过验证；远端收讫、抢占、断网重连、成员管理、Player 和存读档未验收。</p>
+<p>引擎改变时应更新本包版本与受影响合同的验证记录；旧测试不能直接写成新版本通过。本指南不附带包含成员身份和私人章节的内测截图。</p></main></html>

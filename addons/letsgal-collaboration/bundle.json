@@ -1,0 +1,14 @@
+{
+  "name": "letsgal-collaboration",
+  "kind": "skill-addon",
+  "version": "0.1.3",
+  "engine": "2.8.0-beta.1",
+  "channel": "beta",
+  "files": {
+    "agents/openai.yaml": "c47bb588ce01c9ce21c2c5d79e6226b634ec25ba089cd01f5e5fa0df8e75cab0",
+    "LICENSE": "fcef40a59a4b0cdad8c0071be365ab049614791339ee82fac2b0ea6d352df1e1",
+    "references/mcp.md": "ac589a52da48e7f5a21ff2fa1f65df23223a0d795d71ffa4dfcf3d3664b024f7",
+    "references/scope-and-sync.md": "fe28ffb75a1820ad0aaccf0a45ad6f092bce6f0134c949da7c7735a472d83af1",
+    "SKILL.md": "10d96beb34f67ea37b5daea56dc0db120e6281c033b6db6648a67b0cf65399d9"
+  }
+}

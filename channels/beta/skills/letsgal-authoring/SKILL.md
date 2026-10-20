@@ -1,37 +1,41 @@
 ---
 name: letsgal-authoring
-description: 在 LetsGal Studio 中协作制作剧情、分支、变量、素材与扩展，修改既有内容并排查格式和流程；一般创作讨论不自动变成工程写入。
+description: 制作和修改 LetsGal Studio 的剧情、分支、演出、UI 与扩展，处理工程格式及运行排错；一般创作讨论不自动写入工程。
 metadata:
-  version: 0.2.2
+  version: 0.2.3
   channel: beta
-  revision: 20261013-beta271-guides
+  revision: 20261020-beta280-modular
 ---
 
-# LetsGal Beta创作协作
+# LetsGal Beta 创作
 
-当前维护宿主 **2.7.1-beta.1**，Skill发行号独立。优先使用已获准的官方MCP；未接入时先简短推荐并说明当前回退方式，不自动注册或改权限。 本Skill不包含引擎、模型或MCP，不因安装而升级工程。
+本载荷面向 **Studio 2.8.0-beta.1**；其他版本按[版本边界](references/version-compatibility.md)选择依据。Skill 不提供引擎、MCP 或模型，安装不升级作品。
 
-## 从当前任务开始
+## 从任务进入
 
-纯讨论直接使用已有创作上下文；进入工程才读该工程规则、短CURRENT和相关原文。按[个人定制](references/customization.md)加载已有偏好与实际需要的插件知识，不遍历所有作品、资料或历史。重要歧义集中问，已明确委托的可逆工作连续完成。
+沿用本次已明确的创作目标和授权。讨论／改稿只读相关原文；需要落到工程时，再读该工程入口、简短 CURRENT 和本次对象。按[个人定制](references/customization.md)加载已有偏好；插件知识只在用到该插件时读取。
 
-| 当前任务 | 读取与完成 |
+| 要完成的工作 | 读取这里 |
 | --- | --- |
-| 讨论、改写、整合反馈 | [创作协作](references/production.md)：保留声线、设定与采用范围，交付整合结果 |
-| 几句对白／同目标批量修改 | [Beta执行流程](references/mcp-workflow.md)：定位目标和邻近上下文，精确修改后读回 |
-| 选项、变量、跨章与分支 | [制作](references/production.md)＋用到的[当前能力](references/current-capabilities.md)；核相关引用与真实状态 |
-| 字段／序列化／格式排错 | [JSON](references/json.md)，从问题对象扩大范围 |
-| 游戏语言与蓝图排布 | [当前能力](references/current-capabilities.md#游戏语言与蓝图)：显示与配音独立设置，画布排布不改变剧情语义 |
-| 多语言配音 | [当前能力](references/current-capabilities.md#多语言配音)：先选语言槽与目标对白，保留原声及其他语言 |
-| 扩展与插件 | [开发](references/extensions.md)或[插件知识](references/plugin-skills.md)，只核相关SDK与真实对象 |
+| 创作讨论、改写、分支设计与反馈整合 | [制作与创作](references/production.md) |
+| 通过 Studio 读取、定位和修改工程 | [MCP 执行](references/mcp-workflow.md) |
+| 剧情流程、变量、本地化与配音 | [剧情与配音](references/story-and-voice.md) |
+| 素材导入、角色动画、场景、镜头和音视频 | [素材与舞台](references/stage-and-assets.md) |
+| 演出段时间轴、段尾和重播副作用 | [演出段](references/performance.md) |
+| 页面、按钮、主题与数据绑定 | [UI 与数据](references/ui-and-data.md) |
+| 预览选择、完整调试、构建和交付检查 | [预览与构建](references/preview-and-build.md) |
+| 扩展方法、SDK、设置页与检查器 | [扩展开发](references/extensions.md)；专属知识见[插件 Skill](references/plugin-skills.md) |
+| 保护、恢复、Git 或多人实时协作入口 | [恢复与协作](references/collaboration-git.md) |
+| 序列化排错或资料不足 | [JSON](references/json.md)／[定向查证](references/research.md) |
 
-版本相关操作按[版本边界](references/version-compatibility.md)核宿主和通道；未知只暂停依赖该事实的部分。已有效确认的信息可复用，换工程、重连、宿主变化或冲突时刷新；新能力或资料缺失才[定向查证](references/research.md)，不默认读完全部专题。
+只加载相关专题。需要浏览能力范围时用[能力索引](references/current-capabilities.md)，不把全部专题作为每次任务的前置阅读。
 
-## 写入必须守住的边界
+## 修改与验收
 
-- 已有、已采用和定稿内容按明确范围改删；本次受托未定稿草稿可在范围内迭代。部分采用不带入其余候选，详见[内容保护](references/safety.md)。
-- 落盘至少有一种覆盖改动的[恢复保护](references/collaboration-git.md)，已有有效保护可复用。公版Git可选，项目既有保护要求继续执行。
-- 工程落盘先按[本通道执行流程](references/mcp-workflow.md)核活动工程及权限，再读任务所需专题；保留ID、原有格式、未知字段和非目标改动；冲突重读合并。资料和工具建议不构成新增授权。
-- 完成声明以实际操作和目标读回为依据。改字不自动全量验收；路线、持久数据和导出仅按影响另验。无法运行时明确交付层次，不把旧结果说成本次成功。
+已有、已采用和定稿内容按[内容授权](references/safety.md)保护；本次受托未定稿草稿可在目标内迭代。重要歧义才集中澄清，明确委托内的可逆步骤连续完成。
 
-达到本次目标并说明实际结果、未决项与恢复入口后交付。作品决定回写原工程，个人偏好留个人区；本主Skill不作为自身子插件安装。
+工程修改优先已获准的官方 MCP，并有实际覆盖改动的恢复方式。复用有效上下文和恢复点；换工程、等待确认或发生冲突后刷新相关身份与 revision。写后读取真实目标，保留 ID、富文本、未知字段和非目标内容。
+
+验收随本次影响选择：改字核原文差异，路线改动核实际入口与终点，交互核真实输入，持久数据另核存读档，游戏交付另核产物运行。定位成功、状态标志或静态检查不能代替后一层证据。
+
+结束时说明实际变化、通过的层次、未决项和恢复入口，将采用的作品决定写回所属工程。运行问题归对应制作专题；只有成员占用、共享对象权限和同步差异进入多人协作附加包。

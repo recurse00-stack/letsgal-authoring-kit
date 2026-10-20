@@ -1,0 +1,4 @@
+interface:
+  display_name: "LetsGal 多人协作"
+  short_description: "核对多人协作编辑范围，处理占用与版本冲突并验证本地同步和剧情预览"
+  default_prompt: "使用 $letsgal-collaboration 在当前多人协作工程中完成已授权的章节编辑与验证。"

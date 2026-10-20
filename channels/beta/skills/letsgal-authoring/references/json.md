@@ -1,43 +1,42 @@
-# 章节数据与局部修改
+# JSON 与离线检查
 
-本页用于字段、序列化与离线检查；进入写入前先按本通道执行流程确认目标状态与权限。磁盘章节、MCP脚本、编译OP、内置AI协议和导入文本不是同一种格式。MCP的富文本读写与分页规则以其执行专题为准，不把显示文本当作原始序列化。
+先区分磁盘章节、MCP 脚本、编译 OP、内置 AI 协议和导出文本，它们不能直接互换。活动工程按[MCP 流程](mcp-workflow.md)修改；离线写文件须先保存并关闭目标工程。显示文本与富文本原序列化的区别也见该流程。
 
-## 定位与结构
+## 目标结构
 
-按目标读取相关章／片段／块及实际用到的角色、场景和变量；典型文件为chapters/*.json、characters.json、scenes.json、project.variables.json，以当前作品为准。已知目标不重扫整个目录，不用显示名猜UUID。
+只读相关章／片段／块和用到的角色、场景、变量。典型文件为 chapters/*.json、characters.json、scenes.json、project.variables.json，真实结构以目标工程为准；不按显示名猜 UUID。
 
-普通章节文件名与顶层name一致，至少有一个Fragment，第一项名为main，blocks按序执行，空blocks数组可作骨架。保留已有章／片段／Block ID；新结构通过当前执行方式取得合法ID。新磁盘Block按该格式可省略ID，缺ID不允许拿序号冒充MCP块ID。
+普通章节文件名与顶层 name 一致，至少有一个 Fragment，第一项名为 main，blocks 按序执行，空数组可作骨架。已有章／片段／块 ID 保留；MCP 新结构用返回的真实 ID。磁盘格式允许新块省略 ID，不表示可以拿序号充当 MCP 块 ID。
 
-新增普通章登记既有chapterOrder并核chapterTreeOrder及真实调度，保留目录和原入口，不覆盖整个project.json。kind为schedule-preprocessing的前处理不加入普通章顺序；普通章省略kind，不猜normal或补null。[JSON参考](https://docs.avg-engine.com/reference/script-json) · [章节调度](https://docs.avg-engine.com/advanced/chapter-scheduling)
+新增普通章登记已有 chapterOrder，并核 chapterTreeOrder 与真实调度，保留其他索引及入口。kind 为 schedule-preprocessing 的前处理不加入普通章顺序；普通章省略 kind，不猜 normal 或补 null。[JSON 参考](https://docs.avg-engine.com/reference/script-json) · [章节调度](https://docs.avg-engine.com/advanced/chapter-scheduling)
 
-## 字段保真
+## 序列化与保真
 
-| 内容 | 保留／生成方式 |
+| 内容 | 规则 |
 | --- | --- |
-| props、片段metadata | 对象，保留未知配置，不整体转字符串 |
-| 对白content | 内联项数组；从原项修改目标text，保留styles、非文字项、格式／停顿／变量／动作标记，不改成props.text |
-| branch.choices、if.conditions | 外层参数是JSON字符串；用序列化器编码内部数组，不直接存数组 |
-| 布尔／数字参数 | 按各字段类型或目标样本处理，不能全局转换字符串标量 |
-| setver、varOps | UI名Setvar与磁盘setver区分；varOps自身为数组，按实际运算符保留赋值／增量语义 |
-| 扩展方法参数 | 核真实schema，区分字面量、变量引用、条件与普通调用 |
+| props、片段 metadata | 对象；保留未知配置，不整体转字符串 |
+| 对白 content | 内联数组，改目标 text 并保留 styles／非文字项／控制标记，不移到 props.text |
+| branch.choices、if.conditions | 磁盘外层参数为 JSON 字符串，用序列化器编码内部数组，不直接存数组 |
+| 布尔／数字 | 按具体字段或当前样本判断，不全局转换字符串标量 |
+| setver、varOps | UI 名 Setvar 与磁盘 setver 区分；varOps 自身为数组，保留赋值／增量运算语义 |
+| 扩展参数 | 按真实声明区分字面量、变量与条件；[校验缺口](extensions.md#参数与校验)不能由 JSON 语法检查弥补 |
+| 演出时序 | MCP update 操作层的 segmentStart／segmentHold 写到块 props；insert 的块顶层不沿用操作层字段，写后核实际 props。毫秒数与脚本秒数区分 |
 
-缺省、空字符串和null不同，不批量补默认值或清空未知字段。已存在的空旁白可有缺content的历史保存形态，先保留；新生成文本按当前规范写内联数组，不把这一例外推广到所有指令。配音绑定保留不表示旧录音已随新台词更新。
+缺省、空字符串和 null 不同，不批量补默认值。历史空旁白可能没有 content，先保留；新文本仍按规范写内联数组，不把历史例外推广到所有指令。
 
-## 选项、调用与条件
+## 引用与控制流
 
-branch的jump选项调用片段后回流，vars选项执行变量操作；新生成时显式mode。不能把卡片变量模式和跳转模式随意叠加，或给Fragment猜加next。空目标是否继续按当前样本处理，不作为生成缺失引用的捷径。[分支](https://docs.avg-engine.com/manual/writing/blocks/branch)
+branch 的 jump 选项调用同章片段并回流，vars 执行变量操作；新生成显式 mode，不随意叠加两种模式或给 Fragment 猜 next。空目标按当前 schema／样本处理，不能作为生成缺失引用的捷径。[分支](https://docs.avg-engine.com/manual/writing/blocks/branch)
 
-callFragment的main目标在官方执行模型与调用片段手册间存在描述冲突；既有引用不一律判错。新内容默认普通非main、无环复用片段；明确需要main时核当前入口证据。branch／if不能套用callFragment的观察。文档“最多30层”不保证递归循环行为，避免用自调用实现循环菜单。[调用片段](https://docs.avg-engine.com/manual/writing/blocks/call-fragment)
+当前 callFragment 字段要求同章已存在片段 ID，子流程结束后返回。自调用在转换期最多静态展开 30 层，不支持按运行时条件退出的真递归；这是当前宿主契约，不是运行兼容测试。不要将旧检查器对 main／环／深度的提示直接判成现有内容无效，也不要自动改写这些引用。If 的复用与变量语义见[制作能力](story-and-voice.md#剧情变量与流程)。
 
-If不是持续监听，历史回放可复用先前判断；需要后续按新值判断时设置独立判断点，不批量重写已有ID“解锁”。条件方法尽量只查询，状态副作用另设动作；缺失、失败和类型不符按实际警告处理。当前正式版与Beta的证据范围见[当前能力](current-capabilities.md)。
+## check_project.py 的实际覆盖
 
-## 离线只读检查的范围
+只读检查 JSON 语法、有限章节布局、索引、ID、本章引用、conditions 与 setver／varOps 操作数形态。不执行表达式，不证明变量存在、方法签名或玩家行为正确。
 
-scripts/check_project.py检查JSON语法、有限章节布局、索引、ID、本章引用、conditions和setver／varOps操作数形态；不执行表达式，不证明变量存在、方法签名或玩家行为正确。[选择练习](../examples/选择练习.json)使用前需按加入方式创建新ID和引用，不直接覆盖已有章。
+- auto 识别已维护布局，未覆盖格式明确报告；fragments 检查相同有限约定；json-only 只解析语法。
+- 退出码 0 表示已检查范围未发现错误，仍需读 warning；1 表示约定错误；2 表示无法检查或存在未覆盖格式。
+- main_call_version_sensitive、fragment_cycle、fragment_depth、preprocessing_in_linear_order、if_reuse_decision_risk 是复核提示，不证明真实可达性或转换失败，不触发自动修复。
+- native_empty_narration 等兼容提示用于保留旧原文，不授予生成未知格式的依据；未知章节与未知指令分别统计。
 
-- auto：识别已维护布局，未覆盖格式明确报告；fragments：检查相同有限约定；json-only：只解析语法。
-- 退出码0：覆盖范围未发现错误，仍需读warning；1：已检查约定中有错误；2：无法检查或含未覆盖格式。
-- main_call_version_sensitive、fragment_cycle、fragment_depth、preprocessing_in_linear_order、if_reuse_decision_risk为复核提示，不自动改写，不证明真实可达性或转换失败。
-- native_empty_narration等兼容提示用于保留历史原文，不授予生成未知格式的依据。未知章节与未知指令分别统计。
-
-本次改字读回文本及保留字段，引用变化再核相关结构；路线、保存读取与导出只按实际影响另验。没有宿主运行证据时，交付应明确只是文件或静态结果。
+[选择练习](../examples/选择练习.json)须按加入方式创建新 ID 与引用，不直接覆盖原章。静态通过之后，按本次影响验证宿主读回、路线和持久化；不能运行时明确交付仅到文件／静态层。

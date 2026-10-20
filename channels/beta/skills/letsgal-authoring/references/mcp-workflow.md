@@ -1,80 +1,73 @@
-# Beta执行：官方MCP优先
+# Studio 工程的 MCP 执行
 
-按实际版本选资料，按当前连接、权限和对象选执行方式；通道不是永久能力开关。MCP 操作 Studio 管理的内容，独立源码／Skill／Git／发行继续原工具。当前维护2.7.1-beta.1。未接入MCP时先简短推荐官方接入并说明当前回退方式；同上下文不重复提醒，不自行安装／注册。正式版使用独立载荷。
+本页负责目标、读写、确认和异常。制作字段按任务查[能力索引](current-capabilities.md)；独立扩展源码、Skill 与发行材料沿所属工程的文件流程维护。
 
-## 连接与上下文
+## 连接与目标
 
-1. 首次调用 studio_get_status，核完整版本、连接、批准、目标工程、待保存／输入、协作状态与工具组。地址相同不代表工程相同；tools/list 和当前 schema 决定可用工具，不依赖固定总数。
-2. 当前上下文首次使用时读服务 instructions 和 studio://guide/quickstart；不支持资源则用 studio_get_reference(topic="quickstart")。官方接入提示词用于配置一次，quickstart 用于当前操作指导；专题只读本次所需。
-3. 指导和已确认的实体／目标 ID 可在相同上下文复用。换工程、重连、宿主／资料变化、冲突或上下文缺失时刷新相关事实；失败异常先查状态。写入使用当前有效 revision，不计算 revision，不把旧会话 ID 或记录当批准凭证。
-4. 已有配置直接复用。用户要求新接入时，从 Studio 页面取实际地址与官方提示词，合并当前客户端的用户级配置一次，说明所需重载后查状态。安装 Skill 不自动配置 MCP，也不改权限、工具组或确认选项。
+首次用 `studio_get_status` 核完整宿主版本、工程 ID、权限／工具组、保存／输入及协作状态；读取服务 instructions 和 quickstart。无法读取资源时用 `studio_get_reference(topic="quickstart")`；专题按需读取，当前工具列表与 schema 决定可用接口。
 
-2.7 允许在 Studio 设置新连接自动批准，并一起处理同一客户端连接；每次仍以 `studio_get_status` 的实际 access 和工具组为准。自动批准选项不保证当前已批准，也不扩大内容委托范围。窗口光圈可关闭，不作为连接或权限证据；保留用户设置，不为减少等待改自动批准或确认选项。
+复用有效 ID 和已读指导。等待确认、长耗时操作、换工程、重连或冲突后刷新相关状态，再根据结果决定是否写入。不能将“读状态”和“无条件写”并排执行；地址相同不代表仍是同一工程。revision 使用返回的不透明值，不自行计算。
 
-支持工具搜索／延迟加载的客户端按任务发现工具；不支持就用已提供目录。支持代码编排时可合并独立读取并只回传相关结果；保留 ID、revision、错误和分页／覆盖不足信息。有关联的读改写、同对象写入与确认必须顺序执行。客户端缓存机制不能由 Skill 保证，不为优化部署代理服务或额外模型。
+未接入 MCP 时简短推荐一次官方接入并说明回退。只有任务包含接入，才取 Studio 实际地址／提示合并客户端配置；不自动注册或改权限，不在工程保存令牌。
 
-## 按目标选择读写工具
+## 定位与保真
 
-先按[内容授权边界](safety.md)区分已有／已定稿内容与本次未定稿草稿；MCP可修改权限不等于所有内容都获准改写。工程写入须有[至少一种有效保护](collaboration-git.md)：优先history_checkpoint与原生项目历史，保存快照标识；支持的操作用history_undo按opId检查和撤销。素材等不在快照覆盖的内容另补备份，不强制Git提交。
+已知 ID 直接读目标；只有名称时限定章／片段，未知位置先搜索再读邻近上下文。局部改动不先扫全工程。多候选会改变修改对象时再澄清。
 
-已有有效章／片段 ID 时直接读取目标，不重复查目录。只知道名字时用“章＋片段”限定（各章都有 main）；位置不明先 story_search，命中后读邻近上下文。多个候选会改变修改对象时集中澄清，不默认选第一项。确实需要结构时再用 story_get_outline，可先 includeFragments=false；角色、变量和素材仅在用到时按 ID／种类读取。
+阅读可用 script／lines，修改已有富文本取 JSON：从原 `content` 数组改目标 text，保留 styles、非文字项和内联动作。`displayText` 不能保真写回；保留音频绑定也不表示录音已更新。
 
-局部内容足够完成任务就停，保留“只读了哪些块”的边界；全片段替换才须补全 nextOffset，并核相关片段各页 revision 一致，变化时重读目标，不拼接新旧快照。offset／index 是块序号，不是显示行号或块 ID。
+整段替换须取完 `nextOffset`，核各页 revision 一致。offset／index 是块序号，不是显示行号或 ID。旧块缺 ID 时按片段与序号读 JSON；只有完整片段明确 `textRoundTripSafe=true` 才可按当前 revision 做脚本修改，否则用获准界面或交付草稿，不为造 ID 无意义写回。
 
-旧块可能没有 ID：搜索 blockId=null、JSON 无 id 或脚本索引为“-”时，先按片段与块序号读 JSON，不把空值、序号或占位符传给块编辑。确需修改时，只有完整读取的片段明确 textRoundTripSafe=true，才可按当前 revision 走脚本修改并 dry run；否则用已获准的可用原生界面或交付草稿。不要为取得 ID 先做无意义写回，也不因此重写其他片段。
+## 构造与提交
 
-| 目标 | 选择与核对 |
+按[内容授权](safety.md)确定范围，按[恢复保护](collaboration-git.md)复用或补齐恢复点。已有委托不要求每个可逆步骤重复口头批准。
+
+| 改动 | 要点 |
 | --- | --- |
-| 看／修改几句文字 | story_read 按片段、offset/limit 或 blockIds 精读；lines 用于阅读，改已有富文本时取 json。story_edit_blocks 的 content 替换整个内联内容，props 是浅合并；改字时省略无关 props，保留配音／角色参数 |
-| 写完整片段 | 用脚本与当前语法，先看 textRoundTripSafe、roundTripIssues；为 false 或标记缺失不能推定无损，检查块 JSON 后选择块编辑。分页片段也不能用未读全的文本整体 replace；append 仅适合确实追加的任务 |
-| 同一创作目标的多处修改 | story_edit_blocks 可合并多个 ops／片段，每个受影响片段带对应 baseRevisions；保持批次可审查、可撤销，不把无关目标凑在一起 |
-| 按文字批量替换 | story_replace_text 可能命中文本和可搜索参数；先 dry run 看实际范围及分页，选定 matchIds 后应用，不把同名条件／素材路径顺手替换，也不假定所有字段都会被搜索 |
-| 新增分支或结构 | 结构工具创建对象后使用返回的真实 ID，再写内容；按涉及的变量／角色／引用补读，验证相关路线 |
-| 多语言配音 | voice_edit 的 locale 选择音频语言或对白配音槽，依 op 区分；常规先绑定原声并核语音表同键对应；locale 为单句语言覆盖，清除覆盖恢复表匹配／原声回退。先预演，带 baseRevisions，保留其他语言，详见[配音](current-capabilities.md#多语言配音) |
-| 扩展长文本设置 | 先 ext_read；返回 valueHash／valueTruncated.hash 时，将该哈希放入 ext_settings_set.changes[].expected.valueHash，并保留 expected.isDefault，不把截断显示当完整旧值。核设置类型、dryRun 和写后读回；冲突重读，不以猜测值覆盖 |
-| 修复错误 | 从错误 location 和关联对象查起；校验给出的 fix 只是建议，核范围及新 revision 后再用 |
+| 几句文字／参数 | `story_edit_blocks`；content 替换整组内联内容，props 浅合并；省略无关 props |
+| 同目标多处编辑 | 合并相关 ops，各片段带自己的 `baseRevisions`，同对象依赖顺序执行 |
+| 整段创作或追加 | `story_write_script`；替换先核往返安全，append 只用于确实追加 |
+| 文字批量替换 | `story_replace_text` 预演，审阅全部命中与分页，选 matchIds |
+| 新章／片段 | 结构工具取得正式 ID 后再写内容；预检临时 ID 不作正式 ID |
+| 扩展参数／设置 | [扩展开发](extensions.md)核声明；长设置用返回的 valueHash 和 expected.isDefault，不拿截断值覆盖原文 |
+| UI、数据或舞台 | 读取对应专题，使用实际返回对象名／ID，不把请求显示名当文件名 |
 
-改已有正文时，从原 content 数组只修改目标 text，保留 styles、非文字项和 text 内的格式／停顿／变量标记；displayText 是显示结果，不能当作保真写回原文。新增纯文本或明确去除格式时才用普通字符串。跨多个内联项的目标先核边界，不扁平化整句。保留配音绑定不代表既有录音已随文字更新。
+工具提供 dry run 时先审阅影响与警告；失败先修草案，不继续提交。预检不锁定 revision，也不承诺检查了所有冲突或未知键。`insert.blocks[]` 是存储块，不能照搬 update 操作层字段，演出时序见[编排](performance.md#编排与写入)。
 
-按当前官方要求及工具能力做草案校验／dry run，不重复等价检查。写后读回目标差异：改字核文字、ID和未修改字段；改变引用、条件或变量时用 project_validate 的相关 target/checks，路线变化再 story_analyze 与相应预览。不要每次改字都执行全工程 domains、播放器、存档和导出。分页／部分覆盖只证明已检查范围。字段约定见[JSON 工作法](json.md)，If／main与预览范围见[当前能力](current-capabilities.md)。
+实际写入后读回 ID、内容、保留字段与 revision。引用／条件改动再做相关 `project_validate`，路线改变增加分析与实际预览。验证覆盖本次差异，不把每次改字扩成全工程测试。
 
-## 错误与恢复
+## 宿主确认
 
-| 返回情况 | 下一步 |
+用户委托、连接批准、工具组和具体操作确认是不同层次，以 `studio_get_status.confirmations` 和当前返回为准。`confirmEveryWrite=false` 不会关闭独立的高影响、删除、恢复或主题应用等确认类别。2.8.0-beta.1 开启构建 debug 触发 write 类别，不能据此推断普通编辑都须确认。
+
+收到 `CONFIRM_PENDING`，说明具体对象／操作和宿主要求，等待该次批准后按提示以完全相同参数重试；若期间工程或对象变化，先重核范围。拒绝则停止该请求。不修改确认设置或换通道绕过，不额外叠加一套逐次口头审批。
+
+## 冲突与未知结果
+
+| 情况 | 处理 |
 | --- | --- |
-| 参数／格式错误 | 按 schema 和错误位置修正；缺对象先核真实 ID，不原样重试 |
-| REVISION_CONFLICT | 重读目标，将修改合并到新内容；不强制覆盖 |
-| BUSY／USER_TYPING／RATE_LIMITED | 依据返回提示短暂等待、有限重试；持续失败报告实际缺项 |
-| 写入超时／结果不明 | 先读回目标，必要时查操作记录；已完成则不重写，部分／不同则在最新内容上合并。仍无法确认就保留未决状态；同一请求需要重试时沿用原 opId，不换 ID 盲目重复执行 |
-| PROJECT_MISMATCH | 重新核状态与目标工程，丢弃旧工程的 ID／revision 缓存；新工程未在任务范围内时不继续写入 |
-| SESSION_PENDING_APPROVAL／CONFIRM_PENDING | 提示在 Studio 批准当前连接／操作并等待；不反复注册或借用旧连接 |
-| 只读／缺工具／窗口隐藏／许可或历史不可用 | 说明具体缺项，继续不依赖它的读取与草稿；需要界面处理时明确操作 |
-| SESSION_REJECTED／CONFIRM_REJECTED／RELAY_LOCKED | 停止该请求，不用其他通道绕过 |
+| 参数／格式错误 | 对照 schema 修正，不原样重试 |
+| REVISION_CONFLICT | 重读并合并局部差异，不能只换 revision 重发旧整段 |
+| CHAPTER_LOCKED | 看 details.reason；按[多人入口](collaboration-git.md#多人协作)处理占用和结构限制 |
+| BUSY／USER_TYPING／RATE_LIMITED | 按提示有限等待；持续失败保留草稿并说明状态 |
+| 超时／断线，结果不明 | 读回目标或 `history_get(view="agent-ops")`；已落地不重写，同一请求重试沿用 opId |
+| PROJECT_MISMATCH | 刷新工程身份与目标缓存；新工程不在委托内就不写 |
+| SESSION_PENDING_APPROVAL | 区分连接批准与操作确认，按宿主提示等待 |
+| READ_ONLY_SESSION／缺工具／LICENSE_REQUIRED／HISTORY_DISABLED | 说明具体缺项，继续可用的读取／草稿；不绕过权限或恢复前置 |
+| SESSION_REJECTED／CONFIRM_REJECTED／RELAY_LOCKED | 停止该请求，不从其他入口提交 |
 
-操作返回的 revision 与 opId 留本次任务内部记录。撤销先按 history_undo dryRun 核影响与冲突；UNDO_CONFLICT 时重读并只对仍获准的差异做向前修复，不强制恢复旧快照，也不用共享 Ctrl+Z 栈撤回他人改动。无法确定保留哪一部分时保留现场并集中询问。项目历史不覆盖所有素材、源码和未跟踪文件，按[安全操作](safety.md)与工程现有要求保护。
+预览可见性和位置异常见[预览与构建](preview-and-build.md)；撤销、限定恢复及原 ID 读回见[恢复与协作](collaboration-git.md)。
 
-## 官方外部批量编辑
+## 外部编辑与无 MCP 回退
 
-普通修改优先专用工具。确需外部批量编辑时读 studio://advanced/file-edit（替代 topic="advanced-file-edit"）：
+普通修改用专用工具。确需官方批量编辑时读 advanced-file-edit：
 
-1. studio_file_edit_begin 声明精确对象，处理确认，取得有效会话和允许清单；dry run 不授予写文件权限。
-2. 仅在会话内改返回路径及允许字段：章节只改既有片段 blocks；变量只改指定项同类型 defaultValue／description。新增结构用专用工具。
-3. studio_file_edit_end 先 action="commit", dryRun=true，修正后 commit；放弃用 abandon，提交后从 Studio 读回。
+1. `studio_file_edit_begin` 声明对象，取得真实会话及允许路径；dry run 不授予磁盘写权限。
+2. 仅改返回路径／字段：章节限既有片段 blocks；变量限指定项同类型 defaultValue／description；结构新增仍用专用工具。
+3. `studio_file_edit_end(action="commit", dryRun=true)` 核 changedFiles、对象和警告，再提交并从 Studio 读回；放弃用 abandon。
 
-开关开启不等于有效会话。到期或连接关闭会回滚，不继续使用旧文件状态；越界／冲突按错误处理。ui/、databases/、config/、extensions.json 等 unverifiedChanges 不属于允许范围，也不能承诺自动恢复。
+到期或连接关闭后不沿用旧会话。ui/、databases/、config/、extensions.json 等 unverifiedChanges 不在允许范围，不能承诺自动恢复。
 
-## 简短回退与预览
+真正的能力缺口可用已授权的可用原生界面；核窗口、工程、焦点与未保存内容。只读、关闭工具组或明确拒绝不触发此回退。不恢复退役工具或自动部署额外服务。不同连接按实际活动记录区分，不擅自断开他人连接。
 
-工具缺失先看当前状态／工具组与版本：组被关闭或只读属于权限限制；版本尚未提供、纯界面手势等才属于能力缺口。涉及账号、许可、秘密或明确限制时交由用户处理，不把“未提供”一律当作可点击绕过。
-
-执行优先级为：可用且获准的官方 MCP → MCP 未覆盖且用户已授权的 Computer Use／原生界面 → 合法离线文件流程或草稿。Computer Use 以当前客户端实际提供的界面能力为准；没有接口不能声称已点击。用户明确开放某个应用／测试工程后，连续完成该范围内操作，不逐步问许可；切换其他作品、关闭占用窗口或扩大范围时另核授权。操作前确认窗口、工程、焦点与当前编辑状态，保留未保存内容和他人操作。工具组关闭、只读或明确拒绝不能通过点击绕过。
-
-未配置MCP并不阻止讨论、读取和草稿；已说明推荐方式后，用获准界面或按实际需要读取[JSON](json.md)／[扩展](extensions.md)继续工作，不同时加载所有专题。文件写入前正常保存并关闭目标工程，确认无其他实例持有；活动工程先做草稿或用可用原生界面。非官方工具仅在已明确选用且当前可用时按其真实边界使用，不恢复退役服务。受限或断线不授权写活动工程。
-
-预览前读 studio://guide/preview-testing。run_from_start 仅覆盖顺序主片段，不能证明高级调度／前处理／片段流程；这些用可用完整调试或真实玩家入口。图像、静态校验、播放、存读档及导出分别报告。
-
-同一聊天可经历多个 MCP 连接；按当前连接 ID、配置条目和活动记录区分，客户端同名或旧记录残留不证明重复安装。未经核对不自动断开其他连接。阶段完成且通知有用时 studio_notify 一次，不逐步通知。
-
-完成声明以本次实际操作与读回为准；工程重置或切换后不能沿用旧完成记录。
-
-依据：2.6.0-beta.1 官方指导的既有记录，以及 2.7 系列公告、2.7.1-beta.1 当前服务 instructions 和工具声明；新版 quickstart 与专题须在当前获准连接按需刷新，旧记录不替代；[官方接入说明](https://docs.avg-engine.com/manual/overview/mcp)。接口依据与实际验收范围见包内验证说明，不表示所有客户端或操作均已实测。
+无 MCP 时仍可讨论、交付草稿或使用获准界面。离线文件写入须正常保存并关闭目标工程，确认无其他实例持有；活动工程不得直接改磁盘 JSON。完成说明来自目标读回；有用时发一次阶段通知即可。

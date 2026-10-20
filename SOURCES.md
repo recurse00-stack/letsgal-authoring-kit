@@ -1,12 +1,14 @@
 # 资料来源与范围
 
-本指南依据官方资料、目标样本与注明版本的有限观察独立编写。2026-10-13读取[正式版清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)和[Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)，当前维护目标为2.5.0和2.7.1-beta.1。清单、安装状态与运行验收分别记录。
+本指南依据官方资料、目标样本与注明版本的有限观察独立编写。2026-10-20读取[正式版清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)和[Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)，当前维护目标为2.5.0和2.8.0-beta.1。清单、安装状态与运行验收分别记录。
 
-2.7.1-beta.1 的新增依据为官方 Beta 公告（Windows 发布时间2026-10-13T09:08:26.539Z）及当前 voice_edit 工具声明，涵盖语音表同键对应、单句语言覆盖及移除覆盖后的回退、自动匹配跳过与有效译文要求。沿用的 sdk-context.ts、extension-method.ts、types/block-schema.ts、types/schema.ts 与2.7.0-beta.1逐字节一致，constants.ts版本常量变化；这些都是静态依据。本轮连接待批准，仅读无需批准的状态，未获取新版quickstart或操作工程；后续制作在有效获准连接按需刷新官方指导。
+2.8.0-beta.1 的依据为官方 Beta 公告（Windows 发布时间2026-10-19T15:48:46.389Z）、当前获准 MCP 的 quickstart、script、stage、performanceStart、errors、preview-testing、扩展开发指导，以及本机随包 SDK。对照2.7.1：sdk-context.ts、extension-method.ts、types/block-schema.ts和constants.ts变化，types/schema.ts保持；这是相关文件比较，不是整个SDK验收。另核2.7.1界面更新r1的主要部位／皮肤表情规则。
+
+[协作说明](https://docs.avg-engine.com/manual/overview/collaboration)明确发起账号需官方开通资格，仍为测试功能；页面其余整章锁／手动素材同步描述属于旧版，2.8操作契约以当前MCP指导为准。本次不推定任何账号已获资格。
 
 ## 按任务查阅
 
-- 剧情：[JSON参考](https://docs.avg-engine.com/reference/script-json)、[分支](https://docs.avg-engine.com/manual/writing/blocks/branch)、[If](https://docs.avg-engine.com/manual/writing/blocks/if/)、[调用片段](https://docs.avg-engine.com/manual/writing/blocks/call-fragment)、[章节调度](https://docs.avg-engine.com/advanced/chapter-scheduling)。main文字冲突保留，不能依单页改掉既有内容。
+- 剧情：[JSON参考](https://docs.avg-engine.com/reference/script-json)、[分支](https://docs.avg-engine.com/manual/writing/blocks/branch)、[If](https://docs.avg-engine.com/manual/writing/blocks/if/)、[调用片段](https://docs.avg-engine.com/manual/writing/blocks/call-fragment)、[章节调度](https://docs.avg-engine.com/advanced/chapter-scheduling)。2026-10-20 前期 Beta 适配读取了当时的 MCP callFragment schema：同章片段调用、结束返回，自调用最多静态展开 30 层；不再把旧网页冲突当当前 Beta 的操作前提。Stable 指引原样保留，既有引用不自动改写。
 - 本次补齐：[2.5功能说明](https://docs.avg-engine.com/updates/2-5-0)中的超链接三种动作，以及[场景管理](https://docs.avg-engine.com/manual/creating/scenes/)中的背景合成／分别创建，2026-10-10查阅；仅为资料依据，未新增功能实测。
 - 演出：[角色](https://docs.avg-engine.com/manual/creating/characters/)、[对白](https://docs.avg-engine.com/manual/writing/blocks/dialogue/)、[动态图像](https://docs.avg-engine.com/manual/creating/dynamic-visuals)、[浮字](https://docs.avg-engine.com/manual/writing/blocks/floating-text)、[本地化](https://docs.avg-engine.com/manual/writing/localization)。
 - 预览与发布：[编辑器](https://docs.avg-engine.com/manual/overview/editor)、[构建](https://docs.avg-engine.com/manual/overview/build)、[游戏统计](https://docs.avg-engine.com/manual/overview/game-stats)。网页基础描述、版本公告、目标保存形式与运行分别判断。

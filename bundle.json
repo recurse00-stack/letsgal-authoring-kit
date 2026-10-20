@@ -2,18 +2,20 @@
   "schema": 2,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "channels": [
     {
       "id": "stable",
       "label": "正式版",
-      "bundle": "channels/stable/bundle.json"
+      "bundle": "channels/stable/bundle.json",
+      "revision": "20261020-beta280-mcp"
     },
     {
       "id": "beta",
       "label": "Beta",
-      "bundle": "channels/beta/bundle.json"
+      "bundle": "channels/beta/bundle.json",
+      "revision": "20261020-beta280-modular"
     }
   ],
-  "revision": "20261013-beta271-guides"
+  "revision": "20261020-beta280-modular"
 }

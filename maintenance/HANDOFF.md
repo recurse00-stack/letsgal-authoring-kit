@@ -1,13 +1,9 @@
-# 0.2.2 当前指引维护入口
+# 0.2.3 当前维护入口
 
-发行修订20261013-beta271-guides，产品版本0.2.2，使用独立v0.2.2标签与发布页。后续官方宿主更新适配递增产品版本，同一未发布候选可用内部修订区分；已发布0.2.1同号修订是历史例外，不推广为今后的版本策略。
+包修订 20261020-beta280-modular，发行号 0.2.3；协作附加包 0.1.3 在[同一发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)单独提供。Beta 目标 2.8.0-beta.1，修订随本包；Stable 目标 2.5.0，完整目录保留 20261020-beta280-mcp 修订。主包和附加包统一按发行号管理：同一未发布候选只更新内部修订，下一次对外发行才递增，不为安装保护冲突而升号。
 
-当前正式版2.5.0、Beta2.7.1-beta.1，每通道只有当前完整指引＋任务专题。旧版有效知识融合到current-capabilities，历史原文在维护归档与旧Release；不将旧运行证据转换为新版本通过。未知／冲突仅阻塞相关操作，不自动升级。
+Beta 入口、执行流程、制作能力、扩展开发、内容授权、恢复、格式与资料路由按任务重构。历史公告和测试细节留在来源／验收文档，不在日常入口叠加。当前有限实测复用[宿主记录](../HOST-VALIDATION.md)，重构核对见[验证说明](../VALIDATION.md)。
 
-共享维护源在channels/stable，显式清单见[shared-skill-files.json](shared-skill-files.json)。修改前先比较Beta现有差异，合并后再显式同步；sync_shared_skill.py默认只检查，--apply执行清单内同步。入口、工作流、当前能力、版本选择及Agent元数据独立；每份载荷自包含。build_release.py检查共享一致，不静默同步。
+[共享白名单](shared-skill-files.json)仅保留 9 份未变通用文件，由 Stable 向 Beta 显式比较同步；其他文件独立维护。Beta-only 工作先保存完整 Stable 哈希，结束逐文件核对，不能为同步修订而改 Stable。build_release.py 保留显式包修订，并记录各通道修订，安装器以所选通道清单为准。
 
-Beta默认推荐获准官方MCP；尚未接入提示一次，不自动注册。真实能力缺口可用获准Computer Use，权限限制不绕过；正式版保留原生／合法离线。已做好／采用／定稿内容须范围授权，受托未定稿草稿可迭代；工程改动至少一种覆盖恢复，Git可选，维护环境原有Protect约定仍执行。
-
-本轮只做资料、路由与交付检查，不加模型或宿主写入测试，不声称实际提速／token收益。Skill changed，安装代码verified-unchanged、安装说明changed，人类手册changed。构建使用release-files白名单，核bundle、ZIP、SHA和隐私／发行者口吻；未变代码复用有效证据。
-
-同号修订构建到独立目录并使用独立附件名，绝不覆盖已发布资产。Windows使用完整包，其他平台手动安装，保留个人区、旧版与备份。实际发布另需当次授权，源码、标签、Release、附件、匿名下载分别记录，工坊not-applicable。详见[发行门槛](RELEASE-GATES.md)。
+使用 release-files 白名单核 bundle、SHA、ZIP、隐私与发行者口吻；保留旧候选及已发布资产。自用和加载副本按绑定同步，保留个人区与 Git 状态；外部发布须当次授权。详见[发行门槛](RELEASE-GATES.md)。

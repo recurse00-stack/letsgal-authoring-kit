@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "channel": "beta",
   "profile_schema": 1,
   "files": [
@@ -20,11 +20,11 @@
     },
     {
       "path": "references/collaboration-git.md",
-      "sha256": "a9333f295c13301727e547e4b0dc7c7c148d7b54b10bf144554796babb966804"
+      "sha256": "631dbc7d51fa37bdf42166fbe845519cc1a6c0ea08254ab957c14ee1d4c03af1"
     },
     {
       "path": "references/current-capabilities.md",
-      "sha256": "8f44809326e4113ddca6f377a7b5a3e4a54b3a07800b473335351043aff8b6a1"
+      "sha256": "331349d3196d4c4841fce8075190e8cbcdcde26a87f7a6024b3f7783978733a7"
     },
     {
       "path": "references/customization.md",
@@ -32,19 +32,27 @@
     },
     {
       "path": "references/extensions.md",
-      "sha256": "dbbd1166b43eba67176528d2cea697e491f16068005ed642fedea06c2fddf385"
+      "sha256": "67549fd713da42bfa25ac02ef6db918658e3e4562f0a7e8b5f8ae29b356a7e32"
     },
     {
       "path": "references/json.md",
-      "sha256": "e412ecec084be1ae84a7eeb89bedf410b0c412ef870c549c7795e22d6a19a5b2"
+      "sha256": "c0a9d984a759aaaa120b17c8ae20ef15b79e27e6eb70e749f2aae830c629337d"
     },
     {
       "path": "references/mcp-workflow.md",
-      "sha256": "eee5b83dfa44cdc3ceacb6df59e7501d3d4947a3c45a52cc9651226481d9d843"
+      "sha256": "217e2e06a8d26b4b3859e4ccde9b417aacafef5c30a8834a58a03a2c956b3373"
+    },
+    {
+      "path": "references/performance.md",
+      "sha256": "962e92256631f278aada6a845f3565fba93fc7828a04835feeb8f50a762c0288"
     },
     {
       "path": "references/plugin-skills.md",
       "sha256": "ba08cf3fdc48fe182b966350a7879b44e2899657a98d68544d6dfe21253e6b68"
+    },
+    {
+      "path": "references/preview-and-build.md",
+      "sha256": "0f3e370e55871ce0323f67ef0d62e392ebcfdafc75fffcc1dc2dc2e9a917ad20"
     },
     {
       "path": "references/production.md",
@@ -52,7 +60,7 @@
     },
     {
       "path": "references/research.md",
-      "sha256": "dfb8bb0056ad957bcf4833e3d7ba4f8a520b03ba4e50d98a1a9ebcf63c906f19"
+      "sha256": "28d3129d5b7446c1ade12b38351d0a162af1b63191c33fa6b0b743003f56dac7"
     },
     {
       "path": "references/risk-notice.md",
@@ -60,11 +68,23 @@
     },
     {
       "path": "references/safety.md",
-      "sha256": "53d5660f30f5993ad2c85d2ea3efdcf9182e23b0ff19270344186ab321792f75"
+      "sha256": "638fb5a525ff257134ec06db6ae9091bcb03e665414e9b3b156487c9d36f3ca5"
+    },
+    {
+      "path": "references/stage-and-assets.md",
+      "sha256": "5c061abdf177fc5c89742f60f136595ba3f472f2e3990cd6ab674e1729400cbb"
+    },
+    {
+      "path": "references/story-and-voice.md",
+      "sha256": "c5240f7baa3d4f1baa35f023d747383fe90b90c834f4c178baf2c7eeaf5c6a0c"
+    },
+    {
+      "path": "references/ui-and-data.md",
+      "sha256": "62cec15d7c4aa7128c5b2b692c3f596c2ae54f43d4483a3b11e0463a8e3971c8"
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "7748bf73d33804c2e7623d6e61a4002c6e441fe2be583163723b79980f37346d"
+      "sha256": "0bf0a3fdb14c4caecfa15a3be19b90f4de394ed23f8c77de9f3fcd560a829b5e"
     },
     {
       "path": "scripts/check_project.py",
@@ -72,11 +92,11 @@
     },
     {
       "path": "scripts/inspect_version.py",
-      "sha256": "6c45a2f283d17fa2fa10ee38c2d8416efb7bfce2ed967d60c9b42236e3b74124"
+      "sha256": "4a69ba921c0f84b0fb944f2015da2c3c9b92c5bb7bc95f900bfff89d26e0f07d"
     },
     {
       "path": "SKILL.md",
-      "sha256": "aece7c9783b19ac3d79f79faca25c824cca670320a565710464870c7bd9e98b7"
+      "sha256": "6d9c2d760ab2e4befe77a4c7edd5ebb1e9630713b0a4ec177ce3e7289f428528"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -87,5 +107,5 @@
       "sha256": "6a24accc53747f475c4c9fb4aac24923927b168c7bdfb6d5107c0ca49c791b5c"
     }
   ],
-  "revision": "20261013-beta271-guides"
+  "revision": "20261020-beta280-modular"
 }

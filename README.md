@@ -1,12 +1,12 @@
 # LetsGal Authoring Kit · 社区 Skill
 
-**0.2.2 · 20261013-beta271-guides。** [下载完整安装包](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.2/letsgal-authoring-kit-0.2.2.zip)。适配 Beta 2.7.1-beta.1，正式版目标仍为2.5.0；安装时按目标工程选择一份通道。旧版本与附件保留。
+**0.2.3 · 20261020-beta280-modular。** 适配 Beta **2.8.0-beta.1**，正式版目标仍为 **2.5.0**。本版与多人协作附加包 **0.1.3** 一起发行，分别下载、按需安装：[发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3) · [主包 ZIP](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.3/letsgal-authoring-kit-0.2.3.zip) · [协作包 ZIP](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.3/letsgal-collaboration-0.1.3.zip)。
 
 本版分 **正式版 / Beta** 两份Skill，安装时按目标工程选择一份，名称仍为`letsgal-authoring`。切换时备份旧版并保留个人区。公版至少一种有效恢复保护，优先引擎项目历史；Git可选。见[正式版指南](channels/stable/MANUAL.md)、[Beta指南](channels/beta/MANUAL.md)。
 
 `letsgal-authoring` 帮助 AI 在 LetsGal Studio 工程中制作剧情、分支、变量与章节 JSON，查找官方资料、处理扩展及 Git 协作。它是独立社区 Skill，不包含引擎、模型、账号或 MCP；实际能力取决于 Agent 的工具和项目权限。
 
-本包版本 **0.2.2**。正式版与Beta分开安装；Beta支持官方MCP优先的制作流程，两份都包含按任务读取、创作反馈整合和已有内容保护。安装器支持更新、通道切换、完整备份与文件检查；不会更新引擎。公开下载以[GitHub Releases](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/latest)实际列出的版本为准，旧版本与发布凭证保留。
+本包版本 **0.2.3**。正式版与Beta分开安装；Beta支持官方MCP优先的制作流程，两份都包含按任务读取、创作反馈整合和已有内容保护。安装器支持更新、通道切换、完整备份与文件检查；不会更新引擎。公开下载以[GitHub Releases](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/latest)实际列出的版本为准，旧版本与发布凭证保留。
 
 入口：[使用手册](MANUAL.md) · [离线 HTML](MANUAL.html) · [Agent 与目录兼容](COMPATIBILITY.md) · [验证范围](VALIDATION.md) · [资料来源](SOURCES.md) · [版本记录](RELEASE-NOTES.md)。
 
@@ -16,7 +16,7 @@
 
 ## Windows 安装
 
-1. 下载当前完整安装包 `letsgal-authoring-kit-0.2.2.zip`，解压到普通文件夹，再双击 `Install.cmd`。不要在 ZIP 内运行，不要单独运行摘出的 `Install.ps1`。
+1. 下载完整安装包 `letsgal-authoring-kit-0.2.3.zip`，解压到普通文件夹，再双击 `Install.cmd`。不要在 ZIP 内运行，不要单独运行摘出的 `Install.ps1`。
 2. 先选目标工程对应的正式版或 Beta，再选择实际使用的 Agent，一般采用“个人 · 所有项目”；只给一个作品用时选择“项目 · 仅此工程”并浏览工程目录。
 3. 核对最终目录、所选／已装通道、本包／已装版本及预览状态，点击“导入到 …”。底部固定状态栏显示处理和完成结果。
 4. 展开“更多选项”，点击“检查安装”。底部显示“检查安装 · 校验通过”，页面结果框标题为“安装文件校验通过”。如果通道、版本或修订内容不同，会明确显示差异；核对后决定是否导入，不据此判断本包更新；文件完整不等于与所选通道一致。再复制验证提示词，在 Agent 新会话中核对实际加载路径与 metadata.channel。
@@ -53,9 +53,15 @@ Beta 推荐官方 MCP；尚未接入时简短说明一次优势和回退，不�
 
 Skill 包版本和引擎版本独立。稳定版、Beta 和旧工程均先核对目标宿主；不以作者本机 Beta 为默认，不因更新 Skill 升级引擎、迁移作品或刷新已导出的游戏。
 
-正式版当前只登记 **2.5.0**，Beta 当前只登记 **2.7.1-beta.1**。通道不符、未知、旧版或冲突返回 UNKNOWN；无版本依赖工作继续，不自动升级引擎。每份安装载荷自包含，另一通道无需同时安装。
+正式版当前只登记 **2.5.0**，Beta 当前只登记 **2.8.0-beta.1**。通道不符、未知、旧版或冲突返回 UNKNOWN；无版本依赖工作继续，不自动升级引擎。每份安装载荷自包含，另一通道无需同时安装。
 
-有效知识按[正式版当前能力](channels/stable/skills/letsgal-authoring/references/current-capabilities.md)和[Beta当前能力](channels/beta/skills/letsgal-authoring/references/current-capabilities.md)融合，历史公告与测试过程另存。局部修改从目标开始，分支、素材、扩展和导出按需读专题；安全、恢复和创作协作规则各有主要维护位置。预期减少重复阅读，没有新增模型效果测量。
+Beta 按[任务索引](channels/beta/skills/letsgal-authoring/references/current-capabilities.md)进入剧情配音、素材舞台、演出时间轴、预览构建等专题，主入口与执行流程各有职责。多人权限、占用和同步由独立 letsgal-collaboration 附加包维护；测试过程放验证报告。正式版整个目录和修订保持不变。此重构预期减少无关阅读，没有新增模型效果测量。
+
+## 多人协作附加包
+
+[letsgal-collaboration 0.1.3](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.3/letsgal-collaboration-0.1.3.zip) 专门处理多人权限、占用、版本冲突和同步检查；通用剧情、演出与 UI 方法由主包维护。它适用于已获准参与 Studio 2.8.0-beta.1 多人内测的账号，不提供房间服务或开通权限。
+
+先解压协作包，再运行其 `Install.cmd` 或 `python install.py` 查看预览。已有主 Skill 时，附加包进入独立用户区并登记索引；没有主 Skill 时可独立安装。需要 Python 3.9+，详细步骤与限制见[协作包手册](https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md)，[源码](https://github.com/recurse00-stack/letsgal-authoring-kit/tree/v0.2.3/addons/letsgal-collaboration)位于主仓库的 addons 子目录。
 
 ## 个人偏好、插件资料与升级
 
