@@ -1,13 +1,13 @@
 ---
 name: letsgal-authoring
-description: 在 LetsGal Studio 中协作制作剧情、分支、变量、素材与扩展，修改既有内容并排查格式和流程；一般创作讨论不自动变成工程写入。
+description: 在 LetsGal Studio 中制作剧情、分支、变量、素材与扩展，修改既有内容并排查格式和流程；一般创作讨论不自动变成工程写入。
 metadata:
-  version: 0.2.3
+  version: 0.2.4
   channel: stable
-  revision: 20261020-beta280-mcp
+  revision: 20261023-guidance
 ---
 
-# LetsGal 正式版创作协作
+# LetsGal 正式版创作
 
 当前维护宿主 **2.5.0**，Skill发行号独立。以获准原生界面和合法离线文件流程工作，不要求MCP。 本Skill不包含引擎、模型或MCP，不因安装而升级工程。
 

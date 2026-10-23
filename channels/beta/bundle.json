@@ -2,13 +2,13 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "channel": "beta",
   "profile_schema": 1,
   "files": [
     {
       "path": "agents/openai.yaml",
-      "sha256": "18f2f6f458a9d2b122559ef0ef67a2e213cfe8371081bfbcfa82e1391da9d3b2"
+      "sha256": "8c4159ac5dfe14811bd893b9396fb53ddb64a5bc85a070260dda3b54f7c9a5fe"
     },
     {
       "path": "examples/选择练习.json",
@@ -20,7 +20,7 @@
     },
     {
       "path": "references/collaboration-git.md",
-      "sha256": "631dbc7d51fa37bdf42166fbe845519cc1a6c0ea08254ab957c14ee1d4c03af1"
+      "sha256": "b9fdb5e8c73570ee111fa1c98deeaebc684127d238d64dc7a96a4f9a536813e3"
     },
     {
       "path": "references/current-capabilities.md",
@@ -28,7 +28,7 @@
     },
     {
       "path": "references/customization.md",
-      "sha256": "bb355b0e3879ef2d1439c5d4acbe0ce7e326c67f6f8513cfac78866278e20f41"
+      "sha256": "95643d1485904f405004a09b371a8fae9a0f238be6f40d509896f2fe57a25c65"
     },
     {
       "path": "references/extensions.md",
@@ -52,7 +52,7 @@
     },
     {
       "path": "references/preview-and-build.md",
-      "sha256": "0f3e370e55871ce0323f67ef0d62e392ebcfdafc75fffcc1dc2dc2e9a917ad20"
+      "sha256": "eeb92a85b3b76272b1a9c338191f7e6a4d1c71c20581ce9633f3b7aaa6bb7183"
     },
     {
       "path": "references/production.md",
@@ -76,7 +76,7 @@
     },
     {
       "path": "references/story-and-voice.md",
-      "sha256": "c5240f7baa3d4f1baa35f023d747383fe90b90c834f4c178baf2c7eeaf5c6a0c"
+      "sha256": "1badea6f3b79aa65c1d4f643c4647780159ea7c0b7fd5e8285bc604444c9de49"
     },
     {
       "path": "references/ui-and-data.md",
@@ -84,7 +84,7 @@
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "0bf0a3fdb14c4caecfa15a3be19b90f4de394ed23f8c77de9f3fcd560a829b5e"
+      "sha256": "1f67de7f531170111982df320d658461e1a8638560681eff9c252568bbcdeffc"
     },
     {
       "path": "scripts/check_project.py",
@@ -96,7 +96,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "6d9c2d760ab2e4befe77a4c7edd5ebb1e9630713b0a4ec177ce3e7289f428528"
+      "sha256": "5f8e508b05db88ad856d7103e0ad04d66f82266ca3730411108abeb7fe6fe8ba"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -107,5 +107,5 @@
       "sha256": "6a24accc53747f475c4c9fb4aac24923927b168c7bdfb6d5107c0ca49c791b5c"
     }
   ],
-  "revision": "20261020-beta280-modular"
+  "revision": "20261023-guidance"
 }

@@ -2,13 +2,13 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "channel": "stable",
   "profile_schema": 1,
   "files": [
     {
       "path": "agents/openai.yaml",
-      "sha256": "262e2fa5403fac2146dadd0f467b03b5dc7baf98ce9a9396777d2a520888ac12"
+      "sha256": "5b37cde85c5c6a1f6e6c47da30e373c08ebef7cce73c563e58b33557157f6f34"
     },
     {
       "path": "examples/选择练习.json",
@@ -20,7 +20,7 @@
     },
     {
       "path": "references/collaboration-git.md",
-      "sha256": "f3123ba3e375bb38f9e1034c620b37d853331f4f36715ac3ec06fcf69b0d0a12"
+      "sha256": "79725ce2bdc1bf09cdf792b02d1a8efd2b6c3270c2b4cd8c54013cb55f03ab63"
     },
     {
       "path": "references/current-capabilities.md",
@@ -28,7 +28,7 @@
     },
     {
       "path": "references/customization.md",
-      "sha256": "bb355b0e3879ef2d1439c5d4acbe0ce7e326c67f6f8513cfac78866278e20f41"
+      "sha256": "95643d1485904f405004a09b371a8fae9a0f238be6f40d509896f2fe57a25c65"
     },
     {
       "path": "references/extensions.md",
@@ -36,7 +36,7 @@
     },
     {
       "path": "references/file-workflow.md",
-      "sha256": "6476ceb993c6df6155031b3a8f85d0c7f2375ce84c8c995f3110387e19ed08a4"
+      "sha256": "ec4b0a0b9bd6ed4cb249040a029ce27944608f4688a0cd610cf09e266c8410e1"
     },
     {
       "path": "references/json.md",
@@ -64,7 +64,7 @@
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "1013767a1fdf38c8d2e74b3298656b065824c81f5371ef477f48527a20d86dff"
+      "sha256": "3bbe91f8570c2b706994b97a4715f436d4b3bc37aed815d8ff747791a3f1db52"
     },
     {
       "path": "scripts/check_project.py",
@@ -76,7 +76,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "d1d06bac4f2d8c481bb7ca1bf08327e31afb7a9d956455a90f28622e45d95643"
+      "sha256": "84ff215e2c58452fdbe8412d76d071a6c0cffbecb796263e37ba9d05042c7f6b"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -87,5 +87,5 @@
       "sha256": "6a24accc53747f475c4c9fb4aac24923927b168c7bdfb6d5107c0ca49c791b5c"
     }
   ],
-  "revision": "20261020-beta280-mcp"
+  "revision": "20261023-guidance"
 }

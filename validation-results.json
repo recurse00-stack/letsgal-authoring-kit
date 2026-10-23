@@ -1,131 +1,37 @@
 {
-  "version": "0.2.3",
-  "revision": "20261020-beta280-modular",
-  "status": "release-materials-validated",
-  "parts": {
+  "version": "0.2.4",
+  "revision": "20261023-guidance",
+  "status": "RELEASE_VALIDATION_SCOPE",
+  "targets": {
+    "stable": "2.5.0",
+    "beta": "2.8.0-beta.1"
+  },
+  "components": {
     "skill": "changed",
     "installer_code": "verified-unchanged",
-    "installer_instructions": "changed",
-    "human_manual": "changed",
-    "missing": [],
-    "stable_channel": "verified-unchanged",
-    "build_maintenance": "verified-unchanged"
+    "human_manual": "changed"
   },
-  "checks": {
-    "official_skill_validator": {
-      "main": "Skill is valid!",
-      "addon": "Skill is valid!"
-    },
-    "new_host_test": false,
-    "new_model_test": false,
-    "prior_main_installer_checks_reused": true,
-    "local_links": 210,
-    "anchors": 36,
+  "isolated_scenarios": {
+    "passed": 5,
+    "failed": 0,
+    "mode": "current-session exercise; not independent model validation"
+  },
+  "installation": {
+    "passed": 7,
+    "failed": 0,
+    "paused_user_state_preserved": true
+  },
+  "new_live_host_test": false,
+  "new_independent_model_test": false,
+  "host_evidence_reused": "20261020-beta280-closure",
+  "static_checks": {
+    "passed": 13,
+    "failed": 0,
+    "relative_links": 209,
+    "anchors": 38,
     "shared_files": 9,
-    "stable_unchanged_files": 22,
-    "manual_html_matches_markdown": true
+    "official_skill_validator": "both channels passed"
   },
-  "host": {
-    "version": "2.8.0-beta.1",
-    "performance_write_read_validate": "PASS",
-    "invalid_segment_drafts_rejected": 2,
-    "short_hold_warning": "observed and fixed",
-    "preview": "PASS_LIMITED_VISIBLE_PERFORMANCE_PLAYBACK",
-    "build_scheme": "current scheme read; set_debug on confirmed, off restored; original revision matched",
-    "collaboration_eligibility": "not_verified; official activation required for initiator",
-    "multiplayer_sync": "LOCAL_STATUS_ONLY; remote receipt NOT_RUN",
-    "player_save_export": "PLAYER_AND_SAVE_LOAD_NOT_RUN; WEB_BUILD_PASS; EXPORTED_GAME_NOT_RUN",
-    "preview_previous_blocker": "WINDOW_HIDDEN resolved by restoring Studio foreground",
-    "preview_scope": [
-      "automatic two-line progression",
-      "PerformanceEndWait",
-      "advance to post-segment Dialogue",
-      "matching visible captures"
-    ],
-    "preview_limits": [
-      "forceWatch skip-key behavior not tested",
-      "Player/save-load not tested",
-      "advanced scheduled target seek not accepted"
-    ],
-    "extension_dual_entry": "PASS create/init_program(studioEntry=true)/sync_sdk/build/typecheck/reload",
-    "native_settings_inspector": "PASS rendered; legal writes read back; inspector rejects out-of-range count",
-    "settings_conflict_reset_runtime_default": "PASS",
-    "list_data_validation": "PASS rejection cases and actual invalid data no-write",
-    "ordinary_parameter_validation": "KNOWN_GAP; scalar/enum/row numeric bounds accepted and reached runtime; restored",
-    "preexisting_invalid_parameter": "PASS warning on touched call; new invalid value rejected; unrelated edits may not warn",
-    "performance_sdk": "PASS limited state/start/end/modal pause/resume; seek events are not continuous-play evidence",
-    "hidden_method_runtime": "PASS hidden from methods list; existing call executed",
-    "timing_null_and_overlap": "PASS auto/manual round-trip and overlap rejection",
-    "confirmation_cause": "EXPECTED: set_debug enabled=true requires category write; confirmEveryWrite=false",
-    "test_cleanup": "test chapter disabled; method targets cleared and calls disabled; extension disabled; source retained",
-    "confirmation_settings_changed": false,
-    "stage_supplement": {
-      "static_portrait": "PASS_LIMITED",
-      "spine": "PASS_LIMITED_VISIBLE",
-      "scene_camera": "PASS_LIMITED",
-      "particle": "PASS_AFTER_TEXTURE",
-      "audio": "RUNTIME_STATE_ONLY",
-      "video": "PASS_VISIBLE_TWO_FRAMES_AND_STOP",
-      "performance": "PASS_LIMITED_CONTINUOUS_AND_END",
-      "timing": "UPDATE_FIELDS_READ_BACK",
-      "preview_reset": "OBSERVED_CAUSE_UNKNOWN",
-      "live2d_listening_player_save_export": "LIVE2D_LISTENING_PLAYER_SAVE_LOAD_NOT_RUN; WEB_BUILD_PASS; EXPORTED_GAME_NOT_RUN",
-      "sequence_mesh": "PASS_VISIBLE_TWO_FRAMES"
-    },
-    "mcp_coverage": {
-      "inventory": 67,
-      "all_tools_passed": false,
-      "ui": "PASS_REAL_BUTTON_CONDITION_RETURN_REOPEN",
-      "database": "EDITOR_CRUD_PASS; deleted row undo failed readback",
-      "story_undo": "PASS_ORIGINAL_ID_RESTORED",
-      "portrait_bake": "STATIC_CACHE_PASS",
-      "asset_import_rename_pack_voice_bind": "PASS",
-      "voice_transcribe": "BLOCKED_BUSY_AFTER_EMBEDDED_MODEL_READY",
-      "sequence_mesh": "PASS_TWO_FRAMES_VISIBLE",
-      "global_private_project_tests": "FINITE_QUEUE_CLOSED_WITH_EXPLICIT_GAPS",
-      "counts": {
-        "PASS": 54,
-        "PARTIAL": 8,
-        "REUSED": 4,
-        "BLOCKED": 1
-      }
-    },
-    "file_edit": "PASS_SCOPED_COMMIT_READBACK",
-    "history_restore": "PASS_FILES_ONLY_NOT_WHOLE_PROJECT",
-    "localization": "PASS_WRITE_STALE_SOURCE_PREVIEW_DEFAULT_RESTORE",
-    "theme": "PASS_APPLY_AND_ORIGINAL_SELECTION_RESTORE",
-    "build": "PASS_WEB_SUCCESS_AND_SECOND_BATCH_CANCELLED; artifact runtime NOT_RUN",
-    "debug": "PARTIAL_START_STATUS_STOP; scheduled seek/jump UNSUPPORTED"
-  },
-  "new_model_comparison": "NOT_RUN",
-  "new_discovery": "Documentation restructuring only; existing host evidence reused.",
-  "publication": {
-    "target": "v0.2.3",
-    "addon_version": "0.1.3",
-    "release_url": "https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3",
-    "delivery_evidence": "Release BUILD-VERIFICATION and DOWNLOAD-VERIFICATION assets; build checks alone do not prove publication."
-  },
-  "host_evidence_revision": "20261020-beta280-closure",
-  "host_runtime_retested_this_revision": false,
-  "channel_revisions": {
-    "stable": "20261020-beta280-mcp",
-    "beta": "20261020-beta280-modular"
-  },
-  "previous_revision_checks": {
-    "revision": "20261020-beta280-closure",
-    "checks": {
-      "stable_unchanged_files": 22,
-      "installer_code_unchanged_files": 9,
-      "prior_installer_checks_reused": true,
-      "addon_payload_unchanged": true,
-      "official_skill_validator": "Skill is valid!",
-      "local_links": 194,
-      "anchors": 41,
-      "skill_formats": 1,
-      "manual_html_matches_markdown": true,
-      "beta_changed_payload_files": 4,
-      "main_installer_code_unchanged": true,
-      "installer_isolation": "unchanged code; previous checks reused"
-    }
-  }
+  "evidence_origin": "20261023-guidance-preview.1",
+  "release_verification": "See BUILD-VERIFICATION-0.2.4.json and DOWNLOAD-VERIFICATION-0.2.4.json in the GitHub release"
 }

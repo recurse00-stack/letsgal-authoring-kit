@@ -1,6 +1,6 @@
 # 使用手册
 
-本手册对应 **0.2.3 · 20261020-beta280-modular**。正式版当前维护 2.5.0，Beta 当前维护 2.8.0-beta.1，安装时只选一份。从 [GitHub 发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3) 下载完整主包；多人协作附加包 0.1.3 同页单独提供，详见[安装说明](https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md)。旧发行材料保留。可打开随包 [MANUAL.html](MANUAL.html) 离线阅读。
+本手册对应 **0.2.4 · 20261023-guidance**。正式版当前维护 2.5.0，Beta 当前维护 2.8.0-beta.1，安装时只选一份。从 [GitHub 发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.4) 下载包含两通道的完整主包；多人协作附加包保持 0.1.3，仍在[原发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)单独提供，详见[安装说明](https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md)。可打开随包 [MANUAL.html](MANUAL.html) 离线阅读。
 
 ## 这个包能做什么
 
@@ -150,7 +150,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex
 
 ### Beta 2.8：演出段与开发工具
 
-Beta 修订按制作任务重组，正式版目录及载荷不变。演出、参数校验、编辑期界面与构建各有操作入口，完整用法见[Beta 指南](channels/beta/MANUAL.md#按任务使用)。
+两条通道沿用各自宿主流程，完善临时设置恢复、附加包启停和主包显示信息。演出、参数校验、编辑期界面与构建各有操作入口，完整用法见[Beta 指南](channels/beta/MANUAL.md#按任务使用)。
 
 例如：“把这两句做成约四秒的演出，结束后等我点击，先在测试章验证。”AI 将两端标记和段内块同批写入，核秒／毫秒、文字重叠和允许指令，再从段前普通台词连续进入，观察自动换句、段尾等待与点击后正文。单击某句只是定位，单段重播也不能证明段外路线；定位／seek 的重复副作用须用 fresh 后连续路线复核。[演出段指引](channels/beta/skills/letsgal-authoring/references/performance.md)
 
@@ -160,7 +160,7 @@ Beta 修订按制作任务重组，正式版目录及载荷不变。演出、参
 
 “每次写入确认”与“影响面大的修改”等类别独立。关闭前者后，开启构建调试模式仍需要宿主确认；AI 说明具体操作，获准后继续并在临时测试结束恢复原值，不额外逐次询问或关闭确认保护。多构建方案的部分字段仍共享，当前 MCP 只改当前方案，创建／切换用获准原生界面。
 
-实时协作开放资格以当前账号与官方入口为准，不从公告、在线人数或 enabled=false 推断。多人房间使用独立 letsgal-collaboration 附加包，核本人章节、共享对象、逐行占用和同步；本机同步正常不代表另一客户端已经收到，也不默认上传作品。[官方说明](https://docs.avg-engine.com/manual/overview/collaboration)
+实时协作开放资格以当前账号与官方入口为准，不从公告、在线人数或 enabled=false 推断。多人房间仅在附加包已启用且适配当前宿主时使用独立 letsgal-collaboration，核本人章节、共享对象、逐行占用和同步；本机同步正常不代表另一客户端已经收到，也不默认上传作品。[官方说明](https://docs.avg-engine.com/manual/overview/collaboration)
 
 ### 多语言配音
 
@@ -172,7 +172,7 @@ Beta 修订按制作任务重组，正式版目录及载荷不变。演出、参
 
 可视化页面从独立文档开始，实际按钮动作、条件显示、关闭返回与重开状态分别检查。表的编辑增删改不等于游戏数据绑定或存档通过；主题恢复要核原来的显式选择状态。[UI 与数据](channels/beta/skills/letsgal-authoring/references/ui-and-data.md)
 
-预览与构建按[独立专题](channels/beta/skills/letsgal-authoring/references/preview-and-build.md)处理：到达某句不代表走完路线，启动调试不代表到达请求章，构建成功也不代替产物运行。本次重构复用已有宿主证据；通过项及未解决问题统一见[验证说明](VALIDATION.md)。
+预览与构建按[独立专题](channels/beta/skills/letsgal-authoring/references/preview-and-build.md)处理：到达某句不代表走完路线，启动调试不代表到达请求章，构建成功也不代替产物运行。本版复用已有宿主证据；通过项及未解决问题统一见[验证说明](VALIDATION.md)。
 
 ### 按任务协作，避免不必要的等待
 
@@ -200,7 +200,7 @@ AI应区分提案和已采用内容，保留声线，重要歧义集中询问；
 
 当前指引按任务读取：局部修改无需先读全部能力说明；新增分支才查关联结构，扩展任务才查 SDK。读取过且仍有效的官方指导可以复用，换工程、重连、宿主变化或证据冲突时刷新。目标完成并必要读回后结束，不自行扩大验收或改动。
 
-本修订只重构指引与交付材料，既有宿主及历史模型结果保留原证据范围，见[验证说明](VALIDATION.md)。不保证固定提速或 token 节省；工具搜索和独立读取并行仅在客户端支持时使用，不要求另装服务。
+本版的任务与安装验证单独记录，既有宿主及历史模型结果保留原证据范围，见[验证说明](VALIDATION.md)。不保证固定提速或 token 节省；工具搜索和独立读取并行仅在客户端支持时使用，不要求另装服务。
 
 ### 让 AI 完成一次修改
 
@@ -221,6 +221,10 @@ AI应区分提案和已采用内容，保留声线，重要歧义集中询问；
 同一聊天重连可能产生新 MCP 会话，需要核对新连接的批准状态。看到两个同名客户端时，先让 AI 查当前连接 ID、配置和活动日志；不要反复添加服务或盲目断开当前连接。“断开”可能导致自动重连，旧记录是否需要清理按日志判断，不能只凭同名就认定重复安装或故障。
 
 MCP 脚本文本并非所有块都能无损往返；不支持时逐块修改。局部预览和完整调试分别判断，高级调度、前处理及片段流程需对应入口与实际位置证据。已有有限读写、文件提交和限定恢复记录不能推出整工程恢复、Player 或存档通过，见[验证报告](VALIDATION.md)。
+
+## 临时设置与附加包状态
+
+预览语言等临时设置先记录实际原值，结束恢复该值；若期间已有后来改动，先核对并保留新值，不统一重置默认。附加包先检查个人设置与索引中的启用状态和宿主范围；暂停时保留文件并跳过加载，安装、升级或切换通道不自动恢复。
 
 ## 先明确工程版本
 
@@ -452,7 +456,7 @@ Beta 的当前能力见[制作指引](channels/beta/skills/letsgal-authoring/ref
 
 这些历史结果不能给出统一提升百分比，也不保证较弱模型受益更多。正式版仍提供无 MCP 制作指引，但没有与“完全不用 Skill”进行条件一致的完整对照。
 
-**本修订更新2.8指引，并补测可见演出段、扩展编辑界面与新增 MCP 路径；普通参数校验仍有已记录的宿主缺口。** 没有新增模型对照、速度或 token 测量，不把设计预期写成已验证收益；实际通过项、存读档和导出边界见验证说明。
+**本版完善两通道指引，完成有限隔离场景与安装检查；演出段、扩展界面及 MCP 的宿主证据沿用此前记录，普通参数校验仍有已记录的宿主缺口。** 没有新增模型对照、速度或 token 测量，不把设计预期写成已验证收益；实际通过项、存读档和导出边界见验证说明。
 
 ## 验证范围与反馈
 
