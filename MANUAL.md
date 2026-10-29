@@ -1,6 +1,6 @@
 # 使用手册
 
-本手册对应 **0.2.4 · 20261023-guidance**。正式版当前维护 2.5.0，Beta 当前维护 2.8.0-beta.1，安装时只选一份。从 [GitHub 发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.4) 下载包含两通道的完整主包；多人协作附加包保持 0.1.3，仍在[原发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)单独提供，详见[安装说明](https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md)。可打开随包 [MANUAL.html](MANUAL.html) 离线阅读。
+本手册对应 **0.2.5 · 20261029-structure**。正式版当前维护 2.5.0，Beta 当前维护 2.8.0-beta.1，安装时只选一份。从 [GitHub 发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.5) 下载包含两通道的完整主包；多人协作附加包保持 0.1.3，仍在[原发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)单独提供，详见[安装说明](https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md)。可打开随包 [MANUAL.html](MANUAL.html) 离线阅读。
 
 ## 这个包能做什么
 
@@ -26,7 +26,7 @@
 
 安装界面顶部直接展示风险与免责摘要，可展开全文；命令行在任何文件修改前输出摘要和全文路径（包括非交互运行）。自动化调用者应把提示转交实际使用者，不能将捕获的输出当作用户已阅读。安装收据及安装／卸载日志记录说明版本与 SHA-256，仅用于本地追溯，未收集同意或放弃权利的记录。
 
-手动复制 Skill 时，完整说明随 references/risk-notice.md 一起保留。AI 首次准备写工程时应核对可写范围、备份与关键风险；已说明且未变化时不必重复宣读，操作范围或风险变化时再作针对性提醒。
+手动复制 Skill 时，完整说明随 references/risk-notice.md 一起保留。AI 写工程前核对范围与实际有效恢复方式；已有保护可复用，仅在操作影响或风险需要说明时作针对性提醒，不逐次宣读通用风险。
 
 ## 选择正式版或 Beta
 
@@ -128,6 +128,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex
 `-Harness` 取 Codex、Claude、Cursor、Copilot、DSH 或 Manual；`-Scope` 为 User 或 Project。项目模式配 `-ProjectPath "<工程绝对路径>"`，Manual 配 `-SkillsDirectory "<已配置的 skills 根目录>"`，DSH 可配 `-DshHome "<实际数据目录>"`。`-Channel` 按目标工程选 `stable` 或 `beta`；上例为正式版。`-NonInteractive` 适用于自动化，必须明确给出通道；已有特调需先比较，明确使用 `-ReplaceModified` 才允许先完整备份再继续。命令行参数名与有效值以随包 `Install.ps1` 的参数声明为准；不要在其他工作目录单独运行摘出的脚本。
 
 ## 官方 MCP 与无 MCP 两种用法
+
+Beta 工具缺席时先定向发现；发现后真实调用成功即继续任务，不为告警重连。调用失败才核对共享影响并尝试一轮可用的单服务器重连，仍失败则说明原因并询问 Computer Use；只读、拒绝或待批准按宿主要求处理，不能借托底绕过。缺少安全的单项接口时，不重启整个客户端或其他工作。
+
+临时素材在创建时记录实际路径和新建／复用来源；漏记时凭可追溯证据补录。占用导致撤销、删除失败，先核部分完成状态，协调保存关闭后按清单核删与读回。确定保留和等待处理分别记录，保留唯一有效恢复副本，完成后清除无用途暂存。详见[素材清理](channels/beta/skills/letsgal-authoring/references/asset-cleanup.md)。
 
 **安装这份 Skill 不要求启用 MCP。** 没有 MCP 的正式版仍可让 AI 制作剧情、检查 JSON、维护扩展源码与说明，再通过原生界面验证。Beta 载荷在官方 MCP 已接入当前 Agent 时优先通过 Studio 读取和修改当前工程；正式版载荷保持原生／离线工作法。
 
@@ -299,7 +303,7 @@ MCP 脚本文本并非所有块都能无损往返；不支持时逐块修改。�
 | 预览与导出 | 区分局部预览、继承前文、作品入口及交付格式 | 跳过项、输出正文；必要的玩家／存读档另验 |
 | 扩展开发 | 只读目标 SDK 和实际源码构建入口 | 构建、宿主加载与本次使用接口分别确认 |
 
-细节集中在[正式版当前能力](channels/stable/skills/letsgal-authoring/references/current-capabilities.md)与[Beta当前能力](channels/beta/skills/letsgal-authoring/references/current-capabilities.md)，无需按旧版本顺序阅读。Beta 推荐官方 MCP，未接入时说明一次优势和回退方式；不自动安装／注册或改变权限。只有真正的能力缺口才使用获准界面，权限限制不触发绕过。
+细节集中在[正式版当前能力](channels/stable/skills/letsgal-authoring/references/current-capabilities.md)与[Beta当前能力](channels/beta/skills/letsgal-authoring/references/current-capabilities.md)，无需按旧版本顺序阅读。Beta 推荐官方 MCP；确认未配置时可说明接入方式。工具缺席先发现并真实调用，失败才有限重连，再失败说明并询问 Computer Use，不自动安装／注册或改变权限。只有真正的能力缺口才使用获准界面，权限限制不触发绕过。
 
 ### 一个地点牌的完整小练习
 
@@ -456,7 +460,7 @@ Beta 的当前能力见[制作指引](channels/beta/skills/letsgal-authoring/ref
 
 这些历史结果不能给出统一提升百分比，也不保证较弱模型受益更多。正式版仍提供无 MCP 制作指引，但没有与“完全不用 Skill”进行条件一致的完整对照。
 
-**本版完善两通道指引，完成有限隔离场景与安装检查；演出段、扩展界面及 MCP 的宿主证据沿用此前记录，普通参数校验仍有已记录的宿主缺口。** 没有新增模型对照、速度或 token 测量，不把设计预期写成已验证收益；实际通过项、存读档和导出边界见验证说明。
+本候选调整两通道资料结构，并以有限独立场景核对任务结果与读取量；实际完成项见[验证说明](VALIDATION.md)。宿主证据沿用注明版本的记录，普通参数校验仍有已记录的缺口；字符读取量不是 token 或实际耗时测量。
 
 ## 验证范围与反馈
 

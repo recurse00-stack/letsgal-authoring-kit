@@ -1,37 +1,73 @@
 {
-  "version": "0.2.4",
-  "revision": "20261023-guidance",
-  "status": "RELEASE_VALIDATION_SCOPE",
+  "version": "0.2.5",
+  "revision": "20261029-structure",
+  "status": "CONTENT_VALIDATED_RELEASE_ARTIFACT_CHECKS_SEPARATE",
   "targets": {
     "stable": "2.5.0",
     "beta": "2.8.0-beta.1"
   },
   "components": {
     "skill": "changed",
-    "installer_code": "verified-unchanged",
+    "runtime_scripts": "verified-byte-unchanged",
+    "installer_code": "verified-byte-unchanged",
     "human_manual": "changed"
   },
-  "isolated_scenarios": {
-    "passed": 5,
-    "failed": 0,
-    "mode": "current-session exercise; not independent model validation"
+  "deterministic_checks": {
+    "version": {
+      "passed": 68,
+      "failed": 0
+    },
+    "project": {
+      "passed": 26,
+      "failed": 0
+    },
+    "channel_install": {
+      "passed": 22,
+      "failed": 0
+    },
+    "same_version_install": {
+      "passed": 7,
+      "failed": 0
+    }
   },
-  "installation": {
-    "passed": 7,
-    "failed": 0,
-    "paused_user_state_preserved": true
+  "independent_scenarios": {
+    "initial_pairs": 10,
+    "initial_runs": 20,
+    "initial_pass": 19,
+    "initial_ambiguity": 1,
+    "targeted_retest_pairs": 1,
+    "targeted_retest_runs": 2,
+    "retest_pass": 2,
+    "unresolved_critical_failures": 0,
+    "mode": "independent isolated responses, same questions and inherited model/permissions; semantic review"
+  },
+  "reading_measurement": {
+    "before_median_chars": 12086.0,
+    "after_median_chars": 8972.5,
+    "median_read_reduction_percent": 25.76,
+    "paired_reduction_median_percent": 19.07,
+    "unit": "actual Skill characters read, repeats included; not tokens or time",
+    "scope": "10 fixed pairs; retest measured separately",
+    "quality_priority": true
   },
   "new_live_host_test": false,
-  "new_independent_model_test": false,
+  "new_independent_model_test": true,
   "host_evidence_reused": "20261020-beta280-closure",
   "static_checks": {
-    "passed": 13,
-    "failed": 0,
-    "relative_links": 209,
-    "anchors": 38,
-    "shared_files": 9,
-    "official_skill_validator": "both channels passed"
+    "official_skill_validator": "both channels passed",
+    "shared_files": 14,
+    "payload_files": {
+      "stable": 28,
+      "beta": 31
+    },
+    "relative_links_and_anchors": "passed"
   },
-  "evidence_origin": "20261023-guidance-preview.1",
-  "release_verification": "See BUILD-VERIFICATION-0.2.4.json and DOWNLOAD-VERIFICATION-0.2.4.json in the GitHub release"
+  "collaboration_addon": "0.1.3 unchanged; no activation",
+  "publication": "See GitHub v0.2.5 release build and anonymous download verification assets.",
+  "evidence_origin": {
+    "version": "0.2.4",
+    "revision": "20261029-structure-preview.1",
+    "date": "2026-10-29",
+    "reuse": "Instruction content unchanged except release version metadata; publication checks recorded separately."
+  }
 }

@@ -1,6 +1,6 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LetsGal Authoring Kit 0.2.4 · 使用手册</title><style>body{max-width:960px;margin:36px auto;padding:0 20px;font:17px/1.75 system-ui,sans-serif;color:#243044;background:#fafbfc}h1,h2,h3{color:#12233e}a{color:#1556aa}table{border-collapse:collapse;width:100%;margin:20px 0}td,th{border:1px solid #ccd4df;padding:8px;text-align:left}th{background:#edf2f8}pre{overflow:auto;padding:16px;background:#eaf0f6;border-radius:8px}code{font-family:Consolas,monospace}blockquote{border-left:4px solid #7aa0cc;margin:16px 0;padding:4px 16px;background:#f0f5fa}</style></head><body>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LetsGal Authoring Kit 0.2.5 · 使用手册</title><style>body{max-width:960px;margin:36px auto;padding:0 20px;font:17px/1.75 system-ui,sans-serif;color:#243044;background:#fafbfc}h1,h2,h3{color:#12233e}a{color:#1556aa}table{border-collapse:collapse;width:100%;margin:20px 0}td,th{border:1px solid #ccd4df;padding:8px;text-align:left}th{background:#edf2f8}pre{overflow:auto;padding:16px;background:#eaf0f6;border-radius:8px}code{font-family:Consolas,monospace}blockquote{border-left:4px solid #7aa0cc;margin:16px 0;padding:4px 16px;background:#f0f5fa}</style></head><body>
 <h1 id="使用手册">使用手册</h1>
-<p>本手册对应 <strong>0.2.4 · 20261023-guidance</strong>。正式版当前维护 2.5.0，Beta 当前维护 2.8.0-beta.1，安装时只选一份。从 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.4">GitHub 发布页</a> 下载包含两通道的完整主包；多人协作附加包保持 0.1.3，仍在<a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3">原发布页</a>单独提供，详见<a href="https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md">安装说明</a>。可打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读。</p>
+<p>本手册对应 <strong>0.2.5 · 20261029-structure</strong>。正式版当前维护 2.5.0，Beta 当前维护 2.8.0-beta.1，安装时只选一份。从 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.5">GitHub 发布页</a> 下载包含两通道的完整主包；多人协作附加包保持 0.1.3，仍在<a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3">原发布页</a>单独提供，详见<a href="https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md">安装说明</a>。可打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读。</p>
 <h2 id="这个包能做什么">这个包能做什么</h2>
 <p><code>letsgal-authoring</code> 是给 AI 编程工具读取的社区 Skill。它教 AI 查找 LetsGal 官方规范、制作剧情与章节 JSON、组织协作和恢复保护（Git 可选），并保护已有作品。它不包含引擎、模型账号或 MCP，也不会给聊天工具凭空增加文件访问能力。</p>
 <p>导入器只导入本包的 LetsGal Skill；“其他 Agent / 指定目录”用于选择 Agent 已配置的技能根目录，不是导入任意第三方 Skill。</p>
@@ -13,7 +13,7 @@
 <p><strong>使用前请阅读：AI 可能误改、误删或泄露资料。请先备份作品并限制 Agent 可写范围；技能备份不包含作品。</strong> 本包按现状提供，不提供担保；作者及贡献者不对使用或无法使用本包造成的任何损失承担责任。详见<a href="channels/beta/skills/letsgal-authoring/references/risk-notice.md">风险说明与免责声明</a>。</p>
 <p>首次操作请先在工程副本上尝试，核对备份和恢复方法，再限制 Agent 的可写范围。安装器不负责备份整个作品；Git 也不一定包含未跟踪文件、素材或未提交修改。遇到删除、覆盖或批量迁移，先审查精确对象和影响，再授权。</p>
 <p>安装界面顶部直接展示风险与免责摘要，可展开全文；命令行在任何文件修改前输出摘要和全文路径（包括非交互运行）。自动化调用者应把提示转交实际使用者，不能将捕获的输出当作用户已阅读。安装收据及安装／卸载日志记录说明版本与 SHA-256，仅用于本地追溯，未收集同意或放弃权利的记录。</p>
-<p>手动复制 Skill 时，完整说明随 references/risk-notice.md 一起保留。AI 首次准备写工程时应核对可写范围、备份与关键风险；已说明且未变化时不必重复宣读，操作范围或风险变化时再作针对性提醒。</p>
+<p>手动复制 Skill 时，完整说明随 references/risk-notice.md 一起保留。AI 写工程前核对范围与实际有效恢复方式；已有保护可复用，仅在操作影响或风险需要说明时作针对性提醒，不逐次宣读通用风险。</p>
 <h2 id="选择正式版或-beta">选择正式版或 Beta</h2>
 <p>0.2.1起分开维护两套内容，安装时按目标工程的实际Studio通道选择一份：</p>
 <table>
@@ -174,6 +174,8 @@
 </code></pre>
 <p><code>-Harness</code> 取 Codex、Claude、Cursor、Copilot、DSH 或 Manual；<code>-Scope</code> 为 User 或 Project。项目模式配 <code>-ProjectPath "&lt;工程绝对路径&gt;"</code>，Manual 配 <code>-SkillsDirectory "&lt;已配置的 skills 根目录&gt;"</code>，DSH 可配 <code>-DshHome "&lt;实际数据目录&gt;"</code>。<code>-Channel</code> 按目标工程选 <code>stable</code> 或 <code>beta</code>；上例为正式版。<code>-NonInteractive</code> 适用于自动化，必须明确给出通道；已有特调需先比较，明确使用 <code>-ReplaceModified</code> 才允许先完整备份再继续。命令行参数名与有效值以随包 <code>Install.ps1</code> 的参数声明为准；不要在其他工作目录单独运行摘出的脚本。</p>
 <h2 id="官方-mcp-与无-mcp-两种用法">官方 MCP 与无 MCP 两种用法</h2>
+<p>Beta 工具缺席时先定向发现；发现后真实调用成功即继续任务，不为告警重连。调用失败才核对共享影响并尝试一轮可用的单服务器重连，仍失败则说明原因并询问 Computer Use；只读、拒绝或待批准按宿主要求处理，不能借托底绕过。缺少安全的单项接口时，不重启整个客户端或其他工作。</p>
+<p>临时素材在创建时记录实际路径和新建／复用来源；漏记时凭可追溯证据补录。占用导致撤销、删除失败，先核部分完成状态，协调保存关闭后按清单核删与读回。确定保留和等待处理分别记录，保留唯一有效恢复副本，完成后清除无用途暂存。详见<a href="channels/beta/skills/letsgal-authoring/references/asset-cleanup.md">素材清理</a>。</p>
 <p><strong>安装这份 Skill 不要求启用 MCP。</strong> 没有 MCP 的正式版仍可让 AI 制作剧情、检查 JSON、维护扩展源码与说明，再通过原生界面验证。Beta 载荷在官方 MCP 已接入当前 Agent 时优先通过 Studio 读取和修改当前工程；正式版载荷保持原生／离线工作法。</p>
 <table>
 <thead>
@@ -387,7 +389,7 @@
 </tr>
 </tbody>
 </table>
-<p>细节集中在<a href="channels/stable/skills/letsgal-authoring/references/current-capabilities.md">正式版当前能力</a>与<a href="channels/beta/skills/letsgal-authoring/references/current-capabilities.md">Beta当前能力</a>，无需按旧版本顺序阅读。Beta 推荐官方 MCP，未接入时说明一次优势和回退方式；不自动安装／注册或改变权限。只有真正的能力缺口才使用获准界面，权限限制不触发绕过。</p>
+<p>细节集中在<a href="channels/stable/skills/letsgal-authoring/references/current-capabilities.md">正式版当前能力</a>与<a href="channels/beta/skills/letsgal-authoring/references/current-capabilities.md">Beta当前能力</a>，无需按旧版本顺序阅读。Beta 推荐官方 MCP；确认未配置时可说明接入方式。工具缺席先发现并真实调用，失败才有限重连，再失败说明并询问 Computer Use，不自动安装／注册或改变权限。只有真正的能力缺口才使用获准界面，权限限制不触发绕过。</p>
 <h3 id="一个地点牌的完整小练习">一个地点牌的完整小练习</h3>
 <ol>
 <li>在已获准范围内确定文案、位置和样式，为新浮字保留独立 ID；核恢复点。</li>
@@ -655,7 +657,7 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 <h2 id="从测试中看到的实际帮助">从测试中看到的实际帮助</h2>
 <p>官方 MCP 提供读取和修改工程的能力，Skill 补充任务判断、范围、资料和必要检查。此前 0.2.1 小样本中，部分批量任务减少重复调用，部分恢复／变量任务减少漏检或语义错误；也有任务增加检查、出现部分采用不准或完成判断错误。未通过保留门槛的实验规则已撤回。</p>
 <p>这些历史结果不能给出统一提升百分比，也不保证较弱模型受益更多。正式版仍提供无 MCP 制作指引，但没有与“完全不用 Skill”进行条件一致的完整对照。</p>
-<p><strong>本版完善两通道指引，完成有限隔离场景与安装检查；演出段、扩展界面及 MCP 的宿主证据沿用此前记录，普通参数校验仍有已记录的宿主缺口。</strong> 没有新增模型对照、速度或 token 测量，不把设计预期写成已验证收益；实际通过项、存读档和导出边界见验证说明。</p>
+<p>本候选调整两通道资料结构，并以有限独立场景核对任务结果与读取量；实际完成项见<a href="VALIDATION.md">验证说明</a>。宿主证据沿用注明版本的记录，普通参数校验仍有已记录的缺口；字符读取量不是 token 或实际耗时测量。</p>
 <h2 id="验证范围与反馈">验证范围与反馈</h2>
 <p>Skill 的发布标准是：任务指引可用、关键用法有依据、安装和包完整、说明如实呈现限制。无需先替官方验收整个引擎。用户作品仍按本次使用的功能检查；版本未知时继续不依赖它的工作。</p>
 <p>历史宿主与模型证据保留原版本范围；本轮未改安装器代码，针对性隔离检查见验证报告；未改的宿主功能及恢复机制复用仍适用的历史证据。当前检查范围见<a href="VALIDATION.md">验证报告</a>，历史宿主摘要见<a href="HOST-VALIDATION.md">宿主范围</a>。</p>
@@ -664,4 +666,5 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 <p>游戏设置里，文字显示语言与配音语言可以分别选择，选项取自工程语言；单语言作品会隐藏这两行。Studio 自身界面语言是另一项设置。</p>
 <p>准备多语言录音时，先给原声匹配配音，并核对各语言录音在语音表中的同一编号／键。游戏按所选配音语言寻找对应文件，找不到时回退原声。个别句子需要特殊录音才设置语言覆盖；移除覆盖后恢复语音表匹配，并不表示静音。自动匹配先预演；目标语言已有表对应的行会跳过，缺少有效译文的行保持未匹配。实际试听、语言切换与缺失录音回退需在作品里检查。</p>
 <p>蓝图自动排列调整画布布局，可选择曲线或直角连线；剧情跳转、条件和章节顺序另行管理，不因整理画布改写剧情。章末提示改到右上角小胶囊，不代表完整路线已验收。</p>
-<p>本版界面显示、按钮闪烁和存档截图等运行时修复，需要重新构建已导出的游戏才能带入；自定义存档界面另核截图是否截入窗口自身。这里只说明官方能力与检查方法，不宣称所有作品已验证。</p></body></html>
+<p>本版界面显示、按钮闪烁和存档截图等运行时修复，需要重新构建已导出的游戏才能带入；自定义存档界面另核截图是否截入窗口自身。这里只说明官方能力与检查方法，不宣称所有作品已验证。</p>
+</body></html>
