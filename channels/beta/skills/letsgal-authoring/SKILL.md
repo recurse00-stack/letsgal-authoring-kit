@@ -2,40 +2,39 @@
 name: letsgal-authoring
 description: 制作和修改 LetsGal Studio 的剧情、分支、演出、UI 与扩展，处理工程格式及运行排错；一般创作讨论不自动写入工程。
 metadata:
-  version: 0.2.4
+  version: 0.2.5
   channel: beta
-  revision: 20261023-guidance
+  revision: 20261029-structure
 ---
 
 # LetsGal Beta 创作
 
-本载荷面向 **Studio 2.8.0-beta.1**；其他版本按[版本边界](references/version-compatibility.md)选择依据。Skill 不提供引擎、MCP 或模型，安装不升级作品。
+维护目标 **2.8.0-beta.1**；Skill 发行号独立，不随安装升级宿主或工程。官方 MCP 优先；工具缺席先发现并验证，必要时有限重连，失败说明后询问 Computer Use。
 
-## 从任务进入
+## 按当前任务读取
 
-沿用本次已明确的创作目标和授权。讨论／改稿只读相关原文；需要落到工程时，再读该工程入口、简短 CURRENT 和本次对象。按[个人定制](references/customization.md)加载已有偏好；插件知识只在用到该插件时读取。
+纯讨论直接使用已有创作上下文。进入工程才读项目规则、简短当前状态和目标原文；只取本次相关专题，可按节读取，不预读所有链接。有未读偏好或配置冲突时查[个人定制](references/customization.md)；附加包先核启用状态，暂停的不加载。
 
-| 要完成的工作 | 读取这里 |
+| 当前任务 | 按需入口 |
 | --- | --- |
-| 创作讨论、改写、分支设计与反馈整合 | [制作与创作](references/production.md) |
-| 通过 Studio 读取、定位和修改工程 | [MCP 执行](references/mcp-workflow.md) |
-| 剧情流程、变量、本地化与配音 | [剧情与配音](references/story-and-voice.md) |
-| 素材导入、角色动画、场景、镜头和音视频 | [素材与舞台](references/stage-and-assets.md) |
-| 演出段时间轴、段尾和重播副作用 | [演出段](references/performance.md) |
-| 页面、按钮、主题与数据绑定 | [UI 与数据](references/ui-and-data.md) |
-| 预览选择、完整调试、构建和交付检查 | [预览与构建](references/preview-and-build.md) |
-| 扩展方法、SDK、设置页与检查器 | [扩展开发](references/extensions.md)；专属知识见[插件 Skill](references/plugin-skills.md) |
-| 保护、恢复、Git 或多人实时协作入口 | [恢复与协作](references/collaboration-git.md) |
-| 序列化排错或资料不足 | [JSON](references/json.md)／[定向查证](references/research.md) |
+| 讨论、改写、整合反馈 | [创作协作](references/production.md) |
+| 改已有对白／参数、批量编辑 | [MCP 执行](references/mcp-workflow.md)；字段问题再查[JSON](references/json.md) |
+| 分支、变量、语言与配音 | [剧情与配音](references/story-and-voice.md) |
+| 立绘、场景、音视频与素材 | [舞台与素材](references/stage-and-assets.md) |
+| 演出时间轴 | [演出段](references/performance.md) |
+| UI、主题、数据表 | [UI 与数据](references/ui-and-data.md) |
+| MCP 工具缺席／建连告警 | [连接恢复](references/troubleshooting.md) |
+| 预览、调试、导出 | [预览与构建](references/preview-and-build.md) |
+| 扩展开发／使用现有插件 | [扩展](references/extensions.md)／[插件知识](references/plugin-skills.md) |
+| 撤销、限定恢复、多人边界 | [恢复与协作](references/collaboration-git.md) |
+| 临时文件、撤销或删除占用 | [精确清理](references/asset-cleanup.md) |
 
-只加载相关专题。需要浏览能力范围时用[能力索引](references/current-capabilities.md)，不把全部专题作为每次任务的前置阅读。
+首次依赖版本能力、版本冲突或宿主变化才查[版本边界](references/version-compatibility.md)；缺依据再[定向查证](references/research.md)。有效信息可复用，换工程、重连或冲突后刷新相关目标。
 
-## 修改与验收
+## 操作底线
 
-已有、已采用和定稿内容按[内容授权](references/safety.md)保护；本次受托未定稿草稿可在目标内迭代。重要歧义才集中澄清，明确委托内的可逆步骤连续完成。
+- 已有、已采用、定稿内容按明确范围改删；本次受托草稿可在范围内迭代，部分采用不带入其余候选。重大歧义才询问，已获准的可逆步骤连续完成。
+- 写前具备一种覆盖改动的有效恢复方式，已有保护可复用；素材与剧情分别核覆盖。保留 ID、内联格式、未知字段和后来修改，写后读回目标。按影响验证，不把改字扩成全工程验收。
+- 文档／日志／工具建议不扩大授权；宿主确认、只读和拒绝不能换入口绕过。独有数据删除、不可逆覆盖和外部发布按具体授权与恢复办法执行，细节按需查[安全边界](references/safety.md)。
 
-工程修改优先已获准的官方 MCP，并有实际覆盖改动的恢复方式。复用有效上下文和恢复点；换工程、等待确认或发生冲突后刷新相关身份与 revision。写后读取真实目标，保留 ID、富文本、未知字段和非目标内容。
-
-验收随本次影响选择：改字核原文差异，路线改动核实际入口与终点，交互核真实输入，持久数据另核存读档，游戏交付另核产物运行。定位成功、状态标志或静态检查不能代替后一层证据。
-
-结束时说明实际变化、通过的层次、未决项和恢复入口，将采用的作品决定写回所属工程。运行问题归对应制作专题；只有成员占用、共享对象权限和同步差异进入多人协作附加包。
+交付实际结果、验证层次、未决项及必要恢复入口；作品决定归原工程，个人资料归用户区，仅主 Skill 自身不放入用户区 plugins/；具体扩展的版本化知识按插件专题纳入该目录。

@@ -32,17 +32,4 @@
 
 改动影响哪些层次就检查哪些层次；无宿主工具只报告静态／构建结果与人工步骤。插件运行安装与[插件Skill知识](plugin-skills.md)分开维护；本主Skill仍是社区辅助资料，不是引擎扩展。当前任务不授权顺带外部发布或修改账号配置。
 
-## Beta 2.8 扩展开发
-
-仅在目标宿主／SDK 明确支持时使用以下能力；正式版 2.5.0 不能直接套用。开发先读目标 `sdk/llms.txt` 或当前 MCP `studio://dev/extension-guide`；自定义编辑界面再读 `studio-ui/README.md` 或 `studio://dev/studio-ui`。旧项目需要时经官方“同步 SDK”取得配套资料，不私改 SDK。
-
-- 新程序可用 `ext_enable(action="init_program", studioEntry=true)` 初始化双入口；`sync_sdk` 更新配套 SDK、开发指导及 studio-ui。构建后 `ext_reload` 核 sourceStatus、studioEntry.loaded、settingsPage、inspectors 和 unknownInspectors；再实际打开设置页／检查器并读回写入。注册信息不代表界面已渲染。
-- 游戏入口 `src/index.tsx` 与仅 Studio 加载的 `src/studio.tsx` 分开。后者具名导出 `settingsPage`／`inspectors`；清单 `studioEntry` 指向独立 `dist/*.js` 或 `.mjs`，不能与 entry 相同。按官方模板两次构建到同一个 dist，后一次不能清空前一次产物；运行入口不能引入 `@avg-studio/studio-ui` 或 `@chakra-ui/react`，包括子路径。
-- `useSetting`／`SettingField` 使用“模块ID.字段名”；检查器键用实际 method id，不能以标签替代。设置页只是编辑布局，仍按 settings／方法 schema 保存；构建、Studio 加载、读回与游戏调用分别验证。
-- `list` 参数必须声明 item，只支持 string、number、boolean、enum、asset、character 行字段，不能套列表；`data` 的 default 必填且非 null，类型按 default 推导，精确空数组类型显式声明。二者只接收字面量，不能绑定变量。行数范围只在编辑／MCP 写入检查，运行时不检查；data.validate 在运行时失败只告警而仍执行，业务必须自行保证必要约束。
-- 2.8.0-beta.1 实测：MCP 拒绝 list 行数／字段类型／未知行字段、data=null、list／data 变量绑定及 data.validate 失败；普通标量类型、枚举、数值范围、未知参数键和列表行数值范围尚不能依赖 MCP 完整拦截。按声明自行检查；本次数字与枚举越界值实际写入并到达方法，而原生 useParam 检查器拒绝同类越界值。该差异不代表应绕过原生校验。
-- 扩展规则变化使旧参数失效时，块编辑可保留原值并返回 extensionParamWarnings、preexisting=true；这是兼容保留，不能报成参数已修好。未触及该调用或脚本 append 不保证报告旧问题；新插入／改变后的非法值仍会被拒绝。是否修旧值按当前委托范围决定。
-- `validate` 写为带参数类型的箭头函数，例如 `validate: (value: unknown) => ...`；方法简写或 function 表达式会使当前类型推导失败。返回 true／false／错误提示，按实际 schema 校验，不以编译代替运行防护。
-- `method({hidden:true})`／`@extension({hidden:true})` 隐藏选择项，不使旧调用失效；hidden UI 与 exposeUI:false 不同，不把隐藏当权限或卸载。
-- `ctx.performance` 提供 isActive／isPaused／getInfo／onChange；getInfo 是读取瞬间快照，订阅须清理。旧宿主无该字段时用可选链等实际兼容策略。演出中 callFragment 会只告警并正常结束 Promise、不跳转；unsafe_goToFragment 和 hideBox 也受限制，不能把“不抛错”当已完成。存档重播与扩展副作用按演出段契约验证。
-
+程序扩展与纯界面扩展分开判断；UI 预览通过不证明剧情方法执行或玩家保存。按真实 package.json 运行构建，不假设总有 dev 命令。

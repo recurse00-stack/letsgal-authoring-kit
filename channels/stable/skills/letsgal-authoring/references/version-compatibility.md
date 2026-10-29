@@ -1,6 +1,6 @@
 # 正式版当前维护边界
 
-本载荷仅登记 **2.5.0**；0.2.4是Skill发行号。2026-10-10核对官方清单，当前内容已按主题融合，不要求先读旧版本增量。
+本载荷仅登记 **2.5.0**；0.2.5是Skill发行号。2026-10-10核对官方清单，当前内容已按主题融合，不要求先读旧版本增量。
 
 按目标工程约定与实际Studio完整版本／通道核对，运行实例、关于页或EXE FileVersion可作宿主证据。project.json中的version／engineVersion及SDK自报值不必是宿主版本，保留原值；扩展另外核SDK来源。
 
@@ -11,3 +11,5 @@ scripts/inspect_version.py支持原有--studio-version、--studio-exe、--projec
 通道不匹配时提示选择对应载荷；同时维护不同通道工程可用项目范围安装，核实际发现优先级，同一位置不并装两个同名入口。历史资料留在维护归档与旧包，不进入日常载荷。
 
 [正式清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json) · [Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)。官网资料、目标样本、SDK和运行分别标明证据；无证据时不猜字段。
+
+`--project-version` 只传项目明确固定的目标引擎版本；不能直接拿 project.json 的格式／项目版本值当宿主版本。脚本只选择资料，不启动或修改宿主。

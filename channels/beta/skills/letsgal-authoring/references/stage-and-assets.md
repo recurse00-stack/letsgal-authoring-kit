@@ -8,6 +8,8 @@
 
 ## 选择实际使用的演出对象
 
+临时测试素材在创建／导入时登记实际路径、哈希、素材 ID 和新建／复用来源；清理不是凭文件名猜测。撤销或删除失败时先核部分完成，再按[临时素材清理](asset-cleanup.md#保存关闭后逐项处理)记录待处理项、协调共享宿主可关闭时机后保存关闭、逐项核删及收尾；不把导入复用的原有素材误删为临时文件。
+
 - **角色与模型**：区分素材登记、表情、皮肤／姿势／部位和对白头像。保留层序、逐句覆盖和静态回退；差分同名部位可能影响其他姿势，同句换皮肤仍核表情。Spine 核骨骼／Atlas／纹理／运行时，Live2D 核 model3 及依赖，Core 授权按官方流程处理，不随 Skill 分发。模型已登记不等于已显示或在动；连续帧核眨眼／姿态和表情动画切换。Spine 结果不能替代 Live2D、序列帧或网格变形验收。
 - **立绘放置与动作**：先读 positions 和角色的 layout／profiles，独立布局会覆盖全局，不能假定 middle 一定是倍率 1。入场用 showCharacter；已在场的表情／位置变化用 updateCharacter，其 placementTransition 字段控制平滑移动；退场用 removeCharacter。块级 motionPreset 覆盖只作用于本次演出，避免为单句改全局或角色默认动作。数字类型按 schema：motionDuration／placementTransitionDuration 为数字，camera.duration 为毫秒字符串。别新建已弃用的 animateSprite／stageAnimation。
 - **对白头像与序列动画**：序列帧引用实际独立表情，不能包含序列自身；网格预设写入后读回层、关键帧和循环，仍需连续画面验运动。`portrait_bake(kind="dialogue_portrait")` 要启用对白头像并为目标表情选择 static 来源；原立绘是图片也可能默认使用动态对白头像。烘焙返回新缓存且 cacheReady=true 证明生成，不代替对白画面验收。
