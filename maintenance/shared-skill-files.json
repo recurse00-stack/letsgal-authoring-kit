@@ -5,13 +5,18 @@
   "files": [
     "LICENSE",
     "examples/选择练习.json",
+    "references/asset-cleanup.md",
+    "references/customization-maintenance.md",
     "references/customization.md",
+    "references/git-workflow.md",
+    "references/plugin-skill-authoring.md",
     "references/plugin-skills.md",
     "references/production.md",
     "references/risk-notice.md",
     "scripts/check_project.py",
     "templates/LETSGAL.example.md",
-    "templates/PLUGIN-SKILL.example.md"
+    "templates/PLUGIN-SKILL.example.md",
+    "templates/TEMP-CLEANUP.example.md"
   ],
   "rule": "Only these unchanged common files sync from stable to beta after explicit comparison. All other channel files and channel revisions are maintained independently. A beta-only update must preserve the complete stable tree byte for byte."
 }

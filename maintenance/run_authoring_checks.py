@@ -183,7 +183,7 @@ def run(scratch,native_fixtures=None):
     (sdk/'index.ts').write_text('export type Marker = number;','utf-8')
     (sdk/'constants.ts').write_text('export const SDK_VERSION = "1.21.0";','utf-8')
     before=hashes(sdk)
-    p=subprocess.run([sys.executable,'-B',str(scripts/'inspect_version.py'),'--studio-version','2.3.0-beta.1',
+    p=subprocess.run([sys.executable,'-B',str(scripts/'inspect_version.py'),'--studio-version','2.8.0-beta.1',
                       '--sdk',str(sdk)],capture_output=True)
     r=json.loads(p.stdout)
     ok=p.returncode==0 and hashes(sdk)==before and r['sdk']['declared_version']=='1.21.0' \
