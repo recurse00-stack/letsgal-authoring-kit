@@ -13,6 +13,8 @@
 
 撤销自己的操作先用 `history_undo` dryRun 核 opId 和受影响对象。遇到 `UNDO_CONFLICT`，重读并只向前修复仍获准的差异，保留后来编辑。撤销返回的新操作 ID 与 undone 指向的旧操作不同；成功提示后仍核原对象、ID、字段和引用。
 
+撤销／删除报 INTERNAL、EPERM 或 EBUSY 可能已经部分完成。先读回目标和操作历史，登记剩余文件；遇到图片占用时按[文件占用与清单清理](asset-cleanup.md#撤销删除失败与文件占用)处理，不重复撤销整批操作，不清空整个历史／隔离目录。
+
 文件历史恢复先审阅 filesToWrite 和 filesToDelete。快照中不存在的临时配置可能需要删除才算恢复原状态；只恢复本次目标文件，不为恢复一项设置回滚整工程。恢复后重读实际生效值，不能仅看返回成功。数据行撤销的已知缺口见[数据表](ui-and-data.md#数据表的编辑与运行)。
 
 ## 多人协作
@@ -25,11 +27,7 @@
 
 ## 项目选择 Git 时
 
-只检查目标仓库根、分支、暂存和工作区差异，保留 HEAD、索引及原工作。只读检查优先 `git --no-optional-locks`，避免为检查刷新索引。不开跨作品父目录大库，不为干净状态使用 reset --hard、clean -fdx 或覆盖式 restore。
-
-提交须有当前授权并沿项目约定，只纳入本次审阅范围。同文件部分暂存时，`git commit --only` 取工作区内容，不等于只提交已审阅的暂存片段；不擅自 stash／unstage 他人工作、推送或改写公共历史。JSON 冲突按结构合并，保留双方内容与 ID，不能整份选 ours／theirs 就称解决。
-
-worktree 不自动包含未提交内容，也不备份素材；LFS、忽略和发行策略沿现有约定。安装备份可能含特调，不提交整个备份目录。恢复先将旧内容取到独立位置比较，再核 `git restore` 对工作区／索引的实际影响。[commit](https://git-scm.com/docs/git-commit) · [restore](https://git-scm.com/docs/git-restore)
+仅在项目采用 Git 且本次需要相关操作时，读[Git 工作流](git-workflow.md)。
 
 ## 交接
 
