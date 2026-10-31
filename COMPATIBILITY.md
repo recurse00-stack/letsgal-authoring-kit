@@ -1,6 +1,6 @@
 # Harness 适配边界
 
-本说明对应0.2.5。本版完善 Stable 2.5.0 与 Beta 2.8.0-beta.1 两通道指引，安装器代码保持，沿用通道选择、完整备份与个人区保留机制；同号修订识别仍有效。资料路由不证明宿主运行兼容。
+本说明对应0.2.6。本版维护 Stable 2.5.0 与 Beta 2.8.0-beta.1 两通道；新增编辑界面专题仅用于 Beta，Stable 功能内容保持，安装器代码保持，沿用通道选择、完整备份与个人区保留机制；同号修订识别仍有效。资料路由不证明宿主运行兼容。
 
 Windows安装程序保留正式版／Beta选择和切换，以及既有内容差异提示、修订显示与收据；所选载荷按完整宿主版本选择资料，未知或冲突标UNKNOWN，运行证据按实际宿主记录。
 
@@ -40,7 +40,7 @@ Cursor 也支持 `.cursor/skills`，Copilot 也有 `.copilot/skills`（个人）
 
 两份载荷各有只读版本工具：[正式版](channels/stable/skills/letsgal-authoring/scripts/inspect_version.py)只登记2.5.0，[Beta](channels/beta/skills/letsgal-authoring/scripts/inspect_version.py)只登记2.8.0-beta.1。旧版、未来版本、通道不符、缺失和冲突返回UNKNOWN；讨论及通用工作继续，不推定兼容或自动升级。命令参数、JSON输出与退出码约定保留。SDK指纹和资料路由不等于运行通过，见[验证范围](VALIDATION.md)。主Skill不嵌套为自己的插件。
 
-历史0.2.1的20261011-beta270-guides作为独立完整包追加在原发布页，目标为Beta2.7.0-beta.1。0.2.5目标为Beta2.8.0-beta.1，对应[发布页 v0.2.5](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.5)；原标签和旧附件保留。
+历史0.2.1的20261011-beta270-guides作为独立完整包追加在原发布页，目标为Beta2.7.0-beta.1。0.2.6目标为Beta2.8.0-beta.1，对应[发布页 v0.2.6](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.6)；原标签和旧附件保留。
 
 ## DSH
 
@@ -69,4 +69,4 @@ DSH 来源：[文件系统技能提供器](https://github.com/deepseek-ai/deepse
 
 使用时根据实际 Agent 核对发现设置与权限，然后完成一个当前工程的小任务。其余 Agent 和平台测试是补充覆盖，Skill 不要求先通过所有环境才可使用或发布。
 
-0.2.5 使用[发布页 v0.2.5](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.5)中的独立完整主包；协作包 0.1.3 在[原发布页 v0.2.3](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)按需下载。旧0.2.1标签与附件保留；本包不会安装引擎或自动重建作品。
+0.2.6 使用[发布页 v0.2.6](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.6)中的独立完整主包；协作包 0.1.3 在[原发布页 v0.2.3](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)按需下载。旧0.2.1标签与附件保留；本包不会安装引擎或自动重建作品。

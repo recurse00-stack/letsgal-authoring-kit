@@ -2,9 +2,9 @@
 name: letsgal-authoring
 description: 制作和修改 LetsGal Studio 的剧情、分支、演出、UI 与扩展，处理工程格式及运行排错；一般创作讨论不自动写入工程。
 metadata:
-  version: 0.2.5
+  version: 0.2.6
   channel: beta
-  revision: 20261029-structure
+  revision: 20261031-studio-ui
 ---
 
 # LetsGal Beta 创作

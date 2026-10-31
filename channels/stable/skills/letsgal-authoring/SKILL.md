@@ -2,7 +2,7 @@
 name: letsgal-authoring
 description: 在 LetsGal Studio 中制作剧情、分支、变量、素材与扩展，修改既有内容并排查格式和流程；一般创作讨论不自动变成工程写入。
 metadata:
-  version: 0.2.5
+  version: 0.2.6
   channel: stable
   revision: 20261029-structure
 ---

@@ -1,6 +1,6 @@
 # 使用手册
 
-本手册对应 **0.2.5 · 20261029-structure**。正式版当前维护 2.5.0，Beta 当前维护 2.8.0-beta.1，安装时只选一份。从 [GitHub 发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.5) 下载包含两通道的完整主包；多人协作附加包保持 0.1.3，仍在[原发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)单独提供，详见[安装说明](https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md)。可打开随包 [MANUAL.html](MANUAL.html) 离线阅读。
+本手册对应 **0.2.6 · 20261031-studio-ui**。正式版当前维护 2.5.0，Beta 当前维护 2.8.0-beta.1，安装时只选一份。从 [GitHub 发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.6) 下载包含两通道的完整主包；多人协作附加包保持 0.1.3，仍在[原发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)单独提供，详见[安装说明](https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md)。可打开随包 [MANUAL.html](MANUAL.html) 离线阅读。
 
 ## 这个包能做什么
 
@@ -460,7 +460,7 @@ Beta 的当前能力见[制作指引](channels/beta/skills/letsgal-authoring/ref
 
 这些历史结果不能给出统一提升百分比，也不保证较弱模型受益更多。正式版仍提供无 MCP 制作指引，但没有与“完全不用 Skill”进行条件一致的完整对照。
 
-本候选调整两通道资料结构，并以有限独立场景核对任务结果与读取量；实际完成项见[验证说明](VALIDATION.md)。宿主证据沿用注明版本的记录，普通参数校验仍有已记录的缺口；字符读取量不是 token 或实际耗时测量。
+此前结构重构已通过有限独立场景核对任务结果与读取量；0.2.6 补充 Beta 编辑界面专题，另做类型、组件模拟、构建与安装核验；实际完成项见[验证说明](VALIDATION.md)。宿主证据沿用注明版本的记录，普通参数校验仍有已记录的缺口；字符读取量不是 token 或实际耗时测量。
 
 ## 验证范围与反馈
 

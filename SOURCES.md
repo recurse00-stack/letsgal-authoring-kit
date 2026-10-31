@@ -17,6 +17,10 @@
 - MCP：[官方接入](https://docs.avg-engine.com/manual/overview/mcp)及当前服务instructions、quickstart、script/syntax、advanced/file-edit、guide/errors、guide/preview-testing；首次读取，工程／重连／版本／冲突变化时刷新。2026-10-08／09曾读取2.6.0-beta.1指导并做有限隔离测试，本修订不把它扩大为全部功能验收。
 - 版本：[更新日志](https://avg-engine.com/changelog)、[发布历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json)。以目标完整版本辨别，不累加公告条数作为能力或通过数量。
 
+## Beta 编辑界面专题来源
+
+2026-10-31 对照 2.8.0-beta.1 随 SDK 同步的 `studio-ui/README.md`、`settings.ts`、`params.ts`、布局与控件类型及 `templates/`，并参考“Studio 组件包演示”1.0.0（`avg.official.studio-ui-showcase`）可读构建代码。提炼通用设置页／检查器方法，不随 Skill 分发该演示、SDK 或插件专属业务内容；以目标工程当前公开契约为准。下载包与文档核对不等于宿主画面、保存或 Player 验收。
+
 ## 设计与使用证据
 
 按需上下文与工具边界参考[OpenAI Skill设计](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)、[Anthropic工具设计与评估](https://www.anthropic.com/engineering/writing-tools-for-agents)；客户端工具搜索参考[官方说明](https://developers.openai.com/api/docs/guides/tools-tool-search)，创作者反馈参考[Wordcraft研究](https://magenta.withgoogle.com/wordcraft-writers-workshop)。这些是设计依据，不将其他产品的效果数字视作本项目收益。
