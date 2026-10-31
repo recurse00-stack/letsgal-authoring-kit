@@ -8,7 +8,7 @@
 
 开发先读当前 `studio://dev/extension-guide`（topic=`dev-extension-guide`）或目标 `sdk/llms.txt`；接口以该工程同步 SDK 的公开导出为准。宿主完整版本、sdkVersion 要求、SDK 自报版本与同步来源分别记录，不私改声明补接口，不把编译通过当运行兼容。资料不足按[定向查证](research.md)处理。
 
-新扩展通过 `ext_enable` 的 create／init_program 流程取得真实 ID；需要编辑期界面时 `init_program(studioEntry=true)`。`sync_sdk` 同步 SDK、开发指导与 studio-ui。沿生成模板的实际 package scripts 构建，不假设一定有 dev；保留 React／React DOM／SDK 外置单实例配置。
+新扩展通过 `ext_enable` 的 create／init_program 流程取得真实 ID；需要编辑期界面时 `init_program(studioEntry=true)`。已有程序的编辑界面按[Studio 编辑界面](studio-editor-ui.md#入口与构建)补依赖后同步组件包；不假设任意项目调用 `sync_sdk` 都会生成 studio-ui。沿生成模板的实际 package scripts 构建，不假设一定有 dev；保留 React／React DOM／SDK 外置单实例配置。
 
 ## 参数与校验
 
@@ -42,11 +42,7 @@ MCP 设置写入先读原值和 expected，长文本用返回的哈希做乐观�
 
 ## Studio 设置页与检查器
 
-先读 `studio://dev/studio-ui`（topic=`dev-studio-ui`）或同步得到的 `studio-ui/README.md`。游戏入口 `src/index.tsx` 与编辑入口 `src/studio.tsx` 分离，后者具名导出 settingsPage／inspectors；清单 studioEntry 指向独立 dist/*.js 或 .mjs，不能和 entry 相同。
-
-按官方模板两次构建到同一 dist，后一次不能清空前一次产物；运行入口不能引入 `@avg-studio/studio-ui` 或 `@chakra-ui/react` 及其子路径。`useSetting`／`SettingField` 使用“模块ID.字段名”，检查器键用 method ID，不用显示标签。界面布局仍通过 settings／方法 schema 保存。
-
-验证顺序：类型与双入口构建 → `ext_reload` 核 sourceStatus、studioEntry.loaded、settingsPage、inspectors 和 unknownInspectors → 实际打开页面／检查器 → 合法写入读回、非法输入拒绝 → 必要的游戏方法读取。注册信息只证明已注册，不能当界面渲染通过。
+开发扩展在 Studio 内的设置页或方法参数检查器时，读取 [Studio 编辑界面](studio-editor-ui.md)：双入口、设置命名、变量与只读、局部写入、列表／data、外观和验证在该专题维护。schema 管数据契约，组件管布局；游戏中的 UI 仍走 [UI 与数据](ui-and-data.md)。普通扩展方法开发不必加载编辑界面全文。
 
 ## 运行状态与恢复
 

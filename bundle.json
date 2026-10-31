@@ -2,7 +2,7 @@
   "schema": 2,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "channels": [
     {
       "id": "stable",
@@ -14,8 +14,8 @@
       "id": "beta",
       "label": "Beta",
       "bundle": "channels/beta/bundle.json",
-      "revision": "20261029-structure"
+      "revision": "20261031-studio-ui"
     }
   ],
-  "revision": "20261029-structure"
+  "revision": "20261031-studio-ui"
 }
