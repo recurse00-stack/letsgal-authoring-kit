@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "channel": "stable",
   "profile_schema": 1,
   "files": [
@@ -28,7 +28,7 @@
     },
     {
       "path": "references/current-capabilities.md",
-      "sha256": "be65ff199d1409160d9106bad279e90c103e6cfa4392164d660d066734b78a96"
+      "sha256": "9039c33331d6c9999e00cd0f62fba894c986c5d6bb095b2bfa964bbd5e8118c5"
     },
     {
       "path": "references/customization-maintenance.md",
@@ -40,7 +40,7 @@
     },
     {
       "path": "references/extensions.md",
-      "sha256": "f1053606de8169c82e310caa3b4d60042a919fbfa6cd5c9aecada14d6f76b6ff"
+      "sha256": "2098bd5d0875962293fee18e348f9c5e878a0e893e765fcb1853616d9e514414"
     },
     {
       "path": "references/file-workflow.md",
@@ -72,7 +72,7 @@
     },
     {
       "path": "references/research.md",
-      "sha256": "dfb8bb0056ad957bcf4833e3d7ba4f8a520b03ba4e50d98a1a9ebcf63c906f19"
+      "sha256": "a7c27510fb7453cd82b72eb04ed8185e0f15951ea2a685814c6f10e48662056f"
     },
     {
       "path": "references/risk-notice.md",
@@ -92,7 +92,7 @@
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "ef149e6335b3c2bdb734a4c326805b573a7d80dbe28dfbdcb12323e6599b3811"
+      "sha256": "746068a4fd3ca0b2f93cf68dda70a245ac5b36532e199d441faa2ee18c3a80c0"
     },
     {
       "path": "scripts/check_project.py",
@@ -104,7 +104,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "a7158d2c4ef5924af6ede88e2d944784a8e9020c0460341b394803177f7cd9b9"
+      "sha256": "5be339c5c3b96a51242bf207508b088b2df021481bf243c9aa33dbfd943ee3e0"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -119,5 +119,5 @@
       "sha256": "99e25fad698f897b3435161b50f951b53b5e0a01008ce7150066acbf05d4445b"
     }
   ],
-  "revision": "20261029-structure"
+  "revision": "20261101-feature-map"
 }

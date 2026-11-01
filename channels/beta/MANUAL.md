@@ -1,12 +1,16 @@
-# Beta Skill 使用指南 · 0.2.6
+# Beta Skill 使用指南 · 0.2.7
 
-适用 **Studio 2.8.0-beta.1**，发行修订 **20261031-studio-ui**，Authoring Kit 版本为 0.2.6。完整安装见[总手册](../../MANUAL.md)。
+适用 **Studio 2.8.0-beta.1**，发行修订 **20261101-feature-map**，Authoring Kit 版本为 0.2.7。完整安装见[总手册](../../MANUAL.md)。
 
 ## 安装与开始使用
 
 完整解压后运行 Install.cmd，选择 Beta、实际 Agent 和安装范围；同一位置只安装一份同名 letsgal-authoring。更新先保全旧安装，个人偏好与插件知识保留，不升级引擎。新会话核实际读取路径、通道及宿主版本；未知版本继续无版本依赖的讨论／草稿，接口用法另补依据。
 
 命令行在包根运行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex -Scope User -Channel beta -NonInteractive`；检查另加 `-Action Check`。其他平台按[手动安装](../../MANUAL.md#手动安装与命令行)复制本通道完整载荷。
+
+## 不确定功能是否支持
+
+先查[官网功能全景](https://avg-engine.com/studio/features)，再让 AI 按本工程的版本和接口核实。功能图按最新版本汇总，不代表每项都适用于本通道；普通功能优先检查原生配置和可视化界面，工坊扩展另核安装与启用。详见[查询与选型](skills/letsgal-authoring/references/research.md#先确认能力再选择做法)。这不会自动升级 Studio 或改变项目已有实现。
 
 ## 按任务使用
 

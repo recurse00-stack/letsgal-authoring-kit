@@ -2,9 +2,9 @@
 name: letsgal-authoring
 description: 制作和修改 LetsGal Studio 的剧情、分支、演出、UI 与扩展，处理工程格式及运行排错；一般创作讨论不自动写入工程。
 metadata:
-  version: 0.2.6
+  version: 0.2.7
   channel: beta
-  revision: 20261031-studio-ui
+  revision: 20261101-feature-map
 ---
 
 # LetsGal Beta 创作
@@ -17,6 +17,7 @@ metadata:
 
 | 当前任务 | 按需入口 |
 | --- | --- |
+| 不确定功能是否支持、选择实现方式 | [能力查询与选型](references/research.md#先确认能力再选择做法) |
 | 讨论、改写、整合反馈 | [创作协作](references/production.md) |
 | 改已有对白／参数、批量编辑 | [MCP 执行](references/mcp-workflow.md)；字段问题再查[JSON](references/json.md) |
 | 分支、变量、语言与配音 | [剧情与配音](references/story-and-voice.md) |

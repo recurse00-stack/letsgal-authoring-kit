@@ -1,6 +1,6 @@
 # 使用手册
 
-本手册对应 **0.2.6 · 20261031-studio-ui**。正式版当前维护 2.5.0，Beta 当前维护 2.8.0-beta.1，安装时只选一份。从 [GitHub 发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.6) 下载包含两通道的完整主包；多人协作附加包保持 0.1.3，仍在[原发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)单独提供，详见[安装说明](https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md)。可打开随包 [MANUAL.html](MANUAL.html) 离线阅读。
+本手册对应 **0.2.7 · 20261101-feature-map**。正式版当前维护 2.5.0，Beta 当前维护 2.8.0-beta.1，安装时只选一份。从 [GitHub 发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.7) 下载包含两通道的完整主包；多人协作附加包保持 0.1.3，仍在[原发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)单独提供，详见[安装说明](https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md)。可打开随包 [MANUAL.html](MANUAL.html) 离线阅读。
 
 ## 这个包能做什么
 
@@ -10,7 +10,13 @@
 
 第一次使用可依次阅读安装、工程版本、选择练习及字段说明，再查工具参数、排错和升级。当前能力专题与插件开发按任务需要阅读。
 
-阅读入口：[第一次使用](#第一次使用) · [MCP与原有流程](#官方-mcp-与无-mcp-两种用法) · [安装位置](#安装位置怎样选择) · [手动安装与命令行](#手动安装与命令行) · [完整练习](#从选择练习走完一个最小完整案例) · [正式版与Beta用法](#正式版与beta用法和版本核对) · [工具参数](#常见任务怎么提) · [个人区](#个人特调放哪里) · [排错](#常见问题) · [更新与恢复](#更新卸载与恢复)。
+阅读入口：[功能查询](#确认功能与选择实现) · [第一次使用](#第一次使用) · [MCP与原有流程](#官方-mcp-与无-mcp-两种用法) · [安装位置](#安装位置怎样选择) · [手动安装与命令行](#手动安装与命令行) · [完整练习](#从选择练习走完一个最小完整案例) · [正式版与Beta用法](#正式版与beta用法和版本核对) · [工具参数](#常见任务怎么提) · [个人区](#个人特调放哪里) · [排错](#常见问题) · [更新与恢复](#更新卸载与恢复)。
+
+## 确认功能与选择实现
+
+不确定 Studio 能否实现某个效果时，先查[官网功能全景](https://avg-engine.com/studio/features)，再按目标版本确认具体用法。功能图按最新版本汇总，不能直接推定正式版、Beta、MCP 或某个导出平台都支持相同操作。
+
+可以这样提问：“按这个工程的版本核对能否做立绘对嘴和道具 HUD，先说明原生配置、可视化界面或现有扩展是否满足；缺少的部分再考虑程序开发。”已有明确开发目标时沿原目标执行。官方扩展需要另核安装／启用；查看功能图不授权替换项目现有系统。
 
 ## 安装与启用前：避免同类技能冲突
 

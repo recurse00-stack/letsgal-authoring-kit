@@ -6,6 +6,12 @@
 
 [协作说明](https://docs.avg-engine.com/manual/overview/collaboration)明确发起账号需官方开通资格，仍为测试功能；页面其余整章锁／手动素材同步描述属于旧版，2.8操作契约以当前MCP指导为准。本次不推定任何账号已获资格。
 
+## 功能发现与实现选择
+
+2026-11-01 查阅[官网功能全景](https://avg-engine.com/studio/features)：页面按最新版本组织 11 个领域，作为能力名称与制作入口的导航，不作为 2.5.0 或 2.8.0-beta.1 的完整接口保证。结合[官方 FAQ 的制作方式说明](https://docs.avg-engine.com/reference/faq)，主入口增加按需查询，区分原生配置、现有扩展与程序开发；不复制全量功能目录，也不把官方扩展当作已安装功能。
+
+新功能图描述每工程专属 MCP 地址，[接入手册](https://docs.avg-engine.com/manual/overview/mcp)仍给出全局地址示例。指引采用目标工程当前接入提示，并在连接后核工程身份；没有据此断言目标宿主已经采用某一种地址机制。本轮为资料与导航修订，未新增 Studio／Player 功能验收。
+
 ## 按任务查阅
 
 - 剧情：[JSON参考](https://docs.avg-engine.com/reference/script-json)、[分支](https://docs.avg-engine.com/manual/writing/blocks/branch)、[If](https://docs.avg-engine.com/manual/writing/blocks/if/)、[调用片段](https://docs.avg-engine.com/manual/writing/blocks/call-fragment)、[章节调度](https://docs.avg-engine.com/advanced/chapter-scheduling)。2026-10-20 前期 Beta 适配读取了当时的 MCP callFragment schema：同章片段调用、结束返回，自调用最多静态展开 30 层；不再把旧网页冲突当当前 Beta 的操作前提。Stable 指引原样保留，既有引用不自动改写。
@@ -25,6 +31,6 @@
 
 按需上下文与工具边界参考[OpenAI Skill设计](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)、[Anthropic工具设计与评估](https://www.anthropic.com/engineering/writing-tools-for-agents)；客户端工具搜索参考[官方说明](https://developers.openai.com/api/docs/guides/tools-tool-search)，创作者反馈参考[Wordcraft研究](https://magenta.withgoogle.com/wordcraft-writers-workshop)。这些是设计依据，不将其他产品的效果数字视作本项目收益。
 
-2026-10-05的2.5.0有限宿主记录、2026-10-08／09的MCP与模型记录继续按原范围引用；更早Beta资料与累积过程已从当前载荷移出。历史原文保留在维护归档和[已发布版本](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.1)，实际范围见[验证摘要](VALIDATION.md)。官方网页主要维护正式版；Beta公告不能替代完整schema，旧版实测不转换为新版通过。
+2026-10-05的2.5.0有限宿主记录、2026-10-08／09的MCP与模型记录继续按原范围引用；更早Beta资料与累积过程已从当前载荷移出。历史原文保留在维护归档和[已发布版本](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.1)，实际范围见[验证摘要](VALIDATION.md)。官网功能全景按最新版本汇总，手册与公告可能不同步；它们不能替代目标版本的完整 schema，旧版实测不转换为新版通过。
 
 Agent目录来源见[兼容表](COMPATIBILITY.md)，未在本修订重复验证所有客户端。公共示例不含私人作品、SDK副本、账号、实际本机地址；原始日志与含私人界面的截图不随包公开。安全默认、范围授权、至少一种恢复保护和有限检查器是本Skill的工作约定，不宣称为官方强制流程。
