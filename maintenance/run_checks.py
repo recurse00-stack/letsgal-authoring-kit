@@ -17,7 +17,10 @@ def run(bundle, scratch):
     results = []
     skill = payload(bundle)
     checker = skill / 'scripts' / 'check_project.py'
-    example = json.loads((skill / 'examples' / '选择练习.json').read_text('utf-8'))
+    selected_example = json.loads((skill / 'examples' / '选择练习.json').read_text('utf-8'))
+    # Legacy fixtures stay fixed when Beta's public example adopts 2.9 markers.
+    legacy_skill = payload(bundle, 'stable') if (bundle / 'channels/stable').is_dir() else skill
+    example = json.loads((legacy_skill / 'examples' / '选择练习.json').read_text('utf-8'))
 
     def record(name, ok, detail=''):
         results.append({'name': name, 'passed': bool(ok), 'detail': detail})
@@ -50,6 +53,7 @@ def run(bundle, scratch):
 
     check_json('valid-project', example, 0, project=True)
     check_json('valid-standalone', example, 0)
+    check_json('selected-channel-example', selected_example, 0)
     value = copy.deepcopy(example)
     value['fragments'][0]['blocks'][1]['props']['choices'] = []
     check_json('array-instead-of-json-string', value, 1)

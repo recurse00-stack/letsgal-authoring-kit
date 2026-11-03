@@ -4,7 +4,6 @@
   "target_channel": "beta",
   "files": [
     "LICENSE",
-    "examples/选择练习.json",
     "references/asset-cleanup.md",
     "references/customization-maintenance.md",
     "references/customization.md",
@@ -13,7 +12,6 @@
     "references/plugin-skills.md",
     "references/production.md",
     "references/risk-notice.md",
-    "scripts/check_project.py",
     "templates/LETSGAL.example.md",
     "templates/PLUGIN-SKILL.example.md",
     "templates/TEMP-CLEANUP.example.md"

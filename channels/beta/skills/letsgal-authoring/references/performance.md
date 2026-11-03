@@ -1,40 +1,40 @@
 # 演出段
 
-本页处理时间轴；角色／媒体定义见[素材与舞台](stage-and-assets.md)，通用预览与完整调试见[预览与构建](preview-and-build.md)。按实际使用的层次验收，不为局部文字修改执行整套演出测试。
+本页处理时间轴；角色／媒体见[舞台](stage-and-assets.md)，运行入口见[预览](preview-and-build.md)。
 
 ## 编排与写入
 
-用 `performanceStart`／`performanceEnd`（脚本 `performance begin`／`performance end`）围住同一片段中平铺的块。它不是嵌套容器，也没有独立关键帧。起止同次成对新增／移除，不能嵌套；先查当前 stage、script 指导及标记 schema。
+同一片段的平铺块用 performanceStart／performanceEnd 成对围住，脚本写 performance begin／performance end。起止同批增删，保持单层演出；字段查当前 stage、script 指导及标记 schema。
 
-| 项目 | 必须保持的语义 |
+| 项目 | 操作规则 |
 | --- | --- |
-| 时间单位 | JSON `segmentStart`／`segmentHold` 为毫秒；对白脚本 `at=`／`hold=` 为秒 |
-| 顺序与时长 | 块顺序也是时间顺序；较早时间会抬到上一块开始。未指定开始时接上一条占时长指令之后；背景声音、粒子、变量等不推进后续时间 |
-| 文字轨道 | 对白、旁白、段落和关闭对话框共用轨道，区间不得重叠。更改自动／手动时长时一起核相邻文字 |
-| 自动时长 | 显式 hold 转手动；按当前字段规则保留语音自动跟随。用 null 清除手动时序后读回实际自动字段，不能只删某个标志就推定自动计算 |
-| 段尾 | `segmentEndBehavior=continue` 自动继续；`waitForClick` 播完等一次点击。`segmentForceWatch=true` 禁止快进跳过，须单独验证所需输入行为 |
-| 轨道 | 禁用轨道仍占时间；锁定只影响编辑。保留 segmentTrack 及轨道名称／禁用／锁定设置 |
+| 时间单位 | JSON segmentStart／segmentHold 用毫秒，脚本 at／hold 用秒 |
+| 排序 | 块顺序同时决定时间顺序；较早时刻会抬到前块开始，未指定开始则接上一条占时长指令。背景声音、粒子、变量等不推进后续时刻 |
+| 文字轨道 | 对白、旁白、段落及关闭对话框共用轨道，保持区间不重叠 |
+| 自动时长 | 显式 hold 转手动；恢复自动按 schema 用 null 清除手动时序，读回自动字段和语音跟随，并检查相邻文字 |
+| 段尾 | segmentEndBehavior=continue 自动继续，waitForClick 等一次点击；segmentForceWatch=true 要求观看，验证所需输入行为 |
+| 轨道配置 | 保留 segmentTrack、名称、禁用和锁定；禁用轨道仍占时间，锁定仅影响编辑 |
 
-段内不放分支、If、片段调用、章末／返回、玩家输入、系统消息、wait、自动播放切换、加载策略、旧 stageAnimation 或模态界面打开指令；不要用无时长 `[wait]`。停顿用下一条开始时刻安排，完整允许清单以当前 stage 指导为准。扩展运行时弹出模态界面会暂停时间轴，关闭后恢复；这不等于上述指令可在段内任意编排。
+段内按当前允许清单使用舞台／媒体／对白指令。分支、If、片段调用、章末／返回、玩家输入、系统消息、wait、自动播放切换、加载策略、旧 stageAnimation 及模态 UI 打开指令放在段外。停顿通过下一条开始时刻安排。扩展运行时弹出的模态 UI 会暂停时间轴，关闭后恢复。
 
-镜头与对象运动用段内 camera 并明确持续时间；新 camera 默认 1 秒，瞬时变化明确 0。多条镜头操作会接管，不自动合并；对白内联镜头标签受打字速度影响，精确时刻用独立块。已有旧镜头动画保留，仅在明确迁移范围和恢复准备下转换，不新建已弃用的 stageAnimation。
+精确运镜用独立 camera 块，默认持续 1 秒，瞬变明确 0；多条镜头操作互相接管。对白内联镜头受打字速度影响。旧镜头动画按明确迁移范围处理。
 
-整段长度由有效指令的最晚结束决定，不能拿声音／视频文件长度推断等待。扩展方法异步调用不阻塞时间轴；声音、视频、粒子和蒙层淡出各查其 schema，不猜统一 duration。
+段长取有效指令的最晚结束；媒体文件长度、异步扩展方法各按实际占时规则安排。声音／视频／粒子／蒙层淡出参数查各自 schema。
 
-写前 dry run，写后用 `performance-segments` 及相关编译／引用检查。短 hold 警告可能允许落盘但让文字瞬间补完，必须看 warnings；某一行恢复自动时长导致重叠时，审阅相关文字后同批调整，不能强制提交。
+**MCP 时序位置**：先成对插入并取得块 ID，再用最新 revision 的 story_edit_blocks **update 操作层**设置 segmentStart／segmentHold；读回块 props 中的时序及自动标志。insert.blocks[] 使用存储块格式。2.8 样本将操作层字段放到插入块顶层会被忽略。
 
-MCP 操作字段和块存储字段分开：`story_edit_blocks` 的 **update 操作**可用操作层 `segmentStart`／`segmentHold`；读回时它们在块的 `props` 中。不要将这些操作字段照抄到 `insert.blocks[]` 的块顶层：2.8.0-beta.1 已观察到该写法被忽略，预检／写入成功也未保存时序。可靠流程是成对插入、取得真实块 ID，再按最新 revision 用 update 设置时序，核 `props.segmentStart`／`props.segmentHold` 及自动时长标志。这是调用层级问题，不据此认定引擎不支持定时或多人禁止演出。
+提交前 dry run，提交后查 performance-segments 及相关编译／引用。处理短 hold 等 warnings；自动时长引发重叠时同批调整相关文字。
 
 ## 连续播放验证
 
-`run_to` 到段内台词或开始标记主要是编辑定位；reached、running=true、画面有字都不证明整段播放。原生“重播”可检查时间轴换句，仍需验证段尾和后续普通剧情。
+**2.9 后台循环**：performanceStart 设置 segmentBackgroundLoop=true。剧情可同时推进；stopBackgroundPerformance.segmentId 停指定段，空值停全部。持续视频／粒子另按 ID 停止。后台与普通镜头会接管，按设计审阅 background-camera 告警。核剧情推进、停止后稳定、切片段及重开。
 
-优先 fresh 后 `run_to` 到段前普通台词，再 advance 连续进入。观察自动换句、`PerformanceEndWait`（配置为等点击时）、随后 advance 到段外 `Dialogue` 和预期正文。没有段前台词而需定位验证时，可先加载包含段后普通台词的完整范围，再按当前状态／映射取得队列索引 seek 到段起点；不照抄旧索引。
+从 fresh 状态 run_to 到段前可等待台词，再 advance 连续进入；观察换句、配置的 PerformanceEndWait、段后 Dialogue 及正文。没有段前台词时加载包含段后正文的范围，再从当前状态映射取队列索引定位段首。原生“重播”用于检查时间轴，段尾仍须实际推进。
 
-seek／定位可能重放方法和订阅副作用。事件次数异常先用 fresh 后连续路线复核，不把定位轨迹当玩家正常运行。历史可能含先前重播条目，截图仅作辅助；窗口隐藏按 MCP 错误流程暂停预览。
+要看中间帧，让 advance.timeoutMs 短于演出时长。收到 stoppedBecause=timeout 后读 position、waitingFor 和画面；处于 PerformanceSegment／busy 时继续观察至段尾。默认调用可能等待整段结束才返回。
 
-要观察动画中间帧，可让 `advance` 使用短于演出时长的 `timeoutMs`，收到 `stoppedBecause=timeout` 后先读 position、waitingFor 和画面：若仍在 `PerformanceSegment`／busy，指令可能继续运行，不要立即再 advance。随后观察变化和段尾。默认调用可能等整段完成才返回，紧接着截图只能证明终态。预览位置回到 following 或换章时停止当前断言，重核目标后有限重定位；不能把别章画面计入本例，也不能仅据位置回退判定协作同步故障。
+seek／run_to 是定位路径，可能重放方法和订阅；副作用异常用 fresh 后连续路线复核。历史包含旧重播条目时核本次位置。位置跳到 following／别章则重核目标再有限重定位；窗口隐藏按[预览处理](preview-and-build.md#选择与交互)。
 
 ## 存档与副作用
 
-段内存档读回会从段首重播，槽位变量回到段首值；共享和启动重置变量不按此回滚。避免重复累加共享变量、Steam stat.add 或外部副作用，按实际保存位置验证防重入。扩展的演出状态／恢复接口见[运行状态与恢复](extensions.md#运行状态与恢复)。预览通过不能代替存读档测试。
+段内读档从段首重播，槽位变量回到段首值；共享和启动重置变量保留各自语义。共享累加、Steam stat.add 及外部动作实现防重复结算，按实际存档落点验证。扩展恢复方法见[运行状态与恢复](extensions.md#运行状态与恢复)。

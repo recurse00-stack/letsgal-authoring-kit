@@ -1,31 +1,29 @@
 # 预览、调试与构建
 
-明确本次验证的是局部预览、完整调试还是交付产物；三者的入口、状态和完成条件分别记录。
+根据任务选择局部预览、完整调试或交付产物，并记录相应结果。
 
 ## 预览范围
 
-临时修改预览语言或其他设置前记录实际原值，结束按需恢复原值而非统一重置默认。等待或操作期间出现后来的改动时，先核对并保留新值，不从旧快照覆盖；原值未知则不猜测恢复。
+临时设置先记原值，结束恢复前核工程和值，保留后来修改。先核真实入口和“继承前文／上文”：继承会快进并采用默认路线；持续 BGM、粒子、镜头或角色残留先查前置剧情。
 
-先核真实入口与“继承前文／上文”。继承会快进前文并按默认选择经过路线；局部预览状态可能不同于作品入口。持续 BGM、粒子、镜头或角色残留先查前置剧情，不为局部画面删除全局持续资源。
-
-当前 `run_from_start` 仅覆盖顺序主片段，不能证明高级调度／前处理／片段流程；相关任务用完整调试或真实玩家入口。`debug_control.start` 要读 warnings 和实际 cursor：目标章不在顺序运行列表时可能退回开头，startChapterId 仍是请求值也不代表到达。高级调度器正在选章时 seek／jump_to_chapter 可返回 UNSUPPORTED；停止该定位断言，不把启动成功写成目标章调试通过，也不只为工具覆盖率改项目调度。章末提示只表示当前章到达边界，按实际调度核后续。原生预览、独立 Player、保存读取、平台构建分别报告覆盖范围。
+run_from_start 覆盖顺序主片段。高级调度、前处理和片段流程使用完整调试／玩家入口；debug_control.start 后查 warnings 和实际 cursor，目标不在运行列表时可能回到开头。调度器等待选章而 seek／jump 返回 UNSUPPORTED 时，转用实际入口推进。章末按调度核后续。
 
 ## 选择与交互
 
-选择测试从目标片段的可等待位置开始，用 `run_until` 停在菜单，读取当前 `choice.menuShown` 和 `choice.options[].index` 后再 choose，检查实际终点。`run_to` 到分支或结尾只能证明定位，不能替代选择输入。
+从目标片段可等待位置开始，run_until 到菜单，读取 choice.menuShown 和 options[].index，再 choose 并核终点。连续预览按 position.block 的章／片段／块 ID 定位；位置改变或菜单消失则重读再有限重走。预览前核内容里的扩展、存档或外链副作用。
 
-连续预览前后核 `position.block` 的章／片段／块 ID，不只看编辑器 following。位置改变或菜单消失时重读状态，重新走一次有限流程；仍失败就记录缺口，不反复使用旧索引。预览会执行内容中的效果，先了解扩展、存档或外链影响。
-
-`WINDOW_HIDDEN` 时恢复 Studio 可见；锁屏需要等待解锁。输入工具失败时保留未验项，不能靠改变初值冒充点击。动画观察见[连续播放](performance.md#连续播放验证)，UI 打开／关闭与剧情返回见[UI 交互](ui-and-data.md#状态动作与智能组件)。
+WINDOW_HIDDEN 时恢复目标窗口可见，锁屏则等解锁；可继续可用的 MCP 读写。输入失败记录未验交互。动画看[连续播放](performance.md#连续播放验证)，模态返回看 [UI](ui-and-data.md#状态动作与智能组件)。
 
 ## 构建与导出
 
-先 `build_read(view="config")` 核当前 scheme、设置和 revision。平台、ZIP、加密、debug、Steam、Web 资源 URL 与 Android 选项属当前方案；作品名称、版本、图标、Android 包名和运营统计跨方案共享，切换方案不隔离全部设置。
+build_read(view="config") 核 scheme、设置和 revision。平台、ZIP、加密、debug、Steam、Web 资源 URL、Android 选项属于方案；作品名、版本、图标、Android 包名和运营统计跨方案共享。当前 MCP 修改当前方案，创建／切换方案使用获准原生界面。临时 debug 设置按[确认流程](mcp-workflow.md#宿主确认)执行并恢复，正式产物使用对应正式设置。
 
-当前 MCP 修改当前方案，没有创建／切换方案操作；需要时用获准原生界面。调试开关确认按[MCP 确认流程](mcp-workflow.md#宿主确认)，临时测试恢复原值；调试包不能直接作为正式交付验收。
+**2.9 桌面系统**：先读 supportedSystems，再用 set_desktop_systems 携带 revision 选择。Windows 2.9.0-beta.1 样本仅列 win32-x64，darwin 被拒绝且未写入；以当前返回安排目标。导出验包和目标平台运行分别验证。
 
-剧本导出（文本、CSV、JSON、Ren’Py、Markdown、Word）、章节迁移和游戏构建是不同交付。核章节／指令筛选、语言、跳过项及实际正文；导出 JSON 外层不能直接写回原章节，Ren’Py 仅转换支持的指令，不保证完整游戏或无损回导。
+剧本导出按章节、指令和语言核实际正文及跳过项；文本、CSV、JSON、Ren’Py、Markdown、Word 各使用对应消费格式。导出 JSON 回写前转换为章节格式；Ren’Py 按支持的指令范围验收。章节迁移和游戏构建各用专用流程。
 
-实际构建前审阅 `build_start(dryRun=true)` 的目标路径、覆盖行为和外部动作；当前宿主计划提示已登录时会后台注册游戏统计。dry run 不代表已构建、已取消或已生成可运行产物。完成后核 batch.status、日志和实际 artifacts：Web 样例还生成了共用 dist/assets，不能只保护 plan.outputs.web。取消使用自己的 batchId，cancelRequested 只是请求，需等 cancelled；构建已结束的 NOT_FOUND 不代表取消成功。构建运行中配置写入返回 BUSY，应等待结束再恢复原 revision 对应值。取消后的目录不作为完整游戏交付。不要在共享作品中仅为覆盖率实际构建；先使用获准的隔离工程并处理这些影响。
+实际构建前审阅 build_start(dryRun=true) 的路径、覆盖和外部动作；当前宿主计划提示登录时会后台注册游戏统计，先处理相关授权。记录 batchId，完成后查 batch.status、日志及真实 artifacts；输出可包含共用 dist/assets，一并保护。
 
-缺资源从引用和合法素材恢复排查，不删除剧情消除报错；平台依赖和日志按[构建手册](https://docs.avg-engine.com/manual/overview/build)处理。引擎运行时修复须重新构建旧游戏才可能带入，再核实际受影响功能；Skill 更新本身不会构建或发布。Steam 配置／成就和[运营统计](https://docs.avg-engine.com/manual/overview/game-stats)仅在作品需要时处理，不顺带更换密钥、启用统计或上传数据。
+取消自己的 batchId 后等到 cancelled；已结束返回 NOT_FOUND 时按实际终态处理。运行中配置写入 BUSY 则等待结束，再核当前 revision 恢复本轮设置。取消目录单独标记。
+
+缺资源按引用恢复素材，平台依赖查[构建手册](https://docs.avg-engine.com/manual/overview/build)。宿主运行时修复需要重新构建游戏，再验相关行为。Steam、[运营统计](https://docs.avg-engine.com/manual/overview/game-stats)及密钥仅在任务范围内配置。

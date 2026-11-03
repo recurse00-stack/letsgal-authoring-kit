@@ -7,8 +7,11 @@ from pathlib import Path
 
 MAX_BYTES = 16 * 1024 * 1024
 KNOWN = {"narration", "dialogue", "storyParagraph", "comment", "branch", "if",
-         "callFragment", "setver", "wait", "endChapter"}
+         "callFragment", "setver", "wait", "endChapter", "choiceStart", "choiceOption",
+         "choiceEnd", "conditionStart", "conditionElse", "conditionEnd",
+         "performanceStart", "performanceEnd", "stopBackgroundPerformance"}
 TEXT = {"narration", "dialogue", "storyParagraph", "comment"}
+CONTROL = {"choiceStart", "choiceOption", "choiceEnd", "conditionStart", "conditionElse", "conditionEnd"}
 
 
 def pairs(items):
@@ -153,6 +156,74 @@ def check(target, format_profile='auto'):
                 issue('error', cl, 'invalid rightKind', 'condition_shape')
         return unsupported
 
+    def control_flow_shapes(blocks, loc):
+        """2.9 flat marker structure only; never evaluate expressions or rewrite data."""
+        stack = []
+        performance = None
+        for bi, block in enumerate(blocks):
+            if not isinstance(block, dict) or not isinstance(block.get('props'), dict):
+                continue
+            kind, props = block.get('type'), block['props']
+            if not isinstance(kind, str):
+                continue
+            where = loc + '.blocks[%d]' % bi
+            def bad(message):
+                issue('error', where, message, 'control_flow_shape')
+            if stack and stack[-1]['kind'] == 'choice' and not stack[-1]['options'] and kind not in ('choiceOption', 'choiceEnd'):
+                bad('content before the first choiceOption is outside every option')
+            if kind in CONTROL and performance is not None:
+                bad('control-flow marker inside or crossing a performance segment')
+            if kind in ('choiceStart', 'conditionStart'):
+                if kind == 'conditionStart':
+                    required_string(props.get('expression'), where, 'condition expression')
+                stack.append({'kind':'choice' if kind == 'choiceStart' else 'condition',
+                              'where':where, 'options':0, 'defaults':0, 'else':False})
+            elif kind == 'choiceOption':
+                required_string(props.get('text'), where, 'option text')
+                if 'visibleIf' in props:
+                    required_string(props['visibleIf'], where, 'visibleIf', allow_blank=True)
+                if 'isDefault' in props and not isinstance(props['isDefault'], bool):
+                    bad('isDefault must be boolean')
+                if not stack or stack[-1]['kind'] != 'choice':
+                    bad('choiceOption must belong directly to a choiceStart')
+                else:
+                    stack[-1]['options'] += 1
+                    stack[-1]['defaults'] += props.get('isDefault') is True
+                    if stack[-1]['defaults'] > 1:
+                        bad('only one default option is allowed in a choice')
+            elif kind == 'conditionElse':
+                arm = props.get('kind', 'else')
+                if arm not in ('else', 'elseIf'):
+                    bad('conditionElse kind must be elseIf or else')
+                if arm == 'elseIf':
+                    required_string(props.get('expression'), where, 'elseIf expression')
+                if not stack or stack[-1]['kind'] != 'condition':
+                    bad('conditionElse must belong directly to a conditionStart')
+                else:
+                    if stack[-1]['else']:
+                        bad('no branch may follow else')
+                    stack[-1]['else'] |= arm == 'else'
+            elif kind in ('choiceEnd', 'conditionEnd'):
+                expected = 'choice' if kind == 'choiceEnd' else 'condition'
+                if not stack or stack[-1]['kind'] != expected:
+                    bad('end marker has no matching start at this nesting level')
+                else:
+                    frame = stack.pop()
+                    if expected == 'choice' and not frame['options']:
+                        bad('choice needs at least one choiceOption')
+            elif kind == 'performanceStart':
+                if performance is not None:
+                    bad('performance segments cannot nest')
+                performance = where
+            elif kind == 'performanceEnd':
+                if performance is None:
+                    bad('performanceEnd has no matching performanceStart')
+                performance = None
+        for frame in stack:
+            issue('error', frame['where'], 'control-flow structure has no end marker', 'control_flow_shape')
+        if performance is not None:
+            issue('error', performance, 'performance segment has no end marker', 'control_flow_shape')
+
     def chapter(path, is_entry=False, in_linear_order=False):
         nonlocal chapters_checked, unsupported_chapters, unsupported_blocks, unchecked_blocks
         where = path.name
@@ -220,6 +291,7 @@ def check(target, format_profile='auto'):
             if not isinstance(blocks, list):
                 issue("error", loc, "blocks must be an array")
                 continue
+            control_flow_shapes(blocks, loc)
             for bi, block in enumerate(blocks):
                 bl = loc + ".blocks[%d]" % bi
                 if not isinstance(block, dict):
@@ -243,7 +315,7 @@ def check(target, format_profile='auto'):
                 if "disabled" in props and not isinstance(props["disabled"], bool):
                     issue("error", bl, "props.disabled must be boolean")
                 if block.get("children"):
-                    issue("warning", bl, "nested children are not checked; do not model branch targets here")
+                    issue("warning", bl, "nested children are not checked; 2.9 control-flow bodies use flat markers, not children")
                 if isinstance(kind, str) and kind in TEXT:
                     content = block.get("content")
                     if kind == "narration" and "content" not in block and format_profile == "auto":

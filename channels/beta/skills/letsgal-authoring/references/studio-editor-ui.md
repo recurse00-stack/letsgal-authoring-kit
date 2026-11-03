@@ -1,56 +1,85 @@
 # Studio 扩展设置页与方法检查器
 
-仅在开发扩展的 **Studio 编辑界面** 时读取；游戏中的菜单、HUD 和按钮见 [UI 与数据](ui-and-data.md)，运行逻辑见[扩展开发](extensions.md)。本专题依据 2.8.0-beta.1 的组件包契约与“Studio 组件包演示”1.0.0 提炼，不以示例的 `sdkVersion >=1.0.0` 推定旧宿主支持。
+制作扩展的 Studio 编辑界面时读取。按任务选[构建入口](#入口与构建)、[设置页](#设置页数据名与界面职责)、[方法检查器](#检查器变量上下文与写入)或 [2.9 集合编辑](#29-设置页的集合源数据)；游戏菜单／HUD 使用 [UI 与数据](ui-and-data.md)。
 
-接口先按当前 `studio://dev/studio-ui`（`studio_get_reference(topic="dev-studio-ui")`）或目标工程同步的 `studio-ui/README.md` 核对；只读本次涉及的段落与类型。具体 props 和构建配置用包内 `templates/`，不复制整本手册。演示用于理解组合方法，无须加入作品；它的卡片、评分规则、ID 和默认值不成为业务需求。
+基础方法来自 2.8.0-beta.1 组件包及“Studio 组件包演示”1.0.0；集合编辑使用 2.9.0-beta.1 契约。具体接口查当前 `studio_get_reference(topic="dev-studio-ui")`／studio://dev/studio-ui 或同步的 studio-ui/README.md，构建配置取包内 templates。演示提供组合方法，业务字段按作品需求设计。
 
 ## 入口与构建
 
-- 游戏入口 `src/index.tsx` 与编辑入口 `src/studio.tsx` 分离；后者具名导出不接收 props 的 `settingsPage` 组件和／或 `inspectors` 对象，键是 **method ID**。导出组件本身，不是 JSX 元素、default export 或 `lazy()`。
-- `extension.json` 已有程序 `entry` 才能声明 `studioEntry`：相对扩展根、位于 `dist/`、以 `.js`／`.mjs` 结尾，路径字符限于 `[A-Za-z0-9._/-]`；与 `entry` 忽略大小写也不能相同。
-- 新程序可通过 `init_program(studioEntry=true)` 生成官方模板。已有程序先声明 `@avg-studio/studio-ui: file:./studio-ui`，再按官方流程同步 SDK 和依赖，补编辑入口与双次构建；同名非组件包目录不能直接覆盖。保留既有构建定制，不整份替换后遗漏。
-- 每个入口各生成一个文件，沿官方模板保留 `inlineDynamicImports: true` 与两次构建的 `emptyOutDir: false`。共用库外置规则按模板，不另打包 React／SDK 单实例；编辑入口从组件包或 Chakra 的包根导入，不直接导入 Emotion／Ark UI 或 CSS 文件。
-- 运行入口及其依赖不能引入 `@avg-studio/studio-ui`、`@chakra-ui/react` 及其子路径；编辑入口也不能调用 `useExtensionContext()` 等游戏运行接口或 Node.js 接口。仅借用运行类的类型时用 `import type`，例如 `MethodParams<typeof Module.method>`。
+1. **准备入口。** 游戏程序用 src/index.tsx，编辑界面用 src/studio.tsx。新程序可 init_program(studioEntry=true)；已有程序补 `@avg-studio/studio-ui: file:./studio-ui`，同步 SDK／依赖并保留既有构建定制。同名目录已有其他内容时先处理冲突。
+2. **声明导出。** 编辑入口具名导出无 props 的 settingsPage 组件和／或 inspectors 对象；inspectors 键使用 method ID，值为组件本身。
+3. **填写清单。** 已有 entry 才声明 studioEntry；后者相对扩展根，位于 dist/，后缀 .js／.mjs，路径字符为 `[A-Za-z0-9._/-]`，与 entry 忽略大小写后仍须不同。
+4. **分别构建。** 每个入口生成一个文件，保留 inlineDynamicImports:true 和两次构建的 emptyOutDir:false。按模板外置 React／React DOM／SDK 单实例依赖。
+
+| 入口 | 依赖范围 |
+| --- | --- |
+| 游戏入口及依赖 | 保持运行依赖独立，排除 @avg-studio/studio-ui、@chakra-ui/react 及子路径 |
+| 编辑入口 | 从组件包或 Chakra 包根导入；排除 Emotion／Ark UI 直导和 CSS 文件导入；使用编辑期 API，排除 useExtensionContext 等游戏运行接口及 Node.js |
+| 只借运行类类型 | 使用 import type，例如 `MethodParams<typeof Module.method>` |
+
+构建后核两个入口文件保留、共享依赖按模板外置，随后按[验证步骤](#外观与有限验证)加载。
 
 ## 设置页：数据名与界面职责
 
-设置 schema 决定类型、默认值、重置、MCP 访问和运行读取；React 组件决定布局与交互，组件布局不作为设置值或调用参数保存。
+schema 定义类型、默认值、重置、MCP 访问及运行读取；组件定义布局和交互。
 
-| 声明来源 | `useSetting`／`SettingField`／`AutoSettings` 使用的名字 |
+| 声明来源 | useSetting／SettingField／AutoSettings 的名字 |
 | --- | --- |
-| `Extension` 类上的设置 | `<模块 ID>.<字段>`；模块 ID 以实际声明为准，不用扩展清单 ID 或显示标签代替 |
-| 入口直接导出的共享 `settingsSchema` | 裸字段名，不加模块前缀 |
+| Extension 类上的设置 | `<模块 ID>.<字段>`，模块 ID 取实际声明 |
+| 入口直接导出的共享 settingsSchema | 裸字段名 |
 
-优先用 `SettingField` 保留官方行的默认值提示、重置与联动；仅重点字段用 `useSetting` 加自定义控件，其余交 `AutoSettings` 的 include／exclude。自定义行依据 `info.isEnabled` 展示 `enabledWhen` 状态；不要把界面置灰当权限校验。`reset()` 才表示恢复默认，`isModified` 的对象／数组比较也不能当深度内容差异判断。
+1. 优先用 SettingField 保留默认提示、重置和联动；重点字段用 useSetting 配自定义控件，其余交 AutoSettings 的 include／exclude。
+2. 自定义行按 info.isEnabled 显示 enabledWhen，并遵守宿主写入权限。恢复默认用 reset()；对象／数组按内容比较，isModified 不作深度差异依据。
+3. 每个读取设置的行拆成小组件，缩小订阅刷新范围。AutoSettings 直接放 Panel，保留固定搜索栏；页面至少声明一个设置字段。
 
-每个读取设置的行拆成小组件，使订阅只刷新相关行。`AutoSettings` 直接放 `Panel`，不嵌入 `Section`，以保留滚动时的搜索栏。页面需至少一个 schema 设置字段才会显示。
+## 2.9 设置页的集合源数据
+
+仅在自定义设置页使用 `useDataCollection<T>(alias)`，读取作者源记录。manifest.dataDependencies 先声明本扩展别名并绑定集合；玩家存档／预览覆盖由运行端处理。
+
+| 操作 | 做法 |
+| --- | --- |
+| 读取 | 使用 documents 副本，草稿同时保存 records 和当时的 opaque revision |
+| 新增 | insertOne，让 Studio 生成 ID |
+| 局部改／删 | updateOne／deleteOne，定位已有 ID |
+| 整表保存 | saveDocuments 带草稿对应 revision；冲突时重读并合并 |
+| 异步结果 | 捕获拒绝并反馈，项目／绑定已变化时作废旧回调 |
+
+作者源编辑按此 API 的权限语义执行；依赖 access=read 或 runtimePolicy=readonly 控制运行访问，仍允许作者编辑。写入由明确交互触发，挂载 effect 保持只读。此 hook 限设置页使用；方法检查器和游戏入口使用各自接口。实测设置页读写、原 ID、撤销及绑定变化。
 
 ## 检查器：变量、上下文与写入
 
-`useParam(name)` 与 `ParamField` 用方法 schema 的裸参数键。先判断 `useInspectorEnvironment()`：`placement` 区分剧情侧栏、条件对话框、UI 编辑器；`canUseVariables` 决定能否绑定变量（UI 点击动作不支持），`readOnly` 为真时禁用自定义写控件，宿主仍会拒绝写入。只读可能来自协作锁或普通编辑状态，不归为协作专属限制。
+useParam(name)／ParamField 使用方法 schema 的裸参数键。先读 useInspectorEnvironment：placement 定位剧情侧栏／条件对话框／UI 编辑器，canUseVariables 决定变量能力，readOnly 决定控件可写状态。UI 点击动作不支持变量；只读时禁用自定义写控件，原因查环境和锁状态。
 
-- **变量不能当缺值。** `info.isVariable` 为真时，读值为空；保留 `ParamField` 的变量编辑能力，预览标明“运行时取变量”，不把它补成默认字面量。自定义 setter 写的是固定值，会替换原绑定。
-- **仅用户交互触发写入。** 检查器会随选中指令重新挂载，挂载／effect 不做初始化写回。`setParams(patch)` 只放确需修改的键，一次成功写入是一项撤销；任一值校验失败整体不写。不要展开整份 `values` 回写。
-- **关联坐标例外。** 移动共享同一位置预设的一个坐标时，要把其他共享坐标按当前读值一并交给 `setParams`，防止转为自定义预设后跳位。片段所属章、镜像值等按官方联动核对。
-- `setValue`／`setParams` 返回 `false` 表示拒绝，检查日志并修正输入；返回 `true` 也可能是无变化，不证明存储被改写。`undefined`／`reset()` 表示清空并使用默认值，`null` 按参数类型校验，不是通用清空值。
-- 重点参数自定义，其余用 `ParamField`／`AutoParams`，保留条件显隐和官方联动。场景参数若依赖 `_sceneLayers`、`_sceneLighting`、`_sceneName` 快照，用 `ParamField`；仅写 scene ID 不会生成这些快照。检查器行直接相邻排列，卡片之间再加间距；`AutoParams` 可以放进 `Section`，与 `AutoSettings` 不同。
+| 条件／动作 | 实施规则 |
+| --- | --- |
+| info.isVariable=true 且读值为空 | 保留绑定，用 ParamField 提供变量编辑；预览标“运行时取变量”。自定义 setter 会写固定值并替换绑定 |
+| 修改参数 | 仅在交互回调中提交 setParams(patch) 的目标键；每次成功写入为一项撤销，任一校验失败整体不写。选中变化会重新挂载，effect 保持只读 |
+| 移动共享预设的坐标 | 同批带上其他共享坐标的当前值，保持切到自定义预设时的位置；片段所属章、镜像值等按官方联动处理 |
+| setValue／setParams 返回 false | 查日志，修正输入 |
+| 返回 true | 读回目标值；无变化按幂等结果处理 |
+| 清空／重置 | 用 undefined／reset() 回到默认，null 按字段类型处理 |
+| 场景参数依赖快照 | 用 ParamField 同步 _sceneLayers／_sceneLighting／_sceneName 等关联字段 |
+
+重点字段自定义，其余用 ParamField／AutoParams 保留显隐和联动。检查器行相邻排列，卡片之间加间距；AutoParams 可放 Section。
+
+2.9 “在剧本上显示”选择本项目该方法的卡片参数，作用于其全部调用。调整后看实际卡片；临时验证结束恢复原显示选择，保留方法参数。
 
 ## 列表、复杂数据与预览
 
-`useParam` 读取的对象／数组被冻结，更新用新对象或新数组；列表新增、删行、排序同时遵守 schema 的行数与字段约束。`list`／`data` 的定义及运行检查边界见[参数与校验](extensions.md#参数与校验)，不因编辑控件校验通过推定 MCP 或运行方法也检查一致。
+useParam 返回的对象／数组被冻结，修改时创建新对象／数组。列表新增、删除、排序按 schema 的行数和字段约束；定义与运行检查见[参数与校验](extensions.md#参数与校验)。
 
-读值不一定是存值：非法标量可能显示默认值，列表可能补列、去列或修复格子。通过 `isInvalid`、`reason`、`rawValue` 区分；只预览或修改另一字段时保留原存值。明确要修复该参数时，依官方 reset／再写流程处理并读回；不要在挂载时自动“修复”，也不要把显示正常说成已保存正常。列表／data 预览使用字面量；标量绑定变量时展示未知运行值，不造计算结果。
+读取时结合 isInvalid、reason、rawValue：非法标量可能显示默认值，列表可能补列、去列或修复格子。预览或改其他字段时保留原存值；明确修复该参数时，用 reset／再写流程并读回。修复由交互触发。
 
-批量预设只提交所选预设要改变的参数，并交代它会改变哪些值或绑定。编辑期卡片只是依据当前参数绘制的示意，不调用游戏方法充当预览，不等同实际 Player 演出通过。
+列表／data 按字面量预览，标量变量显示待运行取值。预设只提交所选内容要改的参数，说明涉及的值及绑定。编辑卡片按参数绘制示意，游戏方法在运行环节验证。
 
 ## 外观与有限验证
 
-用 Studio 语义 CSS 变量适配主题；组件包优先，Chakra 随宿主升级且不保证相同稳定性。自定义文字和 `ariaLabel` 通过 `useStudioLocale()` 自行选语言；Chakra 浮层按组件包要求标记 `data-studio-user-content`。反馈／确认按具体操作影响使用 `toast`／`confirm`，不为每次普通参数编辑额外审批。
+优先组件包和 Studio 语义 CSS 变量适配主题；Chakra 用法随目标宿主核对。自定义文字／ariaLabel 通过 useStudioLocale() 选语言，Chakra 浮层按要求标记 data-studio-user-content。toast／confirm 按操作影响使用，普通参数编辑直接完成。
 
-按改动选择验证：
+按本次改动选择检查：
 
-1. 类型检查与双入口构建，核两个文件均保留、没有错误运行依赖或拆出的共享 chunk。
-2. 用 `ext_reload` 核 `sourceStatus`、`studioEntry.loaded`、`settingsPage`、`inspectors` 和 `unknownInspectors`；注册成功不代表画面已渲染。
-3. 在需要支持的入口实际打开：设置页改值／重置；检查器覆盖字面量与变量、只读、预设及目标列表／data 操作。写后读回，必要时检查撤销及实际运行读取；不用每次测全套功能。
+1. **构建**：类型检查及双入口构建；核文件、外置依赖和共享 chunk。
+2. **加载**：ext_reload 后读 sourceStatus、studioEntry.loaded、settingsPage、inspectors、unknownInspectors，再打开目标界面。
+3. **交互**：设置页改值／重置；检查器验证涉及的字面量、变量、只读、预设或列表／data 操作。写后读回，按影响检查撤销与运行读取。
 
-仅有类型、构建或模拟交互时明确记录这一层，不声称已验证宿主保存、协作、Player 或主题显示。展示异常先查扩展日志与自动表单；不为修界面改 schema ID、绕过只读或修改第三方下载包。
+展示异常先查扩展日志和自动表单，保留 schema ID、只读约束及第三方组件包。按完成的构建、交互、保存和运行范围交付。

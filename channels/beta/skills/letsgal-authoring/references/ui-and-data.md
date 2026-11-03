@@ -1,38 +1,38 @@
 # 可视化 UI 与数据表
 
-适用依据为当前 Studio 的 `ui-document-format`、`ui-elements`、`ui-actions`、`ui-smart-components`、`data-formats` 和实际工具 schema。本页补充制作流程，不复制完整字段手册；运行证据见发行包的宿主验证说明。
+字段查当前 ui-document-format、ui-elements、ui-actions、ui-smart-components、data-formats 及工具 schema。
 
 ## 先确定页面与作用范围
 
-用 `ui_read` 的 documents／slots 定位实际名称、来源、是否可写及绑定关系，再读取目标文档和 revision。新页面先用唯一名称；`create_document` 的显示名不保证就是文档文件名，后续操作使用返回的 document，再读 revision。创建文档、在预览打开、绑定全局系统槽位是三件事。不要为测试一个菜单替换全作品标题页、对话框或系统槽位。
+ui_read 的 documents／slots 定位实际文档、来源、可写性和槽位绑定，再取目标 revision。创建使用唯一名称，后续使用返回的 document。页面预览与全局槽位绑定按各自授权范围执行。
 
-已有页面尽量用 `ui_edit` 局部修改。别名只用于本次调用中引用新元素，后续以返回并读回的真实 ID 为准。整页替换先完整读取，保留未知字段、元素 ID、状态、动画、子模板和引用，用 `ui_replace_document` 的当前 baseRevision；保存返回的备份入口。删除自己的节点用 `ui_remove_elements`，检查子节点和引用的影响。
+已有页面优先 ui_edit 局部修改；调用内别名在写后换成真实 ID。整页替换先完整读取，保留元素 ID、非目标字段、状态、动画、子模板和引用；ui_replace_document 带 baseRevision，并保存返回的备份入口。ui_remove_elements 删除前核子节点和引用。
 
-CSS、素材路径和链接遵守当前宿主校验。全局选择器、外部 URL 等被拒绝时修正页面设计，不借其他入口注入同样内容。预检、写入和 `project_validate(kind="ui")` 通过后仍需检查真实画面及交互。
+按宿主规则使用 CSS、资源路径及链接；被拒绝时调整设计。写后读回并执行相关 project_validate(kind="ui")，然后检查布局与交互。
 
 ## 状态、动作与智能组件
 
-- UI 本地状态与游戏变量分开：明确动作的 source、目标 ID、类型及初值。条件控制显示不等于按钮动作已执行；分别测试初始画面、点击后的值／显示、关闭与重开后的状态。
-- 动画先核进场、退场及持续时间；截图在淡入途中可能混入底层画面。编辑器模拟状态、初值切换和实际游戏交互分别报告。
-- 智能组件先读模板边界。`generatedDefault=true` 的默认子模板可能尚未持久化；2.8.0-beta.1 实测首次编辑后生成新的子元素 ID。首次修改后重新读取模板，不能拿之前的临时 ID 继续更新。
-- 保留智能宿主的标记与模板结构。数据列表空态只证明组件可显示；数据绑定须核启用扩展公开的数据源别名、行字段和读写策略，不能直接把任意数据库表 ID 当成 UI 数据源。
+- 本地 UI 状态和游戏变量各明确 source、ID、类型、初值。核初始显示、真实点击后的值／显示、关闭及重开状态。
+- 动画观察进退场和持续时间，等淡入完成后评估最终布局。
+- generatedDefault=true 的子模板首次持久化可能换 ID；首次修改后重读再编辑。
+- 保留智能宿主标记和模板结构；数据列表绑定启用扩展公开的数据源别名，核行字段、权限、真实数据与空态。
 
-预览工具的目标使用 `ui:<文档名>`；页面内部 `ui.open` 动作的目标形式按其 schema 填写，不能混用两套标识。`preview_control.open_ui/close_ui` 可核打开容器、topModal 和输入通道，但不证明按钮可点击。剧情中的模态 UI 还要从前一句连续推进，核停等、关闭后回到预期正文及是否发生输入穿透；定位快进可能跳过 `skip-if-seeking` 的打开指令。
+预览目标用 `ui:<文档名>`，页面 ui.open 动作按其 schema 填目标。open_ui／close_ui 读取容器、topModal 和输入通道；按钮效果通过真实点击检查。
 
-有限验收建议：页面读回与校验 → 可见布局 → 一个真实动作 → 条件变化 → 关闭／重开 → 剧情返回。数据列表再验真实数据和空态。窗口隐藏或输入工具失败时停止相应断言，保留未测项，不用改初值冒充点击测试。
+模态 UI 从前一句连续进入，检查等待、关闭后正文和输入穿透。seek 可能跳过 skip-if-seeking 指令。按改动选择“读回校验 → 布局 → 动作与条件 → 关闭／重开 → 剧情返回”；输入不可用则记录该项待验。
 
 ## 主题与样式的恢复
 
-复制自有测试样式与应用全局选择分开。`theme_edit` 的样式写入不代表已经生效；用 `theme_apply` 后读 current 的 source、id 和 selectedExplicitly，再检查画面。
+theme_edit 写样式，theme_apply 选择生效样式；读 current 的 source、id、selectedExplicitly，再核画面。测试前保存原选择与恢复点；原先未显式选择时，用限定配置恢复并读回这三个字段。
 
-原先没有显式选择时，仅重新应用同名官方样式并不保证恢复了原状态。测试前保存选择状态与恢复点；可按当前历史工具预检限定配置恢复，再核 source／id／selectedExplicitly。不要为恢复一个样式回滚整份剧情。
+鉴赏排序使用扩展设置中的分类数组，以实际条目 ID／资源路径读写，核顺序和鉴赏页。2.9 reset 后出现“持久值已清、无 value、isDefault=false”时，先核保存结果，待安全重载后再读默认标记；该样本重载后恢复 true。
 
 ## 数据表的编辑与运行
 
-先用 `database_read`／`database_inspect` 核数据库、表、列类型、契约、扩展依赖与 runtimePolicy。`readonly`、`session`、`archive`、`profile` 的持久范围不同；编辑器 CRUD 不证明游戏中的访问、存档或跨槽行为。
+database_read／database_inspect 核表、列类型、契约、扩展依赖及 runtimePolicy；按 readonly／session／archive／profile 的目标范围验证运行与持久化。
 
-新增行用 `database_write.upsert_rows` 时省略 id，让宿主生成；已有行必须使用实际读到的 ID。2.8.0-beta.1 将未知自拟 ID 当作更新目标并拒绝，不能据此认定不能新增行。更新带 expect，结构修改使用实际 baseRevision；冲突时重读。布尔值、数字、枚举和默认值按列 schema 校验，不能将字符串显示值当作真实类型。
+upsert_rows 新增时省略 id，让宿主生成；修改使用现存 ID 和 expect。结构修改带 baseRevision，冲突重读；字段按列类型写入。
 
-删行前保全该行及引用，核 `project_delete` 的实际范围和确认要求。撤销后必须重读行、原 ID、字段与引用：2.8.0-beta.1 一次测试中，删行的 `history_undo` 返回成功但 targets=0，原行没有恢复；不要把一种对象的撤销结果推广到所有对象。仅当测试数据可重建且没有需保留的引用时，才用新 ID 向前修复；重建不是恢复旧身份。
+删行前保存原行、ID 和引用，核 project_delete 范围及确认。撤销后读回原 ID、字段和引用。**2.8／2.9 的删行撤销样本返回成功却 targets=0，原行未恢复**：核快照及后续编辑，再通过 history_restore 限定原集合文件恢复；2.9 样本恢复了原 ID。仅无保留引用且可重建的测试数据可用新 ID 向前修复。
 
-游戏访问通过扩展的数据依赖或实际 UI 数据源完成；脚本变量不是数据表。交付数据库功能时，还应验证数据可读、绑定正确和目标持久化层；未建立运行消费者的独立表只能验到编辑器层。
+游戏数据通过扩展依赖或 UI 数据源访问；交付时验证消费者读取、绑定和所需存档范围。

@@ -1,15 +1,15 @@
-# Beta当前维护边界
+# Beta 当前维护边界
 
-本载荷仅登记 **2.8.0-beta.1**；0.2.7是Skill发行号。通道内按当前任务查阅，不要求阅读旧版本增量。
+本载荷登记 **2.9.0-beta.1** 与 **2.8.0-beta.1**；Skill 发行号为 0.2.8。按专题的版本条件取用，2.9 选择示例只用于 2.9。
 
-按目标工程约定与实际Studio完整版本／通道核对，运行实例、关于页或EXE FileVersion可作宿主证据。project.json中的version／engineVersion及SDK自报值不必是宿主版本，保留原值；扩展另外核SDK来源。
+宿主证据取目标运行实例、关于页或 EXE FileVersion；项目格式／作品版本保留原值。扩展另外核 SDK 来源和要求。
 
-scripts/inspect_version.py支持原有--studio-version、--studio-exe、--project-version、--channel、--sdk。本目标且无冲突时返回reference_selected／退出码0，并指向[当前能力](current-capabilities.md)；其他版本、缺失或冲突返回UNKNOWN／退出码2，说明具体原因。输出和退出码只表示资料选择，不证明运行兼容。
+`scripts/inspect_version.py` 保留 --studio-version、--studio-exe、--project-version、--channel、--sdk：
 
-旧版和未知新版不套用当前版本专属结论，也不自动升级、迁移或换通道。先继续讨论、读取、草稿及已有证据覆盖的工作；确需该版本能力时再查目标资料或[旧发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。新版本不能仅按版本号大小推断兼容。
+- 已登记目标且无冲突：reference_selected／退出码 0，路由到[能力索引](current-capabilities.md)。
+- 缺失、冲突或未登记版本：UNKNOWN／退出码 2，按原因补查资料，继续已有证据覆盖的工作。
+- --project-version 只传项目明确固定的目标引擎版本。
 
-通道不匹配时提示选择对应载荷；同时维护不同通道工程可用项目范围安装，核实际发现优先级，同一位置不并装两个同名入口。历史资料留在维护归档与旧包，不进入日常载荷。
+通道不匹配时选择对应载荷；多个通道工程可用项目范围安装并核实际发现优先级，同一位置保留一份同名入口。版本选择只负责资料路由；升级、迁移与发布按任务授权执行。
 
-[正式清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json) · [Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)。官网资料、目标样本、SDK和运行分别标明证据；无证据时不猜字段。
-
-`--project-version` 只传项目明确固定的目标引擎版本；不能直接拿 project.json 的格式／项目版本值当宿主版本。脚本只选择资料，不启动或修改宿主。
+查目标资料用[正式清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)、[Beta 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)或[旧发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。运行兼容按目标版本实测记录判断。

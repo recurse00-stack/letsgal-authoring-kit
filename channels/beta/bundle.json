@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "channel": "beta",
   "profile_schema": 1,
   "files": [
@@ -12,7 +12,7 @@
     },
     {
       "path": "examples/选择练习.json",
-      "sha256": "1d8801f117d396a291125301b60ba0eeb0e8b636a09a68da8b97f9b59f1c82d3"
+      "sha256": "47942750ef6381e469199a1200d00895948719bebe0edb70d1cef826489d64a7"
     },
     {
       "path": "LICENSE",
@@ -24,11 +24,11 @@
     },
     {
       "path": "references/collaboration-git.md",
-      "sha256": "d33507afac5b4442e39cfe6bb7afb8fe5c666448b28289383377d7ca9625b605"
+      "sha256": "ccac03d518840c335c73e6f23d3eca23b391c19b4ed6c6b28770938d6336f91b"
     },
     {
       "path": "references/current-capabilities.md",
-      "sha256": "84a629e3746be068b665d95071e8838bc780ce3c75df68abf776524f59068799"
+      "sha256": "e13ba5ec569ca0796061c7686c0a49fbdbb66d28c3b08925bc0d575cf5270334"
     },
     {
       "path": "references/customization-maintenance.md",
@@ -40,7 +40,7 @@
     },
     {
       "path": "references/extensions.md",
-      "sha256": "253d105ca2983c1f6f33679627abf06ab841dd8e17ae83326771e6cc36f4589b"
+      "sha256": "fa410d1985aa39fd145018b78f0cd619580fe58c34c11fb0af3ddc7fe10e488d"
     },
     {
       "path": "references/git-workflow.md",
@@ -48,15 +48,15 @@
     },
     {
       "path": "references/json.md",
-      "sha256": "c0a9d984a759aaaa120b17c8ae20ef15b79e27e6eb70e749f2aae830c629337d"
+      "sha256": "e8fa124147c87c325f7ed1cf73d6d145d2dec0979543945bcf286209e654baaf"
     },
     {
       "path": "references/mcp-workflow.md",
-      "sha256": "ac69f97578bc77770531435d06f4e9b0bda19c7c72357fccbeadff2b9ca350c1"
+      "sha256": "b50240dc322cf1382a97b5742b6601639ea13b56bfc78b424e613a7cd798ef1c"
     },
     {
       "path": "references/performance.md",
-      "sha256": "962e92256631f278aada6a845f3565fba93fc7828a04835feeb8f50a762c0288"
+      "sha256": "473147b7c72098d803677ac1bf6e449a50f3de6cd1bd1286dba2a20638b92fdc"
     },
     {
       "path": "references/plugin-skill-authoring.md",
@@ -68,7 +68,7 @@
     },
     {
       "path": "references/preview-and-build.md",
-      "sha256": "eeb92a85b3b76272b1a9c338191f7e6a4d1c71c20581ce9633f3b7aaa6bb7183"
+      "sha256": "82f1fd786d0373331bd801cbeb97fa5810f3898ece30782b5d3914371d9bbd13"
     },
     {
       "path": "references/production.md",
@@ -76,7 +76,7 @@
     },
     {
       "path": "references/research.md",
-      "sha256": "3fd40fb84ed2e734498981c00af2b9426999299862f8422c402e77f8aef5c6a3"
+      "sha256": "c71dca56f35715e9f924d6c85f8a650a7997ecb854857476af9c995d13944fb4"
     },
     {
       "path": "references/risk-notice.md",
@@ -84,43 +84,43 @@
     },
     {
       "path": "references/safety.md",
-      "sha256": "638fb5a525ff257134ec06db6ae9091bcb03e665414e9b3b156487c9d36f3ca5"
+      "sha256": "d431768b0d2170fe12978563464280b9ade99ea56290c103088faedadfde4e76"
     },
     {
       "path": "references/stage-and-assets.md",
-      "sha256": "2a77ec57696b0af6ab90fc0fb2c912ea1f612f4d011805e2f93e4f78a8a00f45"
+      "sha256": "a94b0764ae0532f7ce48f1ad478549277d9f77751766bd560ab5e8b8b1ee6614"
     },
     {
       "path": "references/story-and-voice.md",
-      "sha256": "1badea6f3b79aa65c1d4f643c4647780159ea7c0b7fd5e8285bc604444c9de49"
+      "sha256": "8b811d7af7bd404c70f72e48837307e8147650dacf8da56e68d8b265299ecb6f"
     },
     {
       "path": "references/studio-editor-ui.md",
-      "sha256": "8e3ad46a444eeac05a3199e5585bb9ae070e2404c1a85aac291b2e7176d5176f"
+      "sha256": "7e642573185cd42144ed8c54c79a1cb2a2c92e2b3e2033789c82782f25123bf9"
     },
     {
       "path": "references/troubleshooting.md",
-      "sha256": "1dd592a261d4697bf5328e7058cb9a1e795fcce42e19b8e3af864cdf323e30bb"
+      "sha256": "c519da0bea53f7ae5883e32c9e6e60fd2527dcc5daf1ae87c79ee49baaf409dc"
     },
     {
       "path": "references/ui-and-data.md",
-      "sha256": "62cec15d7c4aa7128c5b2b692c3f596c2ae54f43d4483a3b11e0463a8e3971c8"
+      "sha256": "d44c25607f7e576caba733e52ec685b75e39b7a718097ee5c06a8ccd8d421798"
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "60bcab095166b86af74b10ed45c6e3567816a8df85cd1ec83721476c86ca7e9e"
+      "sha256": "53a0e3c6d6156787663db1f12ca741fbde3c4e9d85aa17f49fc884c0c9b4503a"
     },
     {
       "path": "scripts/check_project.py",
-      "sha256": "61737e4e0f1afcc082a985ae2168092be94e595bb9e94c8c8b2949d20817c1fc"
+      "sha256": "9e3b8210f765eda6a76f14a0159c27d14ffbd06194d34f3487365f267a8f246b"
     },
     {
       "path": "scripts/inspect_version.py",
-      "sha256": "4a69ba921c0f84b0fb944f2015da2c3c9b92c5bb7bc95f900bfff89d26e0f07d"
+      "sha256": "36a9c471c10eb90eae8d4b2e58369f795d0e2fdab112edd3a401eb75bc9e7959"
     },
     {
       "path": "SKILL.md",
-      "sha256": "d5c7b49764eb907d90e0e887bb5561e3cad6c8683d055064cac6633d5ec1ead0"
+      "sha256": "30540ac340ef9cc52d43d327fedc5070c38ddedeaaf6f6277c47905dddb9f553"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -135,5 +135,5 @@
       "sha256": "99e25fad698f897b3435161b50f951b53b5e0a01008ce7150066acbf05d4445b"
     }
   ],
-  "revision": "20261101-feature-map"
+  "revision": "20261103-beta290"
 }

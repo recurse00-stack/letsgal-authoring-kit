@@ -1,6 +1,6 @@
 # 资料来源与范围
 
-本指南依据官方资料、目标样本与注明版本的有限观察独立编写。2026-10-20读取[正式版清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)和[Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)，当前维护目标为2.5.0和2.8.0-beta.1。清单、安装状态与运行验收分别记录。
+本指南依据官方资料、目标样本与注明版本的有限观察独立编写。2026-10-20读取[正式版清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)和[Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)，当时维护目标为 2.5.0 和 2.8.0-beta.1。当前正式版仍为 2.5.0；Beta 依据 2026-11-02 的 2.9.0-beta.1 隔离实测更新，并保留 2.8.0-beta.1 的版本限定资料，具体范围见[宿主验证](HOST-VALIDATION.md)。清单、安装状态与运行验收分别记录。
 
 2.8.0-beta.1 的依据为官方 Beta 公告（Windows 发布时间2026-10-19T15:48:46.389Z）、当前获准 MCP 的 quickstart、script、stage、performanceStart、errors、preview-testing、扩展开发指导，以及本机随包 SDK。对照2.7.1：sdk-context.ts、extension-method.ts、types/block-schema.ts和constants.ts变化，types/schema.ts保持；这是相关文件比较，不是整个SDK验收。另核2.7.1界面更新r1的主要部位／皮肤表情规则。
 
