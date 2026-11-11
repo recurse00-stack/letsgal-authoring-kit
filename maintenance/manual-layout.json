@@ -8,48 +8,96 @@
     "docs/wiki/05-ui-data.md",
     "docs/wiki/06-personal.md",
     "docs/wiki/07-recovery.md",
-    "docs/wiki/08-maintenance.md"
+    "docs/wiki/08-maintenance.md",
+    "docs/wiki/09-plugin-wiki.md",
+    "docs/wiki/10-workbench-interface.md"
   ],
   "legacy_aliases": {
-    "这个包能做什么\r": "docs/wiki/01-start.md",
-    "确认功能与选择实现\r": "docs/wiki/05-ui-data.md",
-    "安装与启用前避免同类技能冲突\r": "docs/wiki/01-start.md",
-    "使用前的风险与保护\r": "docs/wiki/07-recovery.md",
-    "选择正式版或-beta\r": "docs/wiki/03-story.md",
-    "已有内容草稿与定稿怎样保护\r": "docs/wiki/07-recovery.md",
-    "第一次使用\r": "docs/wiki/01-start.md",
-    "安装位置怎样选择\r": "docs/wiki/03-story.md",
-    "检查结果在哪里\r": "docs/wiki/01-start.md",
-    "手动安装与命令行\r": "docs/wiki/08-maintenance.md",
-    "官方-mcp-与无-mcp-两种用法\r": "docs/wiki/02-connection.md",
-    "第一次连接\r": "docs/wiki/02-connection.md",
-    "stable-30嵌套结构口型与多窗口\r": "docs/wiki/01-start.md",
-    "演出段与开发工具\r": "docs/wiki/04-performance.md",
-    "多语言配音\r": "docs/wiki/04-performance.md",
-    "按任务协作避免不必要的等待\r": "docs/wiki/01-start.md",
-    "让-ai-完成一次修改\r": "docs/wiki/03-story.md",
-    "外部批量编辑与原有文件方式\r": "docs/wiki/07-recovery.md",
-    "常见连接问题\r": "docs/wiki/07-recovery.md",
-    "临时设置与附加包状态\r": "docs/wiki/06-personal.md",
-    "先明确工程版本\r": "docs/wiki/02-connection.md",
-    "从选择练习走完一个最小完整案例\r": "docs/wiki/03-story.md",
-    "本例的必要字段\r": "docs/wiki/03-story.md",
-    "变量与扩展的验证\r": "docs/wiki/07-recovery.md",
-    "选择赋值怎样检查\r": "docs/wiki/03-story.md",
-    "正式版与beta用法和版本核对\r": "docs/wiki/02-connection.md",
-    "按当前任务查能力\r": "docs/wiki/01-start.md",
-    "一个地点牌的完整小练习\r": "docs/wiki/05-ui-data.md",
-    "常见制作问题\r": "docs/wiki/07-recovery.md",
-    "只读版本工具\r": "docs/wiki/02-connection.md",
-    "常见任务怎么提\r": "docs/wiki/03-story.md",
-    "main-调用及循环按完整宿主版本区分\r": "docs/wiki/03-story.md",
-    "公版与个人设置怎样配合\r": "docs/wiki/06-personal.md",
-    "个人特调放哪里\r": "docs/wiki/06-personal.md",
-    "让-ai-为插件写-skill\r": "docs/wiki/06-personal.md",
-    "常见问题\r": "docs/wiki/07-recovery.md",
-    "更新卸载与恢复\r": "docs/wiki/08-maintenance.md",
-    "从测试中看到的实际帮助\r": "docs/wiki/07-recovery.md",
-    "验证范围与反馈\r": "docs/wiki/07-recovery.md",
-    "语言配音与蓝图\r": "docs/wiki/04-performance.md"
+    "这个包能做什么": "docs/wiki/01-start.md",
+    "确认功能与选择实现": "docs/wiki/05-ui-data.md",
+    "安装与启用前避免同类技能冲突": "docs/wiki/01-start.md",
+    "使用前的风险与保护": "docs/wiki/07-recovery.md",
+    "选择正式版或-beta": "docs/wiki/02-connection.md",
+    "已有内容草稿与定稿怎样保护": "docs/wiki/07-recovery.md",
+    "第一次使用": "docs/wiki/01-start.md",
+    "安装位置怎样选择": "docs/wiki/01-start.md",
+    "检查结果在哪里": "docs/wiki/01-start.md",
+    "手动安装与命令行": "docs/wiki/08-maintenance.md",
+    "官方-mcp-与无-mcp-两种用法": "docs/wiki/02-connection.md",
+    "第一次连接": "docs/wiki/02-connection.md",
+    "stable-30嵌套结构口型与多窗口": "docs/wiki/01-start.md",
+    "演出段与开发工具": "docs/wiki/04-performance.md",
+    "多语言配音": "docs/wiki/04-performance.md",
+    "按任务协作避免不必要的等待": "docs/wiki/01-start.md",
+    "让-ai-完成一次修改": "docs/wiki/03-story.md",
+    "外部批量编辑与原有文件方式": "docs/wiki/07-recovery.md",
+    "常见连接问题": "docs/wiki/07-recovery.md",
+    "临时设置与附加包状态": "docs/wiki/06-personal.md",
+    "先明确工程版本": "docs/wiki/02-connection.md",
+    "从选择练习走完一个最小完整案例": "docs/wiki/03-story.md",
+    "本例的必要字段": "docs/wiki/03-story.md",
+    "变量与扩展的验证": "docs/wiki/07-recovery.md",
+    "选择赋值怎样检查": "docs/wiki/03-story.md",
+    "正式版与beta用法和版本核对": "docs/wiki/02-connection.md",
+    "按当前任务查能力": "docs/wiki/01-start.md",
+    "一个地点牌的完整小练习": "docs/wiki/05-ui-data.md",
+    "常见制作问题": "docs/wiki/07-recovery.md",
+    "只读版本工具": "docs/wiki/02-connection.md",
+    "常见任务怎么提": "docs/wiki/03-story.md",
+    "main-调用及循环按完整宿主版本区分": "docs/wiki/03-story.md",
+    "公版与个人设置怎样配合": "docs/wiki/06-personal.md",
+    "个人特调放哪里": "docs/wiki/06-personal.md",
+    "让-ai-为插件写-skill": "docs/wiki/09-plugin-wiki.md",
+    "常见问题": "docs/wiki/07-recovery.md",
+    "更新卸载与恢复": "docs/wiki/08-maintenance.md",
+    "从测试中看到的实际帮助": "docs/wiki/07-recovery.md",
+    "验证范围与反馈": "docs/wiki/07-recovery.md",
+    "语言配音与蓝图": "docs/wiki/04-performance.md"
+  },
+  "details": {
+    "MANUAL.md": {
+      "area": "main",
+      "summary": "总目录与快速开始"
+    },
+    "docs/wiki/01-start.md": {
+      "area": "main",
+      "summary": "安装一次，确认 AI 实际读取"
+    },
+    "docs/wiki/02-connection.md": {
+      "area": "main",
+      "summary": "完整版本、工程身份与 MCP 连接"
+    },
+    "docs/wiki/03-story.md": {
+      "area": "main",
+      "summary": "双选项练习、局部改字与条件分支"
+    },
+    "docs/wiki/04-performance.md": {
+      "area": "main",
+      "summary": "立绘、演出段、多语言与配音"
+    },
+    "docs/wiki/05-ui-data.md": {
+      "area": "main",
+      "summary": "按用途选择 UI、数据与扩展"
+    },
+    "docs/wiki/06-personal.md": {
+      "area": "personal",
+      "summary": "跨作品偏好与当前作品规则"
+    },
+    "docs/wiki/07-recovery.md": {
+      "area": "main",
+      "summary": "核对异常、精确恢复与项目自测历史"
+    },
+    "docs/wiki/08-maintenance.md": {
+      "area": "main",
+      "summary": "切换、卸载、参数与备份恢复"
+    },
+    "docs/wiki/09-plugin-wiki.md": {
+      "area": "skills",
+      "summary": "建立、读取与接入匹配版本的插件指南"
+    },
+    "docs/wiki/10-workbench-interface.md": {
+      "area": "skills",
+      "summary": "将插件手册和个人资料接入离线工作台"
+    }
   }
 }

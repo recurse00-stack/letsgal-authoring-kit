@@ -1,5 +1,7 @@
-# 发行核对入口
-
-本版 **0.2.9 / 20261111-stable300**。Stable 3.0.0 与 Beta 2.9／2.8 的载荷独立维护；历次发行保留各自的适用范围。
-
-本版更新双通道 Skill、版本与剧情检查器、人工 Wiki 及生成流程。安装提示改为具体的备份与数据说明，沿用现有安装、路径选择和预检逻辑。完整变更见[版本记录](RELEASE-NOTES.md)，资料依据见[SOURCES](SOURCES.md)，实际检查见[VALIDATION](VALIDATION.md)，宿主范围见[HOST-VALIDATION](HOST-VALIDATION.md)。文件集合由 release-files.json 管理，通道清单与 SHA256SUMS.txt 用于核对内容。
+# 包内容与校验
+
+本包修订 **3.0.0 / 20261111-series300**，包含 Stable 3.0.0 与 Beta 2.9.0（兼容 2.8 Beta）的独立载荷、安装工具和人工 Wiki。
+
+核对下载内容时使用 `release-files.json` 确认文件集合，使用通道清单与 `SHA256SUMS.txt` 核对校验值。安装后的所选 Skill 可通过安装器“检查安装”核对。
+
+[版本记录](RELEASE-NOTES.md)说明功能变化；[资料来源](SOURCES.md)与[验证范围](VALIDATION.md)说明依据和检查覆盖；实际工程操作见 [Wiki](MANUAL.md)。

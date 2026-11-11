@@ -39,7 +39,7 @@
 
 MCP 改设置／reset 前保存每个目标的 `isDefault`、`value` 是否存在、实际值、声明默认值及 valueHash，使用 expected 做冲突检查，见[MCP 流程](mcp-workflow.md)。3.0 SDK 规定未修改或重置的设置取声明默认值；显式空字符串、0、false 保持原值，不用 `value || default` 覆盖。无声明默认值的字段原本就可能不返回 value，缺值本身不能单独判为异常。
 
-reset 后用 `ext_read` 逐项核 `isDefault` 和 `value`，必要时再核实际方法取值。**3.0 MCP 契约差异**：官方内置壳的 boolean（声明默认 false）及 enum（声明默认 shared）改值后 reset 返回成功，读回却是 isDefault=false 且缺少 value／valueHash；数组字段也复现默认态标记差异，不限于空字符串或自定义插件。undo 也须读回，不能假定它恢复默认态。缺值不解释成空字符串、false 或默认值；SDK 运行取值、UI 重置按钮及 Player 行为未由此确定。
+reset 后用 `ext_read` 逐项核 `isDefault` 和 `value`，必要时再核实际方法取值。undo 也须读回，不能假定它恢复默认态。缺值不解释成空字符串、false 或默认值；MCP 读回与 SDK 运行取值、UI 重置及 Player 行为分别核对。
 
 遇到差异先报告默认态未恢复并保全操作记录。若任务只要求恢复有效值，可在授权内显式设回保存的值并读回，明确这是显式值恢复。需要恢复默认态时，按[限定历史恢复](collaboration-git.md#限定恢复与读回)审阅设置文件及后续编辑，恢复后再次核默认标记和值；不能仅靠重载或显式写值宣称默认态已还原。
 

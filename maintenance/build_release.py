@@ -41,11 +41,13 @@ def main():
     payload_counts={}
     for row in manifest['channels']:
         channel=row['id']
+        channel_version=row.get('version',version)
+        assert isinstance(channel_version,str) and re.fullmatch(r'[0-9A-Za-z.\-]+',channel_version), 'Invalid channel version'
         assert row['bundle']==f'channels/{channel}/bundle.json'
         channel_root=root/'channels'/channel
         skill=channel_root/'skills/letsgal-authoring'
         front=(skill/'SKILL.md').read_text('utf-8')
-        assert re.search(r'^  version: '+re.escape(version)+r'$',front,re.M), 'Skill and bundle versions differ'
+        assert re.search(r'^  version: '+re.escape(channel_version)+r'$',front,re.M), 'Skill and channel versions differ'
         assert re.search(r'^  channel: '+channel+r'$',front,re.M), 'Skill channel differs'
         revision=re.search(r'^  revision: ([0-9A-Za-z._-]+)$',front,re.M)
         assert revision, 'Skill revision is required for a new build'
@@ -55,7 +57,7 @@ def main():
         assert (skill/'references/risk-notice.md').read_bytes()==(root/'RISK-NOTICE.md').read_bytes(), 'Risk notice differs'
         original=json.loads((channel_root/'bundle.json').read_text('utf-8'))
         selected=dict(original)
-        assert selected['version']==version and selected['channel']==channel and selected['schema']==1
+        assert selected['version']==channel_version and selected['channel']==channel and selected['schema']==1
         selected['revision']=revision[1]
         selected['files']=[{'path':p.relative_to(skill).as_posix(),'sha256':digest(p)} for p in payload]
         encoded=(json.dumps(selected,ensure_ascii=False,indent=2)+'\n').encode('utf-8')

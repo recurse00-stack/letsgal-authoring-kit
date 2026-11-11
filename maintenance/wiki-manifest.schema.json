@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LetsGal local Wiki package manifest",
+  "type": "object",
+  "required": ["schema", "kind", "id", "version", "revision", "title", "status"],
+  "properties": {
+    "schema": {"const": 1},
+    "kind": {"enum": ["plugin", "personal"]},
+    "id": {"type": "string", "minLength": 1, "maxLength": 200},
+    "version": {"type": "string", "minLength": 1, "maxLength": 80},
+    "revision": {"type": "string", "minLength": 1, "maxLength": 100},
+    "title": {"type": "string", "minLength": 1, "maxLength": 200},
+    "summary": {"type": "string", "maxLength": 1000},
+    "status": {"enum": ["available", "paused"]},
+    "documents": {
+      "type": "array", "maxItems": 50,
+      "items": {
+        "type": "object", "required": ["id", "title", "path"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,60}$"},
+          "title": {"type": "string", "minLength": 1, "maxLength": 200},
+          "path": {"type": "string", "description": "A relative Markdown file inside the manifest directory, checked by the generator."}
+        }
+      }
+    }
+  },
+  "allOf": [{"if": {"properties": {"status": {"const": "available"}}}, "then": {"required": ["documents"], "properties": {"documents": {"minItems": 1}}}}]
+}

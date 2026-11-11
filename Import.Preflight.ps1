@@ -77,7 +77,12 @@ function Read-SelectedBundle([string]$BundleRoot, [string]$Channel) {
         if ($selected.Count -ne 1 -or $selected[0].bundle -cne "channels/$Channel/bundle.json") { throw 'Invalid channel manifest location.' }
         $payloadRoot = Join-Path $bundle "channels/$Channel"
         $manifest = Read-Json (Join-Path $payloadRoot 'bundle.json')
-        if ($manifest.channel -cne $Channel -or $manifest.version -cne $index.version) { throw 'Channel manifest identity/version mismatch.' }
+        $expectedVersion = $index.version
+        if ($selected[0].PSObject.Properties['version']) {
+            $expectedVersion = $selected[0].version
+            if (-not ($expectedVersion -is [string]) -or [string]::IsNullOrWhiteSpace($expectedVersion)) { throw 'Invalid channel version.' }
+        }
+        if ($manifest.channel -cne $Channel -or $manifest.version -cne $expectedVersion) { throw 'Channel manifest identity/version mismatch.' }
     }
     if ($manifest.schema -ne 1 -or $manifest.skill -ne 'letsgal-authoring' -or $manifest.owner -ne 'letsgal-authoring-kit' -or
         -not ($manifest.version -is [string]) -or [string]::IsNullOrWhiteSpace($manifest.version)) { throw 'Unsupported bundle identity/schema/version.' }

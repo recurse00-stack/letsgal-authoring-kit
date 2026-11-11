@@ -16,11 +16,11 @@ if not args.scratch.is_absolute() or args.scratch.exists():
     p.error('Use a NEW absolute scratch directory')
 previous=args.previous_bundle.resolve()
 previous_manifest=json.loads((previous/'bundle.json').read_text('utf-8'))
-previous_version=previous_manifest['version']
+previous_version=json.loads(manifest_path(previous).read_text('utf-8'))['version']
 if previous_manifest.get('owner')!='letsgal-authoring-kit':
     p.error('Provide an unmodified previous release of this kit')
 bundle=Path(__file__).resolve().parents[1]
-version=json.loads((bundle/'bundle.json').read_text('utf-8'))['version']
+version=json.loads(manifest_path(bundle).read_text('utf-8'))['version']
 if version==previous_version: p.error('The upgrade baseline must be a different release')
 args.scratch.mkdir()
 checks=[]

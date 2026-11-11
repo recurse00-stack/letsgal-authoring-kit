@@ -10,7 +10,7 @@
 
 > 在独立练习章新建“车站选择”。先显示“列车即将出发。”，给出“问路”和“候车”两个选项。选“问路”显示“站务员指向二号站台。”，选“候车”显示“你坐到长椅上。”。两条路线结束后都回到“广播再次响起。”。不改原有章的入口和顺序，告诉我怎样从本练习开头预览。
 
-AI 应先取正式章／片段 ID，再按当前宿主能创建的结构写入。3.0／2.9 通常把选项正文放在同一片段的嵌套菜单内；配对标记表示各路线边界，不能把两条结果顺序接在同一条路上。完整 JSON 示例分别在 [Stable 样例](../../channels/stable/skills/letsgal-authoring/examples/选择练习.json)和 [Beta 样例](../../channels/beta/skills/letsgal-authoring/examples/选择练习.json)，它们是结构参考，不能直接覆盖作品配置。
+AI 应先取正式章／片段 ID，再按当前宿主能创建的结构写入。3.0／2.9 通常把选项正文放在同一片段的嵌套菜单内；配对标记分别界定两条互斥路线的正文。完整 JSON 示例分别在 [Stable 样例](../../channels/stable/skills/letsgal-authoring/examples/选择练习.json)和 [Beta 样例](../../channels/beta/skills/letsgal-authoring/examples/选择练习.json)，可用来核对结构；写入时保留作品已有配置。
 
 预期剧情：
 
@@ -26,9 +26,9 @@ AI 应先取正式章／片段 ID，再按当前宿主能创建的结构写入�
 1. 查看改动摘要：新增了哪个章、片段，原有入口是否保持。
 2. 确认写后从 Studio 读回，选项、两段结果和共同尾句都在；结构校验没有未处理错误。
 3. 从练习开头选“问路”，应只出现问路结果，再到共同尾句。
-4. 重新从开头选“候车”，应只出现候车结果，再到共同尾句。只走过一条路线不能算两条都通过。
+4. 重新从开头选“候车”，应只出现候车结果，再到共同尾句。分别记录两条路线的结果。
 
-选项出现但无结果时，核本版结构的目标 ID 或路线边界；两路混播时核菜单结束标记及尾句位置。先读真实结构，不通过整章重写来碰运气。
+选项出现但无结果时，核本版结构的目标 ID 或路线边界；两路混播时核菜单结束标记及尾句位置。根据读回的结构做局部修正。
 
 ## 再做一次局部改字
 
@@ -40,7 +40,7 @@ AI 应在原富文本内只改对应文字。行 ID 关联翻译或音频，不�
 
 > 在练习里用现有布尔变量 hasTicket 决定提示：true 显示“请进站”，否则显示“请先买票”。先核实变量确实存在、类型和作用域，不擅自更名或建立同名变量。
 
-预期条件分支互斥；最终 else 没有额外条件。检查变量初值、修改位置和两条结果，而不只看代码格式。旧版 branch、if 与普通片段调用有各自的返回和跨章规则：3.0 的旧 branch 可按契约调用唯一启用的跨章片段，不能据此把普通 call 或 Beta 也改为跨章。
+预期条件分支互斥；最终 else 没有额外条件。检查变量初值、修改位置和两条结果，而不只看代码格式。旧版 branch、if 与普通片段调用有各自的返回和跨章规则：3.0 的旧 branch 可按契约调用唯一启用的跨章片段，普通 call 与 Beta 仍按各自版本契约使用。
 
 ## 查阅：结构检查器
 
@@ -51,6 +51,6 @@ python "channels/stable/skills/letsgal-authoring/scripts/check_project.py" "<章
 python "channels/stable/skills/letsgal-authoring/scripts/check_project.py" "<章节或工程绝对路径>" --format json-only
 ```
 
-Beta 改为相应目录。检查器只读文件；JSON 输出与退出码说明见[格式专题](../../channels/stable/skills/letsgal-authoring/references/json.md)。退出码 0 仍需阅读 warnings；它不证明资源存在、条件意义正确或玩家路线已运行。遇到未来格式先用 json-only 核基本 JSON，再查目标宿主实际样本，不自动迁移格式。
+Beta 改为相应目录。检查器只读文件；JSON 输出与退出码说明见[格式专题](../../channels/stable/skills/letsgal-authoring/references/json.md)。退出码 0 仍需阅读 warnings；资源引用、条件含义与玩家路线还需在作品中核对。遇到未来格式先用 json-only 核基本 JSON，再查目标宿主实际样本，不自动迁移格式。
 
 下一步：[舞台、演出和配音](04-performance.md)；失败与撤销见[精确恢复](07-recovery.md)。

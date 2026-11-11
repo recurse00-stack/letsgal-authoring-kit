@@ -1,156 +1,69 @@
 {
-  "version": "0.2.9",
-  "revision": "20261111-stable300",
-  "status": "RELEASE_BUILD_VALIDATED",
+  "version": "3.0.0",
+  "revision": "20261111-series300",
+  "payload_revision": "20261111-series300",
   "targets": {
+    "stable_series": [
+      "3.0"
+    ],
+    "beta_series": [
+      "2.9",
+      "2.8"
+    ],
+    "actual_channel_required": true,
+    "patch_equality_required": false
+  },
+  "scope_documents": {
+    "package": "VALIDATION.md",
+    "host": "HOST-VALIDATION.md",
+    "selftest_history": "docs/wiki/07-recovery.md#本项目自测问题历史"
+  },
+  "evidence": [
+    {
+      "area": "skill_decisions_and_plugin_guides",
+      "date": "2026-11-10",
+      "method": "independent task evaluation with recorded MCP responses and synthetic plugin guides",
+      "reused": true
+    },
+    {
+      "area": "version_gate_and_installer",
+      "date": "2026-11-11",
+      "method": "140 version function/CLI cases; 26 channel and manifest cases; isolated upgrades and preservation; local Stable installation and discovery",
+      "reused": false
+    },
+    {
+      "area": "wiki_workbench",
+      "date": "2026-11-11",
+      "method": "previous synthetic library and interaction checks reused; changed version chapter, navigation, search and print checked again",
+      "reused": true
+    },
+    {
+      "area": "studio_3_0",
+      "date": "2026-11-10",
+      "method": "independent Windows project, live MCP and target SDK",
+      "patch_identity": "not recorded",
+      "coverage": "HOST-VALIDATION.md",
+      "reused": true
+    }
+  ],
+  "this_revision": {
+    "scope": "release series routing, independent channel versions, installer manifest verification, docs and generated HTML",
+    "checks": "VALIDATION.md",
+    "new_host_execution": false
+  },
+  "limitations": {
+    "agent_task_coverage": "Codex; DSH filesystem provider discovery only; other agents require environment-specific confirmation",
+    "runtime_coverage": "See HOST-VALIDATION.md",
+    "selftest_scope": "Versioned samples; actual results may vary by environment and project"
+  },
+  "channel_versions": {
     "stable": "3.0.0",
-    "beta": [
-      "2.9.0-beta.1",
-      "2.8.0-beta.1"
-    ]
+    "beta": "2.9.0"
   },
-  "components": {
-    "skill": "changed-Stable-3.0-and-Beta-common-guidance",
-    "runtime_scripts": "changed-version-operation-gate-and-applicable-story-validation",
-    "installer_logic": "verified-unchanged",
-    "installer_notice_and_ui_labels": "changed-backup-and-data-wording",
-    "human_manual": "changed-eight-topic-Wiki-and-self-contained-HTML"
-  },
-  "payload_files": {
-    "stable": 32,
-    "beta": 32
-  },
-  "shared_files": {
-    "count": 12,
-    "status": "identical"
-  },
-  "checks": {
-    "official_skill_format": "both-passed",
-    "version_routing": 106,
-    "existing_authoring": 26,
-    "beta_else_cli": {
-      "legal_exit": 0,
-      "invalid_exit": 1,
-      "source_hashes_preserved": true,
-      "evidence_revision": "20261110-contracts-wiki-preview.1"
-    },
-    "isolated_channel_installation": 22,
-    "local_links_and_anchors": 442,
-    "privacy_files": 129,
-    "release_whitelist_files": 129,
-    "notice_delivery_and_receipts": 18,
-    "privacy_and_release_boundary_regressions": 23,
-    "external_document_links": {
-      "checked": 45,
-      "http_200": 45,
-      "date": "2026-11-11"
-    },
-    "extended_operation_gate": 52,
-    "evidence_reused": {
-      "existing_authoring": "20261110-contracts-wiki-preview.1",
-      "beta_else_cli": "20261110-contracts-wiki-preview.1",
-      "notice_delivery_and_receipts": "20261110-contracts-wiki-preview.2",
-      "privacy_and_release_boundary_regressions": "20261110-contracts-wiki-preview.2",
-      "external_document_links": "20261110-contracts-wiki-preview.2"
-    },
-    "published_028_beta_to_029_stable": "passed; original installation backup matched byte for byte"
-  },
-  "independent_evaluations": {
-    "skill_decisions": "passed using original MCP returns; no new MCP execution",
-    "plugin_guides": "indexed, missing index, absent from global discovery, paused, version conflict, save and actual readback passed with synthetic files",
-    "human_wiki": "five written task walkthroughs; two navigation findings corrected and independently retested",
-    "evidence_revision": "20261110-contracts-wiki-preview.1",
-    "rerun_this_revision": false
-  },
-  "wiki": {
-    "source": "MANUAL.md and docs/wiki/*.md",
-    "pages": 9,
-    "html_source_text_equivalent": true,
-    "self_contained": true,
-    "anchors": 100,
-    "local_html_render": {
-      "desktop": {
-        "width": 1440,
-        "scroll": 1440,
-        "sections": 9,
-        "externalAssets": 0
-      },
-      "narrow": {
-        "width": 390,
-        "scroll": 390
-      },
-      "print_pages": 19,
-      "headless_local_render": true,
-      "studio_operations": false
-    },
-    "visual_review": "current desktop, narrow and changed connection print section inspected",
-    "render_evidence_revision": "20261111-version-gate-preview.1"
-  },
-  "installation": {
-    "channel": "stable",
-    "result": "32 matching payload files; exact previous backup verified; check current; repeat already_current",
-    "private_area": "all existing files unchanged"
-  },
-  "installer_files_verified_unchanged": [
-    "Check.cmd",
-    "Import.Paths.ps1",
-    "Import.Preflight.ps1",
-    "Import.ps1",
-    "Install.cmd",
-    "Install.ps1",
-    "Uninstall.cmd"
-  ],
-  "host_test_this_revision": false,
-  "host_evidence_reused_date": "2026-11-10",
-  "remaining_host_differences": [
-    "settings reset default-state readback",
-    "incomplete scheduling undo",
-    "official file-session edit loss"
-  ],
-  "beta_host_retest_this_revision": false,
-  "historical_results": "HOST-VALIDATION.md; historical releases retain original scope",
-  "review_date": "2026-11-11",
-  "privacy_review": {
-    "public_source": "passed",
-    "archive": "whitelist and exact byte readback in package builder",
-    "credentials_and_local_identity": "no findings",
-    "private_content_overlap": "no findings",
-    "public_project_identity_and_MIT_license": "retained"
-  },
-  "notice": {
-    "version": "2026-11-11.1",
-    "sha256": "5a8aa87b55cbdbd26b4e5c5ab537b95150a51b1e61b1c40081e82c00a8bf67bb",
-    "root_and_both_payloads": "identical",
-    "receipt": "exact hash; acknowledgement not_collected"
-  },
-  "operation_gate": {
-    "scope": "quiet per target instance/project/task; reuse contextual decision; refresh only for relevant identity changes",
-    "network": "none in inspector; official lookup only when needed",
-    "approval": "explicit current user and exact task scope; not granted by checker",
-    "local_installed_identity": {
-      "version": "3.0.0",
-      "patch": "3.0.0-stable-r2",
-      "update_preference": "beta",
-      "result": "matched"
-    },
-    "beta_patch_identity": "not recorded in historical baseline; identify or request one scoped exception",
-    "behavior_validation": "52 CLI/function fixture cases plus maintainer decision walkthrough; no new independent model or live Studio execution"
-  },
+  "status": "RELEASE_BUILD_VALIDATED",
   "release_promotion": {
-    "from_version": "0.2.8",
-    "from_revision": "20261111-version-gate-preview.1",
-    "scope": "release identifiers and public release documentation; no new host behavior claims",
-    "release_checks": [
-      "both official skill formats",
-      "106 version and gate regressions",
-      "52 additional gate checks",
-      "22 isolated installation scenarios",
-      "published 0.2.8 Beta to 0.2.9 Stable upgrade",
-      "442 local links and anchors",
-      "12 identical shared files",
-      "HTML source synchronization",
-      "public privacy and exact ZIP readback",
-      "local Stable install, repeat and unique discovery"
-    ]
+    "from_revision": "20261111-series-versioning-preview.1",
+    "scope": "release identifiers and download wording; tested series routing unchanged",
+    "host_execution": false
   }
 }

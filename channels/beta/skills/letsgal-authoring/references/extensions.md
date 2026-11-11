@@ -35,7 +35,7 @@
 
 作者配置存 settings，玩家状态存 save。slot 对应槽位，shared 跨档，session 对应本次 App 启动；项目变量“启动重置”按变量自身语义处理。数组更新使用目标 SDK 的 set 接口触发通知；按需求检查历史追加、去重及跨重启持久化。
 
-MCP 改设置／reset 前保存每个目标的 isDefault、value 是否存在、实际值、声明默认值及 valueHash，使用 expected 做冲突检查，见[MCP 流程](mcp-workflow.md)。reset 后逐项读回 isDefault 和 value，必要时核实际方法取值。2.9 鉴赏排序曾出现值已清除但 isDefault=false 的读回，安全重载后才恢复标记；该历史结果不保证重载解决所有设置差异。无声明默认值的字段可能本来就缺 value，缺值不解释成空字符串、false 或默认值。undo 后也要读回；显式设回原值与恢复默认态分别报告。需要历史恢复时审阅限定文件并保留后来编辑，见[恢复](collaboration-git.md#限定恢复与读回)。
+MCP 改设置／reset 前保存每个目标的 isDefault、value 是否存在、实际值、声明默认值及 valueHash，使用 expected 做冲突检查，见[MCP 流程](mcp-workflow.md)。reset 后逐项读回 isDefault 和 value，必要时核实际方法取值。不把重载当作恢复默认态的通用步骤。无声明默认值的字段可能本来就缺 value，缺值不解释成空字符串、false 或默认值。undo 后也要读回；显式设回原值与恢复默认态分别报告。需要历史恢复时审阅限定文件并保留后来编辑，见[恢复](collaboration-git.md#限定恢复与读回)。
 
 | 需要的能力 | 读取契约与检查点 |
 | --- | --- |

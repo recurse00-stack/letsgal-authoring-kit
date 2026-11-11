@@ -4,7 +4,7 @@
 
 ## 连接与目标
 
-首次调用 `studio_get_status`，核完整版本、project.id、权限／工具组、保存／输入及协作状态；读取服务 instructions 和 quickstart，资源不可用时用 `studio_get_reference(topic="quickstart")`。同时完成[静默版本检查](version-compatibility.md#低频静默开工检查)；不匹配或热修复未知时先暂停目标执行并按该页取得本次许可。后续复用有效身份和检查结果，参数以当前 schema 为准。
+首次调用 `studio_get_status`，核完整版本、project.id、权限／工具组、保存／输入及协作状态；读取服务 instructions 和 quickstart，资源不可用时用 `studio_get_reference(topic="quickstart")`。同时完成[静默版本检查](version-compatibility.md#低频静默开工检查)；主次版本或实际发行身份不匹配时先暂停目标执行并按该页取得本次许可；同系列补丁及热修复差异不单独暂停。后续复用有效身份和检查结果，参数以当前 schema 为准。
 
 2.9 多窗口记录“当前端点 → project.id”对应关系。切换工程、重连、冲突、等待确认或长操作后刷新相关状态，再决定写入；以读取确认归属。revision 使用宿主返回的不透明值。
 
@@ -67,7 +67,6 @@
 3. 写入后立即读实际文件，再执行 `studio_file_edit_end(action="commit", dryRun=true)`，比较预期差异、changedFiles、fragments 和警告。预期有修改却返回空变更、文件回到原文或差异不符时，**停止 commit**，在会话外保留拟写内容，核会话／有效期／保存与编辑状态。
 4. 差异符合范围才 commit，再从 Studio 读回正文、ID 和非目标字段。无变化返回成功只表示没有提交变更；写入结果未知先读回，不能反复覆盖文件。需换专用接口时先安全 abandon 并核状态，重新读取对象和 revision，再在已有授权范围内定向写入；只读或拒绝不能绕过。
 
-**2.9 历史现场**：曾出现预期改动没有进入 changedFiles／fragments 的空提交。按当前文件、会话和返回确认实际结果；不把其他宿主的复现细节直接当作本版本原因。
 
 界面操作使用当前任务明确许可。连接故障先走恢复流程；只读、关闭工具组或明确拒绝须保持。获准操作时核窗口、工程、焦点与未保存内容，保留他人连接。
 

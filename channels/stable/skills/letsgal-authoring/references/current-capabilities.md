@@ -9,7 +9,7 @@
 | 演出 | 配置后在剧情启用；粒子准备贴图；循环明确停止 | [舞台](stage-and-assets.md)、[演出段](performance.md) |
 | 桌面构建 | 按当前 supportedSystems 选择目标 | [构建](preview-and-build.md#构建与导出) |
 | Steam | 按连接、结果和恢复状态处理 | [Steam](extensions.md#steam-接入) |
-| 设置 reset | 写前保存值与默认态，写后逐项读回；内置壳也有默认态差异 | [设置](extensions.md#设置存档与资源) |
+| 设置 reset | 写前保存值与默认态，写后逐项读回，区分缺值与默认态 | [设置](extensions.md#设置存档与资源) |
 | 调度撤销 | 核模式、策略、完整图和入口数，数量恢复不等于完整恢复 | [恢复](collaboration-git.md#限定恢复与读回) |
 | 文件会话 | 预期有改动却 dry-run 空变更时停止 commit | [文件编辑](mcp-workflow.md#外部编辑与无-mcp-回退) |
 | 删除恢复 | project_delete 不支持普通 undo；按数据历史／素材隔离区恢复 | [数据表](ui-and-data.md#数据表的编辑与运行)、[精确清理](asset-cleanup.md) |

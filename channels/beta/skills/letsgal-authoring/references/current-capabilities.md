@@ -10,7 +10,7 @@
 | 桌面构建 | 按当前 supportedSystems 选择目标 | [构建](preview-and-build.md#构建与导出) |
 | Steam | 2.9 按连接、结果和恢复状态处理 | [Steam](extensions.md#steam-接入29) |
 | 撤销／空提交 | 核正文、原 ID 和完整调度；有差异按目标恢复 | [MCP](mcp-workflow.md)、[恢复](collaboration-git.md)、[数据表](ui-and-data.md#数据表的编辑与运行) |
-| 未声明 props | 2.9 原生属性编辑可能剔除，使用受支持的数据位置 | [格式兼容](json.md#序列化与保真) |
+| 未声明 props | 无任意键往返承诺，使用受支持的数据位置 | [格式兼容](json.md#序列化与保真) |
 | 素材占用 | 2.9 出现隔离目录 EPERM 及原 GIF/WebP 占用，记录后延期处理 | [舞台](stage-and-assets.md#素材落点与引用)、[精确清理](asset-cleanup.md) |
 
 2.8 的扩展参数校验缺口、识别 BUSY 及高级调度定位条件，分别保留在[扩展](extensions.md#参数与校验)、[声音](story-and-voice.md#本地化与语音识别)、[预览](preview-and-build.md#预览范围)的版本段落。新版本复测受影响路径后更新这些条件。完整实测证据随发行验证说明维护。

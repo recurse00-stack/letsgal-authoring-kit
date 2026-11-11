@@ -18,9 +18,15 @@ def run(bundle, scratch):
     skill = payload(bundle)
     checker = skill / 'scripts' / 'check_project.py'
     selected_example = json.loads((skill / 'examples' / '选择练习.json').read_text('utf-8'))
-    # Legacy fixtures stay fixed when Beta's public example adopts 2.9 markers.
-    legacy_skill = payload(bundle, 'stable') if (bundle / 'channels/stable').is_dir() else skill
-    example = json.loads((legacy_skill / 'examples' / '选择练习.json').read_text('utf-8'))
+    # Exercise legacy branch preservation independently of the current nested example.
+    example = {'id':'legacy-check','name':'选择练习','fragments':[
+        {'id':'main','name':'main','blocks':[
+            {'type':'narration','props':{'keepDialogue':False},'content':[{'type':'text','text':'选择一条路。','styles':{}}]},
+            {'type':'branch','props':{'choices':json.dumps([
+                {'mode':'jump','text':'左','fragmentId':'left'},
+                {'mode':'jump','text':'右','fragmentId':'right'}])}}]},
+        {'id':'left','name':'left','blocks':[]},
+        {'id':'right','name':'right','blocks':[]}]}
 
     def record(name, ok, detail=''):
         results.append({'name': name, 'passed': bool(ok), 'detail': detail})
@@ -167,7 +173,10 @@ def run(bundle, scratch):
         (new_skill/'references'/'production.md').write_text((new_skill/'references'/'production.md').read_text('utf-8')+'\nNew release fixture.\n','utf-8')
         manifest=json.loads(manifest_path(newer).read_text('utf-8'))
         manifest['version']='0.2.1-test'
-        index=json.loads((newer/'bundle.json').read_text('utf-8'));index['version']='0.2.1-test';(newer/'bundle.json').write_text(json.dumps(index),'utf-8')
+        index=json.loads((newer/'bundle.json').read_text('utf-8'));index['version']='0.2.1-test'
+        for row in index.get('channels',[]):
+            if row['id']=='beta':row['version']='0.2.1-test'
+        (newer/'bundle.json').write_text(json.dumps(index),'utf-8')
         for item in manifest['files']:
             item['sha256']=hashlib.sha256((new_skill/item['path']).read_bytes()).hexdigest()
         manifest_path(newer).write_text(json.dumps(manifest,ensure_ascii=False),'utf-8')

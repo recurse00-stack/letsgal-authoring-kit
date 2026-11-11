@@ -30,7 +30,8 @@ def run(bundle,scratch,previous=None):
     def installed(ch,t=target):
         h=hashes(t);h.pop('.install-receipt.json',None)
         receipt=json.loads((t/'.install-receipt.json').read_text('utf-8')) if t.exists() else {}
-        return h==expected[ch] and receipt.get('channel')==ch
+        selected=json.loads((bundle/f'channels/{ch}/bundle.json').read_text('utf-8'))
+        return h==expected[ch] and receipt.get('channel')==ch and receipt.get('version')==selected['version']
     before=hashes(home);code,data,err=call()
     record('missing channel rejects without changing user area',code!=0 and hashes(home)==before,data)
     code,data,err=call('stable');record('fresh Stable install has only Stable payload',code==0 and installed('stable'),(data,err))
@@ -38,7 +39,7 @@ def run(bundle,scratch,previous=None):
     state=(area/'installer-state.json').read_bytes();code,data,err=call('stable','Check')
     record('matching check is read-only and channel-aware',code==0 and data.get('matches_bundle') and data.get('installed_channel')=='stable' and hashes(target)==first and (area/'installer-state.json').read_bytes()==state,data)
     code,data,err=call('STABLE','Check');record('case-insensitive Stable parameter uses canonical channel',code==0 and data.get('channel')=='stable' and data.get('matches_bundle') and hashes(target)==first,data)
-    code,data,err=call('beta','Check');record('same version opposite channel is not reported current',code==0 and data.get('status')=='channel_change' and not data.get('matches_bundle') and hashes(target)==first,data)
+    code,data,err=call('beta','Check');record('opposite channel is not reported current',code==0 and data.get('status')=='channel_change' and not data.get('matches_bundle') and hashes(target)==first,data)
     code,data,err=call('beta');record('Stable to Beta preserves complete old directory',code==0 and installed('beta') and hashes(Path(data['backup']))==first,data)
     second=hashes(target);code,data,err=call('beta');record('Beta repeat is no-op',code==0 and hashes(target)==second,data)
     code,data,err=call('Beta');record('case-insensitive Beta parameter remains a no-op',code==0 and data.get('channel')=='beta' and data.get('action')=='already_current' and hashes(target)==second,data)
@@ -55,6 +56,21 @@ def run(bundle,scratch,previous=None):
     d=json.loads((bundle/'bundle.json').read_text('utf-8'));(bad/'bundle.json').write_text(json.dumps(d),'utf-8')
     d=json.loads((bad/'channels/beta/bundle.json').read_text('utf-8'));d['channel']='stable';(bad/'channels/beta/bundle.json').write_text(json.dumps(d),'utf-8')
     code,data,err=call('beta',src=bad);record('channel manifest mismatch rejected',code!=0 and hashes(target)==good,data)
+    identities=scratch/'identity-bundle';shutil.copytree(bundle,identities)
+    original_index=json.loads((identities/'bundle.json').read_text('utf-8'))
+    original_channel=json.loads((identities/'channels/beta/bundle.json').read_text('utf-8'))
+    changed_index=json.loads(json.dumps(original_index));next(x for x in changed_index['channels'] if x['id']=='beta')['version']='9.9.9'
+    (identities/'bundle.json').write_text(json.dumps(changed_index),'utf-8')
+    code,data,err=call('beta',src=identities);record('channel index version mismatch rejects before mutation',code!=0 and hashes(target)==good,data)
+    (identities/'bundle.json').write_text(json.dumps(original_index),'utf-8')
+    changed_channel=dict(original_channel,version='9.9.9');(identities/'channels/beta/bundle.json').write_text(json.dumps(changed_channel),'utf-8')
+    code,data,err=call('beta',src=identities);record('payload version mismatch rejects before mutation',code!=0 and hashes(target)==good,data)
+    (identities/'channels/beta/bundle.json').write_text(json.dumps(original_channel),'utf-8')
+    changed_index=json.loads(json.dumps(original_index));changed_index['version']=original_channel['version']
+    for row in changed_index['channels']:row.pop('version',None)
+    (identities/'bundle.json').write_text(json.dumps(changed_index),'utf-8')
+    code,data,err=call('beta',src=identities);record('legacy index without per-channel versions remains supported',code==0 and data.get('action')=='already_current' and hashes(target)==good,data)
+    code,data,err=call('beta','Check');record('check reports selected payload version',code==0 and data.get('bundle_version')==original_channel['version'] and data.get('installed_version')==original_channel['version'],data)
     saved=json.loads((area/'installer-state.json').read_text('utf-8'));record('saved installation choice includes selected channel',saved.get('Channel')=='beta')
     code,data,err=call('beta','Uninstall');record('uninstall retains last payload and personal data',code==0 and not target.exists() and hashes(Path(data['backup']))==good and all(hashes(area).get(p)==h for p,h in personal.items()),data)
     if previous:

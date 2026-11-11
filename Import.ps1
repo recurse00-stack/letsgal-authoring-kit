@@ -280,7 +280,7 @@ try {
     $script:ui.RiskSummary.Text = $notice.Summary
     $script:ui.RiskLegal.Text = $notice.Legal
     $script:ui.RiskDetails.Text = $notice.Text
-    foreach ($choice in @(@('','请选择目标工程的引擎通道'),@('stable','正式版 · 原生界面／文件流程'),@('beta','Beta · 官方 MCP 优先'))) {
+    foreach ($choice in @(@('','请选择目标工程的引擎通道'),@('stable','正式版 · Studio 3.0 MCP 工作流'),@('beta','Beta · 官方 MCP 优先'))) {
         $item = New-Object Windows.Controls.ComboBoxItem
         $item.Tag = $choice[0]; $item.Content = $choice[1]
         [void]$script:ui.ChannelBox.Items.Add($item)
