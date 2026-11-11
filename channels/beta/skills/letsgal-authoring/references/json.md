@@ -35,7 +35,7 @@
 | 选择 | choiceStart → choiceOption(text) → 该项正文 → 后续 option／正文 → choiceEnd |
 | 条件 | conditionStart(expression) → 正文 → 可选 conditionElse(kind=elseIf, expression)／正文 → 可选 conditionElse(kind=else)／正文 → conditionEnd |
 
-选项可含 visibleIf，至多一个 isDefault=true；else 放最后。起止按嵌套层配对，菜单开始后紧接首选项。完整演出段放在单条路线内，保持演出内部无控制流。脚本使用缩进结束组，磁盘使用平铺标记。移动／删除整组时包含所有路线和组尾；仅移除结构时明确保留正文并核顺序。
+选项可含 visibleIf，至多一个 isDefault=true；else 放最后且不携 expression 条件。起止按嵌套层配对，菜单开始后紧接首选项。完整演出段放在单条路线内，保持演出内部无控制流。脚本使用缩进结束组，磁盘使用平铺标记。移动／删除整组时包含所有路线和组尾；仅移除结构时明确保留正文并核顺序。
 
 **旧格式**：2.8 可新建 branch／if，2.9 只读取和定向维护。branch 的 jump 调用同章片段并回流，vars 执行变量操作；生成 2.8 内容显式设置 mode。空目标按 schema 处理，片段后继使用实际调度。[分支](https://docs.avg-engine.com/manual/writing/blocks/branch)
 

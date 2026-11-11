@@ -1,46 +1,15 @@
-# 正式版 Skill 使用指南 · 0.2.8
+# 正式版 通道指南
 
-当前维护目标为 **2.5.0**；本包版本 **0.2.8**，发行修订 **20261101-feature-map**；完整包与下载入口见[总手册](../../MANUAL.md)。每条线路只安装当前指引，仍适用的旧知识按任务融合，历史公告和测试过程另存；旧宿主不自动套用当前结论。
+本版 **0.2.9 / 20261111-stable300**，目标 Studio **3.0.0**。安装时选 `stable`，技能名仍为 letsgal-authoring，同一目录只装一份。共同使用方法见[总目录](../../MANUAL.md)和[完整离线手册](../../MANUAL.html)。
 
-安装时选择 **正式版（stable）**，只导入本通道载荷，调用名仍是letsgal-authoring。另一通道不会同时装入。同一目录切换通道会先完整备份旧版，个人偏好和插件知识保留；不会安装或切换Studio。
+## 本通道差异
 
-以当前登记的2.5.0为依据，使用获准原生界面；直接写文件前正常保存并关闭目标工程。不需要配置MCP。
+支持当前 MCP 工作流。studio_open_project 会切换本窗口已有工程，不等于新窗口；旧 branch 的跨章规则与普通片段调用不同。SDK 新字段按 3.0 类型使用。设置 reset、调度撤销及文件会话的当前差异见[排错与恢复](../../docs/wiki/07-recovery.md)。
 
-## 不确定功能是否支持
+目标版本未登记或来源冲突时继续通用讨论／草稿，先查依据，不自动升级宿主。2.5 资料和旧安装包在[历史发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。
 
-先查[官网功能全景](https://avg-engine.com/studio/features)，再让 AI 按本工程的版本和接口核实。功能图按最新版本汇总，不代表每项都适用于本通道；普通功能优先检查原生配置和可视化界面，工坊扩展另核安装与启用。详见[查询与选型](skills/letsgal-authoring/references/research.md#先确认能力再选择做法)。这不会自动升级 Studio 或改变项目已有实现。
+## 任务入口
 
-## 从安装到一次改动
+[版本与连接](../../docs/wiki/02-connection.md) · [剧情练习](../../docs/wiki/03-story.md) · [偏好与插件指南](../../docs/wiki/06-personal.md) · [更新与切换](../../docs/wiki/08-maintenance.md)
 
-1. 完整解压总包，打开Install.cmd；选正式版、Agent与范围，确认所选／已装通道和目标位置后导入。详情见[总手册](../../MANUAL.md)。
-2. 新会话调用技能，核对真实读取路径、metadata.channel=stable和目标工程完整版本。不匹配时先切换安装，未知时继续讨论／草稿。
-3. 例如“只把这一句改得更克制，其他不动”：读取目标与邻近上下文，确定授权范围，核对至少一种覆盖该改动的恢复保护；保留格式、ID及非目标内容。
-4. 改后读回差异；只改字不要求全工程验收，新增分支再验证受影响路线。无法操作宿主时说明缺口，不称为实际播放通过。
-5. “这段定稿，其余继续打磨”：记录定稿范围和恢复标识；该段后续改删须新的对应授权，其余本次未定稿草稿可继续调整。
-
-## 保护与恢复
-
-至少一种实际可用且覆盖本次改动的保护：优先原生项目历史／检查点或支持的操作撤销；Git、时光机、核验过的文件备份也可，不要求同时做全部。项目历史不包含图片、音频等素材，改删素材时补足覆盖。已有有效恢复点可复用，定稿保留标识；原有项目更具体的保护约定继续执行。
-
-快照／撤销不是授权：已有或已采用／定稿内容未经明确范围授权不改删。当前受托、AI新作且未定稿的草稿可以在目标内迭代。恢复前先核影响，保留后来的编辑，不默认整工程回退。
-
-## 临时设置与附加包
-
-预览语言等临时设置先记录原值，结束恢复原值；若期间已有新的选择，先核对并保留后来的改动。不能把所有“恢复”都当作重置默认。
-
-附加包安装状态与启用状态分开。主 Skill 先读取个人设置和附加包索引，暂停包保留文件但不自动加载，更新或切换通道也不自动恢复。只有用户明确恢复且目标版本适用时才使用；Beta 专属资料不进入正式版流程。
-
-## 使用效果怎样看
-
-本版保留 2.5.0 的原生界面／离线流程，完善临时设置恢复、附加包启停和主包显示信息。局部改字仍从目标直接开始，只有相关任务才读版本、扩展和导出专题。验证区分文件安装、隔离任务与宿主运行；不以少量任务样例宣称普遍提速或质量提升。历史有限结果见[总手册](../../MANUAL.md#从测试中看到的实际帮助)。
-
-## 路径、排错和更新
-
-- 当前能力：[按任务查阅](skills/letsgal-authoring/references/current-capabilities.md)。
-- 源载荷：[SKILL.md](skills/letsgal-authoring/SKILL.md)；[制作案例](skills/letsgal-authoring/references/production.md)、[JSON与检查器](skills/letsgal-authoring/references/json.md)、[版本边界](skills/letsgal-authoring/references/version-compatibility.md)。
-- 安装通道与宿主不符：用同一安装器选择对应通道；不合并复制两套Skill。不同时全局装两份同名入口；多个通道工程可分别用项目范围，核对Agent加载优先级。
-- 同号修订：预览核对通道、版本与修订；“内容不同”不代表包更高或更新，旧包未标注修订时不猜先后。只有文件与本包一致才跳过替换。
-- 文件有个人改动：安装器先保留并提示，按明确选择完整备份后再替换。个人区不搬进公共Skill；目录外的项目版本约定不由安装器改动。
-- 命令行：完整包根运行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex -Scope User -Channel stable -NonInteractive`。检查另加 `-Action Check`；其他平台只复制本目录skills/letsgal-authoring，按[手动安装说明](../../MANUAL.md#手动安装与命令行)操作。
-
-文档、文件安装、模型行为、真实宿主、存读档和导出是不同层次。本版不新增引擎功能验收，历史证据按原版本保留；当前范围见[验证说明](../../VALIDATION.md)。
+AI 使用[本通道入口](skills/letsgal-authoring/SKILL.md)、[能力索引](skills/letsgal-authoring/references/current-capabilities.md)和[版本边界](skills/letsgal-authoring/references/version-compatibility.md)。指南选择、文件安装和目标版本运行分别确认。

@@ -26,7 +26,7 @@
 
 l10n_read 按 config／rows／names／coverage 取目标范围。names 包含已登记角色显示名变体及手填说话人；UI、章节和游戏标题另查对应本地化入口。
 
-写译文携带语言、稳定行 ID、源文哈希和当前状态，保留其他语言。REVISION_CONFLICT 的 details 含 SOURCE_CHANGED 时，重读源文与哈希后更新。
+写译文携带语言、稳定行 ID、源文哈希和当前状态，保留其他语言。l10n_write 的 set_translations 逐条返回 written／cleared／unchanged／rejected；SOURCE_CHANGED 是 entry 的拒绝原因，同批其他条目可能已成功。逐条读回结果，只对被拒条目重读源文和 sourceHash、重新翻译并提交，不把部分成功当整批失败或重复提交已成功项。
 
 临时 preview_control.set_locale 前记录原语言；校对后恢复该值。恢复前核当前工程和值，保留用户后来设置。游戏显示语言、配音语言、Studio 界面语言和校对语言各按对应入口设置；单语言作品会隐藏相关游戏选项。
 

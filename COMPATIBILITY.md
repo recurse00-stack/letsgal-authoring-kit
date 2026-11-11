@@ -1,72 +1,44 @@
-# Harness 适配边界
+# Agent 安装位置与兼容范围
 
-本说明对应 0.2.8 / 20261103-beta290。Stable 2.5.0 功能内容保持；Beta 当前目标 2.9.0-beta.1，保留 2.8.0-beta.1 路由。安装器保持通道选择、完整备份、同号修订识别与个人区保留机制。资料路由不证明宿主运行兼容。
+本说明对应 **0.2.9 / 20261111-stable300**。Stable 面向 Studio 3.0.0；Beta 面向 2.9.0-beta.1／2.8.0-beta.1。Agent 的技能目录与 Studio 版本分别选择：前者决定从哪里加载，后者决定使用哪份资料。
 
-Windows安装程序保留正式版／Beta选择和切换，以及既有内容差异提示、修订显示与收据；所选载荷按完整宿主版本选择资料，未知或冲突标UNKNOWN，运行证据按实际宿主记录。
+## 安装目录
 
-手动导入前阅读 [风险说明与免责声明](channels/beta/skills/letsgal-authoring/references/risk-notice.md)，完整复制 Skill 目录以保留随包说明；导入不授予 AI 额外文件权限。
+下表是本安装器的目录规则。`~` 为实际运行 Agent 的用户主目录；安装后用新会话核对加载路径。
 
-Agent的导入目录兼容与LetsGal引擎版本兼容分别判断。安装后按所选通道的[正式版规则](channels/stable/skills/letsgal-authoring/references/version-compatibility.md)或[Beta规则](channels/beta/skills/letsgal-authoring/references/version-compatibility.md)读取版本资料；通道不符先改装对应载荷，未知继续无版本依赖工作，不以“最新版文档”替代宿主证据。下表只说明Agent技能入口。
-
-2026-09-30 按当前官方目录文档重新复核；DSH 安装 provider 的运行结果仍是注明版本的历史证据。以下为当前格式／目录适配，不代表全部客户端版本、远程环境或真实 AI 行为均已验收。
-
-| 本地工具 | 个人安装 | 工程安装 | 核对来源 |
+| Agent | 个人安装 | 工程安装 | 目录资料 |
 | --- | --- | --- | --- |
-| Codex | 全新默认 `~/.agents/skills/letsgal-authoring`；唯一已有 `~/.codex/skills/letsgal-authoring` 时沿用旧入口 | `<工程>/.agents/skills/letsgal-authoring` | [官方](https://learn.chatgpt.com/docs/build-skills) |
+| Codex | 全新默认 `~/.agents/skills/letsgal-authoring`；唯一已有 `~/.codex/skills/letsgal-authoring` 时沿用 | `<工程>/.agents/skills/letsgal-authoring` | [官方](https://learn.chatgpt.com/docs/build-skills) |
 | Claude Code | `~/.claude/skills/letsgal-authoring` | `<工程>/.claude/skills/letsgal-authoring` | [官方](https://code.claude.com/docs/en/skills) |
 | Cursor | `~/.agents/skills/letsgal-authoring` | `<工程>/.agents/skills/letsgal-authoring` | [官方](https://cursor.com/docs/skills) |
 | GitHub Copilot | `~/.agents/skills/letsgal-authoring` | `<工程>/.agents/skills/letsgal-authoring` | [官方](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills) |
-| DSH / DeepSeek Harness | `<DSH_HOME>/skills/letsgal-authoring`，未设时为 `~/.dsh/skills/letsgal-authoring` | `<最近 Git 根或所选目录>/.dsh/skills/letsgal-authoring` | [官方](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/skill/skill-filesystem/README.md) |
+| DSH / DeepSeek Harness | `<DSH_HOME>/skills/letsgal-authoring`，未设置时为 `~/.dsh/skills/letsgal-authoring` | `<最近 Git 根或所选目录>/.dsh/skills/letsgal-authoring` | [官方提供器](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/skill/skill-filesystem/README.md) |
 
-`~` 是实际运行Agent的用户主目录，发行包不固定作者的用户名、盘符或绝对路径。Codex个人安装仅有一个已存在的 `letsgal-authoring` 入口时沿用它；`.agents/skills` 和 `.codex/skills` 两处都已有时拒绝自动选择。先核对客户端实际加载路径，再选“其他 Agent / 指定目录”明确一个已配置的 `skills` 根目录；不迁移或另建副本。
+Cursor 的 `.cursor/skills`、Copilot 的 `.copilot/skills` 或 `.github/skills` 等已配置入口，也可通过“其他 Agent / 指定目录”选择。填写 **skills 根目录**，安装器会追加 letsgal-authoring。
 
-Cursor 也支持 `.cursor/skills`，Copilot 也有 `.copilot/skills`（个人）和 `.github/skills`（工程）。这里选共用路径，是安装器设计选择，不宣称其他路径无效。自定义目录可浏览或粘贴，安装器追加 `letsgal-authoring`；导入本包 Skill、创建缺失用户区并保存安装记录，不为Agent修改发现配置。工程范围可浏览或填写工程目录。
+Codex 两个个人入口都有同名 Skill 时，先核对客户端实际加载路径，再明确选择一个根。多个个人／项目副本同样按实际作用域和优先级处理，保留原文件以供比较。
 
-### 软件位置与自动定位范围
+## 自定义与远程环境
 
-软件的 EXE 安装目录不参与 Skill 目录解析。Agent 或 LetsGal 安装到其他盘、技能目录仍为标准位置时，按上表安装即可。Windows 安装器按运行它的用户主目录定位，请与 Agent 使用同一用户／环境；界面显示的是安装目标，不是对运行中 Agent 的数据目录检测结果。
+Studio 或 Agent 的程序安装盘符不决定 Skill 位置。自定义 CODEX_HOME、便携或迁移目录，需要先确认实际 skills 根，再选指定目录；安装器保持 Agent 的发现配置。
 
-安装器不会自动解析自定义 `CODEX_HOME`、扫描便携／迁移目录或读取 Agent 配置来猜位置。这些情况先核对 Agent 实际读取的 `skills` 根，再选“其他 Agent / 指定目录”；不选程序文件夹或末级 `letsgal-authoring`。DSH 的首次进程环境默认值及保存选择见下文。自选目录不修改 Agent 的发现设置；文件校验通过后仍须在新会话核对实际来源。
+Windows 安装器支持 PowerShell 5.1／7。macOS／Linux 使用[手动安装](docs/wiki/08-maintenance.md#查阅手动安装与命令行)。WSL、SSH、容器和云端分别安装到该环境，并复制所需个人资料。
 
-必须使用具有项目文件访问能力的模式；只在普通聊天里贴技能文字不赋予编辑器控制能力。`agents/openai.yaml` 只提供 Codex 界面元数据，核心工作流不依赖它。官方 MCP 工作流按当前服务的工具名和 schema 适配，不固定模型或作者本机地址；无 MCP 的使用方式保持可用。
-
-工具目录有跨客户端发现时，同名个人／项目／其他 harness 副本可能同时出现。不要为去重删除未知副本；先看客户端的加载列表、作用域与优先级。
-
-本安装器面向 Windows PowerShell 5.1／PowerShell 7。macOS／Linux 可手动复制技能目录和 user.md；此版没有宣称在这些系统上验证了安装程序。云端／容器须在该环境单独配置，个人本机目录不会自动上传。
-
-用户配置文件结构约定版本为 1：只含 Markdown，自定义内容原样读取。此版安装器不做迁移和重写；未来若需要迁移，应采用有版本、备份、可审查差异的流程，不静默重置。
-
-## 当前引擎资料路由
-
-两份载荷各有只读版本工具：[正式版](channels/stable/skills/letsgal-authoring/scripts/inspect_version.py)只登记2.5.0，[Beta](channels/beta/skills/letsgal-authoring/scripts/inspect_version.py)登记2.9.0-beta.1及2.8.0-beta.1。未登记版本、通道不符、缺失和冲突返回UNKNOWN；讨论及通用工作继续，不推定兼容或自动升级。命令参数、JSON输出与退出码约定保留。SDK指纹和资料路由不等于运行通过，见[验证范围](VALIDATION.md)。主Skill不嵌套为自己的插件。
-
-历史0.2.1的20261011-beta270-guides作为独立完整包追加在原发布页，目标为Beta2.7.0-beta.1。0.2.8 的 Beta 当前目标为 2.9.0-beta.1，并保留 2.8.0-beta.1 路由，对应[发布页 v0.2.8](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.8)；原标签和旧附件保留。
+工程制作需要能访问项目文件的 Agent 模式，以及目标 Studio 的 MCP 连接；讨论和草稿可先进行。`agents/openai.yaml` 提供 Codex 的显示信息，正文与相对参考文件由 Skill 入口读取。
 
 ## DSH
 
-2026-10-05重新测试实际DSH0.2.0-rc.1所带官方 `@deepseek-ai/dsh-skill-filesystem`：26项隔离发现与正文读取通过。0.1.6-alpha.2保留为历史证据；provider读取和完整模型任务分别记录，不将它称为模型通过。
+- 首次建议位置读取安装器进程的 DSH_HOME，未设置时用 `~/.dsh`；命令行 `-DshHome` 优先。提供器另设 dshHome 时选择实际数据目录。
+- 项目范围向上查找最近 `.git`，找不到时使用所选目录。官方提供器还支持 `.agents/skills`，本安装器的 DSH 入口使用 `.dsh/skills`。
+- DSH 需启用文件系统技能提供器和对应发现根。自定义 customSkillDirs 可用指定目录安装。
+- 个人偏好仍位于实际用户主目录的 `~/.letsgal-authoring/preferences/user.md`，插件资料在同一用户区的 plugins/；二者独立于 DSH_HOME。
 
-- 个人导入采用界面指定／上次保存的位置；首次从安装器进程的 `DSH_HOME` 读取，未设时建议 `~/.dsh`。这只是默认值，不表示检测到了正在运行的 DSH。命令行显式 `-DshHome` 优先于环境变量。
-- 如果启动器或提供器配置另设了 `dshHome`，请在界面选择对应数据目录。支持 `~` 展开，其余路径须为绝对路径。不扫描账号、配置内容或全部磁盘来猜位置。
-- 项目目录按 DSH 官方算法向上寻找最近的 `.git`（目录或文件），找不到时使用所选目录。界面与安装后端共用同一套解析代码。
-- 官方提供器也支持 `.agents/skills`；本包的 DSH 入口明确使用 `.dsh/skills`。同名项目技能优先于个人技能，另有副本时先核对实际来源，不自动删掉它们。
-- DSH 必须已启用文件系统技能提供器，且没有关闭默认根目录；使用自定义 `customSkillDirs` 时可选“其他 Agent / 指定目录”导入到已配置的根目录。安装器不编辑 DSH 预设，不启动／重启 DSH。
-- 技能内容与相对参考文件可读取，不依赖特定模型或 MCP。个人偏好仍在实际运行 AI 的用户主目录 `~/.letsgal-authoring/preferences/user.md`（旧版根目录 user.md 继续兼容），不随 DSH_HOME 搬入公共技能；插件 Skill 独立放在同一用户区的 plugins/ 中，由主 Skill 按项目需要读取。
+数据目录来源：[官方解析实现](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/util/home-paths/src/index.ts)。已有 provider 验证为 0.2.0-rc.1 的 26 项隔离发现／正文读取，其他版本在实际环境核对。
 
-DSH 来源：[文件系统技能提供器](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/skill/skill-filesystem/README.md)、[数据目录解析](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/util/home-paths/src/index.ts)。
+## 引擎版本与验证
 
-## 目录适配与实际使用证据
+所选通道通过 [Stable 版本工具](channels/stable/skills/letsgal-authoring/scripts/inspect_version.py)或 [Beta 版本工具](channels/beta/skills/letsgal-authoring/scripts/inspect_version.py)路由资料。未登记、通道不符、缺失或冲突返回 UNKNOWN／退出码 2；补齐依据后再采用版本专属用法。2.5 的完整包在[历史发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。
 
-| 层次 | 当前已有证据 | 不能据此推定 |
-| --- | --- | --- |
-| 标准格式／目录 | 上表五款 Agent 的官方资料与本包路径规则 | 所有客户端版本、远程配置都能自动发现 |
-| Codex实际使用 | 历史制作／发现记录保留；本修订只做文件与安装核对，未重跑模型任务 | 单次制作不能保证所有模型、作品或宿主 |
-| DSH provider | 0.2.0-rc.1官方文件系统提供器26项隔离发现和正文读取，旧0.1.6-alpha.2保留历史 | 完整模型任务、更新后新会话调用 |
-| Claude Code、Cursor、Copilot | 格式与目录资料适配 | 完整模型制作或宿主播放 |
-| 安装程序 | 历史 Windows 后端安装／升级／保留验证，0.1.5 路径和 WPF 组件检查 | 原生浏览、取消、全流程和所有缩放通过 |
+开始工程操作还要检查版本工具的 `operation_gate`：匹配时静默继续，不匹配暂停并向当前使用者取得本次范围的明确许可。检查结果按目标实例和任务复用；更新偏好与实际版本分别识别，见[连接与版本 Wiki](docs/wiki/02-connection.md)。
 
-0.2.0整理正式版2.5.0制作／排错指引，安装程序保持原字节；文件、安装和真实宿主证据见[验证报告](VALIDATION.md)，旧模型任务不计为本版新实测。
-
-使用时根据实际 Agent 核对发现设置与权限，然后完成一个当前工程的小任务。其余 Agent 和平台测试是补充覆盖，Skill 不要求先通过所有环境才可使用或发布。
-
-0.2.8 使用[发布页 v0.2.8](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.8)中的独立完整主包；协作包 0.1.3 在[原发布页 v0.2.3](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)按需下载。旧0.2.1标签与附件保留；本包不会安装引擎或自动重建作品。
+当前已核 Codex 发现、独立任务和双通道安装；Claude Code、Cursor、Copilot 的完整制作任务未在本版执行。具体层次与结果见[验证说明](VALIDATION.md)。安装、更新和恢复统一见[维护 Wiki](docs/wiki/08-maintenance.md)。

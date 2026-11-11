@@ -10,9 +10,9 @@ MCP 可用 history_checkpoint，支持的操作保存 opId，定稿记恢复标�
 
 ## 限定恢复与读回
 
-history_undo 先 dry run 核 opId 和对象。UNDO_CONFLICT 时重读，只向前修复获准差异。按 undone 对应原操作，读回原对象、ID、字段及引用。
+`history_undo` 仅用于契约支持的操作，先 dry run 核 opId 和对象；`project_delete` 的数据／素材恢复按各自契约，不用普通 undo 代替。UNDO_CONFLICT 时重读并合并获准差异；写入结果未知先查原操作和当前对象。撤销成功后按 undone 对应原操作，读回原对象、ID、字段及引用，不能只核数量。
 
-**调度恢复**核 mode、strategy、graph 和入口数量。2.9 样本只恢复了数量：同类情况用保存的原流程及当前 revision 限定修复，并完成高影响确认。
+**调度修改与恢复**：调度写前保存 mode、strategy、完整 graph 和入口数量，建立覆盖配置的恢复点。撤销后逐项与原文比较，保留后来编辑。 **2.9 历史样本**：入口数量恢复后，模式、策略或图仍可能与原文不同；按本次实际读回判断。 不完整时先审阅限定配置文件的历史恢复及 filesToWrite／filesToDelete，核后续修改并取得所需原生确认。显式写回原图再设 basic 可能将策略变为 graph，不能称为完整还原 linear；需要保留后来编辑而无法安全恢复原状态时，报告具体剩余差异。
 
 **撤销／删除 INTERNAL、EPERM、EBUSY**先核部分完成结果与历史，剩余文件进入[精确清单](asset-cleanup.md#撤销删除失败与文件占用)，后续只处理剩余项。
 
@@ -24,7 +24,7 @@ history_undo 先 dry run 核 opId 和对象。UNDO_CONFLICT 时重读，只向�
 
 附加包未启用时仍核本人和获准章节，重读后局部编辑、保留他人修改。CHAPTER_LOCKED 依据 details.reason 处理行占用、对齐或操作限制；确认同步时读取远端结果。
 
-资格看当前账号和官方入口。创建云空间、上传作品及启动额外代理按各自明确授权执行。
+资格看当前账号和官方入口。创建云空间和上传作品按具体授权执行。
 
 ## 项目选择 Git 时
 

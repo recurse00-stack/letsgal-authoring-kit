@@ -1,35 +1,85 @@
-# 扩展：源码、契约与交付
+# 扩展开发：从契约到宿主验证
 
-实现方式未定时先按[能力查询与选型](research.md#先确认能力再选择做法)区分原生配置、已有扩展和程序开发，不把普通剧情扩大成系统重建。活动工程的关联、界面、初始化、加载与构建按本通道执行流程处理；独立源码和SDK查阅使用文件工具，运行快照不能当开发源。
+实现路线未定时查[选型](research.md#先确认能力再选择做法)。修改方法先读[参数](#参数与校验)，涉及存档再读[恢复](#运行状态与恢复)，制作 Studio 内界面时读[编辑组件](studio-editor-ui.md)。
 
-## 识别工程
+使用、配置或排错已有插件，先按[插件知识](plugin-skills.md#使用与版本选择)读取真实 ID／版本对应的正文及必要引用；排查代码前复用这些已核实用法。
 
-以extension.json定位真实ID与源码。纯可视化扩展可能没有package.json或sdk，不强制npm；需要程序而尚未初始化时使用Studio官方“初始化程序”。工具不可用先完成独立设计并说明入口，不猜造整套脚手架。[项目结构](https://docs.avg-engine.com/extensions/project-structure)
+## 确定源码与目标 SDK
 
-已投入使用的清单ID影响设置、存档和调用命名空间，保持不变；内部模块ID另核。扩展版本、sdkVersion要求、SDK自报版本、同步来源和实际宿主分别判断，不把编译通过当运行兼容。
+1. 从 extension.json 核清单 ID、源码关联及内部模块 ID，保留既有标识和命名空间。定位源码、Studio 关联、发行快照，只改本次目标；源码缺失时先补来源。
+2. 程序开发读当前 `studio://dev/extension-guide`（topic=`dev-extension-guide`）或目标 sdk/llms.txt，使用该工程 SDK 的公开导出。记录宿主完整版本、sdkVersion 要求、SDK 自报版本和同步来源；缺项[定向查证](research.md)。纯可视化扩展可直接使用其配置和 UI。
+3. 新扩展通过 ext_enable 的 create／init_program 取得真实 ID；需要编辑界面时用 `init_program(studioEntry=true)`。已有程序按[入口与构建](studio-editor-ui.md#入口与构建)补组件依赖后同步 SDK。
+4. 按生成项目的实际 package scripts 构建，保留既有定制及 React／React DOM／SDK 外置单实例配置，再到目标宿主验证。
 
-程序改源码，dist由实际构建脚本产生，不手改发行产物；找不到源码就说明缺项。SDK由目标Studio同步，不私改声明补接口；保留模板React／React DOM／SDK外置单实例配置，不再打入另一份。[开发指导](https://docs.avg-engine.com/extensions/llms.txt)
+## 参数与校验
 
-## 按需读取契约
+写调用前用 `ext_read(view="methods")` 取声明，核 method ID、可用键、必需项／默认值、类型、枚举、范围和资源引用；确定是普通调用还是条件，参数使用字面量还是变量。
 
-从目标sdk/index.ts公开导出进入，只读相关类型和官方页。来源未知时可以设计和读取，依赖接口的实现／兼容结论要等依据，不能仅从旧网页缺少方法认定新版不支持。
-
-| 需求 | 入口与边界 |
+| 参数／配置 | 实施规则 |
 | --- | --- |
-| 方法与参数 | [方法](https://docs.avg-engine.com/extensions/method)：字面量、变量、条件与普通调用分别核schema |
-| 设置与存档 | [save schema](https://docs.avg-engine.com/extensions/save-schema)：作者设置与玩家save分开，类型声明不等于运行校验 |
-| 数据库 | [数据库](https://docs.avg-engine.com/extensions/database)：实际别名、集合策略、权限及拒绝处理 |
-| 资源 | [扩展资源](https://docs.avg-engine.com/extensions/runtime/extension-resource)：相对扩展根、无./，核实进入发行物 |
-| 原生能力 | [native node](https://docs.avg-engine.com/extensions/runtime/native-node)：按宿主权限和拒绝降级，不据此任意加载npm |
-| 系统插槽 | [插槽](https://docs.avg-engine.com/extensions/system-slots)：普通面板不自动占插槽，核声明和选项原始序号 |
-| 运行历史 | [历史](https://docs.avg-engine.com/extensions/runtime/history)：追加、去重与跨重启持久化分别核对，不能将同会话仍可见当保存成功 |
+| list | 声明 item；行字段限 string、number、boolean、enum、asset、character，保持单层列表。检查行数及每格约束 |
+| data | default 必填且非 null，类型由 default 推导；需要精确空数组类型时显式声明 |
+| list／data 的赋值 | 提交字面量；这两种类型不绑定变量 |
+| validate | 使用带参数类型的箭头函数，如 `validate: (value: unknown) => ...`，按契约返回 true／false／错误提示 |
+| 运行约束 | list 行数范围由编辑／MCP 检查；data.validate 运行失败只告警仍执行。影响业务状态完整性的约束在运行实现中处理 |
+| inspectorLayout | schema 仍平铺传给 run；tabs 与顶层 groups 二选一，fields／summaryFields 引用原字段，保留方法 ID |
+| 参数预设 | settingsKey 指向 array 设置，行含 id／name／paramsJson。保存整套参数，应用时按 preserveFields 保留指定值 |
 
-扩展slot、shared、session分别对应槽位、跨档和本次App启动；session与项目变量“启动重置”不同。按目标SDK契约更新数组，不原地push绕过set；订阅、输入和UI在重复预览／卸载时清理。当前范围和版本特例见[当前能力](current-capabilities.md)。
+完成输入检查后 dry run、提交并读回。
 
-## 构建、启用与发行
+**2.8 MCP 校验缺口**：普通标量类型／范围／枚举、未知参数键和列表行内数值范围有漏检样本，可到达运行方法；这些约束先按声明自行检查。list 行数／字段类型／未知行字段、data=null、变量绑定及自定义 validate 已有拒绝样本；原生 useParam 拒绝数字越界。各入口按自身检查结果处理。
 
-构建按真实package scripts。安装、作品启用、程序加载、方法调用、持久化和导出各有结果，不能由一个成功推导其他全部通过。发行快照通常仅含清单、ui、assets、构建入口等运行文件，核实自定义资源，不把src／sdk混作运行依赖；纯UI导入能力按实际入口判断。
+**已有无效参数**：编辑同一调用的其他值时，extensionParamWarnings 的 preexisting=true 表示保留旧值。本次新增／修改的值按声明检查，旧值仅在获准范围修复。未触及该调用或脚本 append 时，仍需按目标原文判断旧值状态。
 
-改动影响哪些层次就检查哪些层次；无宿主工具只报告静态／构建结果与人工步骤。插件运行安装与[插件Skill知识](plugin-skills.md)分开维护；本主Skill仍是社区辅助资料，不是引擎扩展。当前任务不授权顺带外部发布或修改账号配置。
+3.0 新增／补充声明按目标 SDK 类型使用：stageCharacter 字符串可传给 getStagePlacement，拆分／组合用 parseCharacterStageTarget／serializeCharacterStageTarget；asset 参数的 additionalAssetsPrefix 与 assetParamPaths(params, 字段名, 前缀) 配合取出附加路径，scene 参数的 additionalScenesField 与 gallerySceneSnapshots(值) 配合读取场景快照。enum 选项的 userContent=true 保留作者文字，不做界面翻译。列表／data 内的资源字符串可参与构建扫描，但资源改名不会自动改写其中字符串，改名后核引用。只有快速、不等待玩家的段内方法才声明 performanceSafe=true；它消除 Studio 提醒，不改变运行限制，也不能放行任意副作用。
 
-程序扩展与纯界面扩展分开判断；UI 预览通过不证明剧情方法执行或玩家保存。按真实 package.json 运行构建，不假设总有 dev 命令。
+## 设置、存档与资源
+
+作者配置存 settings，玩家状态存 save。slot 对应槽位，shared 跨档，session 对应本次 App 启动；项目变量“启动重置”按变量自身语义处理。数组更新使用目标 SDK 的 set 接口触发通知；按需求检查历史追加、去重及跨重启持久化。
+
+MCP 改设置／reset 前保存每个目标的 `isDefault`、`value` 是否存在、实际值、声明默认值及 valueHash，使用 expected 做冲突检查，见[MCP 流程](mcp-workflow.md)。3.0 SDK 规定未修改或重置的设置取声明默认值；显式空字符串、0、false 保持原值，不用 `value || default` 覆盖。无声明默认值的字段原本就可能不返回 value，缺值本身不能单独判为异常。
+
+reset 后用 `ext_read` 逐项核 `isDefault` 和 `value`，必要时再核实际方法取值。**3.0 MCP 契约差异**：官方内置壳的 boolean（声明默认 false）及 enum（声明默认 shared）改值后 reset 返回成功，读回却是 isDefault=false 且缺少 value／valueHash；数组字段也复现默认态标记差异，不限于空字符串或自定义插件。undo 也须读回，不能假定它恢复默认态。缺值不解释成空字符串、false 或默认值；SDK 运行取值、UI 重置按钮及 Player 行为未由此确定。
+
+遇到差异先报告默认态未恢复并保全操作记录。若任务只要求恢复有效值，可在授权内显式设回保存的值并读回，明确这是显式值恢复。需要恢复默认态时，按[限定历史恢复](collaboration-git.md#限定恢复与读回)审阅设置文件及后续编辑，恢复后再次核默认标记和值；不能仅靠重载或显式写值宣称默认态已还原。
+
+| 需要的能力 | 读取契约与检查点 |
+| --- | --- |
+| 设置／存档 | [save schema](https://docs.avg-engine.com/extensions/save-schema)：作用域、保存、恢复 |
+| 数据库 | [数据库](https://docs.avg-engine.com/extensions/database)：别名、集合策略、权限、拒绝处理 |
+| 资源 | [扩展资源](https://docs.avg-engine.com/extensions/runtime/extension-resource)：相对扩展根、无 ./，发行物包含文件 |
+| 原生能力 | [native node](https://docs.avg-engine.com/extensions/runtime/native-node)：获准接口、拒绝降级及可加载依赖 |
+| 系统插槽 | [插槽](https://docs.avg-engine.com/extensions/system-slots)：按任务绑定，保留选项原始序号 |
+| 历史 | [运行历史](https://docs.avg-engine.com/extensions/runtime/history)：按目标验证跨重启持久化 |
+
+## Studio 设置页与检查器
+
+schema 管数据，组件管布局。制作扩展的设置页／方法检查器时，按[Studio 编辑界面](studio-editor-ui.md)处理双入口、命名、变量、只读和局部写入。游戏菜单／HUD 使用 [UI 与数据](ui-and-data.md)。
+
+## 运行状态与恢复
+
+| 场景 | 操作与检查 |
+| --- | --- |
+| 隐藏方法／模块 | method({hidden:true})／@extension({hidden:true}) 隐藏选择项并保留旧调用。hiddenInStudio 只隐藏扩展原始 UI 文档的编辑入口；UI hidden 与 exposeUI:false 各按声明使用，访问权限单独处理 |
+| 跟随舞台立绘 | 用 ctx.character.getStagePlacement(id) 取快照，React 用 useStagePlacement 订阅。未上场为 null，隐藏查 visible；目标离场就停止跟随该目标。viewport／localBounds／transform 使用扩展 UI 视口坐标，放到窗口布局前做坐标转换 |
+| 场景快照 | ctx.scene.list／get 读取公开场景快照，按空值／缺失处理；修改返回对象不保存场景，作者修改走原生接口 |
+| 演出时间轴 | 用 ctx.performance 的 isActive／isPaused／getInfo／onChange 观察；getInfo 为即时快照，订阅结束清理。段内 callFragment 会告警并结束 Promise，unsafe_goToFragment／hideBox 也受限制，跳转安排到允许的位置；模态 UI 会暂停／恢复时间轴 |
+| 存档／快照重建 | 在产生副作用处读取 ctx.flow.isRestoring，跳过重复结算，同时保留恢复子片段所需的 callFragment。最深落点恢复后标志立即变化；JavaScript 局部状态按实际存档机制重建 |
+
+普通快进和调试定位不进入 isRestoring 恢复态。按实际保存位置验证父方法重入、子片段恢复及防重结算；重复预览／卸载后清理订阅、输入和 UI。演出重播见[演出段](performance.md)，兼容旧宿主时复测对应存档路径。
+
+## Steam 接入
+
+作品需要 Steam 时读当前 dev-extension-guide 和 SDK types/steam.ts，使用 ctx.steam：
+
+1. 用 isAvailable() 查接入条件，getStatus() 查连接。真实调用使用已开启集成的桌面产物；Studio 预览、扩展沙箱和 Web 按 unavailable 处理。
+2. 先判断 result.ok，再处理 unavailable／invalid／failed／unsupported。queued 记为待重试并等待宿主处理。
+3. 隐藏且未解锁的成就隐藏标题和描述。本地成就与 Steam 成就分别维护。
+4. ctx.flow.isRestoring 或 runImmediately 的重建路径跳过成就解锁和统计修改。
+5. 隔离替身验证错误反馈、隐藏展示及防重复副作用；真实账号、Steamworks 配置与桌面运行按具体授权验收。
+
+## 交付检查
+
+按改动检查构建、作品启用、程序加载、方法调用、所需持久化和导出。缺宿主时交付静态／构建结果及待运行项。
+
+发行物包含清单、UI、资源和构建入口，核自定义资源完整；src／sdk 留在开发流程。扩展运行安装与[插件 Skill 知识](plugin-skills.md)分别交付，外部发布及账号配置按具体授权执行。

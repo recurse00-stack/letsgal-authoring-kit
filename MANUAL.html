@@ -1,657 +1,484 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LetsGal Authoring Kit 0.2.8 · 使用手册</title><style>body{max-width:960px;margin:36px auto;padding:0 20px;font:17px/1.75 system-ui,sans-serif;color:#243044;background:#fafbfc}h1,h2,h3{color:#12233e}a{color:#1556aa}table{border-collapse:collapse;width:100%;margin:20px 0}td,th{border:1px solid #ccd4df;padding:8px;text-align:left}th{background:#edf2f8}pre{overflow:auto;padding:16px;background:#eaf0f6;border-radius:8px}code{font-family:Consolas,monospace}blockquote{border-left:4px solid #7aa0cc;margin:16px 0;padding:4px 16px;background:#f0f5fa}</style></head><body>
-<h1 id="使用手册">使用手册</h1>
-<p>本手册对应 <strong>0.2.8 · 20261103-beta290</strong>。正式版维护 2.5.0，Beta 当前目标为 2.9.0-beta.1，并保留 2.8.0-beta.1 路由；安装时只选一份。完整包见 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.8">GitHub 发布页</a>。多人协作附加包保持 0.1.3，见<a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3">原发布页</a>及<a href="https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md">安装说明</a>。可打开随包 <a href="MANUAL.html">MANUAL.html</a> 离线阅读。</p>
-<h2 id="这个包能做什么">这个包能做什么</h2>
-<p><code>letsgal-authoring</code> 是给 AI 编程工具读取的社区 Skill。它教 AI 查找 LetsGal 官方规范、制作剧情与章节 JSON、组织协作和恢复保护（Git 可选），并保护已有作品。它不包含引擎、模型账号或 MCP，也不会给聊天工具凭空增加文件访问能力。</p>
-<p>导入器只导入本包的 LetsGal Skill；“其他 Agent / 指定目录”用于选择 Agent 已配置的技能根目录，不是导入任意第三方 Skill。</p>
-<p>第一次使用可依次阅读安装、工程版本、选择练习及字段说明，再查工具参数、排错和升级。当前能力专题与插件开发按任务需要阅读。</p>
-<p>阅读入口：<a href="#确认功能与选择实现">功能查询</a> · <a href="#第一次使用">第一次使用</a> · <a href="#官方-mcp-与无-mcp-两种用法">MCP与原有流程</a> · <a href="#安装位置怎样选择">安装位置</a> · <a href="#手动安装与命令行">手动安装与命令行</a> · <a href="#从选择练习走完一个最小完整案例">完整练习</a> · <a href="#正式版与beta用法和版本核对">正式版与Beta用法</a> · <a href="#常见任务怎么提">工具参数</a> · <a href="#个人特调放哪里">个人区</a> · <a href="#常见问题">排错</a> · <a href="#更新卸载与恢复">更新与恢复</a>。</p>
-<h2 id="确认功能与选择实现">确认功能与选择实现</h2>
-<p>不确定 Studio 能否实现某个效果时，先查<a href="https://avg-engine.com/studio/features">官网功能全景</a>，再按目标版本确认具体用法。功能图按最新版本汇总，不能直接推定正式版、Beta、MCP 或某个导出平台都支持相同操作。</p>
-<p>可以这样提问：“按这个工程的版本核对能否做立绘对嘴和道具 HUD，先说明原生配置、可视化界面或现有扩展是否满足；缺少的部分再考虑程序开发。”已有明确开发目标时沿原目标执行。官方扩展需要另核安装／启用；查看功能图不授权替换项目现有系统。</p>
-<h2 id="安装与启用前避免同类技能冲突">安装与启用前：避免同类技能冲突</h2>
-<p>建议安装或启用本技能前，在 Agent 的技能设置中暂时停用其他功能重叠的 LetsGal／引擎创作类 Skill，避免重复触发、相互矛盾的指令和额外上下文开销影响执行效果。也请核对个人与工程范围是否装了多个同名副本。保留原文件及特调；由你决定停用哪一份，安装器不会自动禁用或删除其他 Skill。</p>
-<p>停用后打开新会话，显式调用 <code>letsgal-authoring</code> 并核对实际来源。如果仍需其他专用技能，按任务单独调用，避免让多个入口同时接管同一项制作任务。停用方法以对应 Agent 当前的技能设置为准；没有停用入口时先查询其官方说明，不直接删除目录。</p>
-<h2 id="使用前的风险与保护">使用前的风险与保护</h2>
-<p><strong>使用前请阅读：AI 可能误改、误删或泄露资料。请先备份作品并限制 Agent 可写范围；技能备份不包含作品。</strong> 本包按现状提供，不提供担保；作者及贡献者不对使用或无法使用本包造成的任何损失承担责任。详见<a href="channels/beta/skills/letsgal-authoring/references/risk-notice.md">风险说明与免责声明</a>。</p>
-<p>首次操作请先在工程副本上尝试，核对备份和恢复方法，再限制 Agent 的可写范围。安装器不负责备份整个作品；Git 也不一定包含未跟踪文件、素材或未提交修改。遇到删除、覆盖或批量迁移，先审查精确对象和影响，再授权。</p>
-<p>安装界面顶部直接展示风险与免责摘要，可展开全文；命令行在任何文件修改前输出摘要和全文路径（包括非交互运行）。自动化调用者应把提示转交实际使用者，不能将捕获的输出当作用户已阅读。安装收据及安装／卸载日志记录说明版本与 SHA-256，仅用于本地追溯，未收集同意或放弃权利的记录。</p>
-<p>手动复制 Skill 时，完整说明随 references/risk-notice.md 一起保留。AI 写工程前核对范围与实际有效恢复方式；已有保护可复用，仅在操作影响或风险需要说明时作针对性提醒，不逐次宣读通用风险。</p>
-<h2 id="选择正式版或-beta">选择正式版或 Beta</h2>
-<p>0.2.1起分开维护两套内容，安装时按目标工程的实际Studio通道选择一份：</p>
-<table>
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LetsGal Authoring Kit · 完整使用 Wiki</title><style>
+:root { color-scheme: light; --ink:#183040; --accent:#176b65; --line:#d9e3e6; }
+* { box-sizing:border-box; }
+html { scroll-padding-top:1rem; }
+body { margin:0; color:var(--ink); background:#f3f6f6; font:16px/1.8 "Segoe UI","Microsoft YaHei",sans-serif; }
+a { color:var(--accent); text-underline-offset:.18em; overflow-wrap:anywhere; }
+a:focus-visible { outline:3px solid #df9c3a; outline-offset:3px; }
+.layout { display:grid; grid-template-columns:270px minmax(0,1fr); max-width:1440px; margin:auto; }
+.sidebar { padding:30px 22px; position:sticky; top:0; max-height:100vh; overflow:auto; align-self:start; }
+.brand { font-size:21px; font-weight:750; line-height:1.4; }
+.sidebar ol { list-style:none; padding:0; }
+.sidebar li { margin:.8rem 0; line-height:1.5; }
+.sidebar small { display:block; color:#526772; overflow-wrap:anywhere; }
+main { min-width:0; padding:24px 32px 64px; }
+section { background:white; border:1px solid var(--line); border-radius:12px; padding:32px 40px; margin-bottom:28px; }
+h1 { font-size:1.85rem; line-height:1.4; margin:.4em 0 1em; }
+h2 { font-size:1.35rem; margin-top:1.8em; border-bottom:1px solid var(--line); padding-bottom:.3em; }
+p,li,td { overflow-wrap:anywhere; }
+blockquote { margin:1em 0; padding:12px 18px; border-left:4px solid var(--accent); background:#eff7f4; }
+blockquote p { margin:.4em 0; }
+pre { background:#172c37; color:#eef6f4; padding:18px; border-radius:7px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; }
+code { font-size:.91em; font-family:Consolas,"Microsoft YaHei",monospace; }
+td code,p code,li code { background:#eef2f3; padding:1px 4px; border-radius:3px; }
+.table-scroll { overflow:auto; margin:1em 0; }
+table { border-collapse:collapse; width:100%; font-size:.94em; }
+th,td { border:1px solid var(--line); padding:10px 12px; vertical-align:top; text-align:left; }
+th { background:#edf4f3; }
+.chapter-nav { display:flex; flex-wrap:wrap; gap:8px 16px; font-size:.88em; padding-bottom:15px; border-bottom:1px solid var(--line); margin-bottom:24px; }
+.legacy-anchor { display:block; height:0; }
+.skip { position:absolute; left:-9999px; } .skip:focus { position:static; }
+@media(max-width:800px) { .layout { display:block; } .sidebar { position:static; max-height:none; padding:22px; } .sidebar ol { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 16px; } main { padding:0 12px 30px; } section { padding:22px 18px; } h1 { font-size:1.5rem; } th,td { padding:7px; } }
+@media(max-width:430px) { .sidebar ol { display:block; } }
+@page { size:A4; margin:18mm 16mm; }
+@media print { body { background:white; color:#111; font-size:10pt; line-height:1.55; } .layout { display:block; } .sidebar,.chapter-nav,.skip { display:none; } main { padding:0; } section { border:0; border-radius:0; padding:0; margin:0; break-before:page; } section:first-of-type { break-before:auto; } h1,h2,h3 { break-after:avoid; } p,li { orphans:3; widows:3; } table { font-size:9pt; } tr,blockquote,pre { break-inside:avoid; } .table-scroll { overflow:visible; } a { color:#111; } pre { color:#111; background:#f3f3f3; } }
+</style></head><body><a class="skip" href="#home">跳到正文</a><div class="layout"><aside class="sidebar"><div class="brand">LetsGal<br>Authoring Kit</div><small>完整离线使用 Wiki<br>0.2.9 · 20261111-stable300<br>浏览器查找：Ctrl+F · 打印：Ctrl+P</small><nav aria-label="全书目录"><ol><li><a href="#home">LetsGal Authoring Kit 使用 Wiki</a></li><li><a href="#wiki01">1. 入门、安装与确认 AI 实际读取</a></li><li><a href="#wiki02">2. Stable／Beta、工程身份与 MCP</a></li><li><a href="#wiki03">3. 一次完整的剧情修改与分支练习</a></li><li><a href="#wiki04">4. 舞台、演出、多语言与配音</a></li><li><a href="#wiki05">5. UI、数据和扩展选型</a></li><li><a href="#wiki06">6. 个人偏好、插件指南的建立与使用</a></li><li><a href="#wiki07">7. 已知差异、排错与精确恢复</a></li><li><a href="#wiki08">8. 更新、切换、卸载与备份恢复</a></li></ol></nav></aside><main><section id="home" data-source="MANUAL.md"><nav class="chapter-nav" aria-label="本章目录"><a href="#home--快速开始">快速开始</a><a href="#home--按任务阅读">按任务阅读</a><a href="#home--查阅">查阅</a></nav><h1 id="home--letsgal-authoring-kit-使用-wiki">LetsGal Authoring Kit 使用 Wiki</h1>
+<p><strong>0.2.9 / 20261111-stable300</strong>。Stable 面向 Studio 3.0.0，Beta 面向 2.9.0-beta.1／2.8.0-beta.1。本包帮助 AI 按任务制作并核对工程；Skill 安装不包含引擎或 MCP，不自动升级作品。</p>
+<h2 id="home--快速开始">快速开始</h2>
+<p>完整解压后运行 Install.cmd，选择通道和实际 Agent 目录，检查安装；打开 AI 新会话，要求它实际读取 letsgal-authoring 并报告路径、修订和通道。连接目标工程后，从一次局部改句开始。详细步骤见<a href="#wiki01">入门</a>。</p>
+<p>先备份作品并限制 AI 可写范围。Skill 备份与作品备份不同；见<a href="RISK-NOTICE.md">风险说明</a>。当前版本与旧版资料在<a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases">历史发行</a>。</p>
+<h2 id="home--按任务阅读">按任务阅读</h2>
+<div class="table-scroll"><table>
 <thead>
 <tr>
-<th>选择</th>
-<th>制作方式与独立指南</th>
+<th>主题</th>
+<th>你将完成什么</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>正式版 stable</td>
-<td>原生界面／已关闭工程的文件流程；<a href="channels/stable/MANUAL.md">正式版指南</a></td>
+<td><a href="#wiki01">1. 入门、安装与确认 AI 实际读取</a></td>
+<td>装好 Skill 并确认 AI 读取来源</td>
 </tr>
 <tr>
-<td>Beta beta</td>
-<td>已获准的官方MCP优先，未覆盖能力由获准原生界面补充；<a href="channels/beta/MANUAL.md">Beta指南</a></td>
+<td><a href="#wiki02">2. Stable／Beta、工程身份与 MCP</a></td>
+<td>选版本、接对窗口、处理权限与断连</td>
+</tr>
+<tr>
+<td><a href="#wiki03">3. 一次完整的剧情修改与分支练习</a></td>
+<td>完成双选项练习，再局部改字与加条件</td>
+</tr>
+<tr>
+<td><a href="#wiki04">4. 舞台、演出、多语言与配音</a></td>
+<td>让配置进入剧情，核对声音和各语言</td>
+</tr>
+<tr>
+<td><a href="#wiki05">5. UI、数据和扩展选型</a></td>
+<td>按用途选实现并核对实际效果</td>
+</tr>
+<tr>
+<td><a href="#wiki06">6. 个人偏好、插件指南的建立与使用</a></td>
+<td>保存私人资料，让主 Skill 主动找到它</td>
+</tr>
+<tr>
+<td><a href="#wiki07">7. 已知差异、排错与精确恢复</a></td>
+<td>理解已确认差异并保留后来编辑</td>
+</tr>
+<tr>
+<td><a href="#wiki08">8. 更新、切换、卸载与备份恢复</a></td>
+<td>切换载荷、保留用户区、找回旧版本</td>
 </tr>
 </tbody>
-</table>
-<p>名称仍为letsgal-authoring，安装目录只保留所选通道；切换时先备份旧版，保留个人区，不改变引擎、MCP配置或权限。界面显示“将使用”和“已装”的通道与版本；同一产品版本仍可能需要切换。新安装先选择，非交互命令行必须传-Channel stable或-Channel beta，不猜测目标工程通道。</p>
-<p>不同通道工程建议分别用项目范围，并核对Agent真实加载优先级；已有全局入口不自动删除。不把安装器运行电脑的Beta当成所有工程的默认。已安装载荷与实际宿主不符时，先提示切换安装并继续无版本依赖工作，不自动改装或升级。</p>
-<h2 id="已有内容草稿与定稿怎样保护">已有内容、草稿与定稿怎样保护</h2>
-<table>
-<thead>
-<tr>
-<th>内容状态</th>
-<th>AI可以怎样处理</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>你此前做好的内容、先前任务的正文</td>
-<td>未经明确范围授权，不自行修改或删除</td>
-</tr>
-<tr>
-<td>AI本次受托新作、尚未定稿的草稿</td>
-<td>在委托范围内修订、替换或撤去自己的草稿，保留已有设定和非目标内容</td>
-</tr>
-<tr>
-<td>明确采用／定稿的内容</td>
-<td>立即按已有内容保护，与最初由谁写成无关</td>
-</tr>
-</tbody>
-</table>
-<p>“只改这句语气”授权对应修改，不必逐字批准；“这段定稿，其余继续打磨”保护该段。只采用部分方案不等于采用其余临时设定，讨论或沉默不等于允许落盘。</p>
-<p><strong>工程修改至少要有一种实际可用、覆盖本次改动的保护。</strong> 优先原生项目历史／检查点或支持本次操作的撤销；Git、时光机和核验过的文件备份也可。不强制Git、不要求每次叠加多套全工程备份；已有有效保护可复用，定稿保留清楚的恢复标识。无保护时先草稿／补丁。</p>
-<p>项目历史覆盖剧情、角色、变量、界面和相关配置，图片、音频等素材不在覆盖范围；改删这些文件时补时光机、文件备份或已有Git。<a href="https://docs.avg-engine.com/manual/overview/history">项目历史</a>与<a href="https://docs.avg-engine.com/manual/overview/backup">时光机</a>互补。只看到“已保存”或“历史已开启”不代表本次原文已有快照，应核实际记录。</p>
-<p>Beta可通过history_checkpoint建立检查点；支持的AI操作通过history_undo按opId先核影响，冲突时保留后来编辑。正式版可在原生界面查看恢复记录；文件编辑前仍须保存并关闭工程。恢复快照先看影响，按Studio确认执行，优先小范围恢复。Git作为可选方案，本地提交不等于上传，“同步项目”还可能合并和上传，不能为保护自动使用。项目原有更具体要求继续保留。</p>
-<h2 id="第一次使用">第一次使用</h2>
+</table></div>
+<p>每个主题从准备、需求示例、预期结果、核对和差异处理展开。Markdown 分页是正文正本；<a href="#home">完整离线 HTML</a>将同一正文合并成一页，断网可阅读、搜索和打印。HTML 的 Wiki 导航均在页内跳转；API 参考和官方链接继续指向对应资料。</p>
+<h2 id="home--查阅">查阅</h2>
+<p><a href="channels/stable/MANUAL.md">正式版差异</a> · <a href="channels/beta/MANUAL.md">Beta 差异</a> · <a href="COMPATIBILITY.md">安装目录兼容</a> · <a href="SOURCES.md">资料来源</a> · <a href="VALIDATION.md">验证范围</a> · <a href="HOST-VALIDATION.md">宿主证据</a> · <a href="PRIVACY.md">隐私</a></p>
+<p>安装参数与旧版恢复已移到<a href="#wiki08--查阅手动安装与命令行">第 8 章</a>。</p>
+<p>剧情案例已移到<a href="#wiki03">第 3 章</a>。</p>
+<p>连接与路径问题分别见<a href="#wiki02">第 2 章</a>和<a href="#wiki01">第 1 章</a>。</p>
+<p>测试的范围与限制见<a href="VALIDATION.md">验证说明</a>，不提供未经对照的提速百分比。</p></section><a class="legacy-anchor" id="这个包能做什么"></a><a class="legacy-anchor" id="安装与启用前避免同类技能冲突"></a><a class="legacy-anchor" id="第一次使用"></a><a class="legacy-anchor" id="检查结果在哪里"></a><a class="legacy-anchor" id="stable-30嵌套结构口型与多窗口"></a><a class="legacy-anchor" id="按任务协作避免不必要的等待"></a><a class="legacy-anchor" id="按当前任务查能力"></a><section id="wiki01" data-source="docs/wiki/01-start.md"><nav class="chapter-nav" aria-label="本章目录"><a href="#wiki01--准备什么">准备什么</a><a href="#wiki01--安装一次">安装一次</a><a href="#wiki01--怎样确认-ai-真的读了">怎样确认 AI 真的读了</a><a href="#wiki01--首次需求怎样写">首次需求怎样写</a></nav><h1 id="wiki01--1-入门安装与确认-ai-实际读取">1. 入门、安装与确认 AI 实际读取</h1>
+<p>LetsGal Authoring Kit 是给 AI 使用的创作指南，帮助它选择接口、保留已有内容并检查结果。它不包含 LetsGal Studio、AI 模型或 MCP 服务。你仍在自己的 AI 工具中提出需求，在 Studio 中查看作品。</p>
+<h2 id="wiki01--准备什么">准备什么</h2>
+<p>准备完整解压的本包、能够访问本地文件的 AI 工具，以及作品的备份。只讨论故事可以暂不连接 Studio；实际修改工程还需<a href="#wiki02">确认版本、工程与 MCP</a>。Windows 安装器使用 PowerShell 5.1 或 7，无需管理员、Python 或 Node；可选检查脚本才需要 Python 3.9+。</p>
+<p>本包版本为 <strong>0.2.9 / 20261111-stable300</strong>。Stable 对应 Studio <strong>3.0.0</strong>，Beta 对应 <strong>2.9.0-beta.1／2.8.0-beta.1</strong>。Skill 版本与引擎版本是两套编号。完整安装包从 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases">GitHub Release 附件</a>取得。</p>
+<h2 id="wiki01--安装一次">安装一次</h2>
 <ol>
-<li>从社区提供的 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases">GitHub Releases</a> 下载 <code>letsgal-authoring-kit-&lt;版本&gt;.zip</code>，完整解压后可交给 Agent 按本手册协助安装。不要只下载 <code>Install.cmd</code>，也不要直接在压缩包中运行。</li>
-<li>双击 <code>Install.cmd</code>，先选择正式版或Beta，再选择实际使用的 Agent。一般保留“个人 · 所有项目”；只给一个作品用时选择“项目 · 仅此工程”，再浏览项目文件夹。</li>
-<li>检查蓝色预览区域中的安装位置、所选／已装通道、本包版本、已安装版本及状态；确定是你实际使用的 Agent 和范围后，点击“导入到 …”。窗口底部的固定状态栏会显示正在处理以及完成结果，无需在长页面里寻找反馈。</li>
-<li>看到“导入完成”后，可展开“更多选项”点击“检查安装”。底部显示“检查安装 · 校验通过”（结果框标题为“安装文件校验通过”）后，点击“复制验证提示词”；在 Agent 中打开作品目录，建立新会话并粘贴。核对它实际读取的 Skill 路径，而不只看一句“已加载”。</li>
+<li>在完整解压目录双击 <code>Install.cmd</code>，不要在压缩包内运行，也不要单独摘出脚本。</li>
+<li>选择工程对应的正式版或 Beta，再选实际使用的 Agent。通常选“个人 · 所有项目”；只给一个作品使用时选“项目 · 仅此工程”。</li>
+<li>核对最终目录、所选／已装通道、版本与修订，再导入。目录应为 AI 实际发现 Skill 的位置，不能选 Studio 的程序文件夹。</li>
+<li>展开“更多选项”，点击“检查安装”。底部状态栏应显示“检查安装 · 校验通过”，结果框显示“安装文件校验通过”。</li>
+<li>打开 AI 的新会话，进行下面的读取核对。文件校验通过只证明文件完整。</li>
 </ol>
-<p>普通导入使用 Windows 自带 PowerShell，不要求 Python、Node 或管理员权限。可选 JSON 检查器与版本资料工具需要 Python 3.9+。macOS／Linux、WSL 和远程环境请按 <a href="COMPATIBILITY.md">兼容表</a> 手动复制到实际运行 Agent 的环境。</p>
-<h3 id="安装位置怎样选择">安装位置怎样选择</h3>
-<p><strong>软件安装文件夹和技能目录是两回事。</strong> 把 Agent 或 LetsGal 装在 D／E 盘，不会自动把技能目录改到该盘；技能应放到 Agent 实际会读取的位置，通常不在程序文件夹内。</p>
-<p>发行包没有绑定作者的本机用户名或绝对路径。Windows 安装器按运行它的用户主目录解析标准位置；请与 Agent 使用同一用户／环境，并核对预览。下表中的 <code>~</code> 指该环境的用户主目录；便携、WSL、容器或远程环境应核对其真实位置，并按对应手动说明安装。</p>
-<table>
+<p>安装器仅替换所选 Skill，保留个人偏好、插件资料和旧版备份，不安装或升级引擎。两个位置已有同名 Skill 时先确认实际加载来源；不要随手复制第三份或删除未知副本。</p>
+<h2 id="wiki01--怎样确认-ai-真的读了">怎样确认 AI 真的读了</h2>
+<p>可以直接发送：</p>
+<blockquote>
+<p>请使用 letsgal-authoring，实际读取你发现的 SKILL.md，告诉我加载路径、版本、修订和通道。读取已有的个人偏好，并说明本次任务会用到哪些约定。先只核对，不改工程。</p>
+</blockquote>
+<p>预期得到具体来源及匹配的 metadata，而非“我会使用这个技能”。继续给出一个局部改句任务时，AI 应读取目标原文及相关专题。插件资料的核对见<a href="#wiki06">个人偏好与插件指南</a>。不需要让 AI 每次把整份 Skill 或私人文件复述出来。</p>
+<p>如果只有安装成功消息、旧会话仍回答旧修订，先新开会话并核实际路径。若新会话也找不到，查<a href="COMPATIBILITY.md">Agent 目录说明</a>，确认该客户端支持本地 Skill、所在环境和发现配置。粘贴指南文字不会赋予文件权限或 Studio 控制能力。</p>
+<h2 id="wiki01--首次需求怎样写">首次需求怎样写</h2>
+<blockquote>
+<p>在“序章”的“车站”片段里，只把售票员第二句改得更简短。先读前后文，保留样式、行 ID 和配音绑定；给我改动前后对照。其他句子不改。</p>
+</blockquote>
+<p>先给工程、位置、目标和边界，AI 可以在授权范围内完成读取、修改与必要检查。尚未决定写入时说“先讨论／先给候选”。已有内容和采用的定稿继续受保护；新写且未定稿的受托草稿可按目标迭代。作品备份独立于安装器的 Skill 备份，见<a href="#wiki07">恢复</a>。</p>
+<p>下一步：<a href="#wiki02">连接工程</a> → <a href="#wiki03">一次完整的剧情练习</a>。</p></section><a class="legacy-anchor" id="官方-mcp-与无-mcp-两种用法"></a><a class="legacy-anchor" id="第一次连接"></a><a class="legacy-anchor" id="先明确工程版本"></a><a class="legacy-anchor" id="正式版与beta用法和版本核对"></a><a class="legacy-anchor" id="只读版本工具"></a><section id="wiki02" data-source="docs/wiki/02-connection.md"><nav class="chapter-nav" aria-label="本章目录"><a href="#wiki02--准备什么">准备什么</a><a href="#wiki02--连接到正确工程">连接到正确工程</a><a href="#wiki02--切换工程与独立窗口">切换工程与独立窗口</a><a href="#wiki02--遇到差异怎么办">遇到差异怎么办</a><a href="#wiki02--查阅只读版本命令">查阅：只读版本命令</a></nav><h1 id="wiki02--2-stablebeta工程身份与-mcp">2. Stable／Beta、工程身份与 MCP</h1>
+<h2 id="wiki02--准备什么">准备什么</h2>
+<p>确认目标作品、运行中的 Studio 完整版本和已安装 Skill 通道。保留 <code>-beta.1</code> 等后缀。作品自己填写的版本号不一定是引擎版本，不能拿它替代“关于”或运行实例的版本。</p>
+<div class="table-scroll"><table>
 <thead>
 <tr>
-<th>需要</th>
-<th>界面选择</th>
+<th>目标 Studio</th>
+<th>选择的载荷</th>
+<th>资料范围</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Codex 个人安装／更新</td>
-<td>选 Codex 和“个人 · 所有项目”；唯一已有 <code>.codex/skills/letsgal-authoring</code> 时沿用旧入口，唯一已有 <code>.agents/skills/letsgal-authoring</code> 时沿用它，全新默认 <code>~/.agents/skills</code></td>
+<td>3.0.0</td>
+<td>Stable</td>
+<td>当前正式版 MCP 工作流</td>
 </tr>
 <tr>
-<td>Codex 两处都有同名 Skill</td>
-<td>自动选择停止；先核对实际加载来源，再选“其他 Agent / 指定目录”，明确使用其中一个 <code>skills</code> 根目录；原副本保留</td>
+<td>2.9.0-beta.1</td>
+<td>Beta</td>
+<td>嵌套剧情等 2.9 指导</td>
 </tr>
 <tr>
-<td>仅某个作品使用</td>
-<td>选对应 Agent 和“项目 · 仅此工程”，用“浏览…”选择或填写工程文件夹</td>
+<td>2.8.0-beta.1</td>
+<td>Beta</td>
+<td>保留明确标注的 2.8 路线</td>
 </tr>
 <tr>
-<td>自定义技能位置</td>
-<td>选“其他 Agent / 指定目录”，浏览或粘贴该 Agent 已配置的 <code>skills</code> 根目录；不要选择末级 <code>letsgal-authoring</code> 文件夹</td>
+<td>2.5.0</td>
+<td>历史发行</td>
+<td>使用当时的完整资料与包</td>
+</tr>
+<tr>
+<td>其他／不明／来源冲突</td>
+<td>暂停工程执行并核身份</td>
+<td>版本差异需本次明确许可；可继续讨论和只读核对</td>
 </tr>
 </tbody>
-</table>
-<p>安装器会在所选 <code>skills</code> 根目录下追加 <code>letsgal-authoring</code>。自选目录不修改 Agent 的发现配置；若该位置尚未配置，先按 Agent 官方说明配置，再安装并验证。个人偏好与插件 Skill 仍保存在实际用户区，选项目或自定义技能根不会把它们打进公共 Skill。</p>
-<p>只更改软件安装位置、仍使用标准技能目录时，选择对应 Agent 的个人模式即可。安装器只按上表规则和已有入口定位；不会扫描所有磁盘或读取 Agent 配置来寻找便携版、迁移数据目录或自定义 <code>CODEX_HOME</code>。软件另设了技能目录时，按以下步骤手动选择：</p>
-<ol>
-<li>确认 Agent 已配置的技能根目录。例如 <code>&lt;自定义数据目录&gt;/skills</code>，尖括号内容替换为你的实际目录，这不是默认值。</li>
-<li>选“其他 Agent / 指定目录”，点击“浏览…”或粘贴这个 <code>skills</code> 文件夹；不要选软件安装文件夹，也不要再选末级 <code>letsgal-authoring</code>。</li>
-<li>核对预览显示 <code>&lt;自定义数据目录&gt;/skills/letsgal-authoring</code> 后导入；检查文件，再打开 Agent 新会话核对实际读取路径。</li>
-</ol>
-<p>DSH 可在其专用选项内直接选择实际数据文件夹。首次默认取安装器进程的 <code>DSH_HOME</code>，未设时为 <code>~/.dsh</code>；之后恢复上次成功选择。这个默认值不表示识别到了运行中的 DSH，启动器或提供器另设的数据目录须手动核对。</p>
-<h3 id="检查结果在哪里">检查结果在哪里</h3>
-<p>“检查安装”位于“更多选项”内，展开即可点击。操作期间底部固定状态栏显示正在处理，结束后显示明确结果；页面结果框和中文详情同步更新。</p>
-<table>
+</table></div>
+<p>开工检查只在首次工程操作时静默进行，同一实例和任务复用；发现升级、热更、重连或接口差异时才重新核对。不会每轮对话联网查更新，纯讨论不触发。</p>
+<p>实际主版本、界面热修复与更新偏好分别核对：<code>3.0.0</code> + <code>3.0.0-stable-r2</code> 可以同时选 Beta 更新通道，此时仍使用 Stable Skill。当前 Stable 维护基线为该 r2；Beta 的旧证据未记录完整热修复身份。</p>
+<p>不匹配或热修复未知时，AI 暂停目标工程执行，说明实际组合和维护基线，只询问一次是否允许本次任务继续；你明确同意后才按限定范围调用，后续复用许可。来源冲突或连错工程先解决身份问题。</p>
+<p>切换 Skill 不会切换或更新引擎。同一个技能目录只安装一份同名入口；不同版本的作品可以使用各自项目范围，但要核对 AI 的发现优先级。</p>
+<h2 id="wiki02--连接到正确工程">连接到正确工程</h2>
+<p>按<a href="https://docs.avg-engine.com/manual/overview/mcp">官方 MCP 接入指南</a>，在目标 Studio 窗口取得该窗口提供的真实连接地址，再配置到 AI 客户端并批准所需连接。网页中的示例地址只作格式参考。不要使用别人截图里的端口，也不要把令牌贴到公开反馈中。已配置连接时先验证，不必重复安装或重注册。</p>
+<blockquote>
+<p>请先读取当前 Studio 状态，核对版本、工程名称和 project.id、连接权限、可用工具组及待保存状态。我这次要改的是“星港练习”。若连到别的工程，先停止写入并说明差异。</p>
+</blockquote>
+<p>预期看到来自当前 MCP 返回的身份。多个窗口可能对应不同端点；窗口标题相同也不能代替 project.id。连接成功、获得写权限、一次具体高影响操作获批是不同状态。</p>
+<h2 id="wiki02--切换工程与独立窗口">切换工程与独立窗口</h2>
+<p>3.0 的 <code>studio_open_project</code> 可打开已有工程，<strong>会在当前窗口保存并关闭原工程</strong>，不等于新建独立窗口，也不能新建工程。需要保留原工程时，应使用目标已有窗口，或明确授权一次新窗口初始化。2.9／2.8 不套用这个 3.0 入口。</p>
+<p>切换、重连、长时间等待确认后，AI 应重新读身份、权限和当前内容版本（revision）。旧 revision 是冲突检测依据，不能一直重复使用。</p>
+<h2 id="wiki02--遇到差异怎么办">遇到差异怎么办</h2>
+<div class="table-scroll"><table>
 <thead>
 <tr>
-<th>操作结果</th>
-<th>含义与下一步</th>
+<th>现象</th>
+<th>怎样继续</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>导入完成</td>
-<td>Skill 文件已安装；核对实际目录，再检查文件及新会话加载</td>
+<td>等待连接批准</td>
+<td>在目标窗口确认连接；AI 继续可做的只读资料工作</td>
 </tr>
 <tr>
-<td>安装文件校验通过</td>
-<td>已装文件校验通过；详情说明已装／本包版本及是否一致，不代表 AI 已加载</td>
+<td>只读或明确拒绝</td>
+<td>保持权限边界，先给草稿；不能绕到磁盘或界面强写</td>
 </tr>
 <tr>
-<td>需备份</td>
-<td>已有内容需要保全；先比较，再决定是否“备份后继续”</td>
+<td>工具没出现</td>
+<td>定向发现并真实调用状态工具，失败后有限尝试单服务器重连</td>
 </tr>
 <tr>
-<td>操作失败</td>
-<td>查看中文详情中的原因和路径；核对目录与权限后处理，不反复强制覆盖</td>
+<td>有工具却超时，写入结果未知</td>
+<td>先读目标和操作记录，确定是否已经落地；不要整批重发</td>
+</tr>
+<tr>
+<td>仍无法连接</td>
+<td>说明已尝试步骤；需要界面兜底时再按任务授权使用</td>
 </tr>
 </tbody>
-</table>
-<p>DSH：选择其数据文件夹，默认通常为 <code>~/.dsh</code>。如果启动器另设 DSH_HOME 或数据已迁移，浏览选择实际位置，不选程序安装文件夹。导入器会记住成功选择；它不会读取账号配置、改预设或重启 DSH。发现不到技能时检查默认技能根是否启用。</p>
-<table>
-<thead>
-<tr>
-<th>预览状态</th>
-<th>你需要核对什么</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>未安装</td>
-<td>目标下没有该 Skill；核对个人／项目范围和最终目录后安装</td>
-</tr>
-<tr>
-<td>当前</td>
-<td>已装文件与本包一致；无需反复覆盖，转到新会话验证加载</td>
-</tr>
-<tr>
-<td>内容不同</td>
-<td>文件与本包不同，不表示本包更新；核对通道、版本和修订后选择是否替换，替换前完整备份旧 Skill</td>
-</tr>
-<tr>
-<td>需备份</td>
-<td>已装内容有本地改动、文件缺失或来源无法核实；先比较并保全，确定后使用“备份后继续”</td>
-</tr>
-</tbody>
-</table>
-<p>版本与状态只表示 Skill 文件和安装目标，不代表 AI 已调用它，也不代表 LetsGal 作品通过运行验收。已装版本无法识别时按未知处理，不能把它当成较旧版本直接覆盖。</p>
-<p>安装位置若与本包来源、个人配置等受保护位置重叠，预览会提前拒绝，包括同一目录及目录互相包含。把完整解压包放在与实际技能目录分开的普通文件夹，再核对目标；不要通过删除个人区或修改保护规则来绕过。此处没有新增安装器原生操作截图，界面操作的本轮验证范围见 <a href="VALIDATION.md">VALIDATION.md</a>。</p>
-<h2 id="手动安装与命令行">手动安装与命令行</h2>
-<p>macOS／Linux、WSL、容器或远程环境：把完整 <code>channels/stable/skills/letsgal-authoring</code>（正式版）或 <code>channels/beta/skills/letsgal-authoring</code>（Beta） 文件夹复制到 <a href="COMPATIBILITY.md">兼容表</a> 中该环境实际使用的技能根目录，保留目录里的许可证、参考文件和风险说明。个人区按需建立在实际 AI 用户主目录；已有偏好、插件库和旧版本不覆盖。安装后开新会话核对来源。本机安装不自动同步到远程环境。</p>
-<p>Windows 完整包根目录的命令行入口：</p>
-<pre><code class="language-powershell">powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex -Scope User -Channel stable
-.\Check.cmd
-.\Uninstall.cmd
+</table></div>
+<p>没有 MCP 时仍可讨论、制作草稿或维护独立扩展源码。直接离线写工程前，需要正常保存关闭目标工程并确认其他实例已释放。Computer Use 是必要兜底，日常制作优先专用 MCP。</p>
+<h2 id="wiki02--查阅只读版本命令">查阅：只读版本命令</h2>
+<p>在完整包根目录运行；不会探测、启动服务或修改工程：</p>
+<pre><code class="language-powershell">python &quot;channels/stable/skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-version 3.0.0
+python &quot;channels/beta/skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-version 2.9.0-beta.1
 </code></pre>
-<p><code>-Harness</code> 取 Codex、Claude、Cursor、Copilot、DSH 或 Manual；<code>-Scope</code> 为 User 或 Project。项目模式配 <code>-ProjectPath "&lt;工程绝对路径&gt;"</code>，Manual 配 <code>-SkillsDirectory "&lt;已配置的 skills 根目录&gt;"</code>，DSH 可配 <code>-DshHome "&lt;实际数据目录&gt;"</code>。<code>-Channel</code> 按目标工程选 <code>stable</code> 或 <code>beta</code>；上例为正式版。<code>-NonInteractive</code> 适用于自动化，必须明确给出通道；已有特调需先比较，明确使用 <code>-ReplaceModified</code> 才允许先完整备份再继续。命令行参数名与有效值以随包 <code>Install.ps1</code> 的参数声明为准；不要在其他工作目录单独运行摘出的脚本。</p>
-<h2 id="官方-mcp-与无-mcp-两种用法">官方 MCP 与无 MCP 两种用法</h2>
-<p>Beta 工具缺席时先定向发现；发现后真实调用成功即继续任务，不为告警重连。调用失败才核对共享影响并尝试一轮可用的单服务器重连，仍失败则说明原因并询问 Computer Use；只读、拒绝或待批准按宿主要求处理，不能借托底绕过。缺少安全的单项接口时，不重启整个客户端或其他工作。</p>
-<p>临时素材在创建时记录实际路径和新建／复用来源；漏记时凭可追溯证据补录。占用导致撤销、删除失败，先核部分完成状态，协调保存关闭后按清单核删与读回。确定保留和等待处理分别记录，保留唯一有效恢复副本，完成后清除无用途暂存。详见<a href="channels/beta/skills/letsgal-authoring/references/asset-cleanup.md">素材清理</a>。</p>
-<p><strong>安装这份 Skill 不要求启用 MCP。</strong> 没有 MCP 的正式版仍可让 AI 制作剧情、检查 JSON、维护扩展源码与说明，再通过原生界面验证。Beta 载荷在官方 MCP 已接入当前 Agent 时优先通过 Studio 读取和修改当前工程；正式版载荷保持原生／离线工作法。</p>
-<table>
-<thead>
-<tr>
-<th>你的环境</th>
-<th>怎么使用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>正式版没有 MCP，或尚未启用／配置</td>
-<td>沿用原有流程；需要 AI 直接改工程文件时，先保存并关闭该工程，修改后再打开验证</td>
-</tr>
-<tr>
-<td>官方 MCP 已连接且批准了本次所需权限</td>
-<td>AI 先核当前工程、版本和工具，再通过 Studio 修改并读回</td>
-</tr>
-<tr>
-<td>只读、待批准、工具组缺失或临时断线</td>
-<td>先完成只读检查、草稿和补丁；处理所需缺项，不绕过批准改活动工程</td>
-</tr>
-<tr>
-<td>扩展独立源码、Skill、Git、发行材料</td>
-<td>继续使用原有文件和构建工具，按这些工程各自规则维护</td>
-</tr>
-</tbody>
-</table>
-<p>2.8.0-beta.1 和 2.9.0-beta.1 提供官方 MCP；新连接批准、工具组和高影响操作确认分别生效。多窗口时使用目标工程专属地址，并核实际工程 ID。Skill 按当前维护的完整版本选资料，再看当前工具是否真正可用。更新 Skill 不会替你切换引擎、开启服务或改为全放行。</p>
-<h3 id="第一次连接">第一次连接</h3>
-<p>操作优先使用官方 MCP。遇到 MCP 尚未提供的界面能力，你可以授权 AI 使用 Computer Use／原生界面控制，在指定应用与工程内继续；已经授权的范围不必每次点击再批准。AI须确认当前窗口、工程和输入状态，避免打断正在编辑的内容。具体能否控制界面取决于 Agent 实际提供的工具。关闭的工具组、只读连接或明确拒绝属于权限限制，一般的“允许操作界面”不会解除它们；Skill 不会自动开权限。</p>
-<p>在 Studio 的 MCP 页面启用服务，复制当前页面的“接入提示词”交给 Agent。Agent 核对实际地址后，将配置合并到自己的用户级设置一次；已有配置直接复用，避免重复添加。需要重新加载 MCP 或重启客户端时按该客户端提示处理，随后先调用状态工具确认。</p>
-<p>第一次读取工程可能需要在 Studio 批准连接；按当前任务选择只读或允许修改。即使支持自动批准，也以当前连接实际状态为准；AI 不自动开启该选项，不因关闭窗口光圈推断断开连接。AI 首次使用时读取官方服务指导和快速指南，同一上下文与版本可以复用，更新宿主或指导变化时再读。安装器只安装 Skill，不替你配置或更改 MCP。详情以<a href="https://docs.avg-engine.com/manual/overview/mcp">官方接入说明</a>及当前 Studio 页面为准。</p>
-<h3 id="beta-29嵌套结构口型与多窗口">Beta 2.9：嵌套结构、口型与多窗口</h3>
-<p>新建分支可直接使用 <code>menu / if / elif / else</code> 的缩进正文；保存为同片段的平铺成对标记，不再强制每个选项拆片段。维护旧 branch／if 时保留身份与关联，不为局部改字迁移整组。下面的选择练习分别提供正式版旧结构与 Beta 2.9 结构。</p>
-<p>角色口型、立绘演出和真实摄像机按模型配置与剧情启用分别核对；后台循环须明确停止，并检查存读档重播。多窗口先核专属 MCP 地址与工程 ID，前台窗口不决定工具写入目标。桌面系统以当前实际可选项为准，公告支持不能替代当前接口或构建产物。</p>
-<p>2.9 验证中发现字段规范化、撤销及文件占用的有限复现，详见 <a href="HOST-VALIDATION.md">宿主验证</a>。这些问题没有通过修改宿主程序解决；检查器与方法指引也不能保证所有作品无损。</p>
-<h3 id="beta-28演出段与开发工具">Beta 2.8：演出段与开发工具</h3>
-<p>两条通道沿用各自宿主流程，完善临时设置恢复、附加包启停和主包显示信息。演出、参数校验、编辑期界面与构建各有操作入口，完整用法见<a href="channels/beta/MANUAL.md#按任务使用">Beta 指南</a>。</p>
-<p>例如：“把这两句做成约四秒的演出，结束后等我点击，先在测试章验证。”AI 将两端标记和段内块同批写入，核秒／毫秒、文字重叠和允许指令，再从段前普通台词连续进入，观察自动换句、段尾等待与点击后正文。单击某句只是定位，单段重播也不能证明段外路线；定位／seek 的重复副作用须用 fresh 后连续路线复核。<a href="channels/beta/skills/letsgal-authoring/references/performance.md">演出段指引</a></p>
-<p>段内停顿用时间点安排，不放等待块、选择或跳转；旧镜头动画仅在明确范围转换。存档从段首重播，涉及共享数据的累加需防重复并单独验证。预览通过不代表存读档通过。</p>
-<p>扩展开发按目标 SDK 构建游戏／Studio 双入口，再实际打开自定义设置页和检查器并读回。<strong>MCP 写入前仍需自行检查参数类型、枚举和范围</strong>：2.8.0-beta.1 的自动校验存在缺口，写入成功及 project_validate 通过不能替代。旧值因规则变化失效时，兼容保留警告不表示修复，无警告也不保证有效。<a href="channels/beta/skills/letsgal-authoring/references/extensions.md">扩展指引</a></p>
-<p>“每次写入确认”与“影响面大的修改”等类别独立。关闭前者后，开启构建调试模式仍需要宿主确认；AI 说明具体操作，获准后继续并在临时测试结束恢复原值，不额外逐次询问或关闭确认保护。多构建方案的部分字段仍共享，当前 MCP 只改当前方案，创建／切换用获准原生界面。</p>
-<p>实时协作开放资格以当前账号与官方入口为准，不从公告、在线人数或 enabled=false 推断。多人房间仅在附加包已启用且适配当前宿主时使用独立 letsgal-collaboration，核本人章节、共享对象、逐行占用和同步；本机同步正常不代表另一客户端已经收到，也不默认上传作品。<a href="https://docs.avg-engine.com/manual/overview/collaboration">官方说明</a></p>
-<h3 id="多语言配音">多语言配音</h3>
-<p>例如：“只给第一章开场这三句补日语配音，保留中文原声和其他语言，先给我看匹配结果。”AI 先核原声绑定、语音表同键和目标音频并预演；单句例外才设语言覆盖，清除覆盖会恢复表匹配／原声回退。写后核目标语言播放与缺音频回退，译文更新不等于录音更新。</p>
-<p>游戏显示语言与配音语言独立于 Studio 界面语言。模型、界面、预设和蓝图排布按实际任务核对象及范围；编辑器可操作的功能不保证都有 MCP 写入接口。详见<a href="channels/beta/skills/letsgal-authoring/references/current-capabilities.md">Beta 制作能力</a>。</p>
-<p>制作带画面的章节时，先核素材定义与实际布局，再安排表情、进退场、场景／镜头及媒体清理。序列帧与网格要看连续变化，音乐状态还需真实试听。按任务查<a href="channels/beta/skills/letsgal-authoring/references/stage-and-assets.md">素材与舞台</a>，演出时间另查<a href="channels/beta/skills/letsgal-authoring/references/performance.md">演出段</a>。</p>
-<p>可视化页面从独立文档开始，实际按钮动作、条件显示、关闭返回与重开状态分别检查。表的编辑增删改不等于游戏数据绑定或存档通过；主题恢复要核原来的显式选择状态。<a href="channels/beta/skills/letsgal-authoring/references/ui-and-data.md">UI 与数据</a></p>
-<p>预览与构建按<a href="channels/beta/skills/letsgal-authoring/references/preview-and-build.md">独立专题</a>处理：到达某句不代表走完路线，启动调试不代表到达请求章，构建成功也不代替产物运行。本版依据 2.9 隔离实测并保留旧版本证据；通过项及未解决问题统一见<a href="VALIDATION.md">验证说明</a>。</p>
-<h3 id="按任务协作避免不必要的等待">按任务协作，避免不必要的等待</h3>
-<p>当前指引按任务范围组织读取、修改与验证。讨论使用已有上下文；改几句对白定位到相关块并读回；新增分支再检查引用和路线；持久数据改变时才增加存读档验证。没有必要为了改一句话先扫描全部素材、角色或执行全工程验收。明确的项目保护与工具确认仍保留。下面按实际用法说明；本版新测、沿用的历史结果和未测范围统一见<a href="VALIDATION.md">验证说明</a>。</p>
-<p>定位时提供“章节名＋片段名＋原句”通常就够；每章都可能有main，只说“改main”可能选错对象。已有明确目标时AI应直接读相关内容，只有重名或上下文不足才扩大查找。旧工程某些区块可能没有ID，AI不能猜ID或把序号当ID；应核对完整片段能否安全用脚本修改，或使用已授权的界面操作。</p>
-<p>仅把讨论稿保存到指定文字文件时，核对所属文件规则、已有内容和写后结果即可；不因此查询 Studio 或递归寻找可选工程入口。工程正文的修改仍按其保护与验证要求执行。</p>
-<p>你可以这样表达：</p>
+<p>工程执行检查加 <code>--gate --patch-id 3.0.0-stable-r2</code>（只填写目标的实际标识）。<code>operation_gate</code> 的 matched 表示身份匹配，confirmation_required 表示需本次许可，identity_required 表示先查身份。<code>--update-channel beta</code> 只记录更新偏好；不改变实际版本判断。</p>
+<p>可用参数还包括 <code>--studio-exe</code>、<code>--project-version</code>、<code>--channel</code>、<code>--sdk</code>；项目参数只填明确固定的目标引擎版本。<code>reference_selected</code>／退出码 0 表示选到资料；<code>UNKNOWN</code>／退出码 2 表示缺失、冲突或未登记。选到资料不代表运行兼容已验证。</p>
+<p>下一步：<a href="#wiki03">剧情练习</a>。需要换载荷见<a href="#wiki08">更新与恢复</a>。</p></section><a class="legacy-anchor" id="选择正式版或-beta"></a><a class="legacy-anchor" id="安装位置怎样选择"></a><a class="legacy-anchor" id="让-ai-完成一次修改"></a><a class="legacy-anchor" id="从选择练习走完一个最小完整案例"></a><a class="legacy-anchor" id="本例的必要字段"></a><a class="legacy-anchor" id="选择赋值怎样检查"></a><a class="legacy-anchor" id="常见任务怎么提"></a><a class="legacy-anchor" id="main-调用及循环按完整宿主版本区分"></a><section id="wiki03" data-source="docs/wiki/03-story.md"><nav class="chapter-nav" aria-label="本章目录"><a href="#wiki03--准备什么">准备什么</a><a href="#wiki03--从一句话到两个选择">从一句话到两个选择</a><a href="#wiki03--怎样核对">怎样核对</a><a href="#wiki03--再做一次局部改字">再做一次局部改字</a><a href="#wiki03--加条件时怎样提出需求">加条件时怎样提出需求</a><a href="#wiki03--查阅结构检查器">查阅：结构检查器</a></nav><h1 id="wiki03--3-一次完整的剧情修改与分支练习">3. 一次完整的剧情修改与分支练习</h1>
+<h2 id="wiki03--准备什么">准备什么</h2>
+<p>使用独立练习工程或作品中的获准测试章，先确认版本、工程身份及覆盖章节的恢复点。以下新建练习面向 <strong>3.0／2.9</strong> 的嵌套选项；2.8 让 AI 按该版的 branch／结果片段结构实现相同行为，不直接复制嵌套标记。</p>
+<h2 id="wiki03--从一句话到两个选择">从一句话到两个选择</h2>
+<p>先发出完整目标：</p>
 <blockquote>
-<p>先讨论两个方向，保持主角的动机，不写入工程。说明各自对玩家体验的影响。</p>
-<p>把这一段对白改得更克制，保留信息、角色和演出。可直接完成这个范围内的修改，读回差异；遇到会改变剧情走向的取舍再问我。</p>
-<p>已采用第二个方案，请更新原章节并实现两条选择路线；不要改动其他设定，分别检查结果与返回。</p>
+<p>在独立练习章新建“车站选择”。先显示“列车即将出发。”，给出“问路”和“候车”两个选项。选“问路”显示“站务员指向二号站台。”，选“候车”显示“你坐到长椅上。”。两条路线结束后都回到“广播再次响起。”。不改原有章的入口和顺序，告诉我怎样从本练习开头预览。</p>
 </blockquote>
-<p>只改措辞时，AI应保留粗体、停顿、变量标记与演出参数，从原始内容改字，不能把去掉格式的显示文字整句写回。已有录音不会自动随文字更新；需要改配音时另行处理。</p>
-<p>批量替换前先检查命中预览，再选择需要的条目；工具不会保证搜索全部字段。既有 0.2.1 有限样例中，普通文本匹配到了，同名的消息框标题没有列入命中，应单独定位后处理。不要因一个字段未出现在结果里就推定它不存在。</p>
-<p>AI应区分提案和已采用内容，保留声线，重要歧义集中询问；你已明确委托的可逆工作不必逐步批准。若改变方向，说明要保留的决定和要替换的部分即可。检查通过只证明对应工程范围，文字是否自然、选择是否有意义仍需创作审阅。</p>
-<p>也可以只采用方案中的一部分，例如：“用第二方案的第一句，其他对白和等人的动机保留，再把语气改冷一点。”AI应整合到已委托修改的原文，不附带采用方案里的新设定；若只是讨论，则继续给草稿。跨方案采用仍可能混入未选动作，交付前应对照采用要求检查整合稿；文件已保存不等于创作要求全部满足。</p>
-<p>当前指引按任务读取：局部修改无需先读全部能力说明；新增分支才查关联结构，扩展任务才查 SDK。读取过且仍有效的官方指导可以复用，换工程、重连、宿主变化或证据冲突时刷新。目标完成并必要读回后结束，不自行扩大验收或改动。</p>
-<p>本版的任务与安装验证单独记录，既有宿主及历史模型结果保留原证据范围，见<a href="VALIDATION.md">验证说明</a>。不保证固定提速或 token 节省；工具搜索和独立读取并行仅在客户端支持时使用，不要求另装服务。</p>
-<h3 id="让-ai-完成一次修改">让 AI 完成一次修改</h3>
-<blockquote>
-<p>使用 letsgal-authoring。先确认当前 Studio 打开的是我要修改的工程及其完整版本。官方 MCP 可用时优先使用，首次读取官方快速指南，同一上下文／版本已读可复用，再只修改我指定的对白，保留角色、ID和其他区块，读回并验证。没有 MCP 时先准备补丁，确认工程已关闭后再写磁盘。不要改变服务权限、升级引擎或发布作品。</p>
-</blockquote>
-<p>只读批准不能写入；已允许修改仍须核对任务范围。正常修改使用内容工具，先读最新 revision，冲突时重新读取。不要为了方便反复要求开全工具或关闭确认。</p>
-<p>如果写入提示超时，AI应先确认内容是否已经保存，避免重复插入；遇到冲突，应保留你刚做的修改再合并。撤销也有冲突检查，不能用旧快照或共享撤销快捷键盖掉后来的内容。工具组被关闭属于权限限制；真正未提供的界面功能才可在你授权的范围内用 Computer Use 补充。</p>
-<h3 id="外部批量编辑与原有文件方式">外部批量编辑与原有文件方式</h3>
-<p>打开“外部批量编辑”权限不代表可以随时改文件。AI 必须先通过官方工具开启本次编辑会话，取得精确允许范围，修改后校验并提交或放弃。超时／断线后不能继续沿用旧会话。章节结构、UI、数据库及配置等不能借此任意修改，详细边界见 <a href="channels/beta/skills/letsgal-authoring/references/mcp-workflow.md">MCP 工作流</a>。</p>
-<p>不用 MCP 时，原有能力保留。Studio 打开工程时会自动保存内存内容，因此等待“保存完成”还不够：请先保存并关闭该工程，再让 AI 修改磁盘，之后重新打开检查。仍打开时可通过原生界面操作，或先生成不覆盖工程的草稿。</p>
-<h3 id="常见连接问题">常见连接问题</h3>
-<p>同一聊天重连可能产生新 MCP 会话，需要核对新连接的批准状态。看到两个同名客户端时，先让 AI 查当前连接 ID、配置和活动日志；不要反复添加服务或盲目断开当前连接。“断开”可能导致自动重连，旧记录是否需要清理按日志判断，不能只凭同名就认定重复安装或故障。</p>
-<p>MCP 脚本文本并非所有块都能无损往返；不支持时逐块修改。局部预览和完整调试分别判断，高级调度、前处理及片段流程需对应入口与实际位置证据。已有有限读写、文件提交和限定恢复记录不能推出整工程恢复、Player 或存档通过，见<a href="VALIDATION.md">验证报告</a>。</p>
-<h2 id="临时设置与附加包状态">临时设置与附加包状态</h2>
-<p>预览语言等临时设置先记录实际原值，结束恢复该值；若期间已有后来改动，先核对并保留新值，不统一重置默认。附加包先检查个人设置与索引中的启用状态和宿主范围；暂停时保留文件并跳过加载，安装、升级或切换通道不自动恢复。</p>
-<h2 id="先明确工程版本">先明确工程版本</h2>
-<p>本产品提供正式版与 Beta 两份独立载荷，按工程通道选择一份。正式版登记 2.5.0；Beta 登记 2.9.0-beta.1，并保留 2.8.0-beta.1 路由。未登记版本或证据冲突标为 UNKNOWN，不套用当前版本专属结论；已有依据覆盖及不依赖版本的工作可以继续。普通剧情任务不要求先取得整套 SDK；只在涉及扩展接口时核对对应 SDK。不要安装两个同名 Skill 来区分通道，Skill包版本与引擎通道独立，更新Skill不会切换引擎到Beta。</p>
-<p>在第一次任务中告诉 AI：</p>
-<blockquote>
-<p>使用 letsgal-authoring。先核对本作品的 Studio 完整版本和稳定／Beta 通道；涉及扩展时再核对相关 SDK。沿用作品当前版本；不要升级引擎、迁移 JSON 或启用未经确认的新功能。版本不明时先定位缺少的依据，只暂停依赖它的操作；继续讨论、草稿和已有证据覆盖的工作。</p>
-</blockquote>
-<p>2.5.0正式版及此前2.3.0-beta.1／2.4.0-beta.1官方空白工程的 <code>version</code> 和 <code>engineVersion</code> 均为 <code>1.0.0</code>，确切语义尚未确认；不要直接把它们传作宿主版本，也不要为消除冲突自动改值。版本信息可让 AI 写到工程 <code>LETSGAL.md</code>，以后重读沿用。版本与能力无法确认时，可以继续构思、文字草稿和只读查找；不要直接套用新 API。<a href="channels/beta/skills/letsgal-authoring/references/version-compatibility.md">详细兼容规则</a></p>
-<h2 id="从选择练习走完一个最小完整案例">从选择练习走完一个最小完整案例</h2>
-<p>按目标版本选例子：<a href="channels/stable/skills/letsgal-authoring/examples/选择练习.json">正式版旧结构</a>包含 main 与石桥／花园两个结果片段；<a href="channels/beta/skills/letsgal-authoring/examples/选择练习.json">Beta 2.9 嵌套结构</a>在同一 main 内放两项选择和条件，结束后回流。Beta 2.8 仍按旧结构制作，不把 2.9 标记写入旧工程。两份均为原创合成内容，不依赖角色、图像、音频或变量。</p>
-<ol>
-<li>新建空白工程或使用获准练习副本，核实际工程 ID、完整版本和通道。</li>
-<li>有 MCP 时由结构工具创建章节／片段并取得真实 ID；2.9 可用 <code>menu / if / elif / else</code> 缩进脚本，读回为平铺成对标记。不另用文件工具写活动工程。</li>
-<li>无 MCP 路线先保存并关闭副本，再重生成章节、片段和需要的块 ID。旧例同步 choices 中的同章片段目标；2.9 例保留完整配对结构。章节重名时另取名字，不覆盖原章。</li>
-<li>文件路线保存完整章节并局部登记已有 <code>project.json</code> 的 chapterOrder／chapterTreeOrder，保留原入口和其余配置。只读检查后重新打开；MCP 路线则按返回 ID 读回、校验。</li>
-<li>从 main 开头实际选择“查看石桥”，再重开选择“查看花园”，核各自结果及组后文字。只定位到结果块不能证明菜单输入和回流；保存读取与导出另外验证。</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>选择</th>
-<th>应看到的文字顺序</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>查看石桥</td>
-<td>“路口竖着两块路牌。你准备先查看哪一边？” → 选“查看石桥” → “桥栏上留着一道新划痕。” → “记下观察结果后，你回到了路口。”</td>
-</tr>
-<tr>
-<td>查看花园</td>
-<td>“路口竖着两块路牌。你准备先查看哪一边？” → 选“查看花园” → “花园门旁放着一把尚未收起的伞。” → “记下观察结果后，你回到了路口。”</td>
-</tr>
-</tbody>
-</table>
-<p>可以这样委托：</p>
-<blockquote>
-<p>使用 letsgal-authoring。按当前练习副本的完整 Studio 版本选对应“选择练习”，只新增这个章节，保留原入口、其他内容及配置。同名时另取名字；使用当前接口返回的 ID，核两条路线与回流，说明实际预览范围。</p>
-</blockquote>
-<h3 id="本例的必要字段">本例的必要字段</h3>
-<table>
-<thead>
-<tr>
-<th>字段／概念</th>
-<th>用途与版本边界</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>章节 name、文件名及 ID</td>
-<td>名称与文件名一致；新增时 ID 唯一，维护已有内容时保留 ID</td>
-</tr>
-<tr>
-<td>fragments／main／blocks</td>
-<td>main 是入口，blocks 保留数组顺序和未知内容；片段对象不是完整章节</td>
-</tr>
-<tr>
-<td>2.9 choiceStart／choiceOption／choiceEnd</td>
-<td>同片段选项正文，以结束标记配对；移动或替换时保持整组完整</td>
-</tr>
-<tr>
-<td>2.9 conditionStart／conditionElse／conditionEnd</td>
-<td>条件嵌在选项内；条件表达式、else／elif 顺序及配对分别检查</td>
-</tr>
-<tr>
-<td>旧 branch.props.choices</td>
-<td>JSON 字符串内保存选项；本例 mode=jump、fragmentId 指向同章结果片段，不直接改为数组</td>
-</tr>
-<tr>
-<td>content／keepDialogue</td>
-<td>内联数组保存正文、格式和标签，不把正文移到 props</td>
-</tr>
-<tr>
-<td>endChapter</td>
-<td>放在回流文字之后；旧结果片段结束会返回调用处</td>
-</tr>
-</tbody>
-</table>
-<p>完整字段以对应版本的 <a href="channels/beta/skills/letsgal-authoring/references/json.md">JSON 工作法</a>和实际样本为准。离线检查器只做有限结构检查，不执行表达式或证明运行结果。</p>
-<h2 id="变量与扩展的验证">变量与扩展的验证</h2>
-<p>涉及变量时，先列变量 key、类型、初值及保留方式。当前存档随读档恢复，跨存档共享，启动重置另设开关。回标题、读档和预览刷新不是全新启动；启动行为最终用导出游戏观察。<a href="channels/beta/skills/letsgal-authoring/references/production.md">制作流程与变量</a></p>
-<p>2.5.0程序扩展的实际初始化路径：个性化 → 项目设置 → 扩展 → 新建，保留生成的清单ID；纯界面扩展需要程序时再点“初始化程序”。读取生成的package.json：本次模板提供<code>build</code>和<code>watch</code>，不假定存在<code>dev</code>。在源码改一个可辨识标题，安装工程依赖后运行<code>npm run build</code>，核对宿主程序预览标题及项目发行物；这仍不证明剧本方法、存档或独立玩家兼容。</p>
-<p>扩展开发时区分作者设置与玩家存档，slot／shared／session 各自测试。代码写源码并构建，SDK 通过宿主同步，保持已使用清单 ID；扩展资源是否进入导出包要单独核实。<a href="channels/beta/skills/letsgal-authoring/references/extensions.md">扩展工作法</a></p>
-<h3 id="选择赋值怎样检查">选择赋值怎样检查</h3>
-<p>仅赋值选项和跳转选项分开配置；例如选择“记下线索”后把线索数加 1、继续下一句，旧块应核 mode／varOps，2.9 嵌套正文使用对应变量操作；两者都核变量 key、实际值与返回位置。加 1 不能写成设为 1；旧版本保存样本只作线索，不能直接冒充当前版字段依据。</p>
-<h2 id="正式版与beta用法和版本核对">正式版与Beta用法和版本核对</h2>
-<p>当前目标：正式版 <strong>2.5.0</strong>、Beta <strong>2.9.0-beta.1</strong>；Beta 同时保留已登记的 <strong>2.8.0-beta.1</strong> 路由和版本限定知识。先核本机完整版本，未登记版本、缺失、冲突或通道不符返回 UNKNOWN；只暂停依赖该版本结论的工作，讨论、草稿和通用检查继续，不自动升级引擎。</p>
-<h3 id="按当前任务查能力">按当前任务查能力</h3>
-<table>
-<thead>
-<tr>
-<th>任务</th>
-<th>先做什么</th>
-<th>完成时看什么</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>剧情、变量和分支</td>
-<td>定位目标及关联引用，区分跳转、赋值与加减</td>
-<td>文本／格式、实际变量值、受影响路线和回流</td>
-</tr>
-<tr>
-<td>演出与素材</td>
-<td>核角色、模型、浮字、声音及现有预设</td>
-<td>目标对象、依赖、显示／隐藏和非目标内容保留</td>
-</tr>
-<tr>
-<td>预览与导出</td>
-<td>区分局部预览、继承前文、作品入口及交付格式</td>
-<td>跳过项、输出正文；必要的玩家／存读档另验</td>
-</tr>
-<tr>
-<td>扩展开发</td>
-<td>只读目标 SDK 和实际源码构建入口</td>
-<td>构建、宿主加载与本次使用接口分别确认</td>
-</tr>
-</tbody>
-</table>
-<p>细节集中在<a href="channels/stable/skills/letsgal-authoring/references/current-capabilities.md">正式版当前能力</a>与<a href="channels/beta/skills/letsgal-authoring/references/current-capabilities.md">Beta当前能力</a>，无需按旧版本顺序阅读。Beta 推荐官方 MCP；确认未配置时可说明接入方式。工具缺席先发现并真实调用，失败才有限重连，再失败说明并询问 Computer Use，不自动安装／注册或改变权限。只有真正的能力缺口才使用获准界面，权限限制不触发绕过。</p>
-<h3 id="一个地点牌的完整小练习">一个地点牌的完整小练习</h3>
-<ol>
-<li>在已获准范围内确定文案、位置和样式，为新浮字保留独立 ID；核恢复点。</li>
-<li>显示地点牌，配置不阻止剧情推进，再写两句对白；不把无限停留与等待结束混用。</li>
-<li>按同一 ID 隐藏地点牌，再显示“继续前行”的正文；不以空 ID 误清其他浮字。</li>
-<li>用当前工具或原生保存样本确认等待、停留、历史收录等字段，不根据按钮名称猜 JSON。</li>
-<li>读回目标及邻近内容，有宿主操作能力时确认显示、对白推进和单条隐藏。只能交付文件／草稿时明确这一层，不能写成播放通过。</li>
-</ol>
-<h3 id="常见制作问题">常见制作问题</h3>
-<ul>
-<li>If 不是持续监听。回放可能复用判断；需要新位置按新值判断时新建独立块和 ID，不改旧块 ID 或猜缓存字段。2.5.0 有有限复用观察，不能据此称当前 Beta 已重测。</li>
-<li>继承前文按默认选择快进，局部预览状态与作品入口不同。先核开关和前置剧情，不为修局部画面删除全部持续音画。</li>
-<li>行内链接先明确网页、界面或扩展动作，保留文字样式并核真实目标；背景建场景先明确合成多层还是分别创建。对应操作要点见所选通道的当前能力专题，旧版测试不能代替当前点击和场景预览。</li>
-<li>模型资源、角色表情与对白头像分开核对；保留回退图和主题。Spine／Live2D 依赖及授权、网格动作要按目标实例确认。</li>
-<li>六类剧本导出与章节迁移、可运行游戏不同。核指令筛选、跳过数量和正文，不能只看提醒计数；Ren’Py 不保证全指令转换，导出 JSON 外层不直接写回原章节。</li>
-<li>运营统计是作品的可选配置，不是 Skill 安装步骤；不自动开启、换密钥、上传数据或重新构建已发布游戏。</li>
-</ul>
-<h3 id="只读版本工具">只读版本工具</h3>
-<pre><code class="language-powershell">python &quot;channels/beta/skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-exe &quot;&lt;当前 Studio EXE 的绝对路径&gt;&quot; --channel beta
-python &quot;channels/stable/skills/letsgal-authoring/scripts/inspect_version.py&quot; --studio-version &quot;2.5.0&quot; --channel stable
+<p>AI 应先取正式章／片段 ID，再按当前宿主能创建的结构写入。3.0／2.9 通常把选项正文放在同一片段的嵌套菜单内；配对标记表示各路线边界，不能把两条结果顺序接在同一条路上。完整 JSON 示例分别在 <a href="channels/stable/skills/letsgal-authoring/examples/选择练习.json">Stable 样例</a>和 <a href="channels/beta/skills/letsgal-authoring/examples/选择练习.json">Beta 样例</a>，它们是结构参考，不能直接覆盖作品配置。</p>
+<p>预期剧情：</p>
+<pre><code class="language-text">列车即将出发。
+  问路 → 站务员指向二号站台。
+  候车 → 你坐到长椅上。
+两条路线均继续：广播再次响起。
 </code></pre>
-<table>
-<thead>
-<tr>
-<th>参数／结果</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--studio-exe</code></td>
-<td>Windows 只读提取 EXE FileVersion，不启动引擎</td>
-</tr>
-<tr>
-<td><code>--studio-version</code></td>
-<td>传入已核实的完整宿主版本，适用于其他平台</td>
-</tr>
-<tr>
-<td><code>--project-version</code></td>
-<td>传入已确认的完整宿主版本约定；不直接复制未经确认的 project.json.version／engineVersion，不读取或修改作品</td>
-</tr>
-<tr>
-<td><code>--channel</code></td>
-<td>可选 stable／beta；默认从完整版本后缀判断</td>
-</tr>
-<tr>
-<td><code>--sdk</code></td>
-<td>可选目标 SDK 目录，记录有限文件 SHA-256 及可读出的 SDK 自报值；来源仍需查证，不更新 SDK</td>
-</tr>
-<tr>
-<td><code>reference_selected</code>／退出码 0</td>
-<td>找到资料，仍需核对字段、SDK 和运行行为</td>
-</tr>
-<tr>
-<td><code>UNKNOWN</code>／退出码 2</td>
-<td>版本缺失、冲突、格式错误或暂无对应资料，先查证</td>
-</tr>
-</tbody>
-</table>
-<p>Beta命令从实际EXE读取完整版本，没有写死工程版本；Stable示例命令只适用于已核实的2.5.0工程，不能将前一个项目的版本沿用到下一个。需要核对工程版本约定时另传已确认的 <code>--project-version</code>，与实际宿主冲突会返回UNKNOWN。工具不查询网络、不安装、不迁移。未知未来版本留在通用规则，不能按“更大版本号”假定兼容。</p>
-<h2 id="常见任务怎么提">常见任务怎么提</h2>
-<p><strong>制作一个小片段</strong></p>
+<h2 id="wiki03--怎样核对">怎样核对</h2>
+<ol>
+<li>查看改动摘要：新增了哪个章、片段，原有入口是否保持。</li>
+<li>确认写后从 Studio 读回，选项、两段结果和共同尾句都在；结构校验没有未处理错误。</li>
+<li>从练习开头选“问路”，应只出现问路结果，再到共同尾句。</li>
+<li>重新从开头选“候车”，应只出现候车结果，再到共同尾句。只走过一条路线不能算两条都通过。</li>
+</ol>
+<p>选项出现但无结果时，核本版结构的目标 ID 或路线边界；两路混播时核菜单结束标记及尾句位置。先读真实结构，不通过整章重写来碰运气。</p>
+<h2 id="wiki03--再做一次局部改字">再做一次局部改字</h2>
 <blockquote>
-<p>使用 letsgal-authoring。按现有作品风格，制作一段包含两个选择的剧情。先读工程约定，说明会改哪些章节和变量；只使用当前版本已有的指令，保留稳定 ID。完成后检查两条路线并说明实际预览是否通过。</p>
+<p>只把“你坐到长椅上。”改成“你坐在窗边的长椅上。”。保留这行原有的颜色、粗体、ID、语音与其他字段；展示改前改后，并读回确认。</p>
 </blockquote>
-<p><strong>排查 JSON</strong></p>
+<p>AI 应在原富文本内只改对应文字。行 ID 关联翻译或音频，不能为改一句话重建整行。旧配音绑定可以保留，但台词改变后应提示录音可能不再匹配，是否重录由本次需求决定。</p>
+<h2 id="wiki03--加条件时怎样提出需求">加条件时怎样提出需求</h2>
 <blockquote>
-<p>只读检查指定章节的 JSON 和引用，按本作品版本解释问题。未知字段先保留，不批量修复；列出可以确认的错误和需要宿主验证的部分。</p>
+<p>在练习里用现有布尔变量 hasTicket 决定提示：true 显示“请进站”，否则显示“请先买票”。先核实变量确实存在、类型和作用域，不擅自更名或建立同名变量。</p>
 </blockquote>
-<p>本地检查命令（在完整解压包根运行）：</p>
+<p>预期条件分支互斥；最终 else 没有额外条件。检查变量初值、修改位置和两条结果，而不只看代码格式。旧版 branch、if 与普通片段调用有各自的返回和跨章规则：3.0 的旧 branch 可按契约调用唯一启用的跨章片段，不能据此把普通 call 或 Beta 也改为跨章。</p>
+<h2 id="wiki03--查阅结构检查器">查阅：结构检查器</h2>
+<p>在完整包根运行（其他工作目录改用脚本绝对路径）：</p>
 <pre><code class="language-powershell">python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;章节或工程绝对路径&gt;&quot;
 python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&quot; &quot;&lt;章节或工程绝对路径&gt;&quot; --format json-only
 </code></pre>
-<p>上例使用正式版随包路径；Beta 将 <code>channels/stable/</code> 替换为 <code>channels/beta/</code>。从已安装目录运行时，以实际 Skill 目录为起点。</p>
-<p>默认 auto 识别片段结构；未知章节格式返回 <code>unsupported_format</code>。旧分支省略 mode 时按官方兼容默认 jump 检查并提示，原文件不改动；显式 <code>--format fragments</code> 仍只检查有限结构约定，不保证新建字段完整、角色引用或全部参数类型正确。<code>json-only</code> 只检查 JSON 语法。退出码 0 表示所选范围没有发现错误，1 表示有问题，2 表示无法检查／格式未覆盖；任何结果都不等于引擎运行通过。不要把“新版检查器不认识”当作删除旧字段的依据。</p>
-<table>
+<p>Beta 改为相应目录。检查器只读文件；JSON 输出与退出码说明见<a href="channels/stable/skills/letsgal-authoring/references/json.md">格式专题</a>。退出码 0 仍需阅读 warnings；它不证明资源存在、条件意义正确或玩家路线已运行。遇到未来格式先用 json-only 核基本 JSON，再查目标宿主实际样本，不自动迁移格式。</p>
+<p>下一步：<a href="#wiki04">舞台、演出和配音</a>；失败与撤销见<a href="#wiki07">精确恢复</a>。</p></section><a class="legacy-anchor" id="演出段与开发工具"></a><a class="legacy-anchor" id="多语言配音"></a><a class="legacy-anchor" id="语言配音与蓝图"></a><section id="wiki04" data-source="docs/wiki/04-performance.md"><nav class="chapter-nav" aria-label="本章目录"><a href="#wiki04--准备什么">准备什么</a><a href="#wiki04--让角色完成一段演出">让角色完成一段演出</a><a href="#wiki04--口型与配音">口型与配音</a><a href="#wiki04--多语言练习">多语言练习</a><a href="#wiki04--遇到差异怎么办">遇到差异怎么办</a></nav><h1 id="wiki04--4-舞台演出多语言与配音">4. 舞台、演出、多语言与配音</h1>
+<h2 id="wiki04--准备什么">准备什么</h2>
+<p>准备已获准使用的角色、背景和音频，说明目标章节、效果及目标语言。先核实际资源 ID／路径；配置存在、剧情引用和实际播放是三个检查点。删除素材前还要核引用和备份。</p>
+<h2 id="wiki04--让角色完成一段演出">让角色完成一段演出</h2>
+<blockquote>
+<p>在车站练习开头显示角色阿岚，先淡入，再向右平移，最后回到静止状态。已有角色布局和口型设置保持。请选用当前版本可创建的指令；完成后从这段开头连续预览，并说明检查到的效果。</p>
+</blockquote>
+<p>AI 应读取角色布局与工程预设，把需要的配置和剧情启用连起来。普通显示／更新／移除角色、镜头控制与演出段按任务选用；旧镜头动画可以维护，不因版本更新自动迁移。</p>
+<p>核对对象、移动方向、时长、镜头跟随和最后位置。只看时间轴跳到终点不能验证动画；有画面判断价值时再用预览捕获。后台循环必须有明确停止路径，例如离开场景时停止呼吸以外的循环段，不能让测试遗留后台动作。</p>
+<h2 id="wiki04--口型与配音">口型与配音</h2>
+<blockquote>
+<p>给这三句绑定准备好的原声录音，保持其他句子的音频。先预演匹配范围，读回行与录音的对应关系，再试听这三句。缺资源时列出缺项，不用同名文件猜配。</p>
+</blockquote>
+<p>先核语音表的映射键与台词行，预演自动匹配，避免覆盖已有录音。文字口型与音频口型依目标版本和角色配置选择；配置校验与真实听感分别确认。语音识别工具缺席先查工具组及权限，不直接推断宿主无配音能力。</p>
+<h2 id="wiki04--多语言练习">多语言练习</h2>
+<blockquote>
+<p>为车站练习增加英语译文与英语配音，原文、原声和其他章节不变。保留稳定行 ID；发现源文已改时只处理受影响条目。请分别核对文字语言、配音语言、录音键以及缺失英语录音时的回退。</p>
+</blockquote>
+<p>3.0／2.9 的译文写入按条返回结果，同批可以部分成功。AI 应保留成功项，只对 sourceHash 过期的条目重读源文并重新翻译，不能把整批重发。文字显示语言与配音语言可分别选择，Studio 自身界面语言是第三项设置。个别行的语言覆盖与语音表匹配不同；移除覆盖回到表匹配，不代表静音。</p>
+<p>预期交付包含：改动的行、每种语言的文本／音频对应关系、实际读回和试听范围。检查切换文字、切换声音、缺失录音回退以及临时预览设置恢复。2.8 的具体能力按 Beta 对应资料选择，不套用后来新增行为。</p>
+<h2 id="wiki04--遇到差异怎么办">遇到差异怎么办</h2>
+<p>看不到预览时先处理<a href="#wiki07--预览与构建">可见性和运行状态</a>，不要反复抢前台。导入／删除报错时读回登记、文件和隔离区，区分已完成与剩余项。3.0 独立 GIF／WebP 样本的限定撤销、删除已通过。遇到新失败按本次文件与返回定位，旧版占用历史仅作版本参考。</p>
+<p>下一步：<a href="#wiki05">UI、数据与扩展</a>。AI 字段资料见所选通道的舞台、演出及剧情专题。</p></section><a class="legacy-anchor" id="确认功能与选择实现"></a><a class="legacy-anchor" id="一个地点牌的完整小练习"></a><section id="wiki05" data-source="docs/wiki/05-ui-data.md"><nav class="chapter-nav" aria-label="本章目录"><a href="#wiki05--先确定要解决什么">先确定要解决什么</a><a href="#wiki05--一个地点牌小练习">一个地点牌小练习</a><a href="#wiki05--数据表怎样核对">数据表怎样核对</a><a href="#wiki05--需要开发扩展时">需要开发扩展时</a></nav><h1 id="wiki05--5-ui数据和扩展选型">5. UI、数据和扩展选型</h1>
+<h2 id="wiki05--先确定要解决什么">先确定要解决什么</h2>
+<p>描述玩家要看到的东西、能进行的操作、数据从哪里来，以及退出或读档后应怎样。原生配置、可视化 UI、数据表、扩展程序和 Studio 设置页各有用途，不需要先决定“写一个插件”。</p>
+<div class="table-scroll"><table>
 <thead>
 <tr>
-<th>参数／结果</th>
-<th>怎样使用或理解</th>
+<th>目标</th>
+<th>先评估</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>path</code></td>
-<td>必填位置参数：指定一个章节 JSON 文件或工程目录的绝对路径</td>
+<td>标题页、菜单、地点牌、HUD</td>
+<td>原生配置或可视化 UI</td>
 </tr>
 <tr>
-<td><code>--format auto</code></td>
-<td>默认模式；只识别已覆盖的片段布局，旧分支缺省 mode 按兼容默认 jump 并提示</td>
+<td>物品／角色条目与列表展示</td>
+<td>数据表、绑定和界面动作</td>
 </tr>
 <tr>
-<td><code>--format fragments</code></td>
-<td>显式采用片段结构约定；仍是有限静态检查，不是完整 schema 校验</td>
+<td>跨界面业务规则、复杂运行逻辑</td>
+<td>现有扩展方法或程序扩展</td>
 </tr>
 <tr>
-<td><code>--format json-only</code></td>
-<td>只检查 JSON 能否解析，适合先定位语法问题或未覆盖格式</td>
-</tr>
-<tr>
-<td>退出码 0</td>
-<td>所选检查范围没有错误；仍要阅读警告、未覆盖数和运行缺口</td>
-</tr>
-<tr>
-<td>退出码 1</td>
-<td>存在错误；按 issues 中的文件／位置核对，不直接批量修复未知字段</td>
-</tr>
-<tr>
-<td>退出码 2</td>
-<td>无法读取／检查，或格式未覆盖；核路径及版本样本，再选择合适范围</td>
+<td>供作者在 Studio 中编辑复杂参数</td>
+<td>扩展的 Studio 设置页／检查器</td>
 </tr>
 </tbody>
-</table>
-<p>检查器包含条件和赋值内部形态检查：<code>conditions</code>仍是JSON字符串，内部每项须是对象；来源、运算符、左右值与扩展参数按已覆盖约定核对。<code>setver</code>／选项<code>varOps</code>核对key、操作符和操作数形态，字面量保持字符串；未知来源保留并提示未覆盖。它不求表达式结果、不检查变量是否存在，不代替完整schema。对同一含If片段的多处引用给出<code>if_reuse_decision_risk</code>提示，仍须实际观察。</p>
-<p>输出是 JSON 报告。<code>errors</code> 和 <code>warnings</code> 分别统计错误与提示；未覆盖章节、指令及未检查参数另列，<code>read_only</code> 表示工具没有改写输入。警告可以与退出码 0 同时出现，不能仅凭退出码省略报告内容。</p>
-<p>在作品目录工作时改用 <code>python "&lt;实际 Skill 绝对目录&gt;/scripts/check_project.py" "&lt;章节绝对路径&gt;"</code>，版本工具同理。不要把包内相对路径直接当成任何工作目录都可运行的命令。</p>
-<p>检查器对 <code>callFragment → main</code> 保留资料争议及目标版本核对提示，对存储引用环和深链给风险提示。它不运行 Studio 转换器，不推定禁用块是否转换、运行可达性或真实展开层数。前处理章节不因未列入普通章索引而建议加入。完整边界见 <a href="channels/beta/skills/letsgal-authoring/references/json.md">JSON 工作法</a>及<a href="AUDIT.md">修订记录</a>。</p>
-<h3 id="main-调用及循环按完整宿主版本区分">main 调用及循环：按完整宿主版本区分</h3>
-<p><a href="https://docs.avg-engine.com/reference/script-json">官方 JSON 参考</a>与<a href="https://docs.avg-engine.com/manual/writing/blocks/call-fragment">调用片段手册</a>对 main 目标的文字存在冲突。已有调用不直接判为损坏；新内容优先普通、无环、非 main 片段。2.5.0 的一个无环 A→main 预览成功，不能推广到全部指令、玩家或 2.6；早期 Beta 循环观察不作当前版算法保证。不要依赖递归菜单或固定展开深度，目标任务需要时再查证。</p>
-<p><strong>多人或多个 AI 协作</strong></p>
+</table></div>
+<p>先从<a href="https://avg-engine.com/studio/features">官方功能全景</a>和对应文档确认能力，再按本工程版本与 MCP／SDK 查可用入口。功能宣传有该能力，不表示所有版本或所有接口都提供它。已有插件先读<a href="#wiki06">匹配版本指南</a>。</p>
+<h2 id="wiki05--一个地点牌小练习">一个地点牌小练习</h2>
 <blockquote>
-<p>按现有协作方式拆分任务，明确各自可写章节和共享文件的整合者。同一 JSON 不安排同时写入。保留已有 Git 暂存改动，完成后留下简短交接；没有授权不启动额外代理或付费服务。</p>
+<p>在独立练习章显示地点牌“旧车站”，停留后关闭并继续对白。优先复用工程现有 UI 和动作；不替换标题页、菜单或主题。请告诉我打开与关闭的入口，并验证关闭后对白仍能继续。</p>
 </blockquote>
-<h2 id="公版与个人设置怎样配合">公版与个人设置怎样配合</h2>
-<p>每个安装位置只保留所选通道的一份Skill载荷；正式版与Beta分别维护，本机连接位置、偏好与工程索引放独立个人区。已有MCP配置可复用，连接状态和当前工程仍实时核对。个人配置不随公共包发布，不能替代当前权限或把一台机器的Beta当作所有工程默认。</p>
-<h2 id="个人特调放哪里">个人特调放哪里</h2>
-<table>
+<p>准备目标画面、尺寸要求及可用 UI 文档。预期得到界面入口、文字来源、显示／关闭动作和局部修改。检查位置、缩放、前后遮挡、退出后的输入控制；文档保存成功不等于按钮已能点击。</p>
+<p>若本次需要独立 UI 文档，AI 应先读目标 schema，用实际返回的元素 ID 修改。整页替换必须保全原文、稳定 ID、状态、动画和引用，不能为改标题删掉其他组件。</p>
+<h2 id="wiki05--数据表怎样核对">数据表怎样核对</h2>
+<blockquote>
+<p>在练习数据表添加一个测试物品“车票”，价格 12；先读现有字段、类型和行 ID，保留其他行。将它显示到测试列表，再核对读回与界面取值。</p>
+</blockquote>
+<p>数据表是结构化条目，行 ID 常被界面和剧情引用。新增／改值后核字段和引用；运行副本及存档行为另验。需要删除时先有覆盖集合文件的历史恢复点。<code>project_delete</code> 不支持普通 undo，恢复原行按限定历史恢复处理，不能把新建同名行当作保留原 ID 的恢复。</p>
+<h2 id="wiki05--需要开发扩展时">需要开发扩展时</h2>
+<blockquote>
+<p>现有方法不能表达这段规则。请先核目标 SDK 与公开接口，给出最小实现，保持原插件 ID、源码关联和现有设置。分别报告类型／构建、Studio 加载、方法调用和存读档检查。</p>
+</blockquote>
+<p>普通玩家界面与供作者使用的 Studio 组件分开实现。参数和预设按目标 SDK 真实类型填写；Stable 3.0 的新增字段不能直接写进 2.9／2.8。调用方法前核类型、范围、枚举与资源引用，校验通过也不能保证业务条件正确。</p>
+<p>状态分清作者配置、单槽存档、跨档数据和本次启动状态。恢复存档时可能重新经过逻辑入口，奖励／扣款等副作用需要按 SDK 的恢复语义处理。是否在 Studio、Player、Web 或导出中测试，分别报告。</p>
+<p>重置扩展设置前读<a href="#wiki07--三类已确认差异">设置 reset 差异</a>。看到“reset 成功”不能直接宣布默认态已恢复；显式设置为默认数值也不等于恢复默认态。</p></section><a class="legacy-anchor" id="临时设置与附加包状态"></a><a class="legacy-anchor" id="公版与个人设置怎样配合"></a><a class="legacy-anchor" id="个人特调放哪里"></a><a class="legacy-anchor" id="让-ai-为插件写-skill"></a><section id="wiki06" data-source="docs/wiki/06-personal.md"><nav class="chapter-nav" aria-label="本章目录"><a href="#wiki06--三种资料放在哪里">三种资料放在哪里</a><a href="#wiki06--保存一条个人偏好">保存一条个人偏好</a><a href="#wiki06--给插件建立指南">给插件建立指南</a><a href="#wiki06--平常使用时怎样确认读取">平常使用时怎样确认读取</a></nav><h1 id="wiki06--6-个人偏好插件指南的建立与使用">6. 个人偏好、插件指南的建立与使用</h1>
+<h2 id="wiki06--三种资料放在哪里">三种资料放在哪里</h2>
+<p><code>~</code> 指实际运行 AI 的用户主目录；WSL、远程环境或另一账号可能是不同目录。</p>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>内容</th>
-<th>位置</th>
-<th>用途</th>
+<th>位置与用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>跨作品偏好</td>
-<td>实际 AI 用户主目录的 <code>.letsgal-authoring/preferences/user.md</code>；旧用户沿用原 user.md</td>
-<td>文风、命名、协作节奏等</td>
+<td><code>~/.letsgal-authoring/preferences/user.md</code>，例如文风、命名、窗口使用习惯</td>
 </tr>
 <tr>
-<td>插件 Skill</td>
-<td><code>.letsgal-authoring/plugins/&lt;插件ID&gt;/&lt;版本&gt;/SKILL.md</code></td>
-<td>插件方法、参数、示例、版本及来源；由用户维护</td>
+<td>作品约定</td>
+<td>工程已有规则或 <code>LETSGAL.md</code>，例如目标版本、已采用设定、启用插件</td>
 </tr>
 <tr>
-<td>本作品约定</td>
-<td>工程根 <code>LETSGAL.md</code></td>
-<td>版本、SDK、允许能力、作品规则和已有文档入口</td>
-</tr>
-<tr>
-<td>公共 Skill</td>
-<td>Agent 的技能目录</td>
-<td>随本包升级</td>
+<td>具体插件知识</td>
+<td><code>~/.letsgal-authoring/plugins/&lt;插件ID&gt;/&lt;版本&gt;/SKILL.md</code>，必要参考放同目录 <code>references/</code></td>
 </tr>
 </tbody>
-</table>
-<p>可以直接对 AI 说“把这项长期偏好写到 user.md，保留原内容；项目特定约定写入 LETSGAL.md”。不要把 API Key、账号资料或完整私人作品放进公共 Skill。项目规则比个人一般偏好具体，当前请求仍优先；这些文件不能增加工具权限。</p>
-<h2 id="让-ai-为插件写-skill">让 AI 为插件写 Skill</h2>
-<p>先在 Agent 中加载 letsgal-authoring，并给出插件所在目录或作者文档入口，然后说：</p>
+</table></div>
+<p>公共 Skill 只包含读取机制。更新、切换或卸载主包保留用户区；不要把私人内容直接改进公共 Skill。旧根目录 <code>user.md</code> 仍兼容，新旧都存在时应先比较冲突，不能创建空白文件遮住旧配置。</p>
+<h2 id="wiki06--保存一条个人偏好">保存一条个人偏好</h2>
 <blockquote>
-<p>分析这个插件并生成插件 Skill，按规范保存到用户插件区，更新索引。不要改插件代码和项目启用状态。已有内容先保全；只按真实接口编写，并说明验证范围。</p>
+<p>请把“修改现有工程前先读当前章节摘要”保存为我的 LetsGal 偏好，保留已有内容，写后读回。这个要求只针对 LetsGal 制作。</p>
 </blockquote>
-<p>AI 应自动写到 <code>~/.letsgal-authoring/plugins/&lt;插件ID&gt;/&lt;版本&gt;/SKILL.md</code>，并在 <code>plugins/INDEX.md</code> 登记入口。索引按需建立，安装器不填充任何真实插件。用户指定位置优先；无文件权限时交付文件和目标路径，不宣称写入完成。完整流程见 <a href="channels/beta/skills/letsgal-authoring/references/plugin-skills.md">插件 Skill 规范</a>。</p>
-<p>个人偏好和插件知识分开维护。项目 LETSGAL.md 记录实际使用的插件 ID、版本和资料入口，主 Skill 按需读取；有资料不等于已启用。旧作品可以继续读取旧插件版本的 Skill，不自动取最新版本。公共包更新不修改插件资料或插件代码，插件升级后的资料复核由用户发起。</p>
-<p>旧版根目录 user.md 无需搬家：新个人偏好文件不存在时继续使用旧文件，不创建空白配置遮住它；两处都有时，先比较并标出冲突，不能自动覆盖或丢弃旧内容。</p>
-<h2 id="常见问题">常见问题</h2>
-<table>
+<p>预期只在个人区补充实际要求，并能读回原有条目与新增条目。首次执行工程或扩展操作时主 Skill 应主动读取已有偏好；纯讨论按讨论范围进行，不因此自动修改工程。</p>
+<h2 id="wiki06--给插件建立指南">给插件建立指南</h2>
+<p>准备插件真实清单 ID、版本／修订、可靠说明或源码，以及目标 Studio 版本。不要只提供工坊显示名称或随意取一个 ID。</p>
+<blockquote>
+<p>请分析我指定的这个插件，核实 ID、版本和适用工程，为它建立插件 Skill。写清实际方法、参数、完整调用例子、存档影响及验证范围。保留已有资料，保存后从主 Skill 的查找路径读回入口与必要引用，更新索引。不要因此安装或启用插件。</p>
+</blockquote>
+<p>AI 可按<a href="channels/stable/skills/letsgal-authoring/templates/PLUGIN-SKILL.example.md">插件写作模板</a>整理有依据的用法。预期得到匹配版本的正文、必要引用及 <code>plugins/INDEX.md</code> 条目。未知参数标明待查，不能把猜测写成正式接口。</p>
+<p>保存后的核对不止“文件存在”：应实际打开 SKILL.md，沿链接读取本任务所需引用，并确认与真实 ID／版本一致。安装运行插件与保存知识是两个动作。</p>
+<h2 id="wiki06--平常使用时怎样确认读取">平常使用时怎样确认读取</h2>
+<blockquote>
+<p>请用当前工程的这个插件完成车票规则。先核实际 ID／版本和启用状态，读取对应插件指南及本任务必要引用，再选择方法；告诉我采用了哪个版本的资料。</p>
+</blockquote>
+<p>主 Skill 会通过索引或已确认 ID 的版本目录直接读文件，即使这个嵌套 Skill 没有出现在 AI 的全局技能列表中。无需再次注册、重复安装，也无需每次额外点名子包。</p>
+<p>索引缺失时，AI 应定向检查已确认 ID／版本的目录。存在多个版本时以本工程实际版本为准，不自动取“最新”；版本冲突要核清，不能以升级插件来消除冲突。资料被明确暂停时保留并跳过加载；暂停协作附加包也不会因主包更新自动恢复。</p>
+<p>如果 AI 只说“找到指南”却不知道方法细节，让它实际读正文及相对引用；若资料与真实接口不符，保留差异并按本项目已核实的清单、SDK／源码和运行证据处理。没有指南时仍可查可靠文档，不必为一次只读咨询自动建立资料库。</p>
+<p>下一步：<a href="#wiki07">排错与恢复</a>；用户区备份见<a href="#wiki08">维护</a>。</p></section><a class="legacy-anchor" id="使用前的风险与保护"></a><a class="legacy-anchor" id="已有内容草稿与定稿怎样保护"></a><a class="legacy-anchor" id="外部批量编辑与原有文件方式"></a><a class="legacy-anchor" id="常见连接问题"></a><a class="legacy-anchor" id="变量与扩展的验证"></a><a class="legacy-anchor" id="常见制作问题"></a><a class="legacy-anchor" id="常见问题"></a><a class="legacy-anchor" id="从测试中看到的实际帮助"></a><a class="legacy-anchor" id="验证范围与反馈"></a><section id="wiki07" data-source="docs/wiki/07-recovery.md"><nav class="chapter-nav" aria-label="本章目录"><a href="#wiki07--写前准备与写后核对">写前准备与写后核对</a><a href="#wiki07--三类已确认差异">三类已确认差异</a><a href="#wiki07--哪些情况不应直接叫缺陷">哪些情况不应直接叫缺陷</a><a href="#wiki07--预览与构建">预览与构建</a><a href="#wiki07--反馈问题要准备什么">反馈问题要准备什么</a></nav><h1 id="wiki07--7-已知差异排错与精确恢复">7. 已知差异、排错与精确恢复</h1>
+<h2 id="wiki07--写前准备与写后核对">写前准备与写后核对</h2>
+<p>准备至少一种实际可用、覆盖本次改动的恢复点，优先已有项目历史／检查点或支持该操作的撤销；素材、独立源码等没有覆盖的部分另做备份。安装器只备份 Skill，不备份作品。已有有效保护可以复用。</p>
+<blockquote>
+<p>请只恢复本次试改的内容。先比较原恢复点与当前文件，列出会写回或删除的对象，保留试改之后我新增的内容；恢复后逐项读回，说明还存在的差异。</p>
+</blockquote>
+<p>精确恢复按对象、字段或限定文件进行。整工程恢复可能移除备份后新增文件，不默认采用。若后来编辑与恢复目标重叠，先合并可确定的差异，再把仍需决定的部分说明清楚。</p>
+<h2 id="wiki07--三类已确认差异">三类已确认差异</h2>
+<p><strong>Studio 3.0.0 的官方 MCP 复测</strong>曾出现以下差异，相关操作先按右侧步骤保存原态并核对结果。</p>
+<div class="table-scroll"><table>
 <thead>
 <tr>
-<th>现象</th>
-<th>处理</th>
+<th>操作</th>
+<th>实际遇到的差异</th>
+<th>怎样核对与继续</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>窗口打不开／被系统策略阻止</td>
-<td>确认完整解压；遵循系统策略，按兼容表手动导入，不关闭安全保护</td>
+<td>扩展设置 reset</td>
+<td>官方内置壳的 boolean、enum 改值后 reset 成功，但读回 isDefault=false 且缺 value；数组字段也有默认态标记差异</td>
+<td>写前保存值是否存在、值与默认态。写后逐项比较。缺值不解释成 false、空字符串或默认值。显式写回旧值和恢复默认态分别报告</td>
 </tr>
 <tr>
-<td>点击检查后不确定是否完成</td>
-<td>查看窗口底部固定状态栏；处理时显示正在处理，结束后显示“检查安装 · 校验通过”或失败结果；页面结果框标题为“安装文件校验通过”；展开详情核对版本和实际目录</td>
+<td>修改入口数量后 undo</td>
+<td>basic／linear 改入口数后变为 advanced／extension；undo 恢复数量却未完整恢复模式、策略和图</td>
+<td>写前保存四项。撤销后逐项读回，必要时审阅限定历史恢复。把原图显式写回而策略变成 graph，不算完整还原原来的 linear</td>
 </tr>
 <tr>
-<td>想自己选择导入位置</td>
-<td>选“其他 Agent / 指定目录”，浏览或粘贴已配置的 skills 根目录；只给作品使用时选择项目范围并浏览工程</td>
-</tr>
-<tr>
-<td>Codex 提示两处已有同名 Skill</td>
-<td>先查看新会话的真实加载路径，再指定对应 skills 根；不自动迁移、复制或删除任一原入口</td>
-</tr>
-<tr>
-<td>预览提示路径重叠</td>
-<td>核对完整包的解压位置、技能目标与个人区；重新选互不包含的位置，不删除个人区绕过</td>
-</tr>
-<tr>
-<td>预览显示需备份／已装版本未知</td>
-<td>核对实际已装来源，比较文件；保全后再决定是否“备份后继续”，不按猜测覆盖</td>
-</tr>
-<tr>
-<td>导入完成但 AI 不使用</td>
-<td>新建会话、显式调用技能，核对实际加载目录与工作模式</td>
-</tr>
-<tr>
-<td>DSH 中找不到</td>
-<td>检查 DSH 实例的数据目录、文件系统技能提供器和默认根；特殊根用“其他 Agent / 指定目录”</td>
-</tr>
-<tr>
-<td>出现多个同名 Skill</td>
-<td>核对个人／项目／其他工具副本的路径和优先级；先保留再决定哪份使用</td>
-</tr>
-<tr>
-<td>完成但提示选项或日志未保存</td>
-<td>Skill 文件操作已完成；核对当前目标和备份路径，下次重新选择位置</td>
-</tr>
-<tr>
-<td>本地修改被保护</td>
-<td>迁移个人特调，或明确选择备份后继续</td>
-</tr>
-<tr>
-<td>安装锁无法打开</td>
-<td>等另一个窗口结束，或检查目录权限；不要随意删除正在使用的锁文件</td>
-</tr>
-<tr>
-<td>版本工具返回 UNKNOWN</td>
-<td>核对完整后缀、实际 EXE 和项目约定；未来版本先查官方记录，不自动升级</td>
-</tr>
-<tr>
-<td>JSON 检查器不认识格式</td>
-<td>使用 json-only，核对该版 Studio 保存的样本，不自动升级格式</td>
-</tr>
-<tr>
-<td>选择练习没有显示在章节树／没有运行</td>
-<td>检查文件是否在副本的 chapters 目录，文件名与 name 是否一致，以及是否登记已有 chapterOrder；保留原入口，不覆盖整份配置</td>
-</tr>
-<tr>
-<td>选项出现但没有结果文字</td>
-<td>旧结构核 choices 的同章目标 ID；2.9 嵌套结构核对应 choiceOption 后的正文与成对结束标记。从 main 开头重新选择，区分未选路线与错误结构</td>
-</tr>
-<tr>
-<td>两条路线混在一起／没有回到主线</td>
-<td>旧结构核 main、fragmentId 与结果片段的结束指令；2.9 嵌套结构核 option／else 边界、标记配对及组后正文。对照最小案例定位，保留原数据</td>
-</tr>
-<tr>
-<td>检查器退出码 0，Studio 仍失败</td>
-<td>阅读警告及未覆盖项，再核实际版本、保存样本、实体／资源引用和参数；结构通过不能替代预览</td>
-</tr>
-<tr>
-<td>main 调用或循环出现提示</td>
-<td>普通无环片段可作制作默认；现有数据先保留，并按目标宿主和注明版本的有限证据核对，不按30层文字推定执行</td>
-</tr>
-<tr>
-<td>更换电脑、WSL 或远程环境</td>
-<td>在目标环境另行导入，明确复制所需个人配置；本机安装不会自动同步</td>
+<td>官方文件编辑会话</td>
+<td>有效会话内的单句文件修改可能回到原文，dry-run 随后为空变更；仅启用内置壳也复现</td>
+<td>普通修改优先专用 MCP。预期有改动却为空时停止 commit，保留拟写内容，核会话、文件、保存与编辑状态；安全结束会话后用获准专用接口重新读取并修改</td>
 </tr>
 </tbody>
-</table>
-<h2 id="更新卸载与恢复">更新、卸载与恢复</h2>
-<p>更新：下载新版完整包，解压到另一个普通目录，再运行 <code>Install.cmd</code>。预览核对本包／已装版本、状态及目标；Codex个人安装沿用唯一已有入口，两处都有时先明确选择，避免另建同名副本。相同安装位置会校验后更新，只有文件与本包一致才不替换；同一产品版本也可能存在不同候选修订。预览与检查显示已装／本包修订，旧包或收据缺少标识时显示“修订未标注”，不据此推断新旧。个人偏好、插件 Skill 和项目配置原样保留；缺失目录才创建，已有用户文件不重写。旧 Skill 位于所选 <code>skills</code> 目录旁的 <code>.letsgal-authoring-backups</code>，不会作为第二个 Skill 被发现。升级后打开新会话并重新核对实际加载来源，旧会话中的内容不能作为已使用新版的证据。</p>
-<p>如果公共 Skill 被改过，导入器先停止。让 AI 比较原版与改动，将个人部分迁到外部配置；确认后用“备份后继续”。备份保留旧内容，但个人代码改动不会自动合并进新版。不要同时开两个导入窗口更新同一位置。</p>
-<p>卸载：在“更多选项”中选择卸载，或运行 <code>Uninstall.cmd</code>。它将技能移到备份，保留整个用户区（个人偏好、插件 Skill、旧版 user.md）、项目文件与历史备份。</p>
-<p>安装完成时会显示本次旧技能备份路径。日志位于 skills 旁 <code>.letsgal-authoring-backups</code> 的 <code>*-install.json</code>／<code>*-uninstall.json</code>。如果选项或日志保存失败，界面显示“有提示”，保留真实完成结果与旧记录；不要因此删除目录或反复强制覆盖，下次重新核对位置即可。项目内的备份可能带私有特调，提交 Git 前检查排除规则，安装器不修改项目的 .gitignore。</p>
-<p>恢复：先保全当前目录和新增内容，找到结果或安装日志里的准确备份路径，再比较并恢复相应 Skill；不能通过删除所有备份来排错。导入器没有自动清理备份功能。</p>
-<p>Beta 的当前能力见<a href="channels/beta/skills/letsgal-authoring/references/current-capabilities.md">制作指引</a>，工具选择与恢复见<a href="channels/beta/skills/letsgal-authoring/references/mcp-workflow.md">MCP流程</a>。只读版本工具不探测或开启服务；正式版继续原生／离线流程。</p>
-<h2 id="从测试中看到的实际帮助">从测试中看到的实际帮助</h2>
-<p>官方 MCP 提供读取和修改工程的能力，Skill 补充任务判断、范围、资料和必要检查。此前 0.2.1 小样本中，部分批量任务减少重复调用，部分恢复／变量任务减少漏检或语义错误；也有任务增加检查、出现部分采用不准或完成判断错误。未通过保留门槛的实验规则已撤回。</p>
-<p>这些历史结果不能给出统一提升百分比，也不保证较弱模型受益更多。正式版仍提供无 MCP 制作指引，但没有与“完全不用 Skill”进行条件一致的完整对照。</p>
-<p>此前结构重构已通过有限独立场景核对任务结果与读取量；0.2.6 补充 Beta 编辑界面专题，另做类型、组件模拟、构建与安装核验；实际完成项见<a href="VALIDATION.md">验证说明</a>。宿主证据按实际版本区分，新候选的字段保真、撤销和文件占用问题仍列为限制；字符读取量不是 token 或实际耗时测量。</p>
-<h2 id="验证范围与反馈">验证范围与反馈</h2>
-<p>Skill 的发布标准是：任务指引可用、关键用法有依据、安装和包完整、说明如实呈现限制。无需先替官方验收整个引擎。用户作品仍按本次使用的功能检查；版本未知时继续不依赖它的工作。</p>
-<p>历史宿主与模型证据保留原版本范围；本轮未改安装器代码，针对性隔离检查见验证报告；未改的宿主功能及恢复机制复用仍适用的历史证据。当前检查范围见<a href="VALIDATION.md">验证报告</a>，历史宿主摘要见<a href="HOST-VALIDATION.md">宿主范围</a>。</p>
-<p>反馈问题时提供 Skill 版本、Agent、实际 Studio 完整版本／通道、最小复现和脱敏结果。不要上传完整私人作品、账号或未经清理的截图。可到 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/issues">仓库 Issues</a> 提交。</p>
-<h2 id="语言配音与蓝图">语言、配音与蓝图</h2>
-<p>游戏设置里，文字显示语言与配音语言可以分别选择，选项取自工程语言；单语言作品会隐藏这两行。Studio 自身界面语言是另一项设置。</p>
-<p>准备多语言录音时，先给原声匹配配音，并核对各语言录音在语音表中的同一编号／键。游戏按所选配音语言寻找对应文件，找不到时回退原声。个别句子需要特殊录音才设置语言覆盖；移除覆盖后恢复语音表匹配，并不表示静音。自动匹配先预演；目标语言已有表对应的行会跳过，缺少有效译文的行保持未匹配。实际试听、语言切换与缺失录音回退需在作品里检查。</p>
-<p>蓝图自动排列调整画布布局，可选择曲线或直角连线；剧情跳转、条件和章节顺序另行管理，不因整理画布改写剧情。章末提示改到右上角小胶囊，不代表完整路线已验收。</p>
-<p>本版界面显示、按钮闪烁和存档截图等运行时修复，需要重新构建已导出的游戏才能带入；自定义存档界面另核截图是否截入窗口自身。这里只说明官方能力与检查方法，不宣称所有作品已验证。</p>
-</body></html>
+</table></div>
+<p>设置字段未声明默认值时，缺 value 本身可能正常；上述 MCP 读回差异不证明 SDK 运行取值、界面重置按钮或 Player 都出错。文件会话切换章节后仍有复现，切章节不是已验证解决办法。不要为了恢复状态反复重载工程、覆盖整份配置或丢掉后来编辑。</p>
+<p>AI 的详细操作规则按通道查阅：Stable 3.0 使用<a href="channels/stable/skills/letsgal-authoring/references/extensions.md#设置存档与资源">扩展设置</a>、<a href="channels/stable/skills/letsgal-authoring/references/collaboration-git.md#限定恢复与读回">调度恢复</a>和<a href="channels/stable/skills/letsgal-authoring/references/mcp-workflow.md#外部编辑与无-mcp-回退">文件会话</a>；Beta 2.9／2.8 使用<a href="channels/beta/skills/letsgal-authoring/references/extensions.md#设置存档与资源">Beta 设置</a>、<a href="channels/beta/skills/letsgal-authoring/references/collaboration-git.md#限定恢复与读回">Beta 恢复</a>和<a href="channels/beta/skills/letsgal-authoring/references/mcp-workflow.md#外部编辑与无-mcp-回退">Beta 文件会话</a>。Beta 的历史现象保留其版本条件，不把 3.0 复测直接当作 Beta 重测。</p>
+<h2 id="wiki07--哪些情况不应直接叫缺陷">哪些情况不应直接叫缺陷</h2>
+<ul>
+<li><code>project_delete</code> 明确不支持普通 undo。数据行依项目历史限定恢复，素材按隔离区恢复入口；普通 undo 未找回删除对象不构成该契约的失败。</li>
+<li>任意添加的未声明字段没有保真承诺。使用受支持的数据位置，保留格式契约内的内容。</li>
+<li>等待批准、只读、关闭工具组、不支持的目标平台，以及本次调用参数错误，分别按权限、能力和输入处理。</li>
+<li>GIF／WebP 的 3.0 独立样本限定撤销与删除通过，旧占用现场不再列为 Stable 当前故障。出现新失败仍需核部分完成结果、引用、文件与隔离区。</li>
+</ul>
+<p>只有目标版本承诺支持的行为与符合契约的实际调用不一致，才列为问题。遇到结果未知，先读回目标或操作历史，不能把超时当作完全没写。</p>
+<h2 id="wiki07--预览与构建">预览与构建</h2>
+<p><code>WINDOW_HIDDEN</code> 先核具体 reason 和预览状态。最小化、锁屏、遮挡或停在其他模块可能不满足官方渲染条件；不在前台本身不能证明隐藏。按授权恢复对应条件后再试一次，仍失败就保留未验项。窗口仍可见却被判为隐藏时，记录 reason、窗口状态和最小调用再反馈。</p>
+<p>构建先核配置、工具链和 dry-run；桌面目标按实际 <code>supportedSystems</code> 选择，不从旧网页或操作系统名称推测。构建计划有效、产物生成、产物在目标系统运行分别验收。未构建过的导出不能写成已通过。</p>
+<h2 id="wiki07--反馈问题要准备什么">反馈问题要准备什么</h2>
+<p>提供 Skill 修订、Agent、Studio 完整版本、具体工具、最小输入、预期与实际返回、恢复状态。先排除版本不符、输入错误及本来不支持的操作；只发脱敏片段或独立样本。不要上传完整私人作品、账号、令牌或未经清理的截图。可以在<a href="https://github.com/recurse00-stack/letsgal-authoring-kit/issues">仓库 Issues</a>反馈 Skill 问题；宿主问题提交实际可复现的现象和步骤。</p></section><a class="legacy-anchor" id="手动安装与命令行"></a><a class="legacy-anchor" id="更新卸载与恢复"></a><section id="wiki08" data-source="docs/wiki/08-maintenance.md"><nav class="chapter-nav" aria-label="本章目录"><a href="#wiki08--更新或切换前准备什么">更新或切换前准备什么</a><a href="#wiki08--用同一安装器更新">用同一安装器更新</a><a href="#wiki08--备份在哪里怎样恢复">备份在哪里，怎样恢复</a><a href="#wiki08--卸载与换电脑">卸载与换电脑</a><a href="#wiki08--查阅手动安装与命令行">查阅：手动安装与命令行</a><a href="#wiki08--遇到安装差异">遇到安装差异</a></nav><h1 id="wiki08--8-更新切换卸载与备份恢复">8. 更新、切换、卸载与备份恢复</h1>
+<h2 id="wiki08--更新或切换前准备什么">更新或切换前准备什么</h2>
+<p>准备完整的新包，确认当前安装路径、通道、版本及修订，并备份作品与需要迁移的个人资料。同一产品版本可能有不同候选修订；“内容不同”不表示哪一份更新。未标注修订的旧包也不能凭目录日期猜先后。</p>
+<h2 id="wiki08--用同一安装器更新">用同一安装器更新</h2>
+<ol>
+<li>把新包完整解压到另一普通目录，运行 <code>Install.cmd</code>。</li>
+<li>选择同一实际 Agent 位置和所需 Stable／Beta。核对预览中的已装与本包信息，再导入。</li>
+<li>内容一致时应校验后保持不变；内容不同则先完整备份旧 Skill，再安装所选载荷。</li>
+<li>检查安装，并在新会话核实际路径和修订。旧聊天不会因磁盘更新自动证明已经读了新内容。</li>
+</ol>
+<p>个人偏好、插件知识和作品配置保留，主包不升级宿主、不启用暂停资料。遇到已安装文件被个人改动，先比较并把个人部分迁到用户区；只有明确选择“备份后继续”才替换，旧改动不会自动合并进新版。</p>
+<h2 id="wiki08--备份在哪里怎样恢复">备份在哪里，怎样恢复</h2>
+<p>旧 Skill 存在 skills 目录旁的 <code>.letsgal-authoring-backups</code>，安装结果及 <code>*-install.json</code>／<code>*-uninstall.json</code> 日志记录准确备份路径。备份不会作为第二份 Skill 自动发现。不要通过清空所有备份排错。</p>
+<blockquote>
+<p>请找到上次安装日志指向的旧 Skill 备份，比较当前与备份的通道、修订和文件。先保全当前内容，只恢复指定 Skill，个人区和工程文件保持；恢复后校验文件及新会话读取。</p>
+</blockquote>
+<p>恢复前保留当前新增内容，按准确目录核对后恢复；不复制到另一默认目录制造同名入口。个人区要另行备份，安装器旧 Skill 备份不包含它。备份可能有私人特调，提交 Git 或公开分享前检查内容。</p>
+<h2 id="wiki08--卸载与换电脑">卸载与换电脑</h2>
+<p>“更多选项”中的卸载或 <code>Uninstall.cmd</code> 会把当前 Skill 移入备份，保留用户区、作品和历史备份。卸载主包不等于卸载引擎或插件。</p>
+<p>换电脑、账号、WSL 或远程环境时，在实际运行 AI 的环境另行安装；只按需要复制自己的偏好与插件资料，再核路径和版本。不要把完整个人区放进公共包。</p>
+<h2 id="wiki08--查阅手动安装与命令行">查阅：手动安装与命令行</h2>
+<p>Windows 完整包根目录示例：</p>
+<pre><code class="language-powershell">powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex -Scope User -Channel stable -NonInteractive
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1 -Harness Codex -Scope User -Channel stable -Action Check -NonInteractive
+</code></pre>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-Action</code></td>
+<td>Install、Check 或 Uninstall，默认 Install</td>
+</tr>
+<tr>
+<td><code>-Harness</code></td>
+<td>Codex、Claude、Cursor、Copilot、DSH、Manual</td>
+</tr>
+<tr>
+<td><code>-Scope</code></td>
+<td>User 或 Project；Project 配 <code>-ProjectPath</code> 工程绝对路径</td>
+</tr>
+<tr>
+<td><code>-Channel</code></td>
+<td>stable 或 beta；非交互必须明确选择</td>
+</tr>
+<tr>
+<td><code>-SkillsDirectory</code></td>
+<td>Manual 的已配置 skills 根，安装器追加 letsgal-authoring</td>
+</tr>
+<tr>
+<td><code>-DshHome</code></td>
+<td>DSH 实际数据目录；显式值优先于环境默认</td>
+</tr>
+<tr>
+<td><code>-UserHome</code></td>
+<td>实际用户主目录，隔离安装检查可用独立目录</td>
+</tr>
+<tr>
+<td><code>-NonInteractive</code></td>
+<td>非交互执行；不会替你解决路径歧义或修改冲突</td>
+</tr>
+<tr>
+<td><code>-ReplaceModified</code></td>
+<td>比较并明确批准后，完整备份已修改载荷再替换</td>
+</tr>
+</tbody>
+</table></div>
+<p>安装器不自动扫描自定义 CODEX_HOME 或便携目录。目录兼容、同名入口处理和 DSH 配置详见<a href="COMPATIBILITY.md">兼容说明</a>。不要关闭系统保护来绕过执行策略；可按客户端要求手动安装。</p>
+<p>macOS／Linux 或自选环境：仅复制所选通道的完整 <code>skills/letsgal-authoring</code> 目录到已配置的 skills 根，保留原版备份和随包风险说明，再核实际发现。不要混合两通道或只复制 SKILL.md；Windows 安装程序的验证范围见下方说明。已有用户区保持，首次需要偏好时在实际用户主目录建立相应文件。</p>
+<h2 id="wiki08--遇到安装差异">遇到安装差异</h2>
+<p>目录重叠时重新选择互不包含的包、技能与用户区位置，不删除个人区绕过。安装锁被占用时等另一个安装结束，不删除活动锁。如果 Skill 已完成但选项或日志保存失败，核真实文件、备份路径和提示，下次重新选位置，不反复强制覆盖。</p>
+<p>本包当前验证边界见<a href="VALIDATION.md">验证范围</a>，宿主操作证据见<a href="HOST-VALIDATION.md">宿主范围</a>。</p></section></main></div></body></html>

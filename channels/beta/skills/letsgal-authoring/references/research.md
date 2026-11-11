@@ -23,6 +23,6 @@
 | 宿主和通道 | [版本边界](version-compatibility.md)、[正式清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)／[Beta 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json) |
 | 官方用法与历史 | [文档](https://docs.avg-engine.com/)、[扩展索引](https://docs.avg-engine.com/extensions/llms.txt)；追溯时查 [Skill 发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)／[引擎历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json) |
 
-索引失效就从官方导航定位正文；当前宿主指导与旧网页冲突时按当前契约操作。行为与契约冲突时保存最小输入、版本和结果；未声明字段按格式兼容限制处理，承诺支持的行为失败才记为缺陷。
+索引失效就从官方导航定位正文。工具／参数以当前 schema 为依据，扩展以目标 SDK 类型为依据；旧网页与当前返回冲突时保留最小输入、版本和结果定向查证。只有目标版本承诺支持的行为与实测不符才记为缺陷；未声明字段按格式兼容限制处理，未支持功能、权限限制及参数错误不写成宿主缺陷。
 
 UNKNOWN 写明具体缺项，继续已有证据覆盖的工作。需要补版本依据时定向查询，保留现有宿主和 SDK 要求。可复用结论归所属专题；完整来源、测试过程和未验项归维护记录。

@@ -197,6 +197,8 @@ def check(target, format_profile='auto'):
                     bad('conditionElse kind must be elseIf or else')
                 if arm == 'elseIf':
                     required_string(props.get('expression'), where, 'elseIf expression')
+                elif arm == 'else' and props.get('expression') not in (None, ''):
+                    bad('else must not carry an expression')
                 if not stack or stack[-1]['kind'] != 'condition':
                     bad('conditionElse must belong directly to a conditionStart')
                 else:

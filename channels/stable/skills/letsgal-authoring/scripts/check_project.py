@@ -7,8 +7,11 @@ from pathlib import Path
 
 MAX_BYTES = 16 * 1024 * 1024
 KNOWN = {"narration", "dialogue", "storyParagraph", "comment", "branch", "if",
-         "callFragment", "setver", "wait", "endChapter"}
+         "callFragment", "setver", "wait", "endChapter", "choiceStart", "choiceOption",
+         "choiceEnd", "conditionStart", "conditionElse", "conditionEnd",
+         "performanceStart", "performanceEnd", "stopBackgroundPerformance"}
 TEXT = {"narration", "dialogue", "storyParagraph", "comment"}
+CONTROL = {"choiceStart", "choiceOption", "choiceEnd", "conditionStart", "conditionElse", "conditionEnd"}
 
 
 def pairs(items):
@@ -57,6 +60,7 @@ def check(target, format_profile='auto'):
     unsupported_chapters = 0
     unsupported_blocks = 0
     unchecked_blocks = 0
+    project_fragments = None
 
     def issue(level, where, message, code=None):
         row = {"level": level, "location": where, "message": message}
@@ -153,6 +157,76 @@ def check(target, format_profile='auto'):
                 issue('error', cl, 'invalid rightKind', 'condition_shape')
         return unsupported
 
+    def control_flow_shapes(blocks, loc):
+        """2.9 flat marker structure only; never evaluate expressions or rewrite data."""
+        stack = []
+        performance = None
+        for bi, block in enumerate(blocks):
+            if not isinstance(block, dict) or not isinstance(block.get('props'), dict):
+                continue
+            kind, props = block.get('type'), block['props']
+            if not isinstance(kind, str):
+                continue
+            where = loc + '.blocks[%d]' % bi
+            def bad(message):
+                issue('error', where, message, 'control_flow_shape')
+            if stack and stack[-1]['kind'] == 'choice' and not stack[-1]['options'] and kind not in ('choiceOption', 'choiceEnd'):
+                bad('content before the first choiceOption is outside every option')
+            if kind in CONTROL and performance is not None:
+                bad('control-flow marker inside or crossing a performance segment')
+            if kind in ('choiceStart', 'conditionStart'):
+                if kind == 'conditionStart':
+                    required_string(props.get('expression'), where, 'condition expression')
+                stack.append({'kind':'choice' if kind == 'choiceStart' else 'condition',
+                              'where':where, 'options':0, 'defaults':0, 'else':False})
+            elif kind == 'choiceOption':
+                required_string(props.get('text'), where, 'option text')
+                if 'visibleIf' in props:
+                    required_string(props['visibleIf'], where, 'visibleIf', allow_blank=True)
+                if 'isDefault' in props and not isinstance(props['isDefault'], bool):
+                    bad('isDefault must be boolean')
+                if not stack or stack[-1]['kind'] != 'choice':
+                    bad('choiceOption must belong directly to a choiceStart')
+                else:
+                    stack[-1]['options'] += 1
+                    stack[-1]['defaults'] += props.get('isDefault') is True
+                    if stack[-1]['defaults'] > 1:
+                        bad('only one default option is allowed in a choice')
+            elif kind == 'conditionElse':
+                arm = props.get('kind', 'else')
+                if arm not in ('else', 'elseIf'):
+                    bad('conditionElse kind must be elseIf or else')
+                if arm == 'elseIf':
+                    required_string(props.get('expression'), where, 'elseIf expression')
+                elif arm == 'else' and props.get('expression') not in (None, ''):
+                    bad('else must not carry an expression')
+                if not stack or stack[-1]['kind'] != 'condition':
+                    bad('conditionElse must belong directly to a conditionStart')
+                else:
+                    if stack[-1]['else']:
+                        bad('no branch may follow else')
+                    stack[-1]['else'] |= arm == 'else'
+            elif kind in ('choiceEnd', 'conditionEnd'):
+                expected = 'choice' if kind == 'choiceEnd' else 'condition'
+                if not stack or stack[-1]['kind'] != expected:
+                    bad('end marker has no matching start at this nesting level')
+                else:
+                    frame = stack.pop()
+                    if expected == 'choice' and not frame['options']:
+                        bad('choice needs at least one choiceOption')
+            elif kind == 'performanceStart':
+                if performance is not None:
+                    bad('performance segments cannot nest')
+                performance = where
+            elif kind == 'performanceEnd':
+                if performance is None:
+                    bad('performanceEnd has no matching performanceStart')
+                performance = None
+        for frame in stack:
+            issue('error', frame['where'], 'control-flow structure has no end marker', 'control_flow_shape')
+        if performance is not None:
+            issue('error', performance, 'performance segment has no end marker', 'control_flow_shape')
+
     def chapter(path, is_entry=False, in_linear_order=False):
         nonlocal chapters_checked, unsupported_chapters, unsupported_blocks, unchecked_blocks
         where = path.name
@@ -188,8 +262,18 @@ def check(target, format_profile='auto'):
         edges = {key: set() for key in ids}
         ref_counts = {key: 0 for key in ids}
 
-        def ref(value, loc, origin, allow_empty=False, call_fragment=False):
+        def ref(value, loc, origin, allow_empty=False, call_fragment=False, legacy_branch=False):
             if allow_empty and value == "":
+                return
+            if legacy_branch and isinstance(value, str) and value and value not in ids:
+                if project_fragments is None:
+                    issue('warning', loc, '3.0 legacy branch may call a unique fragment in another enabled chapter; inspect the full project before deciding this target is missing', 'cross_chapter_unverified')
+                elif len(project_fragments.get(value, [])) != 1:
+                    issue('error', loc, 'legacy branch target must resolve to one unique project fragment', 'cross_chapter_target')
+                elif project_fragments[value][0]['disabled']:
+                    issue('error', loc, 'legacy branch target chapter is disabled', 'cross_chapter_target')
+                else:
+                    issue('warning', loc, '3.0 cross-chapter legacy branch reference resolved; cross-chapter cycles and return behavior require native validation', 'cross_chapter_runtime')
                 return
             if not isinstance(value, str) or value not in ids:
                 issue("error", loc, "target must be an existing same-chapter fragment id")
@@ -198,7 +282,7 @@ def check(target, format_profile='auto'):
                 if call_fragment:
                     issue("warning", loc, "callFragment targeting main: official JSON reference and Call Fragment guide differ; noncyclic A-to-main executed and returned in 2.3.0-beta.1 and 2.5.0 native fragment previews; other hosts, entry paths and exports require their own evidence; preserve existing references",
                           'main_call_version_sensitive')
-                else:
+                elif not legacy_branch:
                     issue("error", loc, "branch/if target must be a non-main fragment id in the documented subset")
                     return
             if origin in edges:
@@ -220,6 +304,7 @@ def check(target, format_profile='auto'):
             if not isinstance(blocks, list):
                 issue("error", loc, "blocks must be an array")
                 continue
+            control_flow_shapes(blocks, loc)
             for bi, block in enumerate(blocks):
                 bl = loc + ".blocks[%d]" % bi
                 if not isinstance(block, dict):
@@ -243,7 +328,7 @@ def check(target, format_profile='auto'):
                 if "disabled" in props and not isinstance(props["disabled"], bool):
                     issue("error", bl, "props.disabled must be boolean")
                 if block.get("children"):
-                    issue("warning", bl, "nested children are not checked; do not model branch targets here")
+                    issue("warning", bl, "nested children are not checked; 2.9 control-flow bodies use flat markers, not children")
                 if isinstance(kind, str) and kind in TEXT:
                     content = block.get("content")
                     if kind == "narration" and "content" not in block and format_profile == "auto":
@@ -281,7 +366,7 @@ def check(target, format_profile='auto'):
                             mode = 'jump'
                             issue("warning", cl, "legacy choice omits mode; inspected using the documented jump default, without modifying source")
                         if mode == "jump":
-                            ref(choice.get("fragmentId"), cl, origin, True)
+                            ref(choice.get("fragmentId"), cl, origin, True, legacy_branch=True)
                         elif mode == "vars":
                             if not isinstance(choice.get("varOps"), list):
                                 issue("error", cl, "vars choice requires varOps array")
@@ -377,6 +462,19 @@ def check(target, format_profile='auto'):
         root = safe_path(target / "chapters")
         if not root.is_dir():
             raise ValueError("chapters must be a directory")
+        # Resolve only legacy branch targets across chapters. Ordinary call/if
+        # keep their same-chapter contract; malformed files are reported below.
+        project_fragments = {}
+        for source in sorted(root.glob('*.json')):
+            try:
+                source_data = read(source)
+            except (OSError, ValueError):
+                continue
+            if not isinstance(source_data, dict) or not isinstance(source_data.get('fragments'), list):
+                continue
+            for fragment in source_data['fragments']:
+                if isinstance(fragment, dict) and isinstance(fragment.get('id'), str):
+                    project_fragments.setdefault(fragment['id'], []).append({'disabled':source_data.get('disabled') is True})
         for i, name in enumerate(order):
             if not isinstance(name, str) or not name or name in (".", "..") or any(c in name for c in '/\\:\x00'):
                 issue("error", "project.json", "invalid chapter name in index")

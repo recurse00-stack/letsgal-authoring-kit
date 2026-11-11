@@ -1,36 +1,25 @@
-# 资料来源与范围
+# 资料来源与适用范围
 
-本指南依据官方资料、目标样本与注明版本的有限观察独立编写。2026-10-20读取[正式版清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)和[Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)，当时维护目标为 2.5.0 和 2.8.0-beta.1。当前正式版仍为 2.5.0；Beta 依据 2026-11-02 的 2.9.0-beta.1 隔离实测更新，并保留 2.8.0-beta.1 的版本限定资料，具体范围见[宿主验证](HOST-VALIDATION.md)。清单、安装状态与运行验收分别记录。
+2026-11-11 再次核对[正式清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)为 3.0.0，[Beta 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)为 2.9.0-beta.1。此处记录查阅日期，不表示清单此后不会变化；实际操作仍核目标实例。
 
-2.8.0-beta.1 的依据为官方 Beta 公告（Windows 发布时间2026-10-19T15:48:46.389Z）、当前获准 MCP 的 quickstart、script、stage、performanceStart、errors、preview-testing、扩展开发指导，以及本机随包 SDK。对照2.7.1：sdk-context.ts、extension-method.ts、types/block-schema.ts和constants.ts变化，types/schema.ts保持；这是相关文件比较，不是整个SDK验收。另核2.7.1界面更新r1的主要部位／皮肤表情规则。
+Stable 依据[3.0 更新说明](https://docs.avg-engine.com/updates/3-0-0)、该版宿主返回的 68 项工具 schema、quickstart／剧情／UI／扩展／预览参考，以及官方 init_program 生成的 SDK 3.0.0、llms.txt 和 Studio 组件类型。Beta 依据 2.9 的 67 项 schema、对应参考及 2.8 SDK／宿主资料。完整快照与逐项测试留维护记录，不复制进公共指南。
 
-[协作说明](https://docs.avg-engine.com/manual/overview/collaboration)明确发起账号需官方开通资格，仍为测试功能；页面其余整章锁／手动素材同步描述属于旧版，2.8操作契约以当前MCP指导为准。本次不推定任何账号已获资格。
+3.0.0 的 r1／r2 热修复说明来自官方客户端更新日志；本机官方 renderer-patch/current.json 登记 baseVersion=3.0.0、channel=stable、rev=2。更新偏好另为 beta，两者独立。r1 涉及旧 SDK 声明识别；r2 涉及热更新检查及正式版解包，保留旧 SDK 声明兼容。此说明不据此撤销既有三类 MCP 差异，相关运行证据仍按原范围。
 
-## 功能发现与实现选择
+## 按任务查询
 
-2026-11-01 查阅[官网功能全景](https://avg-engine.com/studio/features)：页面按最新版本组织 11 个领域，作为能力名称与制作入口的导航，不作为 2.5.0 或 2.8.0-beta.1 的完整接口保证。结合[官方 FAQ 的制作方式说明](https://docs.avg-engine.com/reference/faq)，主入口增加按需查询，区分原生配置、现有扩展与程序开发；不复制全量功能目录，也不把官方扩展当作已安装功能。
+| 任务 | 官方入口 |
+| --- | --- |
+| 功能选型 | [功能全景](https://avg-engine.com/studio/features)、[FAQ](https://docs.avg-engine.com/reference/faq) |
+| 剧情 | [JSON](https://docs.avg-engine.com/reference/script-json)、[分支](https://docs.avg-engine.com/manual/writing/blocks/branch)、[章节调度](https://docs.avg-engine.com/advanced/chapter-scheduling) |
+| 舞台与语言 | [角色](https://docs.avg-engine.com/manual/creating/characters/)、[动态图像](https://docs.avg-engine.com/manual/creating/dynamic-visuals)、[本地化](https://docs.avg-engine.com/manual/writing/localization) |
+| 扩展 | [官方 AI 指导](https://docs.avg-engine.com/extensions/llms.txt)、[创建扩展](https://docs.avg-engine.com/extensions/develop/)、目标 SDK 的公开类型与 studio-ui/README.md |
+| 连接与构建 | [MCP 接入](https://docs.avg-engine.com/manual/overview/mcp)、[构建](https://docs.avg-engine.com/manual/overview/build) |
+| 恢复 | [项目历史](https://docs.avg-engine.com/manual/overview/history)、[时光机](https://docs.avg-engine.com/manual/overview/backup)、[版本管理](https://docs.avg-engine.com/manual/overview/version-control) |
+| 版本与旧资料 | [引擎发布历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json)、[Skill 发行历史](https://github.com/recurse00-stack/letsgal-authoring-kit/releases) |
 
-新功能图描述每工程专属 MCP 地址，[接入手册](https://docs.avg-engine.com/manual/overview/mcp)仍给出全局地址示例。指引采用目标工程当前接入提示，并在连接后核工程身份；没有据此断言目标宿主已经采用某一种地址机制。本轮为资料与导航修订，未新增 Studio／Player 功能验收。
+功能图和网页按其查阅版本使用，不能代替目标工具契约。参考之间冲突时，工具参数查当前 schema，扩展方法查目标 SDK 类型，实际行为按同版本最小调用核实。例如 3.0 not-exposed 的跨系统构建限制与当前 supportedSystems／dry-run 不同，采用后者说明本机规划能力；这不等于目标产物运行已验。名称翻译及旧 branch 的跨章规则也分别对照当前接口，不外推到其他调用或 Beta。
 
-## 按任务查阅
+设置 reset、调度撤销及官方文件编辑的差异依据 2026-11-10 原始 MCP 返回和最小样本；区分契约、静态类型和观测，见[宿主范围](HOST-VALIDATION.md)。只有承诺支持的行为与实测不一致才归为缺陷。数据删除不支持普通撤销、未声明字段以及正常预览渲染边界分别按能力限制处理。
 
-- 剧情：[JSON参考](https://docs.avg-engine.com/reference/script-json)、[分支](https://docs.avg-engine.com/manual/writing/blocks/branch)、[If](https://docs.avg-engine.com/manual/writing/blocks/if/)、[调用片段](https://docs.avg-engine.com/manual/writing/blocks/call-fragment)、[章节调度](https://docs.avg-engine.com/advanced/chapter-scheduling)。2026-10-20 前期 Beta 适配读取了当时的 MCP callFragment schema：同章片段调用、结束返回，自调用最多静态展开 30 层；不再把旧网页冲突当当前 Beta 的操作前提。Stable 指引原样保留，既有引用不自动改写。
-- 本次补齐：[2.5功能说明](https://docs.avg-engine.com/updates/2-5-0)中的超链接三种动作，以及[场景管理](https://docs.avg-engine.com/manual/creating/scenes/)中的背景合成／分别创建，2026-10-10查阅；仅为资料依据，未新增功能实测。
-- 演出：[角色](https://docs.avg-engine.com/manual/creating/characters/)、[对白](https://docs.avg-engine.com/manual/writing/blocks/dialogue/)、[动态图像](https://docs.avg-engine.com/manual/creating/dynamic-visuals)、[浮字](https://docs.avg-engine.com/manual/writing/blocks/floating-text)、[本地化](https://docs.avg-engine.com/manual/writing/localization)。
-- 预览与发布：[编辑器](https://docs.avg-engine.com/manual/overview/editor)、[构建](https://docs.avg-engine.com/manual/overview/build)、[游戏统计](https://docs.avg-engine.com/manual/overview/game-stats)。网页基础描述、版本公告、目标保存形式与运行分别判断。
-- 恢复：[项目历史](https://docs.avg-engine.com/manual/overview/history)、[时光机](https://docs.avg-engine.com/manual/overview/backup)、[版本管理](https://docs.avg-engine.com/manual/overview/version-control)、[协作](https://docs.avg-engine.com/manual/overview/collaboration)。恢复覆盖不扩大修改授权；原生Git与同步上传不是同一动作。
-- 扩展：[官方AI指导](https://docs.avg-engine.com/extensions/llms.txt)、[创建扩展](https://docs.avg-engine.com/extensions/develop/)。实际接口以当前工程SDK及来源为准，不将声明等同运行通过。
-- MCP：[官方接入](https://docs.avg-engine.com/manual/overview/mcp)及当前服务instructions、quickstart、script/syntax、advanced/file-edit、guide/errors、guide/preview-testing；首次读取，工程／重连／版本／冲突变化时刷新。2026-10-08／09曾读取2.6.0-beta.1指导并做有限隔离测试，本修订不把它扩大为全部功能验收。
-- 版本：[更新日志](https://avg-engine.com/changelog)、[发布历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json)。以目标完整版本辨别，不累加公告条数作为能力或通过数量。
-
-## Beta 编辑界面专题来源
-
-2026-10-31 对照 2.8.0-beta.1 随 SDK 同步的 `studio-ui/README.md`、`settings.ts`、`params.ts`、布局与控件类型及 `templates/`，并参考“Studio 组件包演示”1.0.0（`avg.official.studio-ui-showcase`）可读构建代码。提炼通用设置页／检查器方法，不随 Skill 分发该演示、SDK 或插件专属业务内容；以目标工程当前公开契约为准。下载包与文档核对不等于宿主画面、保存或 Player 验收。
-
-## 设计与使用证据
-
-按需上下文与工具边界参考[OpenAI Skill设计](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)、[Anthropic工具设计与评估](https://www.anthropic.com/engineering/writing-tools-for-agents)；客户端工具搜索参考[官方说明](https://developers.openai.com/api/docs/guides/tools-tool-search)，创作者反馈参考[Wordcraft研究](https://magenta.withgoogle.com/wordcraft-writers-workshop)。这些是设计依据，不将其他产品的效果数字视作本项目收益。
-
-2026-10-05的2.5.0有限宿主记录、2026-10-08／09的MCP与模型记录继续按原范围引用；更早Beta资料与累积过程已从当前载荷移出。历史原文保留在维护归档和[已发布版本](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.1)，实际范围见[验证摘要](VALIDATION.md)。官网功能全景按最新版本汇总，手册与公告可能不同步；它们不能替代目标版本的完整 schema，旧版实测不转换为新版通过。
-
-Agent目录来源见[兼容表](COMPATIBILITY.md)，未在本修订重复验证所有客户端。公共示例不含私人作品、SDK副本、账号、实际本机地址；原始日志与含私人界面的截图不随包公开。安全默认、范围授权、至少一种恢复保护和有限检查器是本Skill的工作约定，不宣称为官方强制流程。
+Agent 目录来源和历史 provider 范围见[兼容说明](COMPATIBILITY.md)。公共示例使用合成内容，不含私人作品、个人偏好、插件私有指南、SDK 副本、账号或实际连接令牌。

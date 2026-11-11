@@ -4,7 +4,7 @@
 
 ## 连接与目标
 
-首次调用 `studio_get_status`，核完整版本、project.id、权限／工具组、保存／输入及协作状态；读取服务 instructions 和 quickstart，资源不可用时用 `studio_get_reference(topic="quickstart")`。后续复用有效信息，参数以当前 schema 为准。
+首次调用 `studio_get_status`，核完整版本、project.id、权限／工具组、保存／输入及协作状态；读取服务 instructions 和 quickstart，资源不可用时用 `studio_get_reference(topic="quickstart")`。同时完成[静默版本检查](version-compatibility.md#低频静默开工检查)；不匹配或热修复未知时先暂停目标执行并按该页取得本次许可。后续复用有效身份和检查结果，参数以当前 schema 为准。
 
 2.9 多窗口记录“当前端点 → project.id”对应关系。切换工程、重连、冲突、等待确认或长操作后刷新相关状态，再决定写入；以读取确认归属。revision 使用宿主返回的不透明值。
 
@@ -60,13 +60,14 @@
 
 ## 外部编辑与无 MCP 回退
 
-普通修改用专用工具。确需官方文件会话时读 advanced-file-edit：
+普通修改优先专用 MCP。确需官方文件会话时先读当前 advanced-file-edit：
 
-1. `studio_file_edit_begin` 声明对象，取得真实会话及允许路径。只有真实 begin 才取得文件写入范围。
-2. 章节只改既有片段 blocks；变量只改指定项同类型 defaultValue／description。结构新增用专用工具，ui／databases／config／extensions 等 unverifiedChanges 留在会话范围外。
-3. `studio_file_edit_end(action="commit", dryRun=true)` 核 changedFiles、对象及警告，再 commit 并从 Studio 读回；放弃用 abandon，到期或连接关闭后重新 begin。
+1. `studio_file_edit_begin` 声明对象，取得真实会话、有效期及允许路径。保存拟修改前的原文；会话过期、断连或权限变化后重新核状态。
+2. 章节只改既有片段 blocks；变量只改指定项同类型 defaultValue／description。结构新增用专用工具；ui／databases／config／extensions 等 unverifiedChanges 不作为可直接提交范围。
+3. 写入后立即读实际文件，再执行 `studio_file_edit_end(action="commit", dryRun=true)`，比较预期差异、changedFiles、fragments 和警告。预期有修改却返回空变更、文件回到原文或差异不符时，**停止 commit**，在会话外保留拟写内容，核会话／有效期／保存与编辑状态。
+4. 差异符合范围才 commit，再从 Studio 读回正文、ID 和非目标字段。无变化返回成功只表示没有提交变更；写入结果未知先读回，不能反复覆盖文件。需换专用接口时先安全 abandon 并核状态，重新读取对象和 revision，再在已有授权范围内定向写入；只读或拒绝不能绕过。
 
-**2.9 空提交排查**：预期修改却返回 `changedFiles=[]`／空 fragments，或文件被恢复时，检查会话范围和并行保存。保留差异，有限复核后用专用 MCP 定向提交，以读回正文确认完成。
+**2.9 历史现场**：曾出现预期改动没有进入 changedFiles／fragments 的空提交。按当前文件、会话和返回确认实际结果；不把其他宿主的复现细节直接当作本版本原因。
 
 界面操作使用当前任务明确许可。连接故障先走恢复流程；只读、关闭工具组或明确拒绝须保持。获准操作时核窗口、工程、焦点与未保存内容，保留他人连接。
 

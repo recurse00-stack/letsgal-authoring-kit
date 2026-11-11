@@ -1,76 +1,32 @@
-# LetsGal Authoring Kit · 社区 Skill
+# LetsGal Authoring Kit
 
-**0.2.8 · 20261103-beta290** 面向 Studio **2.9.0-beta.1** 更新 Beta 制作指引：嵌套分支、演出与口型、多窗口连接、后台循环、集合编辑和桌面构建。资料按任务组织，保留旧内容维护、连接恢复与精确清理方法。正式版 2.5.0 功能内容保持，Beta 同时保留 2.8.0-beta.1 的版本限定路线。
+让 AI 按目标版本协助制作 LetsGal Studio 的剧情、分支、演出、UI、数据和扩展，并保留已有内容、读取相关资料、核对修改结果。这是社区 Skill，不包含引擎、模型、账号或 MCP。
 
-**发行版本：0.2.8 · 20261103-beta290。** 完整主包包含正式版与 Beta，按工程通道选择一份：[发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.8) · [完整主包 ZIP](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.8/letsgal-authoring-kit-0.2.8.zip)。协作附加包保持 **0.1.3**，仍从[原发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)单独下载；主包更新保留已有启停状态。
+当前版本 **0.2.9 / 20261111-stable300**。Stable 目标 **3.0.0**；Beta 目标 **2.9.0-beta.1／2.8.0-beta.1**。两个通道都优先官方 MCP，安装时选一份同名载荷。[下载 0.2.9](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.9)；2.5 完整资料和旧版安装包保留在[历史发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。
 
-本版分 **正式版 / Beta** 两份Skill，安装时按目标工程选择一份，名称仍为`letsgal-authoring`。切换时备份旧版并保留个人区。公版至少一种有效恢复保护，优先引擎项目历史；Git可选。见[正式版指南](channels/stable/MANUAL.md)、[Beta指南](channels/beta/MANUAL.md)。
+## 开始使用
 
-`letsgal-authoring` 帮助 AI 在 LetsGal Studio 工程中制作剧情、分支、变量与章节 JSON，查找官方资料、处理扩展及 Git 协作。它是独立社区 Skill，不包含引擎、模型、账号或 MCP；实际能力取决于 Agent 的工具和项目权限。
+1. 完整解压包，在 Windows 双击 Install.cmd。
+2. 选目标工程对应的 Stable／Beta、实际 Agent 与范围，核目标路径后导入并检查安装。
+3. 新会话让 AI 实际读取 letsgal-authoring，核对路径、修订和通道，再连接目标工程。
+4. 从[完整剧情练习](docs/wiki/03-story.md)或一次明确范围的改句开始。
 
-本包版本 **0.2.8**。正式版与Beta分开安装；Beta支持官方MCP优先的制作流程，两份都包含按任务读取、创作反馈整合和已有内容保护。安装器支持更新、通道切换、完整备份与文件检查；不会更新引擎。公开下载以[GitHub Releases](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/latest)实际列出的版本为准，旧版本与发布凭证保留。
+[分主题 Wiki](MANUAL.md) · [完整离线 HTML](MANUAL.html) · [目录兼容](COMPATIBILITY.md) · [手动安装／参数](docs/wiki/08-maintenance.md#查阅手动安装与命令行)
 
-入口：[使用手册](MANUAL.md) · [离线 HTML](MANUAL.html) · [Agent 与目录兼容](COMPATIBILITY.md) · [验证范围](VALIDATION.md) · [资料来源](SOURCES.md) · [版本记录](RELEASE-NOTES.md)。
+普通 Windows 安装不要求 Python、Node 或管理员权限。可选检查脚本需要 Python 3.9+。其他系统手动复制所选通道的完整 Skill，并核对实际发现；云端和本机是不同环境。
 
-已有小样本测试中，Skill帮助部分任务减少重复调用、漏检和具体操作错误；不承诺普遍提速或固定消耗收益。安装、升级与恢复检查另行记录。简述见[实际帮助](MANUAL.md#从测试中看到的实际帮助)。
+## 0.2.9 的变化
 
-**使用前请备份作品并限制 Agent 可写范围。AI 可能误改、误删或泄露资料；安装器的 Skill 备份不包含作品。** 本包按现状提供，不提供担保；作者及贡献者不对因使用或无法使用本包造成的损失承担责任。详见 [风险说明与免责声明](channels/beta/skills/letsgal-authoring/references/risk-notice.md) 和 [隐私说明](PRIVACY.md)。
+开工前静默核完整版本和热修复基线，同一目标与任务复用结果；不匹配时暂停工程操作，由当前使用者一次明确同意限定范围后继续。更新偏好与实际版本分别识别，正常匹配不打扰、不反复联网。
 
-## Windows 安装
+按 3.0 复测将设置默认态、调度撤销和文件编辑会话的差异放到执行入口前；撤回把不支持的普通删除撤销当作缺陷的旧说明。Beta 同步通用恢复与插件指南读取规则，补齐适用的翻译逐项拒绝处理和 else 检查，保留版本专属边界。
 
-1. 下载完整安装包 `letsgal-authoring-kit-0.2.8.zip`，解压到普通文件夹，再双击 `Install.cmd`。不要在 ZIP 内运行，不要单独运行摘出的 `Install.ps1`。
-2. 先选目标工程对应的正式版或 Beta，再选择实际使用的 Agent，一般采用“个人 · 所有项目”；只给一个作品用时选择“项目 · 仅此工程”并浏览工程目录。
-3. 核对最终目录、所选／已装通道、本包／已装版本及预览状态，点击“导入到 …”。底部固定状态栏显示处理和完成结果。
-4. 展开“更多选项”，点击“检查安装”。底部显示“检查安装 · 校验通过”，页面结果框标题为“安装文件校验通过”。如果通道、版本或修订内容不同，会明确显示差异；核对后决定是否导入，不据此判断本包更新；文件完整不等于与所选通道一致。再复制验证提示词，在 Agent 新会话中核对实际加载路径与 metadata.channel。
+人工手册按八个任务主题重写；同一正文生成一份完整离线 HTML。个人偏好和插件指南继续独立保存在实际用户区，不进入公共包；主 Skill 按真实 ID／版本主动读取，即使子包没有列入全局技能列表。
 
-普通导入需要 Windows PowerShell 5.1 或 PowerShell 7，不要求 Python、Node 或管理员权限。可选只读工具需要 Python 3.9+。macOS／Linux 等环境按 [手动安装](MANUAL.md#手动安装与命令行) 复制完整 Skill，自动安装器仅支持 Windows。
+## 使用边界
 
-## 路径可以手动选择
+安装器更新、切换和卸载保留用户区与备份，不升级引擎、不配置 MCP、不启用暂停资料。协作附加包为独立产品，0.1.3 的原下载入口保留在[原发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)，主包更新不改变其启停状态。
 
-发行包没有绑定作者的盘符或用户名。软件安装目录和 Skill 目录分别管理：Agent 或 LetsGal 装在其他盘，仍使用标准技能目录时，选择对应 Agent 的个人模式即可。
+开始前准备作品备份并设置可写范围，见[使用与备份说明](RISK-NOTICE.md)。数据保存方式见[隐私](PRIVACY.md)，已验证的任务及适用条件见[验证说明](VALIDATION.md)和[宿主范围](HOST-VALIDATION.md)。
 
-Codex 个人安装沿用唯一已有的 `~/.codex/skills/letsgal-authoring` 或 `~/.agents/skills/letsgal-authoring`；全新默认 `~/.agents/skills`。两处已有同名 Skill 时，安装器停止自动选择。`~` 是运行安装器的用户主目录，请与 Agent 使用同一用户／环境。
-
-如果 Agent 另设了数据或技能目录，先确认它实际读取的位置，再选“其他 Agent / 指定目录”，点击“浏览…”或粘贴已配置的 **skills 根目录**。安装器追加 `letsgal-authoring`，不要选择末级 Skill 文件夹或程序文件夹。DSH 可在专用选项中选择实际数据目录。
-
-安装器不扫描整盘、不读取账号配置、不自动解析所有便携目录或自定义 `CODEX_HOME`，也不修改 Agent 的发现设置。文件校验通过只证明安装文件状态，加载仍需在新会话确认。详见 [安装位置说明](MANUAL.md#安装位置怎样选择)。
-
-## 官方 MCP 可选接入
-
-Beta 推荐官方 MCP；确认未配置时可说明接入方式，不自动注册。工具缺席先定向发现并实际调用；必要时有限单服务器重连，失败说明后询问 Computer Use，不自动托底。在已有官方 MCP 时，优先使用当前实例提供的工具；首次读取官方快速指南，按目标工程、权限和 revision 工作。接入方式见 [人类手册](MANUAL.md#官方-mcp-与无-mcp-两种用法)。安装器只导入 Skill，不配置 MCP、不改变确认选项。
-
-没有 MCP 的正式版及未启用环境继续使用原有功能；直接编辑磁盘前须保存并关闭目标工程。Beta 标签本身不要求启用 MCP，也不为使用 Skill 自动升级引擎。
-
-## 开始一个任务
-
-安装或启用前，建议在 Agent 设置中暂时停用其他功能重叠的 LetsGal／引擎创作 Skill，核对个人和项目范围是否存在重复入口。保留原文件与特调，由你选择使用哪份；安装器不会自动禁用其他 Skill。
-
-在作品目录打开新会话，调用 `letsgal-authoring`，可以粘贴：
-
-> 使用 letsgal-authoring。先读本工程的规则和当前状态，核对实际 Skill 路径及 Studio 完整版本／通道。只处理我指定的内容，保留已有 ID、未知字段和其他改动；缺少版本或字段依据时说明 UNKNOWN，继续不依赖它的工作。完成后说明文件变化、实际验证结果和需要我预览的入口。
-
-第一项练习可从手册的 [完整双选项案例](MANUAL.md#从选择练习走完一个最小完整案例) 开始。Skill 不要求先验收引擎全部功能；本次使用哪个功能，就核对对应资料、样本和必要行为。
-
-## 正式版与 Beta 按工程选择
-
-Skill 包版本和引擎版本独立。稳定版、Beta 和旧工程均先核对目标宿主；不以作者本机 Beta 为默认，不因更新 Skill 升级引擎、迁移作品或刷新已导出的游戏。
-
-正式版当前登记 **2.5.0**；Beta 当前登记 **2.9.0-beta.1**，并保留 **2.8.0-beta.1** 的版本限定路线。通道不符、未知、旧版或冲突返回 UNKNOWN；无版本依赖工作继续，不自动升级引擎。每份安装载荷自包含，另一通道无需同时安装。
-
-Beta 按[任务入口](channels/beta/skills/letsgal-authoring/SKILL.md)进入剧情配音、素材舞台、演出时间轴、预览构建等专题，主入口与执行流程各有职责。多人权限、占用和同步由独立 letsgal-collaboration 附加包维护；测试过程放验证报告。两条通道分别完善附加包启停与设置恢复，保留各自宿主流程；主包显示名不再混称多人协作。验证范围见验证报告，不宣称普遍效果提升。
-
-## 多人协作附加包
-
-[letsgal-collaboration 0.1.3](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/download/v0.2.3/letsgal-collaboration-0.1.3.zip) 专门处理多人权限、占用、版本冲突和同步检查；通用剧情、演出与 UI 方法由主包维护。它适用于已获准参与 Studio 2.8.0-beta.1 多人内测的账号，不提供房间服务或开通权限。
-
-先解压协作包，再运行其 `Install.cmd` 或 `python install.py` 查看预览。已有主 Skill 时，附加包进入独立用户区并登记索引；没有主 Skill 时可独立安装。需要 Python 3.9+，详细步骤与限制见[协作包手册](https://github.com/recurse00-stack/letsgal-authoring-kit/blob/v0.2.3/addons/letsgal-collaboration/USER-GUIDE.md)，[源码](https://github.com/recurse00-stack/letsgal-authoring-kit/tree/v0.2.3/addons/letsgal-collaboration)位于主仓库的 addons 子目录。
-
-## 个人偏好、插件资料与升级
-
-附加包按 `~/.letsgal-authoring/addons/INDEX.md` 和个人设置中的启用状态按需读取；暂停时保留文件并跳过加载，安装／升级不自动恢复。
-
-个人偏好保存在 `~/.letsgal-authoring/preferences/user.md`，旧版根目录 `user.md` 原位兼容；插件使用 Skill 保存在 `~/.letsgal-authoring/plugins/<插件ID>/<版本>/SKILL.md`。主 Skill 按项目选择读取，插件代码和运行安装仍由原扩展工程／Studio 管理。主 Skill 不作为自己的子插件安装。
-
-项目约定写工程 `LETSGAL.md`。公共更新和卸载保留用户区、旧版及已有备份；如果公共 Skill 有特调，先比较并保全，再决定“备份后继续”。完整步骤见 [更新、卸载与恢复](MANUAL.md#更新卸载与恢复)。
-
-本产品仅在 GitHub／社区分发，工坊不适用。程序、说明和验证范围见 [修订记录](AUDIT.md) 与 [验证报告](VALIDATION.md)；未宣称所有 Agent、引擎版本或平台都已测试。
+[资料来源](SOURCES.md) · [版本记录](RELEASE-NOTES.md) · [问题反馈](https://github.com/recurse00-stack/letsgal-authoring-kit/issues)

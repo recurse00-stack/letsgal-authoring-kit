@@ -2,9 +2,9 @@
 name: letsgal-authoring
 description: 制作和修改 LetsGal Studio 的剧情、分支、演出、UI 与扩展，处理工程格式及运行排错；一般创作讨论不自动写入工程。
 metadata:
-  version: 0.2.8
+  version: 0.2.9
   channel: beta
-  revision: 20261103-beta290
+  revision: 20261111-stable300
 ---
 
 # LetsGal Beta 创作
@@ -12,6 +12,10 @@ metadata:
 适用 **2.9.0-beta.1**，保留 **2.8.0-beta.1** 路线。优先官方 MCP；连接异常按[恢复流程](references/troubleshooting.md#工具消失或断连)处理，界面托底须有当前任务的明确许可。
 
 ## 按当前任务读取
+
+本会话首次执行工程或扩展操作前，先检查实际 AI 用户主目录的 `~/.letsgal-authoring/preferences/user.md`；存在就读取并应用与当前任务相关的约定，不能只读主 Skill 后跳过。已读且仍有效的信息可复用；用户告知偏好更新或相关上下文缺失时重读。旧路径兼容、缺失与冲突处理见[个人定制](references/customization.md)。
+
+涉及已有插件的使用或维护时，先按[插件知识](references/plugin-skills.md)核对 ID／版本并读取用户区对应指南；不必等用户再次点名子包，也不因它未单独列在 Agent 技能列表中而跳过。
 
 讨论使用已有创作上下文；操作工程时读项目规则、简短当前状态及目标原文。只读取下表中与任务相关的专题或章节，复用仍有效的上下文。
 
@@ -29,9 +33,11 @@ metadata:
 | 撤销、恢复、多人范围 | [恢复与协作](references/collaboration-git.md) |
 | 临时文件、删除占用 | [精确清理](references/asset-cleanup.md) |
 
-首次依赖版本能力或宿主变化时查[版本边界](references/version-compatibility.md)。有未读偏好或配置冲突时查[个人定制](references/customization.md)；附加包按启用状态加载，暂停项保持暂停。
+工程操作开始前执行一次[低频静默版本检查](references/version-compatibility.md#低频静默开工检查)，比较完整宿主版本与热修复基线；同一有效实例／任务复用结果。正常匹配不提示、不反复联网。不匹配先暂停目标执行，只在当前使用者明确同意本次例外后继续；纯讨论不触发。附加包按启用状态加载，暂停项保持暂停。
 
-## 操作底线
+设置重置前读[默认态与恢复](references/extensions.md#设置存档与资源)；调度修改前读[完整调度恢复](references/collaboration-git.md#限定恢复与读回)；官方文件会话写入前读[空差异处理](references/mcp-workflow.md#外部编辑与无-mcp-回退)。
+
+## 修改与交付
 
 - 按授权范围修改。保留已有／已采用内容和后来编辑；本次受托草稿可连续迭代，部分采用只整合相应部分。
 - 写前备有覆盖改动的恢复点；写后读回目标。保留稳定 ID、富文本及非目标字段，按改动验证相关行为。格式兼容见 [JSON](references/json.md#序列化与保真)。

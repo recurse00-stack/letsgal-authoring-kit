@@ -25,7 +25,7 @@ ui_read 的 documents／slots 定位实际文档、来源、可写性和槽位�
 
 theme_edit 写样式，theme_apply 选择生效样式；读 current 的 source、id、selectedExplicitly，再核画面。测试前保存原选择与恢复点；原先未显式选择时，用限定配置恢复并读回这三个字段。
 
-鉴赏排序使用扩展设置中的分类数组，以实际条目 ID／资源路径读写，核顺序和鉴赏页。2.9 reset 后出现“持久值已清、无 value、isDefault=false”时，先核保存结果，待安全重载后再读默认标记；该样本重载后恢复 true。
+鉴赏排序使用扩展设置中的分类数组，以实际条目 ID／资源路径读写，核顺序和鉴赏页。重置排序前先读[设置默认态与恢复](extensions.md#设置存档与资源)，保存原值和默认态，再逐项读回。
 
 ## 数据表的编辑与运行
 
@@ -33,6 +33,6 @@ database_read／database_inspect 核表、列类型、契约、扩展依赖及 r
 
 upsert_rows 新增时省略 id，让宿主生成；修改使用现存 ID 和 expect。结构修改带 baseRevision，冲突重读；字段按列类型写入。
 
-删行前保存原行、ID 和引用，核 project_delete 范围及确认。撤销后读回原 ID、字段和引用。**2.8／2.9 的删行撤销样本返回成功却 targets=0，原行未恢复**：核快照及后续编辑，再通过 history_restore 限定原集合文件恢复；2.9 样本恢复了原 ID。仅无保留引用且可重建的测试数据可用新 ID 向前修复。
+删行前保存原行、稳定 ID 和引用，并取得覆盖集合文件的项目历史恢复点；核 `project_delete` 的范围、dry-run 和原生确认。其契约不支持 `history_undo`，不能用普通 undo 的成功或零目标判断删行恢复。需要恢复时审阅 `history_restore` 的 filesToWrite／filesToDelete，限定集合文件并保留后来编辑，读回原 ID、字段及引用。素材删除另按返回的隔离区恢复入口处理；具体恢复方式由该操作契约决定。只有已获准重建且不需保留引用的测试行才可创建新 ID。
 
 游戏数据通过扩展依赖或 UI 数据源访问；交付时验证消费者读取、绑定和所需存档范围。

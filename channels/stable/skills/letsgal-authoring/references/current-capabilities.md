@@ -1,27 +1,18 @@
-# 资料索引与证据 · 正式版 2.5.0
+# 资料与证据索引 · Stable 3.0
 
-本页是任务资料与已知边界索引，不是引擎全部功能清单；能力未知时走[查询与选型](research.md#先确认能力再选择做法)，不能从本页缺项推断不支持。
+此路径供版本检查脚本返回。按[任务入口](../SKILL.md#按当前任务读取)选择专题；查询未列能力使用[官方选型入口](research.md#先确认能力再选择做法)。
 
-本载荷维护 **2.5.0 / stable**，不是对本机安装或全部功能的验收。版本冲突按[版本边界](version-compatibility.md)处理；当前字段取目标样本，执行走[原生／离线流程](file-workflow.md)。
+| 任务 | 需要注意的版本条件 | 详情 |
+| --- | --- | --- |
+| 剧情 | 新建嵌套菜单／条件；旧 branch 可跨章调用唯一启用片段，旧 if／普通 call 仍限同章 | [剧情](story-and-voice.md#剧情变量与流程)、[JSON](json.md#引用与控制流) |
+| 多窗口 | 端点与工程 ID 配对；studio_open_project 会切换本窗口，独立窗口另行初始化 | [MCP](mcp-workflow.md#连接与目标) |
+| 演出 | 配置后在剧情启用；粒子准备贴图；循环明确停止 | [舞台](stage-and-assets.md)、[演出段](performance.md) |
+| 桌面构建 | 按当前 supportedSystems 选择目标 | [构建](preview-and-build.md#构建与导出) |
+| Steam | 按连接、结果和恢复状态处理 | [Steam](extensions.md#steam-接入) |
+| 设置 reset | 写前保存值与默认态，写后逐项读回；内置壳也有默认态差异 | [设置](extensions.md#设置存档与资源) |
+| 调度撤销 | 核模式、策略、完整图和入口数，数量恢复不等于完整恢复 | [恢复](collaboration-git.md#限定恢复与读回) |
+| 文件会话 | 预期有改动却 dry-run 空变更时停止 commit | [文件编辑](mcp-workflow.md#外部编辑与无-mcp-回退) |
+| 删除恢复 | project_delete 不支持普通 undo；按数据历史／素材隔离区恢复 | [数据表](ui-and-data.md#数据表的编辑与运行)、[精确清理](asset-cleanup.md) |
+| 未声明字段 | 不假定任意键都能往返，这属于格式契约边界 | [格式兼容](json.md#序列化与保真) |
 
-## 剧情与变量
-
-见[剧情、变量与本地化](story-and-voice.md)，包括 If 历史判断与 main 调用的证据限制。
-
-## 演出与素材
-
-见[舞台与素材](stage-and-assets.md)。
-
-## 预览与导出
-
-见[预览与构建](preview-and-build.md)，区分继承、玩家与导出格式。
-
-## 扩展开发
-
-见[扩展专题](extensions.md)，只在相关任务读取。
-
-## 适用证据与限制
-
-既有 2.5.0 有限测试覆盖过预览继承变量、If 同块复用风险、一个无环 A→main 调用、两条基础路线及部分玩家／读档／导出，不证明所有路径。旧 Beta 循环、历史 API 与模型案例不升级为正式版通过；只有依赖未确认行为的步骤才补证。
-
-维护目标的历史来源：[正式清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)（2026-10-10 读取）、官方公告与基础手册；不能据历史读取声称今天最新版仍为此版本。
+2.8 的扩展参数校验缺口、识别 BUSY 及高级调度定位条件，分别保留在[扩展](extensions.md#参数与校验)、[声音](story-and-voice.md#本地化与语音识别)、[预览](preview-and-build.md#预览范围)的版本段落。3.0 不直接继承这些运行结论；按受影响路径的实际结果处理。完整实测证据随发行验证说明维护。

@@ -1,33 +1,28 @@
-# 按问题取得资料
+# 定向查证
 
-先用当前工程已有样本及已核实资料；同工程、宿主与SDK未变时可复用。纯文字修改不自动联网、查SDK或读取版本历史。字段未知、能力变化或证据冲突时只查相关部分。
+字段未知、能力变化或证据冲突时读取。复用工程中仍适用的证据，按问题补齐缺项。
 
 ## 先确认能力，再选择做法
 
-用户问“能不能做”或尚未确定实现方式时，先在[官网功能全景](https://avg-engine.com/studio/features)搜索目标与近义词，定位功能名称，再进入相关官方用法。比如“静态立绘呼吸／对嘴”查网格动画／口型同步，“道具面板”区分数据集合、可视化 UI 与工坊扩展；不因本 Skill 或工具列表没有同名条目就判定引擎不支持。已有可靠依据的普通修改不重复查询；官网不可达时转用下列文档、目标宿主指导或已核实样本，不把访问失败当作不支持。
+能力查询先在[官网功能全景](https://avg-engine.com/studio/features)搜索目标和近义词，再读对应官方用法。例如立绘呼吸／对嘴查网格动画／口型同步，道具面板查数据集合、可视化 UI 与扩展。官网不可达时使用官方文档、目标宿主指导或已核实样本。
 
-功能图注明按最新版本汇总，未逐项限定 Stable／Beta；它是发现入口，不是目标版本的字段、工具或兼容承诺。分清四件事：引擎是否有该功能、当前宿主／平台是否适用、当前接口与权限是否可用、作品中是否实际验证。某层未知只补该层依据；“官网有”“MCP 没有”和“作品已通过”不能互相替代。
+功能图汇总最新能力；落到任务时核 **目标版本／平台 → 可用接口 → 实际配置与运行**。只补未知的一层。界面功能查当前工具 schema 确认 MCP 入口，构建系统查 supportedSystems，角色演出查剧情启用方式。
 
-未指定技术路线时，先核原生指令、角色／场景配置和可视化 UI 是否满足目标；需要现有扩展时核真实 ID、版本、安装／启用状态及适用范围，最后为缺口开发程序。功能图中“官方扩展”仍需从工坊安装，并不代表已内置或已在本工程启用；不因同名系统替换项目现有实现。用户明确要求程序开发时沿其目标执行，不把此选型顺序变成强制返工。
+未指定路线时优先复用原生配置、指令和可视化 UI；需要扩展时核真实 ID、版本及本工程启用状态，再为缺口开发程序。标注“官方扩展”的功能仍需检查安装状态。用户明确要求程序开发时沿该目标执行，保留既有系统与源码归属。
 
-常规标题页／菜单／HUD 可先核可视化 UI；需要复杂动态逻辑时再评估控制器或程序界面。游戏 UI 与扩展在 Studio 内的设置页／检查器分别查对应专题。作品已有源码、授权与状态归属保持，不为查看能力顺带安装、启用、升级或发布。选型背景见[官方 FAQ](https://docs.avg-engine.com/reference/faq)，具体参数仍以目标契约为准。
+标题页／菜单／HUD 可先评估可视化 UI，复杂动态逻辑可用 TypeScript 控制器和 ctx.visualUI；可视化页面不能表达的需求再评估 React。扩展在 Studio 内的丰富设置页优先使用[编辑组件](studio-editor-ui.md)，少量简单字段可以保留自动表单，游戏页面使用[UI](ui-and-data.md)。选型背景见[官方 FAQ](https://docs.avg-engine.com/reference/faq)。
 
-## 查找顺序
+## 按问题选择依据
 
-1. 定位目标和同类已工作的内容，取得真实对象、字段与引用；样本只能证明其保存形式。
-2. 看[当前能力](current-capabilities.md)对应主题。通过MCP操作时，当前服务schema／官方指导决定工具参数；扩展开发另查目标SDK公开导出。
-3. 从[官方文档](https://docs.avg-engine.com/)导航或定向搜索进入正文。llms.txt失效就用站内导航，不停在404；不凭搜索摘要生成字段。
-4. 资料冲突时记录来源、版本和冲突点，不选一页就判已有数据损坏；暂缓依赖未知事实的写入，继续已确认内容与独立草稿。
-
-| 问题 | 资料入口 |
+| 问题 | 优先依据 |
 | --- | --- |
-| 宿主与通道 | [版本边界](version-compatibility.md)、[正式清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)、[Beta清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json) |
-| 字段／选项／变量 | [JSON](https://docs.avg-engine.com/reference/script-json)、[Branch](https://docs.avg-engine.com/manual/writing/blocks/branch)、[变量](https://docs.avg-engine.com/advanced/variables) |
-| 跨章与蓝图 | [章节调度](https://docs.avg-engine.com/advanced/chapter-scheduling) |
-| 扩展接口 | [扩展AI索引](https://docs.avg-engine.com/extensions/llms.txt)、[运行时接口](https://docs.avg-engine.com/extensions/api-context)与目标sdk/index.ts |
-| 协作／恢复 | [协作](https://docs.avg-engine.com/manual/overview/collaboration)、[项目历史](https://docs.avg-engine.com/manual/overview/history)、[时光机](https://docs.avg-engine.com/manual/overview/backup) |
-| 旧版追溯 | [发行历史](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)、[引擎公告历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json)，仅在任务需要时查 |
+| 工具和参数 | 当前状态、tools/list、schema、studio_get_reference |
+| 扩展 API／类型 | 目标 SDK 公开导出、sdk/llms.txt；编辑组件另查 studio-ui/README.md |
+| 原有数据的保存形式 | 对象原文和同类有效样本 |
+| 玩家行为 | 同目标版本的真实运行／交互 |
+| 宿主和通道 | [版本边界](version-compatibility.md)、[正式清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)／[Beta 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json) |
+| 官方用法与历史 | [文档](https://docs.avg-engine.com/)、[扩展索引](https://docs.avg-engine.com/extensions/llms.txt)；追溯时查 [Skill 发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)／[引擎历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json) |
 
-官网手册、公告、SDK声明、保存样本和运行结果是不同证据。Beta公告不是完整参数规范；旧版观察不自动成为当前版结论。证据缺失用UNKNOWN说明具体缺项，不把整个任务一并阻断。
+索引失效就从官方导航定位正文；当前宿主指导与旧网页冲突时核对当前 schema、SDK 类型及最小调用。宿主参考也可能滞后：例如 3.0 not-exposed 的跨系统构建／名称翻译限制，应分别对照 build_read.supportedSystems 和 l10n_read.names／l10n_write 的实际返回，记录采用依据。行为与契约冲突时保存最小输入、版本和结果；未声明字段按格式兼容限制处理，承诺支持的行为失败才记为缺陷。
 
-需要长期复用的结论写回项目已有说明：主题、完整链接、查阅日期、适用版本、所用字段与实际验证层次。保留必要结论，不复制整站、公告全集或私密过程到公共Skill。离线资料标明日期，不能为补资料自动升级宿主或降低SDK要求。
+UNKNOWN 写明具体缺项，继续已有证据覆盖的工作。需要补版本依据时定向查询，保留现有宿主和 SDK 要求。可复用结论归所属专题；完整来源、测试过程和未验项归维护记录。

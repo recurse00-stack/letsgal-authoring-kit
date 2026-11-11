@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "channel": "beta",
   "profile_schema": 1,
   "files": [
@@ -20,55 +20,55 @@
     },
     {
       "path": "references/asset-cleanup.md",
-      "sha256": "3415ed9988782737553adced103fb42f73a67f818cbe2f35d91cc0730f32086e"
+      "sha256": "685660b268adcdab6d05516cc43a54757d1501bd3bb3d1cfbe1752cd6b052b5d"
     },
     {
       "path": "references/collaboration-git.md",
-      "sha256": "ccac03d518840c335c73e6f23d3eca23b391c19b4ed6c6b28770938d6336f91b"
+      "sha256": "4e90a2c1d61e40ebbafebdfe1cba424b55f04b1e8f2f7bba7b9192c9428507e9"
     },
     {
       "path": "references/current-capabilities.md",
-      "sha256": "e13ba5ec569ca0796061c7686c0a49fbdbb66d28c3b08925bc0d575cf5270334"
+      "sha256": "64b0c9c6e6522e0831482d48e48d0042473109e73023ed72a208872fe1ef4b62"
     },
     {
       "path": "references/customization-maintenance.md",
-      "sha256": "ab9fc79d015a58e85ccd8813118faf859e53cb3d95671c0bf64b79eb5615b6a1"
+      "sha256": "91e00a6ad4ebef122d73bd43372cb8297f4faf22d0d0a2d48a77af2999ac1059"
     },
     {
       "path": "references/customization.md",
-      "sha256": "049e80d18d7bc94298748ed8884525a7cc1121521ddae28084ae16402738c8b3"
+      "sha256": "dda0fc3d9f5fda7b39d6e3909c52cbc5052713c0971f6c481b5af4654db9b3a9"
     },
     {
       "path": "references/extensions.md",
-      "sha256": "fa410d1985aa39fd145018b78f0cd619580fe58c34c11fb0af3ddc7fe10e488d"
+      "sha256": "d3c623c9e3afbebc1995eada9501f691f661c67826d228d2993b9c74f6c155d8"
     },
     {
       "path": "references/git-workflow.md",
-      "sha256": "9dba16e3c5d588681fc5398b51594da15613b01f0021f831ae822316b573ef7d"
+      "sha256": "951977a610fbb62cca884daf63597e94ea29a2275814d3da493bfd4e91702077"
     },
     {
       "path": "references/json.md",
-      "sha256": "e8fa124147c87c325f7ed1cf73d6d145d2dec0979543945bcf286209e654baaf"
+      "sha256": "3f68cc9b424d6625460033c1bdd84b98ad0a2710f725d9f213fc1f7ba0a9ead7"
     },
     {
       "path": "references/mcp-workflow.md",
-      "sha256": "b50240dc322cf1382a97b5742b6601639ea13b56bfc78b424e613a7cd798ef1c"
+      "sha256": "f05b4f1ccf206748a606e9905106cf9dcb9bc5411e794d1f48fd2d4728884514"
     },
     {
       "path": "references/performance.md",
-      "sha256": "473147b7c72098d803677ac1bf6e449a50f3de6cd1bd1286dba2a20638b92fdc"
+      "sha256": "f8964d72736ca9ffcfa34898ed310eab1985e25e4b541ab94769e267ffe57b04"
     },
     {
       "path": "references/plugin-skill-authoring.md",
-      "sha256": "f0a920315a75a08be7c7c8c434b2798a9df13e65a3d2ca79c6577c33172e9cb9"
+      "sha256": "de1285b4d7cf286bb5786087df256d05af155e785613c83e4cba4cc7afde9f35"
     },
     {
       "path": "references/plugin-skills.md",
-      "sha256": "b4f5beaad80af51035cacc9f361671edadadaafc9555af65bda46b2e24193b1e"
+      "sha256": "7c56c5e59e981ca0657eab7539aa30ca0782594f4c19a0df9584d3b370cbf830"
     },
     {
       "path": "references/preview-and-build.md",
-      "sha256": "82f1fd786d0373331bd801cbeb97fa5810f3898ece30782b5d3914371d9bbd13"
+      "sha256": "d20d536f12e257fc6b000f20fed60ae175749effd9c15089474c649fcbee060c"
     },
     {
       "path": "references/production.md",
@@ -76,23 +76,23 @@
     },
     {
       "path": "references/research.md",
-      "sha256": "c71dca56f35715e9f924d6c85f8a650a7997ecb854857476af9c995d13944fb4"
+      "sha256": "bb7f92ab17a20fd382cc73b553a9e3444b1b0b8845990d0ab7b1b1541046d894"
     },
     {
       "path": "references/risk-notice.md",
-      "sha256": "814b5d9deac0b417f7ac2625403ba80262ff9b3409f67480909b238ed99e830f"
+      "sha256": "5a8aa87b55cbdbd26b4e5c5ab537b95150a51b1e61b1c40081e82c00a8bf67bb"
     },
     {
       "path": "references/safety.md",
-      "sha256": "d431768b0d2170fe12978563464280b9ade99ea56290c103088faedadfde4e76"
+      "sha256": "33481a08a53b32b6b56549f53b278f2360950957212eb2d15525056fb5b3d680"
     },
     {
       "path": "references/stage-and-assets.md",
-      "sha256": "a94b0764ae0532f7ce48f1ad478549277d9f77751766bd560ab5e8b8b1ee6614"
+      "sha256": "fffd06471fea3ff28708a51f55db2f0e9797a4992151f3c78fb2a5aaa81509c5"
     },
     {
       "path": "references/story-and-voice.md",
-      "sha256": "8b811d7af7bd404c70f72e48837307e8147650dacf8da56e68d8b265299ecb6f"
+      "sha256": "d63caff958f732456d5f71c132a3c7d380a7d034c5ee35491b6c0eae2ebd1430"
     },
     {
       "path": "references/studio-editor-ui.md",
@@ -100,40 +100,40 @@
     },
     {
       "path": "references/troubleshooting.md",
-      "sha256": "c519da0bea53f7ae5883e32c9e6e60fd2527dcc5daf1ae87c79ee49baaf409dc"
+      "sha256": "fba31fe3e64f5415e866c53fb648bc05d9528c4b54c0ddeca34438a581b70504"
     },
     {
       "path": "references/ui-and-data.md",
-      "sha256": "d44c25607f7e576caba733e52ec685b75e39b7a718097ee5c06a8ccd8d421798"
+      "sha256": "7bd1958e4990d7276e2f99ae9d9ece46acf41f96602c33a8d657a1d6470e996a"
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "53a0e3c6d6156787663db1f12ca741fbde3c4e9d85aa17f49fc884c0c9b4503a"
+      "sha256": "29939155f297831fec622d6aee01ef3ff04bdfad0119289dca6542a33d3f2964"
     },
     {
       "path": "scripts/check_project.py",
-      "sha256": "9e3b8210f765eda6a76f14a0159c27d14ffbd06194d34f3487365f267a8f246b"
+      "sha256": "a5ee144c931a1f1b4f48add53081eaa319514c7bccc60f904b8e597e57af745b"
     },
     {
       "path": "scripts/inspect_version.py",
-      "sha256": "36a9c471c10eb90eae8d4b2e58369f795d0e2fdab112edd3a401eb75bc9e7959"
+      "sha256": "dab7b42061abd0cc3fc9af9d937f4d61a6bb90a9fe5317e382b1bea7d3b18cda"
     },
     {
       "path": "SKILL.md",
-      "sha256": "30540ac340ef9cc52d43d327fedc5070c38ddedeaaf6f6277c47905dddb9f553"
+      "sha256": "11e166a40feee655a163cee44f15c2ab8a07d2d02f61fab9f923226cd7cce88f"
     },
     {
       "path": "templates/LETSGAL.example.md",
-      "sha256": "7ee2dc779ec683a923ac5a30c2b74914ea38657c630d44eb893c140def5aedd3"
+      "sha256": "148a25eb2e772c36dbbe34a44d7afca4f9efa990788f3432ca1252a29437b610"
     },
     {
       "path": "templates/PLUGIN-SKILL.example.md",
-      "sha256": "6a24accc53747f475c4c9fb4aac24923927b168c7bdfb6d5107c0ca49c791b5c"
+      "sha256": "2348941ea30892e346de341fb905a37f7e27d7be9a290bce72c6116b490ec6e2"
     },
     {
       "path": "templates/TEMP-CLEANUP.example.md",
-      "sha256": "99e25fad698f897b3435161b50f951b53b5e0a01008ce7150066acbf05d4445b"
+      "sha256": "2541584dc3943ebec9ba3689b9d6c02a9066208de2195409be6e6601a35a2084"
     }
   ],
-  "revision": "20261103-beta290"
+  "revision": "20261111-stable300"
 }

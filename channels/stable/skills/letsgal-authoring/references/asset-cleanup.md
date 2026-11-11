@@ -6,7 +6,7 @@
 
 `INTERNAL`、`EPERM`、`EBUSY` 不表示完全未执行，EPERM 也不单独证明 ACL 错误。先读回原 ID、素材登记、实际文件和可用操作历史，区分已完成、剩余和未知；读取操作历史时区分原操作、撤销新标识及其对应关系。不整批重放 undo。
 
-Windows / Studio **2.8.0-beta.1** 的 GIF／WebP 现场有 Studio 持有文件的证据，同版 Sharp／libvips 的独立实验复现文件缓存占用。关闭缓存或受大小／并发限制的 Buffer 输入仅在库级验证；宿主隔离目录 EPERM 未完整复现。APNG 的有限样本未复现，不保证换格式能解决。其他版本核现场，不当作已知必现缺陷。
+是否属于宿主问题，依据本版本契约和本次输入／返回判断，不从文件扩展名或旧故障推定。受支持的删除失败与原本不支持的普通撤销分开处理；不把库级实验直接当作宿主根因。
 
 运行中登记准确路径、错误和操作 ID，必要时只读查占用。暂留小测试素材时核当前引用、是否孤立和是否进入打包；没有可用接口时不能填成“无引用”。不强关其他进程句柄、改 ACL、无界 force 删除或修改宿主缓存库／EXE。rescan／缩略图重建没有已验证的解锁作用。
 
@@ -32,4 +32,4 @@ Windows / Studio **2.8.0-beta.1** 的 GIF／WebP 现场有 Studio 持有文件�
 
 正常退出通常释放进程句柄，但此前现场尚未完成真实宿主退出后清理验收；本流程不是引擎已修复的声明。
 
-[Sharp 文件缓存](https://sharp.pixelplumbing.com/api-utility/#cache) · [Windows 文件共享模式](https://learn.microsoft.com/en-us/windows/win32/api/fileapi-createfilew)
+[Sharp 文件缓存](https://sharp.pixelplumbing.com/api-utility/#cache) · [Windows 文件共享模式](https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilew)

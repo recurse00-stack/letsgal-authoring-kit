@@ -2,20 +2,20 @@
   "schema": 2,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "channels": [
     {
       "id": "stable",
       "label": "正式版",
       "bundle": "channels/stable/bundle.json",
-      "revision": "20261101-feature-map"
+      "revision": "20261111-stable300"
     },
     {
       "id": "beta",
       "label": "Beta",
       "bundle": "channels/beta/bundle.json",
-      "revision": "20261103-beta290"
+      "revision": "20261111-stable300"
     }
   ],
-  "revision": "20261103-beta290"
+  "revision": "20261111-stable300"
 }

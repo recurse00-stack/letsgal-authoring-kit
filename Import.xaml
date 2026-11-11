@@ -26,11 +26,11 @@
       <TextBlock Text="按目标工程选择正式版或 Beta，再选择 Agent；导入后调用 letsgal-authoring。" Foreground="#506177"/>
       <Border Background="#FFF2DE" BorderBrush="#C98D29" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,12,0,0">
         <StackPanel>
-          <TextBlock Text="使用前请阅读 · 数据风险与免责声明" FontWeight="SemiBold" Foreground="#633F06"/>
+          <TextBlock Text="使用前请阅读 · 备份与数据" FontWeight="SemiBold" Foreground="#633F06"/>
           <TextBlock Name="RiskSummary" Margin="0,5,0,0" FontSize="13"/>
           <TextBlock Name="RiskLegal" Margin="0,4,0,0" FontSize="12"/>
           <Expander Name="RiskExpander" Header="展开完整说明（可选中复制）" Margin="0,5,0,0">
-            <TextBox Name="RiskDetails" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="160" FontSize="12" AutomationProperties.Name="风险说明与免责声明全文"/>
+            <TextBox Name="RiskDetails" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="160" FontSize="12" AutomationProperties.Name="使用与备份说明全文"/>
           </Expander>
         </StackPanel>
       </Border>
