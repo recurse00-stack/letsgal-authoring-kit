@@ -1,7 +1,7 @@
 {
-  "version": "3.0.0",
-  "revision": "20261111-series300",
-  "payload_revision": "20261111-series300",
+  "version": "3.0.1",
+  "revision": "20261112-r5",
+  "payload_revision": "20261112-r5",
   "targets": {
     "stable_series": [
       "3.0"
@@ -29,7 +29,7 @@
       "area": "version_gate_and_installer",
       "date": "2026-11-11",
       "method": "140 version function/CLI cases; 26 channel and manifest cases; isolated upgrades and preservation; local Stable installation and discovery",
-      "reused": false
+      "reused": true
     },
     {
       "area": "wiki_workbench",
@@ -44,12 +44,33 @@
       "patch_identity": "not recorded",
       "coverage": "HOST-VALIDATION.md",
       "reused": true
+    },
+    {
+      "area": "studio_3_0_r5_targeted",
+      "date": "2026-11-12",
+      "method": "live MCP reset/undo, basic entry count/undo, chapter file-session commit/undo",
+      "patch_identity": "3.0.0-stable-r5 installed marker; studio.version 3.0.0",
+      "coverage": "HOST-VALIDATION.md",
+      "reused": false
     }
   ],
   "this_revision": {
-    "scope": "release series routing, independent channel versions, installer manifest verification, docs and generated HTML",
+    "scope": "r3-r5 Stable guidance, Wiki and generated HTML; 3.0.1 release checks",
     "checks": "VALIDATION.md",
-    "new_host_execution": false
+    "new_host_execution": true,
+    "checks_completed": {
+      "version_cases": 140,
+      "channel_cases": 26,
+      "wiki_cases": 53,
+      "changed_markdown_links": 173,
+      "privacy_files": 137
+    },
+    "local_install": {
+      "date": "2026-11-12",
+      "channel": "stable",
+      "status": "installed-and-checked",
+      "personal_data": "preserved"
+    }
   },
   "limitations": {
     "agent_task_coverage": "Codex; DSH filesystem provider discovery only; other agents require environment-specific confirmation",
@@ -57,13 +78,12 @@
     "selftest_scope": "Versioned samples; actual results may vary by environment and project"
   },
   "channel_versions": {
-    "stable": "3.0.0",
+    "stable": "3.0.1",
     "beta": "2.9.0"
   },
   "status": "RELEASE_BUILD_VALIDATED",
-  "release_promotion": {
-    "from_revision": "20261111-series-versioning-preview.1",
-    "scope": "release identifiers and download wording; tested series routing unchanged",
-    "host_execution": false
+  "channel_revisions": {
+    "stable": "20261112-r5",
+    "beta": "20261111-series300"
   }
 }

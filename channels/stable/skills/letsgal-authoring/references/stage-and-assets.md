@@ -41,6 +41,16 @@
 
 `character_edit.set_performance` 配置项目／角色效果；剧情使用 `portraitStyleRule(performanceStateVersion=1)` 启用所需状态：stateMotion／stateSpeaking／stateBreath／stateCrossfade，以及 stateCamera=spatial|real。set 读取项目配置，custom 使用本块覆盖；核角色局部设置与继承。
 
+### 自定义立绘站位（3.0 r3 起）
+
+先按实际块类型查 `studio://blocks/dialogue`、`showCharacter` 或 `updateCharacter`，配合当前 `stage` 参考；对白、显示立绘和更新立绘的字段分别核对。预设站位使用工程真实 distance／position ID。新对白组显示立绘时会应用所选预设，未选时使用角色默认预设；需要延续自定义位置时明确选择 custom。
+
+当前 showCharacter／updateCharacter 的 `placementMode="custom"` 配合 `poseX`／`poseY`（舞台宽高百分比）、`poseScale`（正数百分比）、`poseRotation`（角度）、`poseAlpha`（0～100）及 `poseFlip`。留空的姿态字段保留当前值；custom 不写入预设站位和大小。`poseDepth` 仅在 updateCharacter 中提供，且只影响跟随镜头的立绘。对白字段以该块当前契约与目标样本为准。
+
+已在场角色用 updateCharacter 延续当前姿态，再按 placementTransitionDuration（毫秒）和 placementTransitionEasing 过渡；新内容优先使用 easeInOut／easeOutCubic 等现行名称。局部更新 poseY 或 poseRotation 可保留其他方向的运动。写后核字段，连续预览再确认起点、过渡和最终位置。预览拖拽、缩放和旋转属于人工编辑入口，AI 编排仍优先 MCP。
+
+### 演出预设与相关对象
+
 3.0 可用 character_edit 的 upsert_performance_preset／duplicate_performance_preset 维护工程演出预设，将 character_read 返回的 globalRevision 放入 baseRevisions.global；新建时 presetSection 按 camera／speaking／motion／breath／crossfade 选择类别。保存配置后仍需在剧情引用或启用对应状态，不能把配置存在当作已演出。
 
 真实摄像机按对象远近、视野、运动和光圈构图；景深与镜头呼吸核启用条件及连续变化。粒子 optionsJson 可含 camera_follow／camera_interleave；当前 stage_edit.patch_particle_options.set 未暴露这两个键，按实际块 schema 局部更新原 JSON，保留其他选项。scene 插层使用自身层级规则。视频分别设置 layer、mixed、cameraBound、fadeInDuration，并配停止 ID。

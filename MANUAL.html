@@ -23,11 +23,11 @@
  <nav class="areas" aria-label="三大区域"><a href="#main" data-area="main"><span>01</span> 主体</a><a href="#skills" data-area="skills"><span>02</span> Skill Wiki</a><a href="#personal" data-area="personal"><span>03</span> 个性化</a></nav>
  <p class="rail-label">本区目录</p><nav id="rail-chapters" class="rail-links" aria-label="章节"></nav>
  <p class="rail-label">查阅</p><div class="rail-links"><a href="#wiki07">排错与自测历史</a><a href="#wiki10">接入我的资料</a><a href="#all">完整阅读与打印</a></div>
- <div class="rail-foot"><span class="local-badge">● 完整离线 · 本地搜索</span><b>Authoring Kit 3.0.0</b><br><span>20261111-series300</span></div>
+ <div class="rail-foot"><span class="local-badge">● 完整离线 · 本地搜索</span><b>Authoring Kit 3.0.1</b><br><span>20261112-r5</span></div>
 </aside>
 <div class="shell"><header class="topbar"><div class="crumb"><button type="button" class="quiet-btn menu-btn" id="menu-toggle" aria-controls="rail" aria-expanded="false" aria-label="展开导航">☰</button> <a class="home-link" id="home-link" href="#home"><span aria-hidden="true">⌂</span> 返回主页</a><span class="crumb-divider"> / </span><b id="breadcrumb">工作台</b></div><div class="top-actions"><button type="button" class="quiet-btn" id="load-library">载入本地资料</button><button type="button" class="quiet-btn" id="print-manual">打印</button></div></header>
 <main class="workspace" id="workspace">
- <div class="hero workbench-ui" id="hero"><div><div class="eyebrow">LETSGAL / CREATOR KNOWLEDGE</div><h1>让资料跟得上你的创作。</h1><p>从一次剧情修改开始，将主 Skill、插件指南和个人约定放在同一处查阅。</p></div><div class="edition"><small>当前手册</small><strong>Authoring Kit 3.0.0</strong><span>Stable 与 Beta 双通道</span></div></div>
+ <div class="hero workbench-ui" id="hero"><div><div class="eyebrow">LETSGAL / CREATOR KNOWLEDGE</div><h1>让资料跟得上你的创作。</h1><p>从一次剧情修改开始，将主 Skill、插件指南和个人约定放在同一处查阅。</p></div><div class="edition"><small>当前手册</small><strong>Authoring Kit 3.0.1</strong><span>Stable 与 Beta 双通道</span></div></div>
  <div class="searchbox workbench-ui" role="search"><span class="search-symbol" aria-hidden="true">⌕</span><input id="search" type="search" maxlength="120" placeholder="搜索剧情、配音、插件、恢复…" aria-label="搜索全部 Wiki 正文" autocomplete="off"><kbd>Ctrl K</kbd><select id="search-scope" aria-label="搜索范围"><option value="all">全部内容</option><option value="main">主体</option><option value="skills">Skill Wiki</option><option value="personal">个性化</option></select><button class="clear-search" id="clear-search" aria-label="清空搜索" type="button" hidden>×</button></div>
  <p id="status" class="status" role="status" aria-live="polite"></p>
  <section id="search-results" class="search-results workbench-ui" aria-label="搜索结果" hidden><div class="search-title"><span id="search-count" role="status" aria-live="polite"></span><span>点击结果，直接阅读对应段落</span></div><div id="result-list"></div></section>
@@ -40,7 +40,7 @@
  </div>
  <div id="area-view" class="workbench-ui" hidden><header class="view-heading"><div class="eyebrow" id="area-eyebrow"></div><h2 id="area-title"></h2><p id="area-description"></p></header><div class="chapter-grid" id="chapter-grid"></div><div id="library-area" hidden><div class="library-toolbar"><h3>已接入的资料</h3><small>各版本分别保留 · 暂停项不展开正文</small></div><div class="library-grid" id="library-grid"></div><div class="empty" id="library-empty"><h3>这里准备好接入你的资料</h3><p>按接入规范整理插件指南或个人资料，生成本地工作台后，它们会自动出现在对应区域。也可以载入已生成的资料 JSON。</p><a href="#wiki10">查看接入步骤与模板 →</a></div></div></div>
  <div id="reader-view"><a class="reader-back workbench-ui" id="reader-back" href="#main">← 返回主体目录</a><div class="reader-wrap"><div class="all-articles" id="articles"><article class="article" id="guide-home" data-area="main" data-source="MANUAL.md"><h1 id="guide-home--letsgal-创作-wiki-工作台">LetsGal 创作 Wiki 工作台</h1>
-<p><strong>3.0.0 / 20261111-series300</strong>。Stable 载荷 3.0.0 面向 Studio 3.0 正式系列；Beta 载荷 2.9.0 面向 2.9 Beta，保留 2.8 Beta 兼容路线。前两位随主要目标系列，第三位由本项目用于修订。本包帮助 AI 按任务制作并核对工程；Skill 安装不包含引擎或 MCP。</p>
+<p><strong>3.0.1 / 20261112-r5</strong>。Stable 载荷 3.0.1 面向 Studio 3.0 正式系列；Beta 载荷 2.9.0 面向 2.9 Beta，保留 2.8 Beta 兼容路线。前两位随主要目标系列，第三位由本项目用于修订。本包帮助 AI 按任务制作并核对工程；Skill 安装不包含引擎或 MCP。</p>
 <h2 id="guide-home--三个区域一套阅读入口">三个区域，一套阅读入口</h2>
 <p>| 区域 | 对应的安装内容 | 在这里查什么 |</p>
 <p>| --- | --- | --- |</p>
@@ -72,7 +72,7 @@
 <p>LetsGal Authoring Kit 是给 AI 使用的创作指南，帮助它选择接口、保留已有内容并检查结果。它不包含 LetsGal Studio、AI 模型或 MCP 服务。你仍在自己的 AI 工具中提出需求，在 Studio 中查看作品。</p>
 <h2 id="wiki01--准备什么">准备什么</h2>
 <p>准备完整解压的本包、能够访问本地文件的 AI 工具，以及作品的备份。只讨论故事可以暂不连接 Studio；实际修改工程还需<a href="#wiki02">确认版本、工程与 MCP</a>。Windows 安装器使用 PowerShell 5.1 或 7，无需管理员、Python 或 Node；可选检查脚本才需要 Python 3.9+。</p>
-<p>本包版本为 <strong>3.0.0 / 20261111-series300</strong>。Stable 对应 Studio <strong>3.0 正式系列</strong>，Beta 对应 <strong>2.9 Beta 系列</strong>并兼容 <strong>2.8 Beta 系列</strong>。Skill 前两位与主要适配的引擎系列对齐，第三位用于本项目修订。当前 Stable 载荷为 3.0.0，Beta 为 2.9.0（保留 2.8 Beta 兼容路线）；安装器显示所选载荷的版本。完整安装包从 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases">GitHub Release 附件</a>取得。</p>
+<p>本包版本为 <strong>3.0.1 / 20261112-r5</strong>。Stable 对应 Studio <strong>3.0 正式系列</strong>，Beta 对应 <strong>2.9 Beta 系列</strong>并兼容 <strong>2.8 Beta 系列</strong>。Skill 前两位与主要适配的引擎系列对齐，第三位用于本项目修订。当前 Stable 载荷为 3.0.1，Beta 为 2.9.0（保留 2.8 Beta 兼容路线）；安装器显示所选载荷的版本。完整安装包从 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases">GitHub Release 附件</a>取得。</p>
 <h2 id="wiki01--安装一次">安装一次</h2>
 <ol>
 <li>
@@ -244,6 +244,14 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 </blockquote>
 <p>AI 应读取角色布局与工程预设，把需要的配置和剧情启用连起来。普通显示／更新／移除角色、镜头控制与演出段按任务选用；旧镜头动画可以维护，不因版本更新自动迁移。</p>
 <p>核对对象、移动方向、时长、镜头跟随和最后位置。连续播放以核对过渡过程，有画面判断价值时再用预览捕获。后台循环必须有明确停止路径，例如离开场景时停止呼吸以外的循环段。</p>
+<h2 id="wiki04--30-r3r5-的演出编辑变化">3.0 r3–r5 的演出编辑变化</h2>
+<ul>
+<li><strong>立绘站位</strong>：r3 起，对白、显示立绘和更新立绘可选择预设或自定义位置。提出需求时说明是采用工程预设，还是延续已有自定义位置；在场角色的移动使用“更新立绘”，核对起点与最终位置。人工预览支持拖动、缩放和旋转，AI 仍按当前块接口编排。</li>
+<li><strong>文字排版</strong>：r3 增加中文标点换行规则，可按项目开关；对白与旁白检查器可进入文字排版设置。遇到行首句号等问题，先核排版设置与实际显示，保留原文标点。</li>
+<li><strong>声音时间轴</strong>：r5 的全屏演出段编辑器显示音频波形，并体现循环、淡入与淡出。波形便于对齐演出，最终仍通过试听核对节奏。</li>
+<li><strong>长章节工作</strong>：r3／r4 改进剧本编辑与预览，r5 进一步优化 300 块以上章节的载入、输入和定位，并修复载入后部分编辑操作失效及章节多选删除。AI 读取长章继续处理分页和 revision，按任务范围局部修改。</li>
+</ul>
+<p>以上为<a href="SOURCES.md">官方更新说明</a>中的变化；本项目的定向复测范围见<a href="HOST-VALIDATION.md">验证说明</a>。</p>
 <h2 id="wiki04--口型与配音">口型与配音</h2>
 <blockquote>
 <p>给这三句绑定准备好的原声录音，保持其他句子的音频。先预演匹配范围，读回行与录音的对应关系，再试听这三句。缺资源时列出缺项，不用同名文件猜配。</p>
@@ -304,7 +312,10 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 </blockquote>
 <p>普通玩家界面与供作者使用的 Studio 组件分开实现。参数和预设按目标 SDK 真实类型填写；Stable 3.0 的新增字段不能直接写进 2.9／2.8。调用方法前核类型、范围、枚举与资源引用，并用代表输入检查业务结果。</p>
 <p>状态分清作者配置、单槽存档、跨档数据和本次启动状态。恢复存档时可能重新经过逻辑入口，奖励／扣款等副作用需要按 SDK 的恢复语义处理。是否在 Studio、Player、Web 或导出中测试，分别报告。</p>
-<p>重置扩展设置前读<a href="#wiki07--三类已确认差异">设置 reset 差异</a>。写后分别核对设置值与 <code>isDefault</code>，说明恢复的是数值还是默认态。</p></article><article class="article" id="wiki06" data-area="personal" data-source="docs/wiki/06-personal.md"><a class="legacy-anchor" id="临时设置与附加包状态"></a><a class="legacy-anchor" id="公版与个人设置怎样配合"></a><a class="legacy-anchor" id="个人特调放哪里"></a><h1 id="wiki06--6-个人偏好与作品约定">6. 个人偏好与作品约定</h1>
+<p>重置设置会恢复声明的默认态。先保存原值，写后核对设置值与 <code>isDefault</code>；没有声明默认值的字段可以缺少值。历史现象与新版复测见<a href="#wiki07--三类已确认差异">设置与恢复记录</a>。</p>
+<p>向工程添加扩展时，AI 先检查源码、工程副本和构建状态。3.0 r5 官方修复了 MCP 添加扩展持续返回“忙”的情况；需要先构建时，应按返回原因完成构建再添加。扩展设置中的图片选择器也可浏览工程子文件夹。</p>
+<h2 id="wiki05--带图片的数据列表">带图片的数据列表</h2>
+<p>3.0 r5 官方公告修复了带图片的数据列表显示时卡死的问题，适用于 Studio 预览和应用补丁后重新导出的游戏。已有导出包需重新导出才能包含这项修复；随后在目标产物中核对列表图片、数据和交互。具体作品的运行结果以实际检查为准。</p></article><article class="article" id="wiki06" data-area="personal" data-source="docs/wiki/06-personal.md"><a class="legacy-anchor" id="临时设置与附加包状态"></a><a class="legacy-anchor" id="公版与个人设置怎样配合"></a><a class="legacy-anchor" id="个人特调放哪里"></a><h1 id="wiki06--6-个人偏好与作品约定">6. 个人偏好与作品约定</h1>
 <h2 id="wiki06--三种资料放在哪里">三种资料放在哪里</h2>
 <p><code>~</code> 指实际运行 AI 的用户主目录；WSL、远程环境或另一账号可能是不同目录。</p>
 <div class="table-scroll"><table>
@@ -398,34 +409,35 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 <li><strong>测试局限</strong>：自测可能存在遗漏或判断偏差。“复现”和“复测通过”描述该次测试观察到的结果。</li>
 <li><strong>官方状态</strong>：本节属于本项目的观察与判断。官方支持范围、问题确认及修复进展，请以官方说明为准。</li>
 </ul>
-<h3 id="wiki07--300-独立样本中的观察">3.0.0 独立样本中的观察</h3>
-<p>测试日期为 <strong>2026-11-10</strong>，环境为 <strong>Windows、Studio 3.0.0、独立工程、MCP</strong>。当次未记录完整界面热修复标识；其他补丁中的现象需按实际调用确认。以下范围限于 MCP 返回；SDK 运行取值、界面按钮和 Player 未在这些用例中验证。</p>
+<h3 id="wiki07--300历史现象与-r5-复测">3.0.0：历史现象与 r5 复测</h3>
+<p>2026-11-10 的 Windows 独立工程记录过以下现象，当次完整热修复标识未登记。官方 <strong>r3</strong> 公告随后说明了相关修复；本项目于 <strong>2026-11-12，在 3.0.0-stable-r5</strong> 使用官方 MCP 定向复测，结果如下。</p>
 <div class="table-scroll"><table>
 <thead>
 <tr>
 <th>操作</th>
-<th>当次观察</th>
-<th>使用时怎样核对</th>
+<th>早期自测现象</th>
+<th>r5 本轮结果</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>扩展设置 reset</td>
-<td>仅使用官方内置壳，boolean（默认 false）、enum（默认 shared）改值后 reset 返回成功，读回为 <code>isDefault=false</code> 且缺 <code>value</code>／<code>valueHash</code>；数组也出现默认态标记差异</td>
-<td>写前保存值是否存在、实际值和默认态；写后分别核对。缺值保留为未知，恢复数值与恢复默认态分别确认。没有声明默认值的字段可以正常缺值</td>
+<td>官方内置壳改值后重置，默认标记或默认值读回有差异</td>
+<td>boolean、enum、array 的改值、重置和撤销通过；有声明的默认值与 <code>isDefault</code> 一致，无默认值的数组字段恢复原默认态</td>
 </tr>
 <tr>
 <td>修改入口数量后 undo</td>
-<td>从 basic／linear／入口 0 改入口数为 1 后变成 advanced／extension；undo 后入口数回到 0，模式、策略和图未完整恢复</td>
-<td>保存并逐项比较模式、策略、完整图和入口数量；需要进一步恢复时采用限定历史并保留后来编辑</td>
+<td>修改入口数同时改变模式／策略，撤销仅恢复部分配置</td>
+<td>basic／linear 中改入口数保留模式、策略和图；撤销后完整配置与原状态一致</td>
 </tr>
 <tr>
 <td>官方文件编辑会话</td>
-<td>有效章节会话中仅修改一个 text 字段，文件随后回到原文，dry-run 为空；仅启用官方内置壳时也出现</td>
-<td>普通改动优先专用 MCP。文件会话中预期改动未进入 dry-run 时停止 commit，保留拟写内容，核对文件和会话状态</td>
+<td>单处正文改动被旧正文覆盖，dry-run 为空</td>
+<td>单处文字改动持续保留，进入 dry-run 并提交；MCP 读回及撤销后全量块比对通过</td>
 </tr>
 </tbody>
 </table></div>
+<p>这三项作为历史记录保留，当前用法按正常的声明、校验、提交和读回流程进行。复测范围为上述 MCP 路径；同章并发编辑冲突、其他调度模式，以及 SDK／界面／Player 的设置取值尚未在本轮验证。详见<a href="HOST-VALIDATION.md#300-r52026-11-12-定向复测">宿主验证范围</a>。</p>
 <h3 id="wiki07--其他版本与复核记录">其他版本与复核记录</h3>
 <div class="table-scroll"><table>
 <thead>
@@ -437,7 +449,7 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 <tbody>
 <tr>
 <td>2.9.0-beta.1，历史独立样本</td>
-<td>记录过设置默认态未恢复、调度撤销仅恢复数量，以及文件会话预期改动未进入 <code>changedFiles</code>／<code>fragments</code>。完整热修复标识未登记；本次 3.0 测试未重测 Beta</td>
+<td>记录过设置默认态未恢复、调度撤销仅恢复数量，以及文件会话预期改动未进入 <code>changedFiles</code>／<code>fragments</code>。完整热修复标识未登记；2026-11-12 的 r5 复测仅覆盖 Stable，Beta 保留原验证状态</td>
 </tr>
 <tr>
 <td>3.0.0，2026-11-10，独立 GIF／WebP 样本</td>

@@ -11,6 +11,8 @@
 3. 新扩展通过 ext_enable 的 create／init_program 取得真实 ID；需要编辑界面时用 `init_program(studioEntry=true)`。已有程序按[入口与构建](studio-editor-ui.md#入口与构建)补组件依赖后同步 SDK。
 4. 按生成项目的实际 package scripts 构建，保留既有定制及 React／React DOM／SDK 外置单实例配置，再到目标宿主验证。
 
+向工程添加扩展先看 `ext_dev_read(view="list")` 的源码关联、工程副本与 build 状态，再对 `ext_enable(action="add_to_project")` 做 dry-run。添加前的 `build=null` 可以表示尚未检查，实际添加会检查构建状态；按返回的具体原因补构建、依赖或加载检查，再重试本次添加。真正的 BUSY 按提示有限等待；持续失败保留工具返回，按[错误处理](mcp-workflow.md#冲突与未知结果)定位。
+
 ## 参数与校验
 
 写调用前用 `ext_read(view="methods")` 取声明，核 method ID、可用键、必需项／默认值、类型、枚举、范围和资源引用；确定是普通调用还是条件，参数使用字面量还是变量。
@@ -37,11 +39,9 @@
 
 作者配置存 settings，玩家状态存 save。slot 对应槽位，shared 跨档，session 对应本次 App 启动；项目变量“启动重置”按变量自身语义处理。数组更新使用目标 SDK 的 set 接口触发通知；按需求检查历史追加、去重及跨重启持久化。
 
-MCP 改设置／reset 前保存每个目标的 `isDefault`、`value` 是否存在、实际值、声明默认值及 valueHash，使用 expected 做冲突检查，见[MCP 流程](mcp-workflow.md)。3.0 SDK 规定未修改或重置的设置取声明默认值；显式空字符串、0、false 保持原值，不用 `value || default` 覆盖。无声明默认值的字段原本就可能不返回 value，缺值本身不能单独判为异常。
+MCP 改设置／reset 前保存目标的 `isDefault`、值是否存在、实际值及声明默认值，使用 expected（长值可用 valueHash）做冲突检查。reset 按契约恢复默认态；写后和 undo 后用 `ext_read` 核对 `isDefault` 与有效值。显式空字符串、0、false 保持其含义；没有声明默认值的字段可以正常缺少 value。
 
-reset 后用 `ext_read` 逐项核 `isDefault` 和 `value`，必要时再核实际方法取值。undo 也须读回，不能假定它恢复默认态。缺值不解释成空字符串、false 或默认值；MCP 读回与 SDK 运行取值、UI 重置及 Player 行为分别核对。
-
-遇到差异先报告默认态未恢复并保全操作记录。若任务只要求恢复有效值，可在授权内显式设回保存的值并读回，明确这是显式值恢复。需要恢复默认态时，按[限定历史恢复](collaboration-git.md#限定恢复与读回)审阅设置文件及后续编辑，恢复后再次核默认标记和值；不能仅靠重载或显式写值宣称默认态已还原。
+出现与声明不符的读回时保留原值和操作记录，按[限定恢复](collaboration-git.md#限定恢复与读回)处理，并分别说明恢复的是显式值还是默认态。SDK 运行取值或 Player 效果仅在任务涉及这些路径时继续验证。
 
 | 需要的能力 | 读取契约与检查点 |
 | --- | --- |

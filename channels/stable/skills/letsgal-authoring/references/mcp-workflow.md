@@ -66,9 +66,8 @@
 
 1. `studio_file_edit_begin` 声明对象，取得真实会话、有效期及允许路径。保存拟修改前的原文；会话过期、断连或权限变化后重新核状态。
 2. 章节只改既有片段 blocks；变量只改指定项同类型 defaultValue／description。结构新增用专用工具；ui／databases／config／extensions 等 unverifiedChanges 不作为可直接提交范围。
-3. 写入后立即读实际文件，再执行 `studio_file_edit_end(action="commit", dryRun=true)`，比较预期差异、changedFiles、fragments 和警告。预期有修改却返回空变更、文件回到原文或差异不符时，**停止 commit**，在会话外保留拟写内容，核会话／有效期／保存与编辑状态。
-4. 差异符合范围才 commit，再从 Studio 读回正文、ID 和非目标字段。无变化返回成功只表示没有提交变更；写入结果未知先读回，不能反复覆盖文件。需换专用接口时先安全 abandon 并核状态，重新读取对象和 revision，再在已有授权范围内定向写入；只读或拒绝不能绕过。
-
+3. 写入后读实际文件，再执行 `studio_file_edit_end(action="commit", dryRun=true)`，核对预期差异、changedFiles、fragments 和警告。校验符合范围才 commit，再从 Studio 读回正文、ID 和非目标字段。
+4. 预期改动未进入 dry-run 时停止提交，在会话外保留拟写内容并核文件与会话状态。同一范围出现 Studio 编辑冲突时，按 REVISION_CONFLICT 重读、合并；需要改走专用接口时先安全 abandon 并核状态，再取新 revision。结果未知时先读回，避免重复覆盖。
 
 界面操作使用当前任务明确许可。连接故障先走恢复流程；只读、关闭工具组或明确拒绝须保持。获准操作时核窗口、工程、焦点与未保存内容，保留他人连接。
 
