@@ -8,6 +8,8 @@ Stable 依据[3.0 更新说明](https://docs.avg-engine.com/updates/3-0-0)、该
 
 r3 的自定义站位与 MCP 设置／调度／文件会话调整，结合本机当前生成参考和定向复测更新指导；r4 的剧本卡顿修复、r5 的长章节优化、声音波形、列表与扩展添加修复按官方公告说明。具体运行覆盖见[宿主验证范围](HOST-VALIDATION.md)。热修复编号用于定位这些变化；[日常版本检查](docs/wiki/02-connection.md)仍按系列和实际发行身份进行。
 
+预览窗口说明依据 2026-11-12 的 3.0.0-r5 宿主 `quickstart`、`guide-preview-testing` 和本项目同日 MCP 补充实测。窗口可见性结论按[对应验证范围](HOST-VALIDATION.md#300-r5预览窗口)使用。
+
 ## 按任务查询
 
 | 任务 | 官方入口 |

@@ -2,14 +2,14 @@
   "schema": 2,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "channels": [
     {
       "id": "stable",
       "label": "正式版",
       "bundle": "channels/stable/bundle.json",
-      "revision": "20261112-r5",
-      "version": "3.0.1"
+      "revision": "20261112-window-visibility",
+      "version": "3.0.2"
     },
     {
       "id": "beta",
@@ -19,5 +19,5 @@
       "version": "2.9.0"
     }
   ],
-  "revision": "20261112-r5"
+  "revision": "20261112-window-visibility"
 }

@@ -30,6 +30,19 @@
 
 同章并发编辑冲突、其他调度模式、SDK／Player 的设置取值，以及 r4／r5 的界面性能、图片列表运行和重新导出效果，本轮未重新测试。对应指导注明官方公告或契约依据；基础覆盖保留原验证日期。
 
+## 3.0.0 r5：预览窗口
+
+2026-11-12，Windows、3.0.0-stable-r5、独立工程的补充 MCP 实测：
+
+| 条件 | 已验证 |
+| --- | --- |
+| 前台 | run_to 定位与 advance 推进，位置、对白读回一致 |
+| 另一 Studio 首页窗口完全遮挡，目标失焦 | run_to、advance、run_from_start 到达目标；preview_capture 得到当前对白画面 |
+| 最小化 | documentVisibility 为 hidden；运行和截图返回 WINDOW_HIDDEN，reason 为 window-hidden |
+| 恢复 | 不重启、不重连即可定位和推进；最终恢复原预览位置 |
+
+全章 18 个区块的内容、ID、字段及 revision 前后相同。第二窗口仅停在首页，已在测试后关闭。本轮未改变 MCP 启用时机，未测试锁屏、分离预览或双游戏工程各自连接。现象与自测说明见 [Wiki](docs/wiki/07-recovery.md#300-r5预览窗口复测)。
+
 ## Beta 历史范围
 
 2.9.0-beta.1 的历史样本覆盖嵌套剧情、局部保真、有限 UI、配音口型、后台循环、Web／Windows 存读档与构建。2.8.0-beta.1 使用对应版本资料，其参数检查等限制在 Beta 专题中注明。
