@@ -2,13 +2,13 @@
 
 让 AI 按目标版本协助制作 LetsGal Studio 的剧情、分支、演出、UI、数据和扩展，并保留已有内容、读取相关资料、核对修改结果。这是社区 Skill，不包含引擎、模型、账号或 MCP。
 
-当前版本 **3.0.1 / 20261112-r5**。Stable 面向 **3.0 正式系列**；Beta 面向 **2.9 Beta 系列**，兼容 **2.8 Beta 系列**。两个通道都优先官方 MCP，安装时选一份同名载荷。[下载 3.0.1](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v3.0.1)；旧版完整资料在[历史发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。
+当前版本 **3.0.2 / 20261112-window-visibility**。Stable 面向 **3.0 正式系列**；Beta 面向 **2.9 Beta 系列**，兼容 **2.8 Beta 系列**。两个通道都优先官方 MCP，安装时选一份同名载荷。[下载 3.0.2](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v3.0.2)；旧版完整资料在[历史发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。
 
 ## 版本编号
 
-Skill 的前两位跟随主要适配的引擎系列，第三位用于我们的修复、小功能、约束和同系列适配。例如 Skill 3.0.0、3.0.1 均服务于 Studio 3.0 系列，补丁编号各自递增。
+Skill 的前两位跟随主要适配的引擎系列，第三位用于我们的修复、小功能、约束和同系列适配。例如 Skill 3.0.0、3.0.2 均服务于 Studio 3.0 系列，补丁编号各自递增。
 
-当前总包与 Stable 载荷为 **3.0.1**，Beta 载荷独立为 **2.9.0**，保留 2.8 Beta 兼容路线。安装器显示所选载荷版本。未来适配新的 Beta 主次版本时，Beta 载荷随该系列调整；实际发行身份由运行版本判断，更新偏好不会改变资料选择。
+当前总包与 Stable 载荷为 **3.0.2**，Beta 载荷独立为 **2.9.0**，保留 2.8 Beta 兼容路线。安装器显示所选载荷版本。未来适配新的 Beta 主次版本时，Beta 载荷随该系列调整；实际发行身份由运行版本判断，更新偏好不会改变资料选择。
 
 ## 开始使用
 

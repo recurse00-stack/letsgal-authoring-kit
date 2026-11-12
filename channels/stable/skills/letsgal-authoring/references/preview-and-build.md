@@ -12,7 +12,21 @@ run_from_start 覆盖顺序主片段。高级调度、前处理和片段流程�
 
 从目标片段可等待位置开始，run_until 到菜单，读取 choice.menuShown 和 options[].index，再 choose 并核终点。连续预览按 position.block 的章／片段／块 ID 定位；位置改变或菜单消失则重读再有限重走。预览前核内容里的扩展、存档或外链副作用。
 
-WINDOW_HIDDEN 先读具体 reason 和 preview_get_state，按目标宿主的渲染条件判断：最小化、锁屏、完全遮挡或不在预览所属模块等可能属于支持边界，失去焦点本身不等于隐藏。仅在当前授权覆盖时做一次与原因对应的恢复，再用预览接口复核；仍失败就记录未验项，继续可用的 MCP 读写，不反复切前台或重连试探。正常隐藏条件按支持边界处理；仍可见却判为隐藏时，保存 reason、窗口状态及最小调用以供复核。输入失败记录未验交互。动画看[连续播放](performance.md#连续播放验证)，模态返回看 [UI](ui-and-data.md#状态动作与智能组件)。
+输入失败记录未验交互。动画看[连续播放](performance.md#连续播放验证)，模态返回看 [UI](ui-and-data.md#状态动作与智能组件)。
+
+## 预览窗口
+
+用 preview_control 执行预览，以 preview_get_state 的实际位置和对白核对推进，需要画面时再用 preview_capture。窗口失焦或被其他窗口遮挡时，只要预览仍在渲染即可继续，无需主动切换前台。
+
+收到 WINDOW_HIDDEN 时，先读 details.reason 和 preview_get_state.visibility，再处理对应条件：
+
+| reason | 处理 |
+| --- | --- |
+| other-module | 需要显示剧情预览时，在授权范围内用 preview_control(showPreview=true) 切回 Story；preview_capture 自身不会切换模块 |
+| window-hidden | 最小化时恢复窗口；完全遮挡时按目标宿主的渲染条件判断。3.0 宿主说明提到，Studio 启动后才启用 MCP 时，完全遮挡可能阻止渲染 |
+| 其他原因 | 查当前宿主 guide-preview-testing，按分离窗口、调试占用、面板遮挡或目标未显示等具体原因处理 |
+
+恢复条件后，重试对应预览动作并读回位置或画面。仍失败时保存 reason、窗口状态和最小调用，记录受影响的未验项，继续可用的工程读写。窗口恢复通常不需要重连 MCP；连接本身出错时再按连接恢复流程处理。
 
 ## 构建与导出
 
