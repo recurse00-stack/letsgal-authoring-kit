@@ -28,7 +28,7 @@ PROFILES = {'3.0': 'references/current-capabilities.md'}
 
 HOST_BASELINES = {'3.0': {'channel': 'stable'}}
 
-GATE_REVISION = '20261113-retest-guidance'
+GATE_REVISION = '20261113-optional-wiki'
 
 SDK_FILES = ('constants.ts','index.ts','sdk-context.ts','extension-module.ts','extension-method.ts',
 

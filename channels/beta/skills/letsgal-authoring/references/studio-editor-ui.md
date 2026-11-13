@@ -2,7 +2,7 @@
 
 制作扩展的 Studio 编辑界面时读取。按任务选[构建入口](#入口与构建)、[设置页](#设置页数据名与界面职责)、[方法检查器](#检查器变量上下文与写入)或 [2.9 集合编辑](#29-设置页的集合源数据)；游戏菜单／HUD 使用 [UI 与数据](ui-and-data.md)。
 
-基础方法来自 2.8.0-beta.1 组件包及“Studio 组件包演示”1.0.0；集合编辑使用 2.9.0-beta.1 契约。具体接口查当前 `studio_get_reference(topic="dev-studio-ui")`／studio://dev/studio-ui 或同步的 studio-ui/README.md，构建配置取包内 templates。演示提供组合方法，业务字段按作品需求设计。
+基础方法来自 2.8.0-beta.1 组件包及“Studio 组件包演示”1.0.0；集合编辑使用 2.9.0-beta.1 契约。具体接口查当前 `studio_get_reference(topic="dev-studio-ui")`／studio://dev/studio-ui 或同步的 studio-ui/README.md，构建配置取包内 templates。界面组织与预览表达可按[创作参考](creation-references.md)读取已启用的 `letsgal-extension-design`；本页维护实现契约。
 
 ## 入口与构建
 
@@ -28,9 +28,9 @@ schema 定义类型、默认值、重置、MCP 访问及运行读取；组件定
 | Extension 类上的设置 | `<模块 ID>.<字段>`，模块 ID 取实际声明 |
 | 入口直接导出的共享 settingsSchema | 裸字段名 |
 
-1. 优先用 SettingField 保留默认提示、重置和联动；重点字段用 useSetting 配自定义控件，其余交 AutoSettings 的 include／exclude。
+1. SettingField 提供默认提示、重置和联动；useSetting 用于自定义控件，AutoSettings 可用 include／exclude 控制字段范围。按需要选择，保留 schema 的默认值、显隐和联动语义。
 2. 自定义行按 info.isEnabled 显示 enabledWhen，并遵守宿主写入权限。恢复默认用 reset()；对象／数组按内容比较，isModified 不作深度差异依据。
-3. 每个读取设置的行拆成小组件，缩小订阅刷新范围。AutoSettings 直接放 Panel，保留固定搜索栏；页面至少声明一个设置字段。
+3. 页面至少声明一个设置字段；使用 AutoSettings 时核对内建搜索与滚动在当前容器中的行为。
 
 ## 2.9 设置页的集合源数据
 
@@ -60,7 +60,7 @@ useParam(name)／ParamField 使用方法 schema 的裸参数键。先读 useInsp
 | 清空／重置 | 用 undefined／reset() 回到默认，null 按字段类型处理 |
 | 场景参数依赖快照 | 用 ParamField 同步 _sceneLayers／_sceneLighting／_sceneName 等关联字段 |
 
-重点字段自定义，其余用 ParamField／AutoParams 保留显隐和联动。检查器行相邻排列，卡片之间加间距；AutoParams 可放 Section。
+自定义参数控件需要保留 schema 的显隐、联动和变量语义；ParamField／AutoParams 提供相应标准编辑行为。
 
 2.9 “在剧本上显示”选择本项目该方法的卡片参数，作用于其全部调用。调整后看实际卡片；临时验证结束恢复原显示选择，保留方法参数。
 
@@ -70,11 +70,11 @@ useParam 返回的对象／数组被冻结，修改时创建新对象／数组�
 
 读取时结合 isInvalid、reason、rawValue：非法标量可能显示默认值，列表可能补列、去列或修复格子。预览或改其他字段时保留原存值；明确修复该参数时，用 reset／再写流程并读回。修复由交互触发。
 
-列表／data 按字面量预览，标量变量显示待运行取值。预设只提交所选内容要改的参数，说明涉及的值及绑定。编辑卡片按参数绘制示意，游戏方法在运行环节验证。
+列表／data 可按字面量预览；标量变量在运行时解析，编辑期标明尚未求值。应用预设只提交目标参数，说明涉及的值及绑定。编辑期预览用于呈现已知参数，游戏方法仍需运行验证。
 
 ## 外观与有限验证
 
-优先组件包和 Studio 语义 CSS 变量适配主题；Chakra 用法随目标宿主核对。自定义文字／ariaLabel 通过 useStudioLocale() 选语言，Chakra 浮层按要求标记 data-studio-user-content。toast／confirm 按操作影响使用，普通参数编辑直接完成。
+组件包和 Studio 语义 CSS 变量提供主题适配能力；Chakra 用法随目标宿主核对。自定义文字／ariaLabel 通过 useStudioLocale() 选语言，Chakra 浮层按要求标记 data-studio-user-content。toast／confirm 按操作影响使用，普通参数编辑直接完成。
 
 按本次改动选择检查：
 

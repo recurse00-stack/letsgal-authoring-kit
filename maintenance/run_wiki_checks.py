@@ -9,7 +9,7 @@ import sys
 from build_manual import ROOT, render
 from build_workbench import build, collect
 
-def run(scratch, browser_path):
+def run(scratch, browser_path, contract_only=False):
     scratch=Path(scratch).resolve(); scratch.mkdir(parents=True,exist_ok=False)
     results=[]
     def check(name, condition, detail=None):
@@ -65,6 +65,9 @@ def run(scratch, browser_path):
     check('cli-json-and-error-exit',cli.returncode==1 and json.loads(cli.stdout)['status']=='error')
     markup,report=render(); check('public-has-no-synthetic-private-data','合成雨幕参照' not in markup and report['library_items']==0)
 
+    if contract_only:
+        return {'status':'passed','checks':len(results),'evidence':str(scratch),'scope':'isolated generator contracts only'}
+
     from playwright.sync_api import sync_playwright
     with sync_playwright() as playwright:
         options={'headless':True}
@@ -78,7 +81,7 @@ def run(scratch, browser_path):
         # No file URL, user browser, localhost server or production UI is used.
         page.set_content(markup,wait_until='load')
         page.screenshot(path=str(scratch/'desktop-home.png'),full_page=True)
-        check('three-main-regions',page.locator('.areas a').count()==3)
+        check('four-main-regions',page.locator('.areas a').count()==4)
         check('public-home-visible',page.locator('#home-view').is_visible() and not page.locator('#reader-view').is_visible())
         page.locator('#search').fill('调度'); check('chinese-fulltext-search',page.locator('.search-item').count()>0)
         page.locator('.search-item').first.click(); page.wait_for_timeout(80)
@@ -90,7 +93,7 @@ def run(scratch, browser_path):
         page.keyboard.press('Control+k'); check('keyboard-search-shortcut',page.locator('#search').evaluate('(node)=>node===document.activeElement'))
         page.locator('#search').fill('根本没有的检索词abc123'); check('empty-search-state','没有找到' in page.locator('#search-count').inner_text())
         page.keyboard.press('Escape'); check('escape-clears-search',page.locator('#search').input_value()=='')
-        for area_name in ['skills','personal','main']:
+        for area_name in ['skills','references','personal','main']:
             page.locator('.areas a[data-area="'+area_name+'"]').click()
             check('area-'+area_name,page.locator('#area-view').is_visible() and page.locator('#chapter-grid .chapter-card').count()>0)
         page.evaluate("location.hash='选择正式版或-beta'"); page.wait_for_timeout(40)
@@ -127,7 +130,7 @@ def run(scratch, browser_path):
             check('reader-width-'+str(width),page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
             if width==390: page.screenshot(path=str(scratch/'mobile-reader.png'),full_page=True)
         page.emulate_media(media='print')
-        check('print-includes-all-articles',page.locator('.article:visible').count()==17)
+        check('print-includes-all-articles',page.locator('.article:visible').count()==report['pages']+receipt['documents'])
         page.pdf(path=str(scratch/'manual-print.pdf'),prefer_css_page_size=True,print_background=True)
         check('runtime-no-errors',not errors,errors)
         check('no-automatic-network',not requests,requests)
@@ -139,12 +142,12 @@ def run(scratch, browser_path):
         public_context=browser.new_context(viewport={'width':1440,'height':1000})
         public_page=public_context.new_page(); public_page.set_content(markup)
         public_page.emulate_media(media='print')
-        check('public-print-all-chapters',public_page.locator('.article:visible').count()==11)
+        check('public-print-all-chapters',public_page.locator('.article:visible').count()==report['pages'])
         public_page.pdf(path=str(scratch/'public-manual-print.pdf'),prefer_css_page_size=True,print_background=True)
         public_context.close()
         fallback=browser.new_context(java_script_enabled=False)
         page=fallback.new_page(); page.set_content(markup)
-        check('no-javascript-complete-reading',page.locator('.article:visible').count()==11)
+        check('no-javascript-complete-reading',page.locator('.article:visible').count()==report['pages'])
         fallback.close(); browser.close()
     check('final-user-area-unchanged',before==hashes())
     return {'status':'passed','checks':len(results),'evidence':str(scratch),'scope':'isolated synthetic fixtures and generated development markup; no Studio or user browser operation'}
@@ -153,7 +156,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--scratch',type=Path,required=True)
     parser.add_argument('--browser-path',type=Path)
+    parser.add_argument('--contract-only',action='store_true')
     args=parser.parse_args()
-    print(json.dumps(run(args.scratch,args.browser_path),ensure_ascii=False))
+    print(json.dumps(run(args.scratch,args.browser_path,args.contract_only),ensure_ascii=False))
 
 if __name__=='__main__': main()

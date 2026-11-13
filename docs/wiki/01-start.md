@@ -6,7 +6,7 @@ LetsGal Authoring Kit 是给 AI 使用的创作指南，帮助它选择接口、
 
 准备完整解压的本包、能够访问本地文件的 AI 工具，以及作品的备份。只讨论故事可以暂不连接 Studio；实际修改工程还需[确认版本、工程与 MCP](02-connection.md)。Windows 安装器使用 PowerShell 5.1 或 7，无需管理员、Python 或 Node；可选检查脚本才需要 Python 3.9+。
 
-本包版本为 **3.0.3 / 20261113-retest-guidance**。Stable 对应 Studio **3.0 正式系列**，Beta 对应 **2.9 Beta 系列**并兼容 **2.8 Beta 系列**。Skill 前两位与主要适配的引擎系列对齐，第三位用于本项目修订。当前 Stable 载荷为 3.0.3，Beta 为 2.9.0（保留 2.8 Beta 兼容路线）；安装器显示所选载荷的版本。完整安装包从 [GitHub Release 附件](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)取得。
+本包版本为 **3.0.4 / 20261113-optional-wiki**。Stable 对应 Studio **3.0 正式系列**，Beta 对应 **2.9 Beta 系列**并兼容 **2.8 Beta 系列**。Skill 前两位与主要适配的引擎系列对齐，第三位用于本项目修订。当前 Stable 载荷为 3.0.4，Beta 为 2.9.1（保留 2.8 Beta 兼容路线）；安装器显示所选载荷的版本。完整安装包从 [GitHub Release 附件](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)取得。
 
 ## 安装一次
 

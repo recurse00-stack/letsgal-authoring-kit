@@ -54,7 +54,7 @@ MCP 改设置／reset 前保存目标的 `isDefault`、值是否存在、实际�
 
 ## Studio 设置页与检查器
 
-schema 管数据，组件管布局。制作扩展的设置页／方法检查器时，按[Studio 编辑界面](studio-editor-ui.md)处理双入口、命名、变量、只读和局部写入。游戏菜单／HUD 使用 [UI 与数据](ui-and-data.md)。
+schema 管数据，组件管布局。需要界面组织方案时按[创作参考](creation-references.md)读取可选设计包。制作扩展的设置页／方法检查器时，按[Studio 编辑界面](studio-editor-ui.md)处理双入口、命名、变量、只读和局部写入。游戏菜单／HUD 使用 [UI 与数据](ui-and-data.md)。
 
 ## 运行状态与恢复
 

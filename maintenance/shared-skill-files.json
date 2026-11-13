@@ -5,6 +5,7 @@
   "files": [
     "LICENSE",
     "references/asset-cleanup.md",
+    "references/creation-references.md",
     "references/customization-maintenance.md",
     "references/customization.md",
     "references/git-workflow.md",

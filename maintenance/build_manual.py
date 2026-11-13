@@ -62,7 +62,7 @@ def render(root=ROOT, library=None, local=False):
         title=re.search(r'^# (.+)$',source,re.M).group(1).strip()
         page_config=layout.get('details',{}).get(name,{})
         area=page_config.get('area','main')
-        assert area in ('main','skills','personal')
+        assert area in ('main','skills','references','personal')
         chapter_aliases=''.join('<a class="legacy-anchor" id="'+html.escape(alias,quote=True)+'"></a>' for alias,dest in aliases.items() if dest==name)
         articles.append('<article class="article" id="'+prefix+'" data-area="'+area+'" data-source="'+name+'">'+chapter_aliases+body+'</article>')
         pages.append({'id':prefix,'area':area,'title':re.sub(r'^\d+\.\s*','',title),'summary':page_config.get('summary',''),'source':name})
@@ -74,7 +74,7 @@ def render(root=ROOT, library=None, local=False):
     scan=Inspect(output)
     assert len(scan.ids)==len(set(scan.ids)), 'Duplicate HTML anchor'
     for link in scan.links:
-        if link.startswith('#'): assert unquote(link[1:]) in scan.ids or link[1:] in ('home','main','skills','personal','all'),link
+        if link.startswith('#'): assert unquote(link[1:]) in scan.ids or link[1:] in ('home','main','skills','references','personal','all'),link
         elif not urlsplit(link).scheme: assert (root/unquote(link.split('#')[0])).exists(),link
     return output,{'pages':len(names),'anchors':len(scan.ids),'links':len(scan.links),'source_pages':source_counts,'library_items':len(data['library']['items'])}
 

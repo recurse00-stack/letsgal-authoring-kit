@@ -23,6 +23,7 @@ $completionWarnings = New-Object 'System.Collections.Generic.List[string]'
 . (Join-Path $PSScriptRoot 'Import.Paths.ps1')
 . (Join-Path $PSScriptRoot 'Import.Preflight.ps1')
 . (Join-Path $PSScriptRoot 'Risk.Notice.ps1')
+. (Join-Path $PSScriptRoot 'Install.Workbench.ps1')
 function Ensure-Directory([string]$Path) {
     Assert-OrdinaryPath $Path
     [void][IO.Directory]::CreateDirectory($Path)
@@ -219,6 +220,7 @@ try {
     if ($installed -and (-not $managed -or -not $clean)) { Confirm-Replacement "The existing skill has local edits or is unmanaged: $target" }
     if ($preview.Status -eq 'current') {
         Initialize-UserArea $homeRoot
+        Update-LocalWorkbench $PSScriptRoot $profileRoot
         Write-CompletionRecord $stateFile @{Harness=$Harness;Scope=$Scope;Channel=$preview.Channel;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome} -Replace
         @{action='already_current';channel=$preview.Channel;version=$manifest.version;target=$target;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';risk_notice=$noticeRecord;completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
         exit 0
@@ -260,6 +262,7 @@ try {
     }
     Write-CompletionRecord $stateFile @{Harness=$Harness;Scope=$Scope;Channel=$preview.Channel;ProjectPath=$ProjectPath;SkillsDirectory=$SkillsDirectory;DshHome=$DshHome} -Replace
     Write-CompletionRecord (Join-Path $backupRoot ($stamp + '-install.json')) @{target=$target;previous=$backup;version=$manifest.version;channel=$preview.Channel;profile_preserved=$profileFile;plugins_preserved=$pluginsRoot;risk_notice=$noticeRecord}
+    Update-LocalWorkbench $PSScriptRoot $profileRoot
     Write-Host '文件安装并校验完成。建议先停用其他同类 LetsGal／引擎创作 Skill，保留原文件与特调；安装器不会自动停用它们。打开新的 AI 会话，按 README 核对技能实际来源。' -ForegroundColor Green
     @{action='installed';version=$manifest.version;channel=$preview.Channel;target=$target;backup=$backup;profile=$profileFile;plugins=$pluginsRoot;ai_loaded='not_tested';risk_notice=$noticeRecord;completion_warnings=@($completionWarnings.ToArray())} | ConvertTo-Json -Compress
     exit 0
