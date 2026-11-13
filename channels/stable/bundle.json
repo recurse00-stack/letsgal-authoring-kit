@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "channel": "stable",
   "profile_schema": 1,
   "files": [
@@ -28,7 +28,7 @@
     },
     {
       "path": "references/current-capabilities.md",
-      "sha256": "1a88bc906a2cfaaae3867b569f588373765fef7b0430c50faefbbfd04561f64c"
+      "sha256": "cc5b06a9fc2dc1de7f4eebf74fb42af29f6de5deb5121f0b7fec5795398ddb6e"
     },
     {
       "path": "references/customization-maintenance.md",
@@ -40,7 +40,7 @@
     },
     {
       "path": "references/extensions.md",
-      "sha256": "debd6eb2a8e6b740bc0c7d2e53854ddc65d574aaed3cfb7906a7997fc08a7b78"
+      "sha256": "b59d02083951a1a58658fc241682796586c12f69f2c2e4cce7360adc5ac8299a"
     },
     {
       "path": "references/git-workflow.md",
@@ -68,7 +68,7 @@
     },
     {
       "path": "references/preview-and-build.md",
-      "sha256": "0c5f8e7b65b24b55d3d007eb84b3222bec9418f68a79bad2f04490fc6a49cd26"
+      "sha256": "7730af961c5653a1ed3eb56f1acc85be836685a5501810a91d21cabaa657cdf2"
     },
     {
       "path": "references/production.md",
@@ -76,7 +76,7 @@
     },
     {
       "path": "references/research.md",
-      "sha256": "237dfbf2a5b8132c33b80397d1190effd1b5047ca957c09ffabaaa4997bb4538"
+      "sha256": "db7c478dde322daa1b6ac3acdcabaf0bc484a500fde91ab72c249556e5f3c50e"
     },
     {
       "path": "references/risk-notice.md",
@@ -108,7 +108,7 @@
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "c53ce763cd9e36a98e502e79cf625436caae425d7b4f1125942b1b638860eb8a"
+      "sha256": "c25bf77fef541b4f9c0dc3618ca56a54c0e56988f2dd1f6d5c88404d7c50136d"
     },
     {
       "path": "scripts/check_project.py",
@@ -116,11 +116,11 @@
     },
     {
       "path": "scripts/inspect_version.py",
-      "sha256": "9ad693c42525e188fbb74171bf9c3c08226d5c793dedb765efd475be56f8aa23"
+      "sha256": "397a27ee4dd28835e9b2250e500820445700afded539388a6cc3f78866a60206"
     },
     {
       "path": "SKILL.md",
-      "sha256": "9116f0016bbb150dbbfdc9727f846e2d6eef4db97799b4e4400d17fd4d8d83b1"
+      "sha256": "0ce23b9ed82dfc3e21158812f6d53261d0b66f0d148cef20578410ed94ac95e3"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -135,5 +135,5 @@
       "sha256": "2541584dc3943ebec9ba3689b9d6c02a9066208de2195409be6e6601a35a2084"
     }
   ],
-  "revision": "20261112-window-visibility"
+  "revision": "20261113-retest-guidance"
 }
