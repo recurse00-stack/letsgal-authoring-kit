@@ -28,7 +28,7 @@ PROFILES = {'3.0': 'references/current-capabilities.md'}
 
 HOST_BASELINES = {'3.0': {'channel': 'stable'}}
 
-GATE_REVISION = '20261112-window-visibility'
+GATE_REVISION = '20261113-retest-guidance'
 
 SDK_FILES = ('constants.ts','index.ts','sdk-context.ts','extension-module.ts','extension-method.ts',
 

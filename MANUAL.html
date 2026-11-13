@@ -23,11 +23,11 @@
  <nav class="areas" aria-label="三大区域"><a href="#main" data-area="main"><span>01</span> 主体</a><a href="#skills" data-area="skills"><span>02</span> Skill Wiki</a><a href="#personal" data-area="personal"><span>03</span> 个性化</a></nav>
  <p class="rail-label">本区目录</p><nav id="rail-chapters" class="rail-links" aria-label="章节"></nav>
  <p class="rail-label">查阅</p><div class="rail-links"><a href="#wiki07">排错与自测历史</a><a href="#wiki10">接入我的资料</a><a href="#all">完整阅读与打印</a></div>
- <div class="rail-foot"><span class="local-badge">● 完整离线 · 本地搜索</span><b>Authoring Kit 3.0.2</b><br><span>20261112-window-visibility</span></div>
+ <div class="rail-foot"><span class="local-badge">● 完整离线 · 本地搜索</span><b>Authoring Kit 3.0.3</b><br><span>20261113-retest-guidance</span></div>
 </aside>
 <div class="shell"><header class="topbar"><div class="crumb"><button type="button" class="quiet-btn menu-btn" id="menu-toggle" aria-controls="rail" aria-expanded="false" aria-label="展开导航">☰</button> <a class="home-link" id="home-link" href="#home"><span aria-hidden="true">⌂</span> 返回主页</a><span class="crumb-divider"> / </span><b id="breadcrumb">工作台</b></div><div class="top-actions"><button type="button" class="quiet-btn" id="load-library">载入本地资料</button><button type="button" class="quiet-btn" id="print-manual">打印</button></div></header>
 <main class="workspace" id="workspace">
- <div class="hero workbench-ui" id="hero"><div><div class="eyebrow">LETSGAL / CREATOR KNOWLEDGE</div><h1>让资料跟得上你的创作。</h1><p>从一次剧情修改开始，将主 Skill、插件指南和个人约定放在同一处查阅。</p></div><div class="edition"><small>当前手册</small><strong>Authoring Kit 3.0.2</strong><span>Stable 与 Beta 双通道</span></div></div>
+ <div class="hero workbench-ui" id="hero"><div><div class="eyebrow">LETSGAL / CREATOR KNOWLEDGE</div><h1>让资料跟得上你的创作。</h1><p>从一次剧情修改开始，将主 Skill、插件指南和个人约定放在同一处查阅。</p></div><div class="edition"><small>当前手册</small><strong>Authoring Kit 3.0.3</strong><span>Stable 与 Beta 双通道</span></div></div>
  <div class="searchbox workbench-ui" role="search"><span class="search-symbol" aria-hidden="true">⌕</span><input id="search" type="search" maxlength="120" placeholder="搜索剧情、配音、插件、恢复…" aria-label="搜索全部 Wiki 正文" autocomplete="off"><kbd>Ctrl K</kbd><select id="search-scope" aria-label="搜索范围"><option value="all">全部内容</option><option value="main">主体</option><option value="skills">Skill Wiki</option><option value="personal">个性化</option></select><button class="clear-search" id="clear-search" aria-label="清空搜索" type="button" hidden>×</button></div>
  <p id="status" class="status" role="status" aria-live="polite"></p>
  <section id="search-results" class="search-results workbench-ui" aria-label="搜索结果" hidden><div class="search-title"><span id="search-count" role="status" aria-live="polite"></span><span>点击结果，直接阅读对应段落</span></div><div id="result-list"></div></section>
@@ -40,7 +40,7 @@
  </div>
  <div id="area-view" class="workbench-ui" hidden><header class="view-heading"><div class="eyebrow" id="area-eyebrow"></div><h2 id="area-title"></h2><p id="area-description"></p></header><div class="chapter-grid" id="chapter-grid"></div><div id="library-area" hidden><div class="library-toolbar"><h3>已接入的资料</h3><small>各版本分别保留 · 暂停项不展开正文</small></div><div class="library-grid" id="library-grid"></div><div class="empty" id="library-empty"><h3>这里准备好接入你的资料</h3><p>按接入规范整理插件指南或个人资料，生成本地工作台后，它们会自动出现在对应区域。也可以载入已生成的资料 JSON。</p><a href="#wiki10">查看接入步骤与模板 →</a></div></div></div>
  <div id="reader-view"><a class="reader-back workbench-ui" id="reader-back" href="#main">← 返回主体目录</a><div class="reader-wrap"><div class="all-articles" id="articles"><article class="article" id="guide-home" data-area="main" data-source="MANUAL.md"><h1 id="guide-home--letsgal-创作-wiki-工作台">LetsGal 创作 Wiki 工作台</h1>
-<p><strong>3.0.2 / 20261112-window-visibility</strong>。Stable 载荷 3.0.2 面向 Studio 3.0 正式系列；Beta 载荷 2.9.0 面向 2.9 Beta，保留 2.8 Beta 兼容路线。前两位随主要目标系列，第三位由本项目用于修订。本包帮助 AI 按任务制作并核对工程；Skill 安装不包含引擎或 MCP。</p>
+<p><strong>3.0.3 / 20261113-retest-guidance</strong>。Stable 载荷 3.0.3 面向 Studio 3.0 正式系列；Beta 载荷 2.9.0 面向 2.9 Beta，保留 2.8 Beta 兼容路线。前两位随主要目标系列，第三位由本项目用于修订。本包帮助 AI 按任务制作并核对工程；Skill 安装不包含引擎或 MCP。</p>
 <h2 id="guide-home--三个区域一套阅读入口">三个区域，一套阅读入口</h2>
 <p>| 区域 | 对应的安装内容 | 在这里查什么 |</p>
 <p>| --- | --- | --- |</p>
@@ -72,7 +72,7 @@
 <p>LetsGal Authoring Kit 是给 AI 使用的创作指南，帮助它选择接口、保留已有内容并检查结果。它不包含 LetsGal Studio、AI 模型或 MCP 服务。你仍在自己的 AI 工具中提出需求，在 Studio 中查看作品。</p>
 <h2 id="wiki01--准备什么">准备什么</h2>
 <p>准备完整解压的本包、能够访问本地文件的 AI 工具，以及作品的备份。只讨论故事可以暂不连接 Studio；实际修改工程还需<a href="#wiki02">确认版本、工程与 MCP</a>。Windows 安装器使用 PowerShell 5.1 或 7，无需管理员、Python 或 Node；可选检查脚本才需要 Python 3.9+。</p>
-<p>本包版本为 <strong>3.0.2 / 20261112-window-visibility</strong>。Stable 对应 Studio <strong>3.0 正式系列</strong>，Beta 对应 <strong>2.9 Beta 系列</strong>并兼容 <strong>2.8 Beta 系列</strong>。Skill 前两位与主要适配的引擎系列对齐，第三位用于本项目修订。当前 Stable 载荷为 3.0.2，Beta 为 2.9.0（保留 2.8 Beta 兼容路线）；安装器显示所选载荷的版本。完整安装包从 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases">GitHub Release 附件</a>取得。</p>
+<p>本包版本为 <strong>3.0.3 / 20261113-retest-guidance</strong>。Stable 对应 Studio <strong>3.0 正式系列</strong>，Beta 对应 <strong>2.9 Beta 系列</strong>并兼容 <strong>2.8 Beta 系列</strong>。Skill 前两位与主要适配的引擎系列对齐，第三位用于本项目修订。当前 Stable 载荷为 3.0.3，Beta 为 2.9.0（保留 2.8 Beta 兼容路线）；安装器显示所选载荷的版本。完整安装包从 <a href="https://github.com/recurse00-stack/letsgal-authoring-kit/releases">GitHub Release 附件</a>取得。</p>
 <h2 id="wiki01--安装一次">安装一次</h2>
 <ol>
 <li>
@@ -417,7 +417,7 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 <li><strong>官方状态</strong>：本节属于本项目的观察与判断。官方支持范围、问题确认及修复进展，请以官方说明为准。</li>
 </ul>
 <h3 id="wiki07--300历史现象与-r5-复测">3.0.0：历史现象与 r5 复测</h3>
-<p>2026-11-10 的 Windows 独立工程记录过以下现象，当次完整热修复标识未登记。官方 <strong>r3</strong> 公告随后说明了相关修复；本项目于 <strong>2026-11-12，在 3.0.0-stable-r5</strong> 使用官方 MCP 定向复测，结果如下。</p>
+<p>2026-11-10 的 Windows 独立工程记录过以下现象，当次完整热修复标识未登记。官方 <strong>r3</strong> 公告随后说明了设置、调度和文件会话的相关修复；本项目于 <strong>2026-11-12、11-13，在 3.0.0-stable-r5</strong> 使用官方 MCP 复核，最新结果如下。</p>
 <div class="table-scroll"><table>
 <thead>
 <tr>
@@ -430,7 +430,7 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 <tr>
 <td>扩展设置 reset</td>
 <td>官方内置壳改值后重置，默认标记或默认值读回有差异</td>
-<td>boolean、enum、array 的改值、重置和撤销通过；有声明的默认值与 <code>isDefault</code> 一致，无默认值的数组字段恢复原默认态</td>
+<td>boolean、enum、array 的改值、重置和两步撤销通过；另测显式空字符串，重置与两步撤销均恢复预期值和默认态</td>
 </tr>
 <tr>
 <td>修改入口数量后 undo</td>
@@ -440,11 +440,16 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 <tr>
 <td>官方文件编辑会话</td>
 <td>单处正文改动被旧正文覆盖，dry-run 为空</td>
-<td>单处文字改动持续保留，进入 dry-run 并提交；MCP 读回及撤销后全量块比对通过</td>
+<td>富文本单个文字节点改动进入两次 dry-run 并提交；撤销后全章内容、ID、绑定与 revision 和原状态相同</td>
+</tr>
+<tr>
+<td>GIF／WebP 素材处理</td>
+<td>旧 Beta 样本出现撤销或删除时文件占用</td>
+<td>两类独立样本的导入、尺寸读取、缩略图任务提交、导入撤销、原生删除、隔离区恢复及恢复操作的撤销通过</td>
 </tr>
 </tbody>
 </table></div>
-<p>这三项作为历史记录保留，当前用法按正常的声明、校验、提交和读回流程进行。复测范围为上述 MCP 路径；同章并发编辑冲突、其他调度模式，以及 SDK／界面／Player 的设置取值尚未在本轮验证。详见<a href="HOST-VALIDATION.md#300-r52026-11-12-定向复测">宿主验证范围</a>。</p>
+<p>上述历史异常在本轮样本中均未复现。日常使用按声明、校验、提交和读回流程进行；遇到差异再保留具体输入与返回。复测覆盖上述 MCP 路径；其他调度模式、同章并发冲突及 SDK／界面／Player 的设置取值需按具体任务验证。详见<a href="HOST-VALIDATION.md#300-r5历史问题复测">宿主验证范围</a>。</p>
 <h3 id="wiki07--300-r5预览窗口复测">3.0.0 r5：预览窗口复测</h3>
 <p>2026-11-12，本项目在 Windows、3.0.0-stable-r5 独立工程中，通过官方 MCP 对预览可见性作了补充测试。</p>
 <div class="table-scroll"><table>
@@ -474,6 +479,63 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 </tbody>
 </table></div>
 <p>本轮使用一个空首页窗口作遮挡，未改变 MCP 启用时机，也未覆盖双游戏工程连接等其他组合。结果尚不能确定旧现象的全部触发条件或具体修复版本。测试结束后原预览位置已恢复，剧情内容未改变。完整覆盖见<a href="HOST-VALIDATION.md#300-r5预览窗口">宿主验证范围</a>。</p>
+<h3 id="wiki07--参数校验的自测范围">参数校验的自测范围</h3>
+<p>2026-11-13，在同一 3.0.0-stable-r5 环境中，以目标 SDK 构建无副作用测试方法，完成 17 项 MCP dry-run。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>检查内容</th>
+<th>观察到的结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正常参数</td>
+<td>接受</td>
+</tr>
+<tr>
+<td>list 行数上下限、行内 number／boolean／enum 类型或选项、未知行字段</td>
+<td>不符合声明的输入被拒绝</td>
+</tr>
+<tr>
+<td>data=null、自定义 validate 拒绝、list／data 绑定变量</td>
+<td>被拒绝</td>
+</tr>
+<tr>
+<td>顶层标量类型／数值范围／枚举、未知顶层参数</td>
+<td>所测异常输入仍被接受</td>
+</tr>
+<tr>
+<td>list 行内数值范围</td>
+<td>声明 1–3 时，99 通过 dry-run；实际写入后读回仍为 99，随后撤销成功</td>
+</tr>
+</tbody>
+</table></div>
+<p>因此，提出扩展调用需求时，应让 AI 按方法声明核对类型、范围、枚举和可用参数，再使用宿主校验。此轮仅验证 MCP 接受或拒绝输入，没有运行异常参数；运行时如何取值要另查方法实现和执行结果。当前资料对不同字段的写入校验承诺有所区别，以上作为校验范围记录，尚无充分依据统一认定为官方缺陷。参数声明见<a href="https://docs.avg-engine.com/extensions/method">官方方法文档</a>。</p>
+<h3 id="wiki07--参考文档与接口差异">参考文档与接口差异</h3>
+<p>2026-11-13 的宿主 not-exposed 仍有两处旧说明，与当前接口不同：</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>主题</th>
+<th>当前接口提供的信息</th>
+<th>使用时怎样核对</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>跨系统桌面构建</td>
+<td>本机工具链返回 Windows x64、macOS arm64／x64 为支持目标</td>
+<td>先查询实际 supportedSystems 和 dry-run，再核导出产物及目标系统运行</td>
+</tr>
+<tr>
+<td>角色名称翻译</td>
+<td>l10n_read(names) 返回角色原名和目标语言译名</td>
+<td>按名称翻译接口维护；界面文字、章节名等其他对象分别核支持范围</td>
+</tr>
+</tbody>
+</table></div>
+<p>这属于资料一致性差异。选用能力时以当前 schema、SDK 类型和对应调用结果查证；本轮没有新增跨系统导出测试。</p>
 <h3 id="wiki07--其他版本与复核记录">其他版本与复核记录</h3>
 <div class="table-scroll"><table>
 <thead>
@@ -485,7 +547,7 @@ python &quot;channels/stable/skills/letsgal-authoring/scripts/check_project.py&q
 <tbody>
 <tr>
 <td>2.9.0-beta.1，历史独立样本</td>
-<td>记录过设置默认态未恢复、调度撤销仅恢复数量，以及文件会话预期改动未进入 <code>changedFiles</code>／<code>fragments</code>。完整热修复标识未登记；2026-11-12 的 r5 复测仅覆盖 Stable，Beta 保留原验证状态</td>
+<td>记录过设置默认态未恢复、调度撤销仅恢复数量，以及文件会话预期改动未进入 <code>changedFiles</code>／<code>fragments</code>。完整热修复标识未登记；2026-11-12 至 11-13 的 r5 复测仅覆盖 Stable，Beta 保留原验证状态</td>
 </tr>
 <tr>
 <td>3.0.0，2026-11-10，独立 GIF／WebP 样本</td>

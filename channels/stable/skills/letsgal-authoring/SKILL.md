@@ -6,11 +6,11 @@ description: 制作和修改 LetsGal Studio 的剧情、分支、演出、UI 与
 
 metadata:
 
-  version: 3.0.2
+  version: 3.0.3
 
   channel: stable
 
-  revision: 20261112-window-visibility
+  revision: 20261113-retest-guidance
 
 ---
 

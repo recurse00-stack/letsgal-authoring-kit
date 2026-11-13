@@ -8,6 +8,8 @@
 | 多窗口 | 端点与工程 ID 配对；studio_open_project 会切换本窗口，独立窗口另行初始化 | [MCP](mcp-workflow.md#连接与目标) |
 | 演出 | r3 起补充自定义站位；配置后在剧情启用，循环明确停止 | [舞台](stage-and-assets.md)、[演出段](performance.md) |
 | 桌面构建 | 按当前 supportedSystems 选择目标 | [构建](preview-and-build.md#构建与导出) |
+| 扩展参数 | 按声明核类型、枚举、范围和可用键，再结合当前入口的校验结果 | [参数](extensions.md#参数与校验) |
+| 资料冲突 | 核当前 schema、SDK 类型和针对性返回，记录采用依据 | [查证](research.md#先确认能力再选择做法) |
 | 添加扩展 | 先核源码与构建状态；需要构建时按具体原因处理 | [扩展](extensions.md#确定源码与目标-sdk) |
 | Steam | 按连接、结果和恢复状态处理 | [Steam](extensions.md#steam-接入) |
 | 设置 reset | 写前保存值与默认态，写后逐项读回，区分缺值与默认态 | [设置](extensions.md#设置存档与资源) |
@@ -16,4 +18,4 @@
 | 删除恢复 | project_delete 不支持普通 undo；按数据历史／素材隔离区恢复 | [数据表](ui-and-data.md#数据表的编辑与运行)、[精确清理](asset-cleanup.md) |
 | 未声明字段 | 不假定任意键都能往返，这属于格式契约边界 | [格式兼容](json.md#序列化与保真) |
 
-2.8 的扩展参数校验缺口、识别 BUSY 及高级调度定位条件，分别保留在[扩展](extensions.md#参数与校验)、[声音](story-and-voice.md#本地化与语音识别)、[预览](preview-and-build.md#预览范围)的版本段落。3.0 不直接继承这些运行结论；按受影响路径的实际结果处理。完整实测证据随发行验证说明维护。
+声音识别和高级调度定位的旧版条件见[声音](story-and-voice.md#本地化与语音识别)、[预览](preview-and-build.md#预览范围)。按目标版本及当前返回选用指导；具体自测范围在发行包的 Wiki 与验证说明中查阅。

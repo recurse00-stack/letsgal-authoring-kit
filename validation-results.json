@@ -1,7 +1,7 @@
 {
-  "version": "3.0.2",
-  "revision": "20261112-window-visibility",
-  "payload_revision": "20261112-window-visibility",
+  "version": "3.0.3",
+  "revision": "20261113-retest-guidance",
+  "payload_revision": "20261113-retest-guidance",
   "targets": {
     "stable_series": [
       "3.0"
@@ -59,20 +59,29 @@
       "method": "live MCP preview positioning, advance, run_from_start and capture under foreground, covered/unfocused, minimized and restored states",
       "patch_identity": "3.0.0-stable-r5",
       "coverage": "HOST-VALIDATION.md#300-r5预览窗口",
-      "reused": false
+      "reused": true
+    },
+    {
+      "area": "studio_3_0_r5_historical_recheck",
+      "date": "2026-11-13",
+      "method": "live MCP settings reset and two-step undo; full flow undo; file-session commit and undo; GIF/WebP import, delete and quarantine restore; 17 parameter dry runs and one write/readback/undo; target SDK typecheck and build",
+      "patch_identity": "3.0.0-stable-r5",
+      "coverage": "HOST-VALIDATION.md#300-r5历史问题复测",
+      "reused": true
     }
   ],
   "this_revision": {
-    "scope": "Stable preview window guidance; Wiki and generated HTML; 3.0.2 release checks",
+    "scope": "Stable parameter checks and current-interface guidance; historical retest Wiki and generated HTML; 3.0.3 release checks",
     "checks": "VALIDATION.md",
-    "new_host_execution": true,
+    "new_host_execution": false,
+    "host_evidence_date": "2026-11-13",
     "reused_checks": {
       "wiki_frontend_cases": 53,
       "date": "2026-11-12",
-      "reason": "frontend and installer implementations unchanged"
+      "reason": "frontend implementation unchanged"
     },
     "local_install": {
-      "date": "2026-11-12",
+      "date": "2026-11-13",
       "channel": "stable",
       "status": "installed-and-checked",
       "personal_data": "preserved"
@@ -80,7 +89,7 @@
     "checks_completed": {
       "version_cases": 140,
       "channel_cases": 26,
-      "local_links": 481,
+      "local_links": 485,
       "public_files": 137,
       "format": "Stable, Beta and installed Stable",
       "markdown_html": "same source, current"
@@ -92,12 +101,12 @@
     "selftest_scope": "Versioned samples; actual results may vary by environment and project"
   },
   "channel_versions": {
-    "stable": "3.0.2",
+    "stable": "3.0.3",
     "beta": "2.9.0"
   },
   "status": "RELEASE_BUILD_VALIDATED",
   "channel_revisions": {
-    "stable": "20261112-window-visibility",
+    "stable": "20261113-retest-guidance",
     "beta": "20261111-series300"
   }
 }
