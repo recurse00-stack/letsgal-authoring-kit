@@ -2,8 +2,8 @@
 name: letsgal-design
 description: 从《制作人的日常》提炼场面调度、转场、反馈导航、短事件与轻经营节奏的方法，供希望借鉴该范例的 LetsGal 创作者按需使用。纯工程排错、API 查询或照既定方案施工时不额外加载。
 metadata:
-  version: 0.1.0
-  revision: 20261113-design-preview.2
+  version: 0.1.1
+  revision: 20261113-workbench
   kind: design-reference-addon
 ---
 

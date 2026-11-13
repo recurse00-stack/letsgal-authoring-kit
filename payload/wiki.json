@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "kind": "reference",
+  "id": "letsgal-design",
+  "version": "0.1.1",
+  "revision": "20261113-workbench",
+  "title": "LetsGal 设计参考：制作人的日常",
+  "summary": "可选的演出与转场、界面反馈、短事件与轻经营设计方法。",
+  "status": "available",
+  "documents": [
+    {
+      "id": "guide",
+      "title": "使用手册",
+      "path": "USER-GUIDE.md"
+    },
+    {
+      "id": "skill",
+      "title": "AI 入口",
+      "path": "SKILL.md"
+    },
+    {
+      "id": "staging",
+      "title": "演出与转场",
+      "path": "references/staging.md"
+    },
+    {
+      "id": "feedback",
+      "title": "界面与反馈",
+      "path": "references/feedback.md"
+    },
+    {
+      "id": "events",
+      "title": "事件与经营",
+      "path": "references/events.md"
+    },
+    {
+      "id": "sources",
+      "title": "来源与证据范围",
+      "path": "references/sources.md"
+    },
+    {
+      "id": "validation",
+      "title": "验证范围",
+      "path": "VALIDATION.md"
+    },
+    {
+      "id": "changes",
+      "title": "版本记录",
+      "path": "RELEASE-NOTES.md"
+    }
+  ]
+}

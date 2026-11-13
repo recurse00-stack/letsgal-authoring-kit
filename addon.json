@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "kind": "letsgal-skill-addon",
+  "id": "letsgal-design",
+  "version": "0.1.1",
+  "revision": "20261113-workbench",
+  "title": "LetsGal 设计参考：制作人的日常",
+  "summary": "可选的演出与转场、界面反馈、短事件与轻经营设计方法。",
+  "section": "references",
+  "entry": "SKILL.md",
+  "files": {
+    "agents/openai.yaml": "fd60f26d2ad37e89c6172c8097c9178a90dbc79ddca280f28a664e615071433a",
+    "LICENSE": "fcef40a59a4b0cdad8c0071be365ab049614791339ee82fac2b0ea6d352df1e1",
+    "references/events.md": "75ffe851a087ed7ab1686464c54533eb54de0af1549d7fd35a94c8f9144023c7",
+    "references/feedback.md": "eb3bcce4dd6f3268ec4c7722b8927c0527e6b64f0b3642fc4366b79790608acb",
+    "references/sources.md": "2deec2abe9ba90d5583e9bd87c08a98564a07d2cd18e96bee19ac26a77f00218",
+    "references/staging.md": "15ebe1e9059b1a218abfdccb2b241bcc8eabb71dd9984dcbdca504ca4127738c",
+    "RELEASE-NOTES.md": "c9fb6351ca94c454b7ff7640e877f7c36ee973ac67fbd87a0524951f88a3f247",
+    "SKILL.md": "49d59aa5a60b785976b484e14eceaafc4ee7f16b3c99511c5c86753a362e0ff3",
+    "USER-GUIDE.html": "e9000f7342b6f302287ad7aa895065f7f761cb440f4cd147ae91db5a29fb322b",
+    "USER-GUIDE.md": "723b70ca56788dd7640be79cde7f5604958b4238adc98e8703acaf05b94429d6",
+    "VALIDATION.md": "a4b9f129fb1b7d64c5f64942d2b60a874e35aafaa08c44033b7c5cb99d6c51e7",
+    "wiki-library.json": "e2e12feadebb2e3235a70a896bf14c50f5d12b4b069e53f4fd7981b4b763d6df",
+    "wiki.json": "721b272a1c06eae90680f4d6df50bd0c6489d903531408b951f7f5edb63bf0b5"
+  },
+  "manual": "USER-GUIDE.html"
+}

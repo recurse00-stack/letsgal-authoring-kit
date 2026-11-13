@@ -14,14 +14,16 @@
 
 ## 开始使用
 
-解压后阅读[使用手册](USER-GUIDE.md)或[离线 HTML](USER-GUIDE.html)。Windows 用户准备 Python 3 后可运行 `Install.cmd`，先查看安装预览，再选择是否应用。
+解压后阅读[使用手册](payload/USER-GUIDE.md)或[离线 HTML](payload/USER-GUIDE.html)。Windows 用户准备 Python 3.10+ 后可运行 `Install.cmd`，先查看预览，再选择安装。
 
-已有 `letsgal-authoring` 时，安装到实际用户区的版本化附加包目录，并登记索引；主 Skill 和个人偏好正文保持原样。没有主 Skill 时，可独立安装到所用 Agent 的技能目录。具体参数与调用提示见手册。
+本包独立选择、独立安装，不包含在主 Skill 的默认载荷中。已有主 Skill 时，正文安装到实际用户区的版本化附属包目录；支持本轮接入协议的总 Wiki 自动在“创作参考”分区显示本包手册、专题和来源。尚未配置总 Wiki 时显示待接入，后来安装支持该协议的主包即可汇总。没有主 Skill 时，使用独立 Skill 和随包手册。
+
+附属包状态统一保存在本包的 `state.json`；旧版、其他资料与个人偏好保留。旧格式 0.1.0 的文字索引需单独迁移；本版检测到该旧索引会保留原状并停止，详见手册。
 
 安装只提供设计资料，没有模型权重，也不安装《制作人的日常》扩展。实际工程操作仍由主 Skill 和创作者授权的工具完成。
 
 ## 资料与范围
 
-[AI 入口](skill/SKILL.md) · [方法来源](skill/references/sources.md) · [验证范围](VALIDATION.md) · [版本记录](RELEASE-NOTES.md) · [许可](LICENSE)
+[AI 入口](payload/SKILL.md) · [方法来源](payload/references/sources.md) · [验证范围](payload/VALIDATION.md) · [版本记录](payload/RELEASE-NOTES.md) · [许可](LICENSE)
 
 本包不含原样例的美术、截图、完整剧本或源码。首批依据侧重轻经营节奏、界面反馈和基础场面；复杂音画演出需要更多案例与实际预览。源码实现与本包归纳分别说明，本包不是官方设计标准。
