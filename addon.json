@@ -1,0 +1,25 @@
+{
+  "id": "letsgal-extension-design",
+  "version": "0.1.0",
+  "revision": "20261113-optional-wiki",
+  "title": "扩展界面设计参考",
+  "summary": "设置页、方法检查器与编辑预览的可选设计方法。",
+  "schema": 1,
+  "kind": "letsgal-skill-addon",
+  "section": "references",
+  "entry": "SKILL.md",
+  "manual": "MANUAL.html",
+  "files": {
+    "docs/installation.md": "be0b03b0ff19875e40f891203b4fc71273755d5d5aba8e37335aa996060f1d7b",
+    "docs/practice.md": "e072edf3516e7cdd8d799b895f2ac6c85b1ee678e28dd37f9c9842b00bbfb4a6",
+    "docs/README.md": "a8d91239005711079faec202965a4ba9f4c7866106c629f6b24199b0f6ee5560",
+    "MANUAL.html": "5a04a0e4fed9b7a8907cce0e6fe63812eebaa7f466f8540c58906d069dfa03cb",
+    "references/card-example.md": "5f5befd7ee7db8385b6b4a0c298913b08ffc79135f7eb28b1aaa4e402a5d906c",
+    "references/feedback.md": "0ea3f4bd47f8dc2ffa3e0b6cefc246f8ec81b473fe8c0d8a2ebde304eb0ff55f",
+    "references/layout.md": "2a44a02359c2fecb9ce86e5d9959562e950d8ee4fd1bb5998a6634e4d6cd57c0",
+    "references/sources.md": "911aa8f1e29f637bab24dada73a69baffeb00adb18d9a6836d6853153e615d39",
+    "SKILL.md": "a7d8bd78ccfd2409dfa2e46361e061ecd75d74dcf6f5c27b862a193c8be09036",
+    "wiki-library.json": "8947c76641c178b6850506c0789f3b58934427407e402bb9886b6bdc1c427b36",
+    "wiki.json": "1745132a5d896da6d73183adf6d1c294294d5e31861349f3b054daff71056f8c"
+  }
+}

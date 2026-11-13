@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "kind": "reference",
+  "id": "letsgal-extension-design",
+  "version": "0.1.0",
+  "revision": "20261113-optional-wiki",
+  "title": "扩展界面设计参考",
+  "summary": "设置页、方法检查器与编辑预览的可选设计方法。",
+  "status": "available",
+  "documents": [
+    {
+      "id": "guide",
+      "title": "使用指南",
+      "path": "docs/README.md"
+    },
+    {
+      "id": "install",
+      "title": "安装与管理",
+      "path": "docs/installation.md"
+    },
+    {
+      "id": "practice",
+      "title": "设计练习",
+      "path": "docs/practice.md"
+    },
+    {
+      "id": "sources",
+      "title": "来源与适用范围",
+      "path": "references/sources.md"
+    },
+    {
+      "id": "layout",
+      "title": "布局与字段",
+      "path": "references/layout.md"
+    },
+    {
+      "id": "feedback",
+      "title": "预览与交互",
+      "path": "references/feedback.md"
+    },
+    {
+      "id": "case",
+      "title": "完整案例",
+      "path": "references/card-example.md"
+    }
+  ]
+}
