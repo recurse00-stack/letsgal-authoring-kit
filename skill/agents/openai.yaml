@@ -1,0 +1,4 @@
+interface:
+  display_name: "LetsGal 设计参考：制作人的日常"
+  short_description: "从《制作人的日常》提炼演出、界面反馈与轻经营方法，供相关创作按需参考"
+  default_prompt: "请用 $letsgal-design 参考当前作品目标，给出合适的场面或反馈安排。"

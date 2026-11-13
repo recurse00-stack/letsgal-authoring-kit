@@ -1,23 +1,18 @@
 {
-  "schema": 2,
-  "owner": "letsgal-authoring-kit",
-  "skill": "letsgal-authoring",
-  "version": "3.0.3",
-  "channels": [
-    {
-      "id": "stable",
-      "label": "正式版",
-      "bundle": "channels/stable/bundle.json",
-      "revision": "20261113-retest-guidance",
-      "version": "3.0.3"
-    },
-    {
-      "id": "beta",
-      "label": "Beta",
-      "bundle": "channels/beta/bundle.json",
-      "revision": "20261111-series300",
-      "version": "2.9.0"
-    }
-  ],
-  "revision": "20261113-retest-guidance"
+  "name": "letsgal-design",
+  "kind": "skill-addon",
+  "parent": "letsgal-authoring",
+  "version": "0.1.0",
+  "revision": "20261113-design-preview.2",
+  "status": "release",
+  "engine": "design-only; implementation via main Skill",
+  "files": {
+    "agents/openai.yaml": "fd60f26d2ad37e89c6172c8097c9178a90dbc79ddca280f28a664e615071433a",
+    "LICENSE": "fcef40a59a4b0cdad8c0071be365ab049614791339ee82fac2b0ea6d352df1e1",
+    "references/events.md": "75ffe851a087ed7ab1686464c54533eb54de0af1549d7fd35a94c8f9144023c7",
+    "references/feedback.md": "eb3bcce4dd6f3268ec4c7722b8927c0527e6b64f0b3642fc4366b79790608acb",
+    "references/sources.md": "2deec2abe9ba90d5583e9bd87c08a98564a07d2cd18e96bee19ac26a77f00218",
+    "references/staging.md": "15ebe1e9059b1a218abfdccb2b241bcc8eabb71dd9984dcbdca504ca4127738c",
+    "SKILL.md": "0a478c0c938e6b00dc0080be78439494a8510e361c0ee60dc725eb36d867139e"
+  }
 }
