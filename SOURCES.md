@@ -10,6 +10,8 @@ r3 的自定义站位与 MCP 设置／调度／文件会话调整，结合本机
 
 预览窗口说明依据 2026-11-12 的 3.0.0-r5 宿主 `quickstart`、`guide-preview-testing` 和本项目同日 MCP 补充实测。窗口可见性结论按[对应验证范围](HOST-VALIDATION.md#300-r5预览窗口)使用。
 
+2026-11-13 的历史问题复测沿用同一 stable-r5，补充设置／撤销、文件会话、GIF／WebP 与扩展参数证据。参数规则对照目标 SDK 3.0.0、ext_read(methods) 和[官方方法文档](https://docs.avg-engine.com/extensions/method)；not-exposed 的构建／名称翻译描述另与当前工具返回核对。具体分类见 [Wiki](docs/wiki/07-recovery.md#参数校验的自测范围)。
+
 ## 按任务查询
 
 | 任务 | 官方入口 |

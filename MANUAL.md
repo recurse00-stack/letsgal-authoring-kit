@@ -1,6 +1,6 @@
 # LetsGal 创作 Wiki 工作台
 
-**3.0.2 / 20261112-window-visibility**。Stable 载荷 3.0.2 面向 Studio 3.0 正式系列；Beta 载荷 2.9.0 面向 2.9 Beta，保留 2.8 Beta 兼容路线。前两位随主要目标系列，第三位由本项目用于修订。本包帮助 AI 按任务制作并核对工程；Skill 安装不包含引擎或 MCP。
+**3.0.3 / 20261113-retest-guidance**。Stable 载荷 3.0.3 面向 Studio 3.0 正式系列；Beta 载荷 2.9.0 面向 2.9 Beta，保留 2.8 Beta 兼容路线。前两位随主要目标系列，第三位由本项目用于修订。本包帮助 AI 按任务制作并核对工程；Skill 安装不包含引擎或 MCP。
 
 ## 三个区域，一套阅读入口
 
