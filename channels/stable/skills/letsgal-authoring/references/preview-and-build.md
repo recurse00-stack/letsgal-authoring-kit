@@ -32,7 +32,7 @@ run_from_start 覆盖顺序主片段。高级调度、前处理和片段流程�
 
 build_read(view="config") 核 scheme、设置和 revision。平台、ZIP、加密、debug、Steam、Web 资源 URL、Android 选项属于方案；作品名、版本、图标、Android 包名和运营统计跨方案共享。当前 MCP 修改当前方案，创建／切换方案使用获准原生界面。临时 debug 设置按[确认流程](mcp-workflow.md#宿主确认)执行并恢复，正式产物使用对应正式设置。
 
-**3.0 桌面系统**：先读 build_read 的 desktop.target.supportedSystems 和工具链，再用 set_desktop_systems 携带 revision 选择。schema 可保存 win32-x64、darwin-arm64、darwin-x64、linux-x64 的子集，保存选项不证明当前机器可构建。按当前 supportedSystems 和 dry-run 安排目标；非 macOS 导出的 Mac 产物为 ZIP，Linux 能力另看宿主。旧 not-exposed 关于跨系统构建的限制可能滞后，不能覆盖当前配置与实际返回。导出验包和目标平台运行分别验证。
+**3.0 桌面系统**：先读 build_read(view="toolchain").desktop.supportedSystems，并核 build_read(view="config") 的目标配置，再用 set_desktop_systems 携带 revision 选择。schema 可保存 win32-x64、darwin-arm64、darwin-x64、linux-x64 的子集，保存选项不证明当前机器可构建。按当前 supportedSystems 和 dry-run 安排目标；非 macOS 导出的 Mac 产物为 ZIP，Linux 能力另看宿主。资料冲突按[查证流程](research.md#先确认能力再选择做法)核当前接口及返回。导出验包和目标平台运行分别验证。
 
 剧本导出按章节、指令和语言核实际正文及跳过项；文本、CSV、JSON、Ren’Py、Markdown、Word 各使用对应消费格式。导出 JSON 回写前转换为章节格式；Ren’Py 按支持的指令范围验收。章节迁移和游戏构建各用专用流程。
 
