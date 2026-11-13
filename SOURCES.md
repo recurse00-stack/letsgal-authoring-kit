@@ -33,3 +33,5 @@ r3 的自定义站位与 MCP 设置／调度／文件会话调整，结合本机
 ## Wiki 工作台组织
 
 2026-11-11 查阅 [GitBook 的分区与版本组织](https://gitbook.com/docs/guides/editing-and-publishing-documentation/complete-guide-to-publishing-docs-gitbook)和 [Mintlify 的文档搜索说明](https://www.mintlify.com/blog/launch-week-3-day-2)，采用分区导航、正文目录和搜索结果直达的组织方式。工作台页面、离线搜索和本地资料协议由本项目实现，不依赖这些服务的托管或账号。
+
+扩展编辑界面的设计建议与 SDK 规则分开维护：可选包提供布局和案例，主包保留目标版本的绑定、权限、参数及构建契约。附属包接入协议与本地聚合运行时由本项目实现，见[接入说明](docs/ADDON-WIKI.md)。

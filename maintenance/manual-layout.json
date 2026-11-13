@@ -10,7 +10,8 @@
     "docs/wiki/07-recovery.md",
     "docs/wiki/08-maintenance.md",
     "docs/wiki/09-plugin-wiki.md",
-    "docs/wiki/10-workbench-interface.md"
+    "docs/wiki/10-workbench-interface.md",
+    "docs/wiki/11-creation-references.md"
   ],
   "legacy_aliases": {
     "这个包能做什么": "docs/wiki/01-start.md",
@@ -97,7 +98,11 @@
     },
     "docs/wiki/10-workbench-interface.md": {
       "area": "skills",
-      "summary": "将插件手册和个人资料接入离线工作台"
+      "summary": "将插件手册、创作参考和个人资料接入工作台"
+    },
+    "docs/wiki/11-creation-references.md": {
+      "area": "references",
+      "summary": "选择、暂停与按需读取可选方法包"
     }
   }
 }

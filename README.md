@@ -2,13 +2,13 @@
 
 让 AI 按目标版本协助制作 LetsGal Studio 的剧情、分支、演出、UI、数据和扩展，并保留已有内容、读取相关资料、核对修改结果。这是社区 Skill，不包含引擎、模型、账号或 MCP。
 
-当前版本 **3.0.3 / 20261113-retest-guidance**。Stable 面向 **3.0 正式系列**；Beta 面向 **2.9 Beta 系列**，兼容 **2.8 Beta 系列**。两个通道都优先官方 MCP，安装时选一份同名载荷。[下载 3.0.3](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v3.0.3)；旧版完整资料在[历史发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。
+**3.0.4 / 20261113-optional-wiki**。Stable 面向 **3.0 正式系列**；Beta 面向 **2.9 Beta 系列**，兼容 **2.8 Beta 系列**。两个通道都优先官方 MCP，安装时选一份同名载荷。[本版下载](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v3.0.4)；旧版完整资料在[历史发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。
 
 ## 版本编号
 
-Skill 的前两位跟随主要适配的引擎系列，第三位用于我们的修复、小功能、约束和同系列适配。例如 Skill 3.0.0、3.0.3 均服务于 Studio 3.0 系列，补丁编号各自递增。
+Skill 的前两位跟随主要适配的引擎系列，第三位用于我们的修复、小功能、约束和同系列适配。例如 Skill 3.0.0、3.0.4 均服务于 Studio 3.0 系列，补丁编号各自递增。
 
-当前总包与 Stable 载荷为 **3.0.3**，Beta 载荷独立为 **2.9.0**，保留 2.8 Beta 兼容路线。安装器显示所选载荷版本。未来适配新的 Beta 主次版本时，Beta 载荷随该系列调整；实际发行身份由运行版本判断，更新偏好不会改变资料选择。
+当前总包与 Stable 载荷为 **3.0.4**，Beta 载荷独立为 **2.9.1**，保留 2.8 Beta 兼容路线。安装器显示所选载荷版本。未来适配新的 Beta 主次版本时，Beta 载荷随该系列调整；实际发行身份由运行版本判断，更新偏好不会改变资料选择。
 
 ## 开始使用
 
@@ -22,11 +22,11 @@ Skill 的前两位跟随主要适配的引擎系列，第三位用于我们的�
 
 [分主题 Wiki](MANUAL.md) · [完整离线 HTML](MANUAL.html) · [目录兼容](COMPATIBILITY.md) · [手动安装／参数](docs/wiki/08-maintenance.md#查阅手动安装与命令行)
 
-普通 Windows 安装不要求 Python、Node 或管理员权限。可选检查脚本需要 Python 3.9+。其他系统手动复制所选通道的完整 Skill，并核对实际发现；云端和本机是不同环境。
+普通 Windows 安装不要求 Python、Node 或管理员权限。可选检查脚本需要 Python 3.9+；自动聚合附属包 Wiki 需要 Python 3.10+，总入口为实际用户区的 `workbench/MANUAL.html`。其他系统手动复制所选通道的完整 Skill，并核对实际发现；云端和本机是不同环境。
 
-## 三部分 Wiki 工作台
+## 四部分 Wiki 工作台
 
-[离线工作台](MANUAL.html)按“主体／Skill Wiki／个性化”对应主 Skill、插件知识和个人资料。提供全文搜索、区域筛选、章节定位、提示词复制、窄屏阅读与完整打印。[接入规范](docs/wiki/10-workbench-interface.md)让匹配 ID 和版本的插件手册、显式选择的个人资料出现在本地工作台；公共包不带私人内容。
+[离线工作台](MANUAL.html)按“主体／Skill Wiki／创作参考／个性化”对应主 Skill、插件知识、可选方法包和个人资料。提供全文搜索、区域筛选、章节定位、提示词复制、窄屏阅读与完整打印。[接入规范](docs/wiki/10-workbench-interface.md)让匹配 ID 和版本的插件手册、创作参考和显式选择的个人资料出现在本地工作台；公共包不带私人内容。
 
 自测问题记录见[Wiki 第 7 章](docs/wiki/07-recovery.md#本项目自测问题历史)，包含版本、观察结果与使用提示。AI 操作规则位于对应 Skill 专题。
 
@@ -42,9 +42,9 @@ Skill 的前两位跟随主要适配的引擎系列，第三位用于我们的�
 
 - **提供内容**：主 Skill、检查脚本、安装工具与人工 Wiki。Studio、模型及 MCP 连接由使用者另行准备。
 
-- **安装范围**：更新、切换和卸载只处理所选 Skill，保留用户区与备份。引擎、MCP 配置和其他资料的启停状态保持原状。
+- **安装范围**：更新和切换处理所选 Skill，并在具备 Python 时刷新本机总 Wiki；卸载将 Skill 移入备份。已有偏好、插件资料和附属包状态保留。引擎、MCP 配置和其他资料的启停状态保持原状。
 
-- **独立附加包**：协作附加包单独安装和管理，0.1.3 可从[原发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)取得。
+- **独立附加包**：设计参考与协作等包均为可选安装；符合[接入协议](docs/ADDON-WIKI.md)的包可自动出现在对应 Wiki 区域。协作附加包单独安装和管理，0.1.3 可从[原发布页](https://github.com/recurse00-stack/letsgal-authoring-kit/releases/tag/v0.2.3)取得。
 
 开始前准备作品备份并设置可写范围，见[使用与备份说明](RISK-NOTICE.md)。数据保存方式见[隐私](PRIVACY.md)，已验证的任务及适用条件见[验证说明](VALIDATION.md)和[宿主范围](HOST-VALIDATION.md)。
 

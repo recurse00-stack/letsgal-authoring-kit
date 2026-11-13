@@ -1,6 +1,6 @@
 # 正式版 通道指南
 
-本版 **3.0.3 / 20261113-retest-guidance**，目标 Studio **3.0 系列正式版**。安装时选 `stable`，技能名仍为 letsgal-authoring，同一目录只装一份。共同使用方法见[总目录](../../MANUAL.md)和[完整离线手册](../../MANUAL.html)。
+本版 **3.0.4 / 20261113-optional-wiki**，目标 Studio **3.0 系列正式版**。安装时选 `stable`，技能名仍为 letsgal-authoring，同一目录只装一份。共同使用方法见[总目录](../../MANUAL.md)和[完整离线手册](../../MANUAL.html)。
 
 ## 本通道差异
 

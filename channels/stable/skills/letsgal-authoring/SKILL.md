@@ -6,11 +6,11 @@ description: 制作和修改 LetsGal Studio 的剧情、分支、演出、UI 与
 
 metadata:
 
-  version: 3.0.3
+  version: 3.0.4
 
   channel: stable
 
-  revision: 20261113-retest-guidance
+  revision: 20261113-optional-wiki
 
 ---
 
@@ -20,9 +20,11 @@ metadata:
 
 ## 按当前任务读取
 
-本会话首次执行工程或扩展操作前，先检查实际 AI 用户主目录的 `~/.letsgal-authoring/preferences/user.md`；存在就读取并应用与当前任务相关的约定，不能只读主 Skill 后跳过。已读且仍有效的信息可复用；用户告知偏好更新或相关上下文缺失时重读。旧路径兼容、缺失与冲突处理见[个人定制](references/customization.md)。
+本会话首次执行工程、扩展操作或使用创作参考前，先检查实际 AI 用户主目录的 `~/.letsgal-authoring/preferences/user.md`；存在就读取并应用与当前任务相关的约定，不能只读主 Skill 后跳过。已读且仍有效的信息可复用；用户告知偏好更新或相关上下文缺失时重读。旧路径兼容、缺失与冲突处理见[个人定制](references/customization.md)。
 
 涉及已有插件的使用或维护时，先按[插件知识](references/plugin-skills.md)核对 ID／版本并读取用户区对应指南；不必等用户再次点名子包，也不因它未单独列在 Agent 技能列表中而跳过。
+
+需要比较演出、叙事、玩法、节奏或扩展界面设计方案时，按[创作参考](references/creation-references.md)核对已启用包和选定版本，读取相关方法；执行已定方案直接使用操作专题。
 
 讨论使用已有创作上下文；操作工程时读项目规则、简短当前状态及目标原文。只读取下表中与任务相关的专题或章节，复用仍有效的上下文。
 

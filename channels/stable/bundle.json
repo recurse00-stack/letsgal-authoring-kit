@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "channel": "stable",
   "profile_schema": 1,
   "files": [
@@ -24,7 +24,11 @@
     },
     {
       "path": "references/collaboration-git.md",
-      "sha256": "c25cbe656a4b27a5d044a88aa521bd65ff453004dd66f40c50b42e40bdb72815"
+      "sha256": "930d88eb7f0f97bb9e0c072f5016f613911ff5c335f387614d3c18506c6c3e75"
+    },
+    {
+      "path": "references/creation-references.md",
+      "sha256": "c87828308593491c10c7d9559dcfcded088fc46986e2d6396f82a3c23073a02e"
     },
     {
       "path": "references/current-capabilities.md",
@@ -36,11 +40,11 @@
     },
     {
       "path": "references/customization.md",
-      "sha256": "dda0fc3d9f5fda7b39d6e3909c52cbc5052713c0971f6c481b5af4654db9b3a9"
+      "sha256": "6474ed9bc5544bda2cdcb1978f90b594fe29b7834f4011195a9f424802234b63"
     },
     {
       "path": "references/extensions.md",
-      "sha256": "b59d02083951a1a58658fc241682796586c12f69f2c2e4cce7360adc5ac8299a"
+      "sha256": "0e7cc3f2661720344ce0f646de206f87fd49a441a3b869959d84d8a79954a6b3"
     },
     {
       "path": "references/git-workflow.md",
@@ -52,7 +56,7 @@
     },
     {
       "path": "references/mcp-workflow.md",
-      "sha256": "80a225f8063e5ff81b7b8c5a3bf24be059379061240dae7f032ea49c5306be2f"
+      "sha256": "3569c42ccd0dd1a82b8759987a20d0728ea292ae009f4ccedacea293f134a7fa"
     },
     {
       "path": "references/performance.md",
@@ -88,7 +92,7 @@
     },
     {
       "path": "references/stage-and-assets.md",
-      "sha256": "2ecabf4809336c36c339042707300f13d28d782972eb535fee411d7492caee9b"
+      "sha256": "67e00843ae0a15965c32f9b23e63bda9cf6526928ed7bf0f6bd8d375eda904a2"
     },
     {
       "path": "references/story-and-voice.md",
@@ -96,7 +100,7 @@
     },
     {
       "path": "references/studio-editor-ui.md",
-      "sha256": "5045bfc17239ad309f6a1589579c3191d42c1c5c1df1e79f64661a1af6396e40"
+      "sha256": "ff025133103bcba83bf415cf02f0c3e673d8d2ceff91cf1ba8e6dbf30f2be003"
     },
     {
       "path": "references/troubleshooting.md",
@@ -108,7 +112,7 @@
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "c25bf77fef541b4f9c0dc3618ca56a54c0e56988f2dd1f6d5c88404d7c50136d"
+      "sha256": "26d21a99474a0113cef5cf11f075e098b49ebbc46869c4939bce1e662adc2487"
     },
     {
       "path": "scripts/check_project.py",
@@ -116,11 +120,11 @@
     },
     {
       "path": "scripts/inspect_version.py",
-      "sha256": "397a27ee4dd28835e9b2250e500820445700afded539388a6cc3f78866a60206"
+      "sha256": "f366a551388625cc1635ea087ceb97b30151d427d00fcf275c90b7f5dff1f1ae"
     },
     {
       "path": "SKILL.md",
-      "sha256": "0ce23b9ed82dfc3e21158812f6d53261d0b66f0d148cef20578410ed94ac95e3"
+      "sha256": "cf0f9916c612e535215f3a3ad5750152340358ad3fe88b44bd6a6606b6e66fb4"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -135,5 +139,5 @@
       "sha256": "2541584dc3943ebec9ba3689b9d6c02a9066208de2195409be6e6601a35a2084"
     }
   ],
-  "revision": "20261113-retest-guidance"
+  "revision": "20261113-optional-wiki"
 }

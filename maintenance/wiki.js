@@ -2,10 +2,11 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const data = JSON.parse($('wiki-data').textContent);
-  const labels = {main:'主体', skills:'Skill Wiki', personal:'个性化'};
+  const labels = {main:'主体', skills:'Skill Wiki', references:'创作参考', personal:'个性化'};
   const descriptions = {
     main:'主 Skill 的完整使用路线：安装与连接、制作与核对、更新与恢复。',
     skills:'插件的 AI 指南与人类用法放在同一入口，按真实 ID、版本和修订分别查阅。',
+    references:'按问题查阅演出、叙事、玩法与界面设计等可选方法，选择适合当前作品的做法。',
     personal:'跨作品偏好、单个作品的约定与私人资料，按自己的需要组织。'
   };
   let pages = [...data.pages], library = [], index = [], activeArea = 'main';
@@ -26,7 +27,7 @@
     if (!value || value.schema!==1 || value.kind!=='letsgal-wiki-library' || !Array.isArray(value.items) || value.items.length>200) throw Error('资料格式不匹配，请使用接入工具生成的 Wiki JSON。');
     const identities=new Set(), ids=new Set();
     for (const item of value.items) {
-      if (!item || !['skills','personal'].includes(item.section) || !['available','paused'].includes(item.status) || !/^ext-[a-f0-9]{16}$/.test(item.uid) || !safeString(item.id) || !safeString(item.version,80) || !safeString(item.revision,100) || !safeString(item.title) || typeof item.summary!=='string' || item.summary.length>1000 || !Array.isArray(item.documents) || item.documents.length>50) throw Error('资料条目缺少有效 ID、版本、修订、状态或正文。');
+      if (!item || !['skills','references','personal'].includes(item.section) || !['available','paused'].includes(item.status) || !/^ext-[a-f0-9]{16}$/.test(item.uid) || !safeString(item.id) || !safeString(item.version,80) || !safeString(item.revision,100) || !safeString(item.title) || typeof item.summary!=='string' || item.summary.length>1000 || !Array.isArray(item.documents) || item.documents.length>50) throw Error('资料条目缺少有效 ID、版本、修订、状态或正文。');
       const identity=JSON.stringify([item.section,item.id,item.version,item.revision]);
       if (identities.has(identity) || ids.has(item.uid)) throw Error('资料中存在重复身份或重复标识。');
       identities.add(identity); ids.add(item.uid);
@@ -105,12 +106,13 @@
   function updateCounts() {
     const count=section=>library.filter(i=>i.section===section).length;
     $('skill-count').textContent=count('skills')?count('skills')+' 份插件资料 · 含各版本':'插件指南与接入';
+    $('reference-count').textContent=count('references')?count('references')+' 份参考资料 · 含各版本':'可选方法与参考包';
     $('personal-count').textContent=count('personal')?count('personal')+' 份个人资料':'个人资料与使用方法';
   }
 
   function fillArea(area) {
     $('area-title').textContent=labels[area]; $('area-description').textContent=descriptions[area];
-    $('area-eyebrow').textContent={main:'01 / CORE GUIDE',skills:'02 / PLUGIN KNOWLEDGE',personal:'03 / PERSONAL SPACE'}[area];
+    $('area-eyebrow').textContent={main:'01 / CORE GUIDE',skills:'02 / PLUGIN KNOWLEDGE',references:'03 / CREATIVE REFERENCES',personal:'04 / PERSONAL SPACE'}[area];
     const cards=[];
     for (const page of data.pages.filter(p=>p.area===area && p.id!=='guide-home')) {
       const card=link('',page.id,'chapter-card');
@@ -124,6 +126,7 @@
     const libraryCards=items.map(item=>{
       const card=document.createElement('section'); card.className='library-card';
       card.append(text('span',item.version,'badge'),text('span',item.status==='paused'?'已暂停':'可阅读','badge'+(item.status==='paused'?' paused':'')),text('h3',item.title),text('p',item.summary));
+      if (item.selected === true) card.append(text('span','AI 当前选用','badge'));
       if (item.status==='paused') card.append(text('p','保留资料位置与版本；正文不载入、不加入搜索。'));
       else for (const doc of item.documents) { card.append(link(doc.title+' →',item.uid+'-'+doc.id),document.createElement('br')); }
       card.append(text('footer',item.id+' / '+item.revision)); return card;

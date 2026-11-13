@@ -8,6 +8,7 @@ import re
 import stat
 from urllib.parse import unquote, urlsplit
 import markdown
+from workbench_runtime import collect as collect_managed
 from build_manual import ROOT, render, slugify
 
 MAX_BYTES=1000000
@@ -46,21 +47,22 @@ def document_path(base, relative):
     if path.stat().st_size>MAX_BYTES: raise ValueError('Document too large')
     return path
 
-def read_item(path, kind, expected_id=None, expected_version=None):
+def read_item(path, kind, expected_id=None, expected_version=None, document_base=None):
     value=read_json(path)
     if not isinstance(value,dict) or value.get('schema')!=1 or value.get('kind')!=kind: raise ValueError('Manifest schema/kind does not match its location')
     for name,limit in [('id',200),('version',80),('revision',100),('title',200)]: string(value.get(name),name,limit)
     if not isinstance(value.get('summary',''),str) or len(value.get('summary',''))>1000: raise ValueError('Invalid summary')
-    if expected_id is not None and value['id']!=expected_id: raise ValueError('Plugin ID differs from its directory')
-    if expected_version is not None and value['version']!=expected_version: raise ValueError('Plugin version differs from its directory')
+    if expected_id is not None and value['id']!=expected_id: raise ValueError('Package ID differs from its directory')
+    if expected_version is not None and value['version']!=expected_version: raise ValueError('Package version differs from its directory')
     if value.get('status') not in ('available','paused'): raise ValueError('Explicit available/paused status is required')
-    section='skills' if kind=='plugin' else 'personal'
+    section={'plugin':'skills','reference':'references','personal':'personal'}[kind]
     identity=[section,value['id'],value['version'],value['revision']]
     uid='ext-'+hashlib.sha256(json.dumps(identity,ensure_ascii=False).encode('utf-8')).hexdigest()[:16]
     item={key:value[key] for key in ('id','version','revision','title','status')}
     item.update(uid=uid,section=section,summary=value.get('summary',''),documents=[])
     # Paused packages are metadata-only: do not open, validate or hash their documents.
     if value['status']=='paused': return item
+    base=ordinary(document_base or path.parent)
     docs=value.get('documents')
     if not isinstance(docs,list) or not 1<=len(docs)<=50: raise ValueError('Available entries need 1-50 documents')
     paths={}; seen=set()
@@ -68,12 +70,16 @@ def read_item(path, kind, expected_id=None, expected_version=None):
         if not isinstance(doc,dict) or not isinstance(doc.get('id'),str) or not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,60}',doc['id']): raise ValueError('Invalid document id')
         if doc['id'] in seen: raise ValueError('Duplicate document id')
         seen.add(doc['id']); string(doc.get('title'),'document title')
-        file=document_path(path.parent,doc.get('path'))
+        file=document_path(base,doc.get('path'))
         if file in paths: raise ValueError('Duplicate document path')
         paths[file]=doc['id']
     for doc in docs:
-        file=document_path(path.parent,doc['path'])
-        body=markdown.markdown(file.read_text('utf-8-sig'),extensions=['tables','fenced_code','toc'],extension_configs={'toc':{'slugify':slugify}})
+        file=document_path(base,doc['path'])
+        source=file.read_text('utf-8-sig')
+        if file.name=='SKILL.md' and source.startswith('---\n'):
+            parts=source.split('\n---\n',1)
+            if len(parts)==2 and re.search(r'^name:\s',parts[0],re.M): source=parts[1].lstrip('\n')
+        body=markdown.markdown(source,extensions=['tables','fenced_code','toc'],extension_configs={'toc':{'slugify':slugify}})
         def rewrite(match):
             href=html.unescape(match[1]); u=urlsplit(href)
             if u.scheme or u.netloc or not u.path: return match[0]
@@ -100,8 +106,27 @@ def collect(user_area):
                 if not version.is_dir(): continue
                 manifest=version/'wiki.json'
                 if manifest.exists(): items.append(read_item(manifest,'plugin',plugin.name,version.name))
+    addons=area/'addons'
+    if addons.exists():
+        ordinary(addons)
+        for addon in sorted(addons.iterdir()):
+            ordinary(addon)
+            if not addon.is_dir(): continue
+            if (addon/'state.json').exists(): continue
+            catalog=addon/'wiki'
+            if not catalog.exists(): continue
+            ordinary(catalog)
+            if not catalog.is_dir(): raise ValueError('Expected an addon Wiki directory')
+            for manifest in sorted(catalog.glob('*.json')):
+                # Adapter lives outside the checked version payload. It reads only
+                # the selected package's declared Markdown; no install or activation.
+                version=manifest.stem
+                if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,79}',version) or version.endswith('.'):
+                    raise ValueError('Invalid addon version directory')
+                items.append(read_item(manifest,'reference',addon.name,version,addon/version))
     personal=area/'preferences/wiki.json'
     if personal.exists(): items.append(read_item(personal,'personal'))
+    items.extend(collect_managed(area)['items'])
     if len(items)>200: raise ValueError('Too many Wiki packages')
     for item in items:
         identity=(item['section'],item['id'],item['version'],item['revision'])

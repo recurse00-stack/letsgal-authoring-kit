@@ -1,8 +1,8 @@
 # LetsGal 创作 Wiki 工作台
 
-**3.0.3 / 20261113-retest-guidance**。Stable 载荷 3.0.3 面向 Studio 3.0 正式系列；Beta 载荷 2.9.0 面向 2.9 Beta，保留 2.8 Beta 兼容路线。前两位随主要目标系列，第三位由本项目用于修订。本包帮助 AI 按任务制作并核对工程；Skill 安装不包含引擎或 MCP。
+**3.0.4 / 20261113-optional-wiki**。Stable 载荷 3.0.4 面向 Studio 3.0 正式系列；Beta 载荷 2.9.1 面向 2.9 Beta，保留 2.8 Beta 兼容路线。前两位随主要目标系列，第三位由本项目用于修订。本包帮助 AI 按任务制作并核对工程；Skill 安装不包含引擎或 MCP。
 
-## 三个区域，一套阅读入口
+## 四个区域，一套阅读入口
 
 | 区域 | 对应的安装内容 | 在这里查什么 |
 
@@ -12,13 +12,15 @@
 
 | [Skill Wiki](docs/wiki/09-plugin-wiki.md) | 用户区 `plugins/<ID>/<版本>/` | 插件指南、方法和完整用例，按真实版本分别阅读 |
 
+| [创作参考](docs/wiki/11-creation-references.md) | 用户区 `addons/<ID>/<版本>/` | 可选的演出、叙事、玩法与节奏方法，按需借鉴 |
+
 | [个性化](docs/wiki/06-personal.md) | 用户区 `preferences/` 与作品约定 | 个人偏好、作品规则和显式接入的私人资料 |
 
-[打开离线工作台](MANUAL.html)。页面提供全文搜索、范围筛选、段落定位、章节目录和提示词复制。插件与个人资料按[接入格式](docs/wiki/10-workbench-interface.md)登记后，可以生成到自己的本地工作台；公共页仅带通用说明。
+[打开离线工作台](MANUAL.html)。页面提供全文搜索、范围筛选、段落定位、章节目录和提示词复制。插件、创作参考与个人资料按[接入格式](docs/wiki/10-workbench-interface.md)登记后，可以生成到自己的本地工作台；公共页仅带通用说明。
 
 ## 快速开始
 
-完整解压后运行 Install.cmd，选择通道和实际 Agent 目录，检查安装；打开 AI 新会话，要求它实际读取 letsgal-authoring 并报告路径、修订和通道。连接目标工程后，从一次局部改句开始。详细步骤见[入门](docs/wiki/01-start.md)。
+完整解压后运行 Install.cmd，选择通道和实际 Agent 目录，检查安装；打开 AI 新会话，要求它实际读取 letsgal-authoring 并报告路径、修订和通道。连接目标工程后，从一次局部改句开始。详细步骤见[入门](docs/wiki/01-start.md)。具备 Python 3.10+ 时，安装器会生成用户区 `workbench/MANUAL.html`，此后安装符合协议的附属包会自动接入。
 
 先备份作品并限制 AI 可写范围。Skill 备份与作品备份不同；见[风险说明](RISK-NOTICE.md)。当前版本与旧版资料在[历史发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)。
 
