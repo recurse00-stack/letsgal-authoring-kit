@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LetsGal package registration",
+  "type": "object",
+  "required": [
+    "schema",
+    "kind",
+    "package_type",
+    "id",
+    "enabled",
+    "selection_mode",
+    "selected_version",
+    "versions"
+  ],
+  "properties": {
+    "schema": {
+      "const": 1
+    },
+    "kind": {
+      "const": "letsgal-package-registration"
+    },
+    "package_type": {
+      "enum": [
+        "addon",
+        "plugin-guide"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,199}$"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "show_when_paused": {
+      "type": "boolean",
+      "default": false
+    },
+    "selection_mode": {
+      "enum": [
+        "fixed",
+        "auto"
+      ]
+    },
+    "selected_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "versions": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "root",
+          "entry",
+          "revision",
+          "title",
+          "summary",
+          "section",
+          "files",
+          "wiki_library"
+        ],
+        "properties": {
+          "root": {
+            "type": "string"
+          },
+          "entry": {
+            "const": "SKILL.md"
+          },
+          "revision": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "section": {
+            "enum": [
+              "skills",
+              "references",
+              "personal"
+            ]
+          },
+          "files": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          },
+          "wiki_library": {
+            "type": "object",
+            "required": [
+              "schema",
+              "kind",
+              "items"
+            ],
+            "properties": {
+              "schema": {
+                "const": 1
+              },
+              "kind": {
+                "const": "letsgal-wiki-library"
+              },
+              "items": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "navigation": {
+                      "$ref": "wiki-manifest.schema.json#/$defs/navigation"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "description": "The runtime also checks exact identity, version directory, document IDs, payload hashes, Wiki UID and fixed/automatic selection consistency."
+}

@@ -6,11 +6,11 @@ description: 制作和修改 LetsGal Studio 的剧情、分支、演出、UI 与
 
 metadata:
 
-  version: 3.0.4
+  version: 3.0.5
 
   channel: stable
 
-  revision: 20261113-optional-wiki
+  revision: 20261116-r7-workbench
 
 ---
 
@@ -20,7 +20,7 @@ metadata:
 
 ## 按当前任务读取
 
-本会话首次执行工程、扩展操作或使用创作参考前，先检查实际 AI 用户主目录的 `~/.letsgal-authoring/preferences/user.md`；存在就读取并应用与当前任务相关的约定，不能只读主 Skill 后跳过。已读且仍有效的信息可复用；用户告知偏好更新或相关上下文缺失时重读。旧路径兼容、缺失与冲突处理见[个人定制](references/customization.md)。
+本会话首次处理相关创作任务时，先按[个人资料与作品选择](references/customization.md)核“我的个人包”启停；启用时读取实际用户区 `preferences/user.md`，再按任务读取记忆、指南及必要引用。旧安装继续兼容原偏好入口，已读且仍有效的内容可复用。当前明确要求和作品约定优先，个人包中的相关要求与指南优先于可选创作参考。
 
 涉及已有插件的使用或维护时，先按[插件知识](references/plugin-skills.md)核对 ID／版本并读取用户区对应指南；不必等用户再次点名子包，也不因它未单独列在 Agent 技能列表中而跳过。
 
@@ -42,7 +42,7 @@ metadata:
 
 | 立绘、口型、镜头、媒体 | [舞台与素材](references/stage-and-assets.md) |
 
-| 演出时间轴、后台循环 | [演出段](references/performance.md) |
+| 演出时间轴、并行循环与控制 | [演出段](references/performance.md) |
 
 | UI、主题、数据表 | [UI 与数据](references/ui-and-data.md) |
 
@@ -54,7 +54,7 @@ metadata:
 
 | 临时文件、删除占用 | [精确清理](references/asset-cleanup.md) |
 
-工程操作开始前执行一次[低频静默版本检查](references/version-compatibility.md#低频静默开工检查)，比较宿主主次版本与实际 Stable／Beta 身份，同系列补丁及热修复不单独触发确认；同一有效实例／任务复用结果。正常匹配不提示、不反复联网。不匹配先暂停目标执行，只在当前使用者明确同意本次例外后继续；纯讨论不触发。附加包按启用状态加载，暂停项保持暂停。
+工程操作开始前执行一次[低频静默版本检查](references/version-compatibility.md#低频静默开工检查)，比较宿主主次版本与实际 Stable／Beta 身份，同系列补丁及热修复不单独触发确认；同一有效实例／任务复用结果。正常匹配不提示、不反复联网。不匹配先暂停目标执行，只在当前使用者明确同意本次例外后继续；纯讨论不触发。资料包按[包管理状态](references/package-management.md)读取；暂停项保持暂停，手册展示设置独立。
 
 设置重置前读[默认态与恢复](references/extensions.md#设置存档与资源)；调度修改前读[完整调度恢复](references/collaboration-git.md#限定恢复与读回)；官方文件会话写入前读[文件会话校验](references/mcp-workflow.md#外部编辑与无-mcp-回退)。
 
@@ -67,4 +67,3 @@ metadata:
 - 遵守宿主确认、只读及拒绝。独有内容删除、不可逆覆盖和外部发布按具体授权执行；需要判断范围时查[安全边界](references/safety.md)。
 
 交付结果、必要验证和未决项。作品决定归工程，偏好及插件知识归用户区；主 Skill 自身使用主包安装入口。
-

@@ -15,7 +15,8 @@
     "references/risk-notice.md",
     "templates/LETSGAL.example.md",
     "templates/PLUGIN-SKILL.example.md",
-    "templates/TEMP-CLEANUP.example.md"
+    "templates/TEMP-CLEANUP.example.md",
+    "references/package-management.md"
   ],
   "rule": "Only these unchanged common files sync from stable to beta after explicit comparison. All other channel files and channel revisions are maintained independently. A beta-only update must preserve the complete stable tree byte for byte."
 }

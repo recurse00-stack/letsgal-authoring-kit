@@ -54,3 +54,7 @@ python "channels/stable/skills/letsgal-authoring/scripts/check_project.py" "<章
 Beta 改为相应目录。检查器只读文件；JSON 输出与退出码说明见[格式专题](../../channels/stable/skills/letsgal-authoring/references/json.md)。退出码 0 仍需阅读 warnings；资源引用、条件含义与玩家路线还需在作品中核对。遇到未来格式先用 json-only 核基本 JSON，再查目标宿主实际样本，不自动迁移格式。
 
 下一步：[舞台、演出和配音](04-performance.md)；失败与撤销见[精确恢复](07-recovery.md)。
+
+## 浏览分支与长章节
+
+r6 起可独立打开“分支索引”，浏览分支并跳到对应剧本。需要 AI 修改时仍给出目标章节／片段和范围，由它读取当前 ID 与 revision；索引视图用于浏览，不改变分支条件或运行顺序。长章节继续按分页读取和局部编辑，编辑器显示设置可按阅读习惯调整。

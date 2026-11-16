@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "channel": "stable",
   "profile_schema": 1,
   "files": [
@@ -24,27 +24,27 @@
     },
     {
       "path": "references/collaboration-git.md",
-      "sha256": "930d88eb7f0f97bb9e0c072f5016f613911ff5c335f387614d3c18506c6c3e75"
+      "sha256": "ebffa949e8a34f4816d50b5891f0244d01bff98022c37794f2a241f84d740096"
     },
     {
       "path": "references/creation-references.md",
-      "sha256": "c87828308593491c10c7d9559dcfcded088fc46986e2d6396f82a3c23073a02e"
+      "sha256": "da8c5c994d6add67ca204381aee256099ebe5532407ddca2ce4ddeb8bb7aa25b"
     },
     {
       "path": "references/current-capabilities.md",
-      "sha256": "cc5b06a9fc2dc1de7f4eebf74fb42af29f6de5deb5121f0b7fec5795398ddb6e"
+      "sha256": "0a2a14b92bc3ffe54d118bc3f85392a3fd5e181a2d28a93765d8bb8801900798"
     },
     {
       "path": "references/customization-maintenance.md",
-      "sha256": "91e00a6ad4ebef122d73bd43372cb8297f4faf22d0d0a2d48a77af2999ac1059"
+      "sha256": "f58c177c7f024a787a8115a9e7cdc2d199f4ee3940ed38100a7b918cf08c6592"
     },
     {
       "path": "references/customization.md",
-      "sha256": "6474ed9bc5544bda2cdcb1978f90b594fe29b7834f4011195a9f424802234b63"
+      "sha256": "8e84ed09b9137ba3aae12a08d9036a3359f8ab18bff501c2b7bf0d1ef713bb82"
     },
     {
       "path": "references/extensions.md",
-      "sha256": "0e7cc3f2661720344ce0f646de206f87fd49a441a3b869959d84d8a79954a6b3"
+      "sha256": "0af9da7d0a926c0831f21bf2686c6136c6a1eb201de688209276e08f8e282dce"
     },
     {
       "path": "references/git-workflow.md",
@@ -52,27 +52,31 @@
     },
     {
       "path": "references/json.md",
-      "sha256": "bf67ec9d88671e6a48d9ffb27a81341c4a0d0cfb3720cb03d5d4640dda0edaac"
+      "sha256": "0fe0f85bc8ccd848cd0d1b05471afde3931fccdc7d33128a934f19f614b73d38"
     },
     {
       "path": "references/mcp-workflow.md",
       "sha256": "3569c42ccd0dd1a82b8759987a20d0728ea292ae009f4ccedacea293f134a7fa"
     },
     {
+      "path": "references/package-management.md",
+      "sha256": "81eb23ca5c4b5eb326d8ed370af1ba9e655c2664bb82b739df8935fce9f2ef0e"
+    },
+    {
       "path": "references/performance.md",
-      "sha256": "4869cae237765993d168abf086ea97acabef84718629ae1c34676a56f6e8b6b8"
+      "sha256": "ad0d90425ed65b6789eadbccb76921d1692a37a13b46512ddd7c4f2df913adc3"
     },
     {
       "path": "references/plugin-skill-authoring.md",
-      "sha256": "de1285b4d7cf286bb5786087df256d05af155e785613c83e4cba4cc7afde9f35"
+      "sha256": "1cd0a46e13c5053dd880f7af54f45d87abbaabe5e8cb2cac6657aab4394239c9"
     },
     {
       "path": "references/plugin-skills.md",
-      "sha256": "7c56c5e59e981ca0657eab7539aa30ca0782594f4c19a0df9584d3b370cbf830"
+      "sha256": "8673893c831197209ddc3e696c9a36071219a0672f5967281ad7b6214d4dde28"
     },
     {
       "path": "references/preview-and-build.md",
-      "sha256": "7730af961c5653a1ed3eb56f1acc85be836685a5501810a91d21cabaa657cdf2"
+      "sha256": "3709b737870f6480b05f59de8cac33a195a83ec4bad9b7a415ffdbb56486375c"
     },
     {
       "path": "references/production.md",
@@ -92,7 +96,7 @@
     },
     {
       "path": "references/stage-and-assets.md",
-      "sha256": "67e00843ae0a15965c32f9b23e63bda9cf6526928ed7bf0f6bd8d375eda904a2"
+      "sha256": "7d95e7f2d2b090a523daa255cd507c0abcdf22cc36ba123d3dd4626fd44fd4e1"
     },
     {
       "path": "references/story-and-voice.md",
@@ -112,11 +116,11 @@
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "26d21a99474a0113cef5cf11f075e098b49ebbc46869c4939bce1e662adc2487"
+      "sha256": "ace97a05ddd1ab1eaf2b3e4d6927d2fdf20f03d163d52a0939c415ac931afbe3"
     },
     {
       "path": "scripts/check_project.py",
-      "sha256": "842513a5319175deaa46e54eac8258f42d2bbaf553c97cd1d144d869021e5ef0"
+      "sha256": "0220dc04fa9b2067b62c161ba2a2a92cdd0565f3c92fc04c018a925d59e8e75c"
     },
     {
       "path": "scripts/inspect_version.py",
@@ -124,7 +128,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "cf0f9916c612e535215f3a3ad5750152340358ad3fe88b44bd6a6606b6e66fb4"
+      "sha256": "31f3a3c18a277b46660901e18076a554e4778c1d38a9171787197f3a22e26d89"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -132,12 +136,12 @@
     },
     {
       "path": "templates/PLUGIN-SKILL.example.md",
-      "sha256": "2348941ea30892e346de341fb905a37f7e27d7be9a290bce72c6116b490ec6e2"
+      "sha256": "9ce1357a6a1de3c69bb05e81b53ddfa006f79002c2b244b5bee8631aa2b697a5"
     },
     {
       "path": "templates/TEMP-CLEANUP.example.md",
       "sha256": "2541584dc3943ebec9ba3689b9d6c02a9066208de2195409be6e6601a35a2084"
     }
   ],
-  "revision": "20261113-optional-wiki"
+  "revision": "20261116-r7-workbench"
 }

@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "letsgal-package-registration",
+  "package_type": "plugin-guide",
+  "id": "example.weather",
+  "enabled": false,
+  "show_when_paused": false,
+  "selection_mode": "auto",
+  "selected_version": null,
+  "versions": {
+    "1.0.0": {
+      "root": "plugins/example.weather/1.0.0",
+      "entry": "SKILL.md",
+      "revision": "guide.1",
+      "title": "合成天气插件指南",
+      "summary": "合成模板；请替换为实际包身份、文件哈希与手册。",
+      "section": "skills",
+      "files": {
+        "SKILL.md": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "wiki_library": {
+        "schema": 1,
+        "kind": "letsgal-wiki-library",
+        "items": [
+          {
+            "section": "skills",
+            "id": "example.weather",
+            "version": "1.0.0",
+            "revision": "guide.1",
+            "title": "合成天气插件指南",
+            "summary": "合成模板；请替换为实际包身份、文件哈希与手册。",
+            "uid": "ext-b9d334f04e2535ba",
+            "status": "available",
+            "documents": [
+              {
+                "id": "guide",
+                "title": "使用指南",
+                "html": "<h1>合成指南</h1><p>替换为本包对应版本的完整手册。</p>"
+              }
+            ],
+            "navigation": {
+              "intro": "从使用入口开始，再按任务查阅这份合成指南。",
+              "start": "guide",
+              "groups": [
+                {
+                  "title": "开始使用",
+                  "documents": [
+                    "guide"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

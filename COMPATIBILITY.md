@@ -1,6 +1,6 @@
 # Agent 安装位置与兼容范围
 
-本说明对应 **3.0.4 / 20261113-optional-wiki**。Stable 载荷 3.0.4 面向 Studio 3.0 正式系列；Beta 载荷 2.9.1 面向 2.9 Beta，并保留 2.8 Beta 兼容路线。Agent 的技能目录与 Studio 版本分别选择：前者决定从哪里加载，后者决定使用哪份资料。
+本说明对应 **3.0.5 / 20261116-r7-workbench**。Stable 载荷 3.0.5 面向 Studio 3.0 正式系列；Beta 载荷 2.9.2 面向 2.9 Beta，并保留 2.8 Beta 兼容路线。Agent 的技能目录与 Studio 版本分别选择：前者决定从哪里加载，后者决定使用哪份资料。
 
 ## 安装目录
 
@@ -51,4 +51,3 @@ Windows 安装器支持 PowerShell 5.1／7。macOS／Linux 使用[手动安装](
 开始工程操作还要检查版本工具的 `operation_gate`：匹配时静默继续，系列或实际发行身份不匹配时暂停并向当前使用者取得本次范围的明确许可。检查结果按目标实例和任务复用；更新偏好与实际版本分别识别，见[连接与版本 Wiki](docs/wiki/02-connection.md)。
 
 当前已核 Codex 发现、独立任务和双通道安装；Claude Code、Cursor、Copilot 的完整制作任务未在本版执行。具体层次与结果见[验证说明](VALIDATION.md)。安装、更新和恢复统一见[维护 Wiki](docs/wiki/08-maintenance.md)。
-

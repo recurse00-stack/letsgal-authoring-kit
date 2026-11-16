@@ -24,12 +24,20 @@
 | 序列／网格 | 序列引用独立表情，排除自身引用；网格读回层、关键帧和循环，再看连续画面 |
 | 对白头像 | 启用角色头像、在对话框布局加入头像组件；`portrait_bake(kind="dialogue_portrait")` 的目标来源选 static。取得新缓存及 cacheReady 后核对白显示 |
 | 场景 | 根据构图选择多层合成或独立场景，核尺寸、层序、位置及剧情引用 |
-| 镜头 | 明确 targets、位移、缩放、持续时间；省略参数保留原值。按 cameraBound／深度决定对象跟随，角色另核缩放。需要复位时 resetCamera，再读回复位值 |
+| 镜头 | 明确 targets、位移、缩放、持续时间；按具体字段区分省略、空字符串和默认值。按 cameraBound／深度决定对象跟随，角色另核缩放。需要复位时 resetCamera，再读回复位值 |
 | 粒子 | 先提供存在的 textureUri，再预检及播放；2.8／2.9 样本仅给预设会报 compile-particle-texture 并跳过。show／hide 配同一 effectId，空 hide ID 清全部粒子 |
 | 视频 | uri 相对 assets，videoId 配对播放与 stopVideo；空停止 ID 清全部视频。按需要选择 normal／mixed、静音、循环、等待和层级；循环视频显式停止 |
 | 浮字 | 为地点牌等分配独立 ID，分别设置等待、停留和历史收录。无限停留时允许剧情推进，用同 ID 隐藏；空 ID 按全体范围核对 |
 | 行内动作 | 按 schema 选择网页、UI 或扩展动作，保留内联格式和真实目标 ID。验点击、穿透及剧情推进；对话框样式按全局／角色／逐句范围修改 |
 | 声音 | 区分单轨、分类、全局和试听音量。暂停后 resume 延续；停止后需重新播放。stopSound 按类型与 soundId 定位，空 ID 控制该类型默认轨道；淡出到时再核音量和停止状态，并试听 |
+
+## 场景参数与镜头色调（3.0 r7）
+
+场景参数预设可在 Studio 保存、跨场景套用、重命名、覆盖、删除或恢复默认。当前 MCP 没有独立的场景参数预设管理操作；已有场景对象用 scene_read／scene_edit，剧情 scene 块用 story_read／story_edit_blocks。重复采用一组参数时读取并局部应用其实际字段，保留各块自己的 sceneId、资源引用及其他设置。不要把场景参数预设当作镜头或角色演出预设 ID。
+
+镜头黑白／复古色调用 `colorToneMode=grayscale|sepia`，恢复原色用 `none`，按实际块保留其余镜头参数。使用这些路径的作品分别核对连续播放、快进和真实读档的画面；r7 扩展动态调用片段的读档检查见[片段存读档与镜头核对](preview-and-build.md#fragment-save-load-checks)。导出游戏在应用补丁后重新构建。
+
+中文标点换行属于工程排版设置；当前 `project_update_settings.graphicsRendering.chineseLineBreak` 可局部更新，先从 project_get_settings 取得值与 revision。编辑器的字号、行距和行号是另一组人工阅读设置，按实际需求分别处理。
 
 ## 头像批量与预制包
 

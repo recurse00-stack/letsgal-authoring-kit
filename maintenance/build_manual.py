@@ -67,14 +67,14 @@ def render(root=ROOT, library=None, local=False):
         articles.append('<article class="article" id="'+prefix+'" data-area="'+area+'" data-source="'+name+'">'+chapter_aliases+body+'</article>')
         pages.append({'id':prefix,'area':area,'title':re.sub(r'^\d+\.\s*','',title),'summary':page_config.get('summary',''),'source':name})
         source_counts[name]={'characters':len(source),'headings':len(Inspect(body).ids)}
-    data={'schema':1,'pages':pages,'library':library or {'schema':1,'kind':'letsgal-wiki-library','items':[]},'local':local}
+    data={'schema':1,'version':bundle['version'],'revision':bundle['revision'],'core_navigation':layout.get('core_navigation'), 'pages':pages,'library':library or {'schema':1,'kind':'letsgal-wiki-library','items':[]},'local':local}
     output=(root/'maintenance/wiki.html').read_text('utf-8')
-    substitutions={'CSS':(root/'maintenance/wiki.css').read_text('utf-8'),'SCRIPT':(root/'maintenance/wiki.js').read_text('utf-8'),'ARTICLES':''.join(articles),'DATA':json_script(data),'VERSION':html.escape(bundle['version']),'REVISION':html.escape(bundle['revision'])}
+    substitutions={'CSS':(root/'maintenance/wiki.css').read_text('utf-8')+'\n'+(root/'maintenance/wiki-manager.css').read_text('utf-8'),'SCRIPT':(root/'maintenance/vendor/marked/marked.umd.js').read_text('utf-8')+'\n'+(root/'maintenance/wiki.js').read_text('utf-8')+'\n'+(root/'maintenance/wiki-manager.js').read_text('utf-8')+'\n'+(root/'maintenance/wiki-personal.js').read_text('utf-8'),'ARTICLES':''.join(articles),'DATA':json_script(data),'VERSION':html.escape(bundle['version']),'REVISION':html.escape(bundle['revision'])}
     output=re.sub(r'@@(CSS|SCRIPT|ARTICLES|DATA|VERSION|REVISION)@@',lambda m:substitutions[m[1]],output)
     scan=Inspect(output)
     assert len(scan.ids)==len(set(scan.ids)), 'Duplicate HTML anchor'
     for link in scan.links:
-        if link.startswith('#'): assert unquote(link[1:]) in scan.ids or link[1:] in ('home','main','skills','references','personal','all'),link
+        if link.startswith('#'): assert unquote(link[1:]) in scan.ids or link[1:] in ('home','main','skills','references','personal','all','help') or link.startswith(('#space/','#module/','#personal-edit/')),link
         elif not urlsplit(link).scheme: assert (root/unquote(link.split('#')[0])).exists(),link
     return output,{'pages':len(names),'anchors':len(scan.ids),'links':len(scan.links),'source_pages':source_counts,'library_items':len(data['library']['items'])}
 

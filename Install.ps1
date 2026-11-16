@@ -33,7 +33,7 @@ function Initialize-UserArea([string]$HomeRoot) {
     foreach ($dir in @($area.Root,$area.Preferences,$area.Plugins)) { Ensure-Directory $dir }
     # Legacy preferences remain active; never create an empty file that shadows them.
     if (-not (Test-Path -LiteralPath $area.Profile)) {
-        $initial = "# 我的 LetsGal 创作偏好`r`n`r`n个人区：仅记录用户明确要求保存的文风、命名与协作习惯。插件接口资料单独放在同级 plugins 目录，项目约定放在工程 LETSGAL.md。更新和卸载公共技能都保留用户区。`r`n`r`n目前没有已确认的额外偏好。`r`n"
+        $initial = [IO.File]::ReadAllText((Join-Path $PSScriptRoot 'templates/personal/user.md'))
         $bytes = $Utf8.GetBytes($initial)
         $stream = $null
         try {
@@ -45,6 +45,21 @@ function Initialize-UserArea([string]$HomeRoot) {
             Assert-OptionalFile $area.Profile
         } finally { if ($stream) { $stream.Dispose() } }
     }
+    Initialize-PersonalPages $area
+}
+function Initialize-PersonalPages($Area) {
+    foreach ($name in @('memory.md','guide.md')) {
+        $target = Join-Path $Area.Preferences $name
+        Assert-OptionalFile $target
+        if (-not (Test-Path -LiteralPath $target)) {
+            $bytes = [IO.File]::ReadAllBytes((Join-Path $PSScriptRoot ('templates/personal/' + $name)))
+            $stream = [IO.File]::Open($target,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write)
+            try { $stream.Write($bytes,0,$bytes.Length) } finally { $stream.Dispose() }
+        }
+    }
+    $statePath = Join-Path $Area.Preferences 'package-state.json'
+    Assert-OptionalFile $statePath
+    if (-not (Test-Path -LiteralPath $statePath)) { Write-Json $statePath @{schema=1;kind='letsgal-personal-state';enabled=$true;show_when_paused=$false} }
 }
 function Write-Json([string]$Path, $Value, [switch]$Replace) {
     Assert-OptionalFile $Path
