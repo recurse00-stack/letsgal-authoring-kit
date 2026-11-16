@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "files": [
+    "Install.cmd",
+    "Install.py",
+    "LICENSE",
+    "README.md",
+    "SHA256SUMS.txt",
+    "addon.json",
+    "payload/LICENSE",
+    "payload/RELEASE-NOTES.md",
+    "payload/SKILL.md",
+    "payload/USER-GUIDE.html",
+    "payload/USER-GUIDE.md",
+    "payload/VALIDATION.md",
+    "payload/agents/openai.yaml",
+    "payload/references/events.md",
+    "payload/references/feedback.md",
+    "payload/references/sources.md",
+    "payload/references/staging.md",
+    "payload/wiki-library.json",
+    "payload/wiki.json",
+    "release-files.json",
+    "workbench_runtime.py"
+  ]
+}

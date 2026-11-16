@@ -1,6 +1,6 @@
 # LetsGal 设计参考：制作人的日常 · 使用手册
 
-版本 0.1.1
+版本 0.1.2
 
 这是面向有基础演出、事件编排、界面反馈或轻经营设计需求的创作者的独立可选包，十条方法来自对《制作人的日常》0.1.1 源码的研究与归纳。它可以帮助 AI 讨论安排和改稿，不需要在 Studio 安装扩展，也不会修改游戏工程。它是文档型附加包，没有模型权重。创作者可以根据项目需要选择安装，并只参考其中相关方法。
 
@@ -22,7 +22,7 @@
 
 ## 个人偏好放在哪里
 
-**当前要求、作品约定和个人偏好优先于本包参考。** 已有主 Skill 的偏好分区继续使用：个人偏好在实际 AI 用户主目录的 `~/.letsgal-authoring/preferences/user.md`，作品选择按主 Skill 使用工程 `LETSGAL.md`。本包只说明这项关系，不提供另一套偏好文件，不收集或复制其中内容。
+创作选择先看当前明确要求和作品约定，再看已启用个人包的相关要求与指南，之后才采用本包参考。个人包位于实际用户区，可在总 Wiki“个性化”中编写、暂停或管理展示；本包不维护偏好副本。旧主包继续沿原 `preferences/user.md` 入口，无主包时使用当前请求和已有上下文。
 
 ## 安装与总 Wiki
 
@@ -30,8 +30,8 @@
 
 安装需要 Python 3.10+，接收端只用标准库。Windows 运行 `Install.cmd`，先看预览，再决定安装。命令行 `python -B Install.py` 默认只预览；追加 `--install` 才应用。用 `--skills-root` 指定实际 Agent 的技能根目录，`--user-area` 指定实际 `.letsgal-authoring` 用户区；后者直接指向用户区，不是用户主目录。
 
-- **已有主 Skill：** 载荷进入 `addons/letsgal-design/0.1.1/`，状态登记在 `addons/letsgal-design/state.json`，索引导航指向该状态文件。首次安装选用本版；已有启停状态和选用版本继续保留。
-- **已有支持附属包协议的总 Wiki：** 安装后自动刷新用户区 `workbench/MANUAL.html`，在“创作参考”中打开本包手册、设计专题、来源及验证说明。无需手工编辑主页面。
+- **已有主 Skill：** 载荷进入 `addons/letsgal-design/0.1.2/`，状态登记在 `addons/letsgal-design/state.json`，索引导航指向该状态文件。首次安装选用本版；已有启停状态和选用版本继续保留。
+- **已有支持附属包协议的总 Wiki：** 安装后自动刷新用户区 `workbench/MANUAL.html`，在“个性化 → 创作参考”中打开本包手册、设计专题、来源及验证说明。无需手工编辑主页面。
 - **尚无总 Wiki：** 安装结果标明待接入，仍可使用独立手册。以后安装支持该协议的主包时，总入口会汇总已登记资料。旧主包的静态页面不会自行变成新版总 Wiki。
 - **没有主 Skill：** 载荷进入所选技能目录中的 `letsgal-design`，按 Agent 的 Skill 机制调用。以后接入主包，需明确重新运行安装器并处理原独立入口，避免重复使用。
 
@@ -41,7 +41,7 @@
 
 ## 暂停、选版与更新
 
-新协议以 `addons/letsgal-design/state.json` 的启停和选版为准，索引只作导航。使用用户区 `workbench/workbench_runtime.py` 的 `state` 命令，将 `--id` 设为 `letsgal-design`；`--enabled no` 暂停，`--enabled yes` 恢复，`--version` 选择已安装版本。命令需同时指定 `--user-area`。更改后自动刷新总 Wiki；暂停包只显示名称、版本等信息，正文不被读取或搜索。
+新协议以 `addons/letsgal-design/state.json` 的启停和选版为准，索引只作导航。使用用户区 `workbench/workbench_runtime.py` 的 `state` 命令，将 `--id` 设为 `letsgal-design`；`--enabled no` 暂停，`--enabled yes` 恢复，`--version` 选择已安装版本。命令需同时指定 `--user-area`。更改后自动刷新总 Wiki；暂停后 AI 跳过本包；新版主工作台可独立选择是否保留 Wiki 展示，旧入口默认隐藏正文。
 
 重复安装同一载荷只核验，不重复覆盖。安装新版保留旧版与原选版；明确追加 `--select` 才选用本次版本，追加 `--enable` 才解除原暂停。独立模式按所用 Agent 的启停机制管理。
 
