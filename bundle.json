@@ -2,22 +2,22 @@
   "schema": 2,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "channels": [
     {
       "id": "stable",
       "label": "正式版",
       "bundle": "channels/stable/bundle.json",
-      "revision": "20261113-optional-wiki",
-      "version": "3.0.4"
+      "revision": "20261116-r7-workbench",
+      "version": "3.0.5"
     },
     {
       "id": "beta",
       "label": "Beta",
       "bundle": "channels/beta/bundle.json",
-      "revision": "20261113-optional-wiki",
-      "version": "2.9.1"
+      "revision": "20261116-workbench",
+      "version": "2.9.2"
     }
   ],
-  "revision": "20261113-optional-wiki"
+  "revision": "20261116-r7-workbench"
 }

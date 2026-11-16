@@ -1,27 +1,88 @@
 {
-  "version": "3.0.4",
-  "revision": "20261113-optional-wiki",
-  "status": "release-validated",
-  "baseline": "3.0.3 / 20261113-retest-guidance",
+  "version": "3.0.5",
+  "revision": "20261116-r7-workbench",
+  "status": "RELEASE_VERIFIED",
+  "channels": {
+    "stable": "3.0.5",
+    "beta": "2.9.2"
+  },
+  "channel_revisions": {
+    "stable": "20261116-r7-workbench",
+    "beta": "20261116-workbench"
+  },
   "checks": {
-    "optional_package_install": 23,
-    "optional_workbench_failure": 1,
-    "reference_import": 20,
-    "existing_wiki_contracts": 15,
-    "version_routes": 140,
-    "isolated_channel_install": 26
+    "authoring_cli": 26,
+    "host_version_gate": 140,
+    "wiki_contracts_browser": 71,
+    "channel_installation": 26,
+    "publication_whitelist_privacy": 23
   },
-  "skill_format": {
-    "stable": "passed",
-    "beta": "passed",
-    "optional_extension_design": "passed"
+  "reused_checks": {
+    "workbench_ui_personal_and_packages": {
+      "revision": "20261114-visual-polish-preview.1",
+      "reason": "UI and backend implementation unchanged; generated Wiki rechecked",
+      "checks": {
+        "package_state_registry_http": 25,
+        "package_browser": 18,
+        "personal_contracts_browser": 60,
+        "existing_library_isolated_browser": 20
+      }
+    },
+    "optional_addons_and_import": {
+      "revision": "20261114-three-modules-personal-preview.1",
+      "checks": {
+        "legacy_reference_import": 20,
+        "design_optional_installer": 16,
+        "two_real_addons_integration": 15
+      },
+      "reason": "Backend registration and addon installer implementation unchanged"
+    },
+    "performance_shapes_cli": {
+      "revision": "20261115-r7-preview.1",
+      "checks": 24,
+      "reason": "Checker implementation unchanged; reuse the prior r7 shape cases"
+    },
+    "r7_loop_runtime": {
+      "date": "2026-11-15",
+      "scope": "ordinary continuation, finite completion, pause/resume/stop; targeted sample restored"
+    }
   },
-  "javascript_syntax": "passed",
-  "offline_content": "Markdown and generated HTML checked together",
-  "browser_visual_and_interaction": "not repeated for this optional extension reference payload",
-  "host_runtime": "unchanged; no new Studio execution",
-  "channel_versions": {
-    "stable": "3.0.4",
-    "beta": "2.9.1"
+  "host_runtime": {
+    "version": "3.0.0",
+    "patch": "stable-r7",
+    "date": "2026-11-16",
+    "scope": "Studio embedded preview: native and SDK dynamic fragment/branch save-load position, variables, continuing history and parent return; native grayscale restoration, actual skip grayscale/reset, independent loop save-load motion and stop",
+    "observed_difference": "SDK dynamic callFragment: grayscale state after load can coexist with a color image; native callFragment control restores grayscale",
+    "not_covered": [
+      "standalone Player",
+      "actual export",
+      "exact loop round and intra-round timing"
+    ]
+  },
+  "navigation": {
+    "modules": [
+      "main",
+      "skills",
+      "personal"
+    ],
+    "references_module": "personal",
+    "history": "actual page visits",
+    "reading_version": "page-only"
+  },
+  "personal": {
+    "seed": "missing files only",
+    "documents": [
+      "requirements",
+      "memory",
+      "guide"
+    ],
+    "default_enabled": true,
+    "pausable": true,
+    "automatic_memory_extraction": false
+  },
+  "checks_basis": {
+    "date": "2026-11-16",
+    "revision": "20261116-r7-validation-preview.1",
+    "release_changes": "Version metadata and release prose; code and runtime guidance unchanged"
   }
 }

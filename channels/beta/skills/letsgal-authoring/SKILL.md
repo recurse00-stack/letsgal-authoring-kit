@@ -6,11 +6,11 @@ description: 制作和修改 LetsGal Studio 的剧情、分支、演出、UI 与
 
 metadata:
 
-  version: 2.9.1
+  version: 2.9.2
 
   channel: beta
 
-  revision: 20261113-optional-wiki
+  revision: 20261116-workbench
 
 ---
 
@@ -28,9 +28,7 @@ metadata:
 
 
 
-本会话首次执行工程、扩展操作或使用创作参考前，先检查实际 AI 用户主目录的 `~/.letsgal-authoring/preferences/user.md`；存在就读取并应用与当前任务相关的约定，不能只读主 Skill 后跳过。已读且仍有效的信息可复用；用户告知偏好更新或相关上下文缺失时重读。旧路径兼容、缺失与冲突处理见[个人定制](references/customization.md)。
-
-
+本会话首次处理相关创作任务时，先按[个人资料与作品选择](references/customization.md)核“我的个人包”启停；启用时读取实际用户区 `preferences/user.md`，再按任务读取记忆、指南及必要引用。旧安装继续兼容原偏好入口，已读且仍有效的内容可复用。当前明确要求和作品约定优先，个人包中的相关要求与指南优先于可选创作参考。
 
 涉及已有插件的使用或维护时，先按[插件知识](references/plugin-skills.md)核对 ID／版本并读取用户区对应指南；不必等用户再次点名子包，也不因它未单独列在 Agent 技能列表中而跳过。
 
@@ -92,3 +90,5 @@ metadata:
 
 交付结果、必要验证和未决项。作品决定归工程，偏好及插件知识归用户区；主 Skill 自身使用主包安装入口。
 
+
+资料包启停、选版和 Wiki 显示按[包管理](references/package-management.md)核对；显示暂停包的手册不会启用其 AI 指导。

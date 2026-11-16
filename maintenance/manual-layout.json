@@ -104,5 +104,43 @@
       "area": "references",
       "summary": "选择、暂停与按需读取可选方法包"
     }
+  },
+  "core_navigation": {
+    "intro": "从安装和连接开始，按制作任务查找剧情、演出、UI 与扩展的实现方法。",
+    "start": "wiki01",
+    "groups": [
+      {
+        "title": "开始使用",
+        "summary": "装好 Skill，确认版本并连接正确的工程。",
+        "documents": [
+          "wiki01",
+          "wiki02"
+        ]
+      },
+      {
+        "title": "制作与修改",
+        "summary": "从需求到可核对的剧情、演出和界面。",
+        "documents": [
+          "wiki03",
+          "wiki04",
+          "wiki05"
+        ]
+      },
+      {
+        "title": "偏好与维护",
+        "summary": "个人约定、异常处理、更新和恢复。",
+        "documents": [
+          "wiki06",
+          "wiki07",
+          "wiki08"
+        ]
+      },
+      {
+        "title": "查阅",
+        "documents": [
+          "guide-home"
+        ]
+      }
+    ]
   }
 }

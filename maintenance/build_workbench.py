@@ -89,6 +89,10 @@ def read_item(path, kind, expected_id=None, expected_version=None, document_base
             return ''  # A standalone library includes only its declared documents.
         body=re.sub(r'href="([^"]*)"',rewrite,body)
         item['documents'].append({'id':doc['id'],'title':doc['title'],'html':body})
+    if 'navigation' in value:
+        from workbench_runtime import validate_navigation
+        validate_navigation(value['navigation'],item['documents'])
+        item['navigation']=value['navigation']
     return item
 
 def collect(user_area):
@@ -132,7 +136,9 @@ def collect(user_area):
         identity=(item['section'],item['id'],item['version'],item['revision'])
         if identity in identities: raise ValueError('Duplicate Wiki identity')
         identities.add(identity)
-    return {'schema':1,'kind':'letsgal-wiki-library','items':items}
+    for item in items:
+        item.setdefault('enabled',item['status']=='available');item.setdefault('wiki_visible',item['status']=='available')
+    return {'schema':2,'kind':'letsgal-wiki-library','items':items}
 
 def build(user_area, output=None, data_output=None, check=False):
     library=collect(user_area)

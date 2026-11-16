@@ -6,7 +6,8 @@
 | --- | --- | --- |
 | 剧情 | 新建嵌套菜单／条件；旧 branch 可跨章调用唯一启用片段，旧 if／普通 call 仍限同章 | [剧情](story-and-voice.md#剧情变量与流程)、[JSON](json.md#引用与控制流) |
 | 多窗口 | 端点与工程 ID 配对；studio_open_project 会切换本窗口，独立窗口另行初始化 | [MCP](mcp-workflow.md#连接与目标) |
-| 演出 | r3 起补充自定义站位；配置后在剧情启用，循环明确停止 | [舞台](stage-and-assets.md)、[演出段](performance.md) |
+| 演出 | r7 普通轨与并行循环轨分别运行；按组 ID 暂停／继续，明确停止路径 | [舞台](stage-and-assets.md)、[演出段](performance.md#并行循环轨与控制30-r7) |
+| 场景预设／调试 | 场景参数预设与分支索引属于人工入口；MCP 按实际对象字段与调试状态操作 | [场景](stage-and-assets.md#场景参数与镜头色调30-r7)、[预览](preview-and-build.md#预览范围) |
 | 桌面构建 | 按当前 supportedSystems 选择目标 | [构建](preview-and-build.md#构建与导出) |
 | 扩展参数 | 按声明核类型、枚举、范围和可用键，再结合当前入口的校验结果 | [参数](extensions.md#参数与校验) |
 | 资料冲突 | 核当前 schema、SDK 类型和针对性返回，记录采用依据 | [查证](research.md#先确认能力再选择做法) |

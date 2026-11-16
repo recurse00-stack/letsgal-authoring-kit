@@ -2,7 +2,7 @@
 
 
 
-本版 **2.9.1 / 20261113-optional-wiki**，主要目标 Studio **2.9 Beta**，保留 **2.8 Beta** 兼容路线。安装时选 `beta`，技能名仍为 letsgal-authoring，同一目录只装一份。共同使用方法见[总目录](../../MANUAL.md)和[完整离线手册](../../MANUAL.html)。
+本版 **2.9.2 / 20261116-workbench**，主要目标 Studio **2.9 Beta**，保留 **2.8 Beta** 兼容路线。安装时选 `beta`，技能名仍为 letsgal-authoring，同一目录只装一份。共同使用方法见[总目录](../../MANUAL.md)和[完整离线手册](../../MANUAL.html)。
 
 
 
@@ -27,4 +27,3 @@
 
 
 AI 使用[本通道入口](skills/letsgal-authoring/SKILL.md)、[能力索引](skills/letsgal-authoring/references/current-capabilities.md)和[版本边界](skills/letsgal-authoring/references/version-compatibility.md)。开始工程操作前按[版本与连接](../../docs/wiki/02-connection.md)核对目标身份。
-

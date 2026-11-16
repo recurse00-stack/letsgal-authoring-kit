@@ -25,6 +25,8 @@ addons/<id>/state.json 记录 schema1、id、enabled、selected_version 及 vers
 
 主包部署用户区 workbench/MANUAL.html。附属包安装、启停和切版会自动刷新该总入口；尚未部署主工作台时保留安装并报告 pending，之后装主包自动汇总。刷新只读取明确登记的包；未登记个人资料沿原接入清单管理。
 
+统一包注册接口、插件指南适配和兼容要求见[包管理协议](PACKAGE-MANAGEMENT.md)。AI 启停与 `show_when_paused` 展示选择独立，旧字段与调用继续兼容。
+
 管理命令、旧清单和个人资料接入见[工作台手册](wiki/10-workbench-interface.md)。安装后的 AI 状态和人类阅读入口共用版本登记；用户或作品的明确要求仍按主 Skill 的规则处理。
 
 ## 打包前核对

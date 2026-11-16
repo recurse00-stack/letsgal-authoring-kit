@@ -15,7 +15,7 @@ from urllib.parse import urlsplit, unquote
 
 SCHEMA = 1
 MAX_BYTES = 20000000
-ID = re.compile(r'[a-z0-9][a-z0-9-]{0,63}')
+ID = re.compile(r'[a-z0-9][a-z0-9._-]{0,199}')
 VERSION = re.compile(r'[A-Za-z0-9][A-Za-z0-9._-]{0,79}')
 
 def ordinary(path):
@@ -84,17 +84,40 @@ def checked_files(root, files):
         folded.add(name.casefold())
     return files
 
-def validate_meta(value):
+def validate_meta(value, sections=('references','skills')):
+    if not isinstance(value,dict):raise ValueError('Invalid package metadata')
     token(value.get('id')); token(value.get('version'), True)
     for key, limit in [('revision',100),('title',200),('summary',1000)]:
         if not isinstance(value.get(key),str) or not value[key].strip() or len(value[key]) > limit:
             raise ValueError('Invalid '+key)
-    if value.get('section') not in ('references','skills'): raise ValueError('Invalid Wiki section')
+    if value.get('section') not in sections: raise ValueError('Invalid Wiki section')
+
+def validate_navigation(value, documents):
+    """Optional reading navigation; it never changes AI package selection."""
+    if value is None:return
+    if not isinstance(value,dict) or set(value)-{'intro','start','groups'}:raise ValueError('Invalid Wiki navigation')
+    ids={d['id'] for d in documents}
+    for key,limit in [('intro',1000),('start',61)]:
+        if key in value and (not isinstance(value[key],str) or not value[key].strip() or len(value[key])>limit):raise ValueError('Invalid navigation '+key)
+    if 'start' in value and value['start'] not in ids:raise ValueError('Navigation start document is missing')
+    groups=value.get('groups',[])
+    if not isinstance(groups,list) or len(groups)>20:raise ValueError('Invalid navigation groups')
+    seen=set()
+    for group in groups:
+        if not isinstance(group,dict) or set(group)-{'title','summary','documents'}:raise ValueError('Invalid navigation group')
+        if not isinstance(group.get('title'),str) or not 0<len(group['title'].strip())<=120:raise ValueError('Invalid group title')
+        if 'summary' in group and (not isinstance(group['summary'],str) or len(group['summary'])>400):raise ValueError('Invalid group summary')
+        members=group.get('documents')
+        if not isinstance(members,list) or not 1<=len(members)<=50:raise ValueError('Missing group documents')
+        for entry in members:
+            if not isinstance(entry,str) or entry not in ids or entry in seen:raise ValueError('Missing or repeated navigation document')
+            seen.add(entry)
 
 def validate_library(value, meta):
     if not isinstance(value,dict) or value.get('schema')!=1 or value.get('kind')!='letsgal-wiki-library' or not isinstance(value.get('items'),list) or len(value['items'])!=1:
         raise ValueError('A package must provide exactly one Wiki item')
     item=value['items'][0]
+    if not isinstance(item,dict):raise ValueError('Invalid Wiki item')
     for key in ('id','version','revision','title','summary','section'):
         if item.get(key)!=meta[key]: raise ValueError('Wiki identity differs: '+key)
     uid='ext-'+sha(json.dumps([item[k] for k in ('section','id','version','revision')],ensure_ascii=False).encode())[:16]
@@ -108,11 +131,13 @@ def validate_library(value, meta):
         seen.add(doc['id'])
         if not isinstance(doc.get('title'),str) or not 0<len(doc['title'])<=200 or not isinstance(doc.get('html'),str) or len(doc['html'])>1000000:
             raise ValueError('Invalid Wiki document')
+    validate_navigation(item.get('navigation'),docs)
     return item
 
 def load_state(area, package_id):
     path=relative(area,'addons/'+token(package_id)+'/state.json')
     value=read_json(path)
+    if not isinstance(value,dict):raise ValueError('Invalid addon state')
     if value.get('schema')!=1 or value.get('id')!=package_id or type(value.get('enabled')) is not bool or not isinstance(value.get('versions'),dict) or not value['versions']:
         raise ValueError('Invalid addon state')
     if value.get('selected_version') not in value['versions']: raise ValueError('Selected version is not installed')
@@ -124,7 +149,7 @@ def load_state(area, package_id):
         if not {'SKILL.md','wiki-library.json'}<=files.keys(): raise ValueError('Missing addon payload entries')
     return path,value
 
-def collect(area, overrides=None):
+def collect_legacy(area, overrides=None):
     items=[]
     addons=ordinary(area/'addons')
     if addons.exists():
@@ -147,6 +172,21 @@ def collect(area, overrides=None):
                 items.append(item)
     if len(items)>200: raise ValueError('Too many registered Wiki versions')
     return {'schema':1,'kind':'letsgal-wiki-library','items':items}
+
+def collect(area, overrides=None, staged=None):
+    # Older standalone installers can still carry this single-file runtime.
+    try:
+        from workbench_packages import library
+    except ModuleNotFoundError as error:
+        if error.name != 'workbench_packages': raise
+        # Prefer the installed main registry when an optional installer runs alone.
+        installed=relative(area,'workbench/workbench_packages.py')
+        if not installed.exists():return collect_legacy(area, overrides)
+        import sys
+        sys.path.insert(0,str(installed.parent))
+        from workbench_packages import library
+    normalized={('addon/'+k if '/' not in k else k):v for k,v in (overrides or {}).items()}
+    return library(area, normalized, staged)
 
 def inject(base, library):
     pattern=r'(<script id="wiki-data" type="application/json">)(.*?)(</script>)'
@@ -205,12 +245,12 @@ def commit_files(area, changes, label):
         raise
     return {'status':'changed','backup':str(backup),'changed':len(changed)}
 
-def refresh_changes(area, base=None, overrides=None):
+def refresh_changes(area, base=None, overrides=None, staged=None):
     base_path=relative(area,'workbench/MANUAL.base.html')
     if base is None:
         if not base_path.exists():return {},{'status':'pending','reason':'Main workbench is not installed'}
         base=read_bytes(base_path)
-    library=collect(area,overrides)
+    library=collect(area,overrides,staged)
     page=inject(base.decode('utf-8-sig'),library).encode('utf-8')
     return {relative(area,'workbench/MANUAL.html'):page},{'status':'ready','items':len(library['items']),'documents':sum(len(i['documents']) for i in library['items']),'path':str(area/'workbench/MANUAL.html')}
 
@@ -225,20 +265,54 @@ def setup(source,area):
     area=ordinary(area)
     if area==source or area.is_relative_to(source) or source.is_relative_to(area):raise ValueError('User area and public source must not overlap')
     base=read_bytes(source/'MANUAL.html')
+    linked={};document_changes={}
     def link(match):
         href=html.unescape(match[1]);u=urlsplit(href)
         if u.scheme or u.netloc or not u.path:return match[0]
-        destination=relative(source,unquote(u.path)).as_uri()
+        file=relative(source,unquote(u.path));destination=file.as_uri()
+        if file.is_file():
+            key=sha(unquote(u.path).encode())[:24]
+            linked[destination]=key
+            document_changes[relative(area,'workbench/documents/'+key+'.txt')]=read_bytes(file)
         return 'href="'+html.escape(destination+('?' + u.query if u.query else '')+('#'+u.fragment if u.fragment else ''),quote=True)+'"'
     base=re.sub(r'href="([^"]*)"',link,base.decode('utf-8-sig')).encode('utf-8')
     runtime=read_bytes(source/'maintenance/workbench_runtime.py')
+    # setup receives the full main bundle, even when invoked through an add-on's
+    # copied runtime. Resolve its helpers from that bundle before collecting data.
+    import sys
+    sys.path.insert(0,str(ordinary(source/'maintenance')))
     with lock(area):
-        changes,report=refresh_changes(area,base)
+        from workbench_personal import seed_changes
+        seeded=seed_changes(area)
+        changes,report=refresh_changes(area,base,staged=seeded)
+        changes.update(seeded)
         changes.update({relative(area,'workbench/MANUAL.base.html'):base,relative(area,'workbench/workbench_runtime.py'):runtime})
+        changes.update(document_changes)
+        changes[relative(area,'workbench/document-links.json')]=encode(linked)
+        for name in ('workbench_packages.py','workbench_server.py','workbench_personal.py'):
+            file=source/'maintenance'/name
+            if file.exists():changes[relative(area,'workbench/'+name)]=read_bytes(file)
+        launcher=source/'Open-Workbench.cmd'
+        if launcher.exists():changes[relative(area,'workbench/Open-Workbench.cmd')]=read_bytes(launcher)
         report['write']=commit_files(area,changes,'workbench-setup')
         return report
 
-def change_state(area,package_id,version=None,enabled=None):
+def change_state(area,package_id,version=None,enabled=None,show_when_paused=None,package_type='addon',expected=None):
+    try:
+        from workbench_packages import change
+    except ModuleNotFoundError as error:
+        if error.name != 'workbench_packages': raise
+    else:
+        patch={}
+        if version is not None:patch.update(selected_version=version,selection_mode='fixed')
+        if enabled is not None:patch['enabled']=enabled
+        if show_when_paused is not None:patch['show_when_paused']=show_when_paused
+        if patch:return change(area,package_type+'/'+package_id,patch,expected)
+        if package_type=='personal':
+            from workbench_personal import catalog
+            return catalog(area)
+        _,value=load_state(area,package_id)
+        return {'state':{'status':'verified-unchanged','backup':None,'changed':0},'selected_version':value['selected_version'],'enabled':value['enabled']}
     with lock(area):
         path,value=load_state(area,package_id)
         if version is not None:
@@ -258,12 +332,13 @@ def main():
         if name=='setup':p.add_argument('--source',type=Path,required=True)
         if name=='state':
             p.add_argument('--id',required=True);p.add_argument('--version');p.add_argument('--enabled',choices=['yes','no'])
+            p.add_argument('--show-when-paused',choices=['yes','no']);p.add_argument('--package-type',choices=['addon','plugin-guide','personal'],default='addon')
     args=parser.parse_args()
     try:
         area=ordinary(args.user_area)
         if args.command=='setup':result=setup(args.source,area)
         elif args.command=='refresh':result=refresh(area)
-        else:result=change_state(area,args.id,args.version,None if args.enabled is None else args.enabled=='yes')
+        else:result=change_state(area,args.id,args.version,None if args.enabled is None else args.enabled=='yes',None if args.show_when_paused is None else args.show_when_paused=='yes',args.package_type)
         print(json.dumps(result,ensure_ascii=False));return 0
     except (ValueError,OSError,KeyError,TypeError) as error:
         print(json.dumps({'status':'error','message':str(error)},ensure_ascii=False));return 1

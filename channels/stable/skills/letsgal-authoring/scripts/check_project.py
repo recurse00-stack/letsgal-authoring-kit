@@ -157,6 +157,38 @@ def check(target, format_profile='auto'):
                 issue('error', cl, 'invalid rightKind', 'condition_shape')
         return unsupported
 
+    def performance_fields(kind, props, loc):
+        """Stable r7 stored loop shape and control identifiers; no playback simulation."""
+        def bad(message):
+            issue('error', loc, message, 'performance_loop_shape')
+        if kind == 'performanceStart' and props.get('segmentLoopGroups') not in (None, ''):
+            groups = embedded(props, 'segmentLoopGroups', loc)
+            seen = set()
+            for group in groups or []:
+                if not isinstance(group, dict):
+                    bad('loop group must be an object')
+                    continue
+                group_id = group.get('id')
+                if not isinstance(group_id, str) or not group_id.strip():
+                    bad('loop group requires a non-empty id')
+                elif group_id in seen:
+                    bad('loop group ids must be unique within the segment')
+                else:
+                    seen.add(group_id)
+                start, count = group.get('start'), group.get('count')
+                if type(start) is not int or not 0 <= start <= 9007199254740991:
+                    bad('loop start must be a non-negative safe integer in milliseconds')
+                if 'count' not in group or (count is not None and (type(count) is not int or not 1 <= count <= 9007199254740991)):
+                    bad('loop count must be a positive safe integer or null for infinite playback')
+        if kind == 'stopBackgroundPerformance':
+            action = props.get('action', 'stop')
+            if action not in ('stop', 'pauseTrack', 'resumeTrack'):
+                bad('unknown performance control action')
+            if action in ('pauseTrack', 'resumeTrack'):
+                for key in ('segmentId', 'trackId'):
+                    if not isinstance(props.get(key), str) or not props[key].strip():
+                        bad(action + ' requires ' + key)
+
     def control_flow_shapes(blocks, loc):
         """2.9 flat marker structure only; never evaluate expressions or rewrite data."""
         stack = []
@@ -320,6 +352,7 @@ def check(target, format_profile='auto'):
                 if not isinstance(props, dict):
                     issue("error", bl, "props must be an object")
                     continue
+                performance_fields(kind, props, bl)
                 required_parameter = {'branch':'choices','if':'conditions','callFragment':'fragmentId','setver':'key'}.get(kind) if isinstance(kind,str) else None
                 if format_profile == 'auto' and required_parameter and required_parameter not in props:
                     unsupported_blocks += 1

@@ -19,5 +19,6 @@ function Update-LocalWorkbench([string]$BundleRoot, [string]$UserArea) {
         $completionWarnings.Add($message); Write-Warning $message
     } else {
         Write-Host ('本机总 Wiki：' + (Join-Path $UserArea 'workbench/MANUAL.html'))
+        Write-Host ('包管理启动：' + (Join-Path $UserArea 'workbench/Open-Workbench.cmd'))
     }
 }

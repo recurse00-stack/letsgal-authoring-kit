@@ -20,7 +20,7 @@ MCP 可用 history_checkpoint，支持的操作保存 opId，定稿记恢复标�
 
 ## 多人协作
 
-进入获准房间后，按[附加包启停](customization.md#附加包的启用与暂停)核状态；已启用且适配当前宿主才加载 letsgal-collaboration。附加包管理本人范围、共享影响、成员占用及同步；通用演出／UI／调试由主包维护。
+进入获准房间后，按[附加包启停](package-management.md#在任务入口核状态)核状态；已启用且适配当前宿主才加载 letsgal-collaboration。附加包管理本人范围、共享影响、成员占用及同步；通用演出／UI／调试由主包维护。
 
 附加包未启用时仍核本人和获准章节，重读后局部编辑、保留他人修改。CHAPTER_LOCKED 依据 details.reason 处理行占用、对齐或操作限制；确认同步时读取远端结果。
 

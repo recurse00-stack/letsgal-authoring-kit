@@ -66,7 +66,7 @@ schema 管数据，组件管布局。需要界面组织方案时按[创作参考
 | 演出时间轴 | 用 ctx.performance 的 isActive／isPaused／getInfo／onChange 观察；getInfo 为即时快照，订阅结束清理。段内 callFragment 会告警并结束 Promise，unsafe_goToFragment／hideBox 也受限制，跳转安排到允许的位置；模态 UI 会暂停／恢复时间轴 |
 | 存档／快照重建 | 在产生副作用处读取 ctx.flow.isRestoring，跳过重复结算，同时保留恢复子片段所需的 callFragment。最深落点恢复后标志立即变化；JavaScript 局部状态按实际存档机制重建 |
 
-普通快进和调试定位不进入 isRestoring 恢复态。按实际保存位置验证父方法重入、子片段恢复及防重结算；重复预览／卸载后清理订阅、输入和 UI。演出重播见[演出段](performance.md)，兼容旧宿主时复测对应存档路径。
+普通快进和调试定位不进入 isRestoring 恢复态。按实际保存位置验证父方法重入、子片段恢复及防重结算；动态片段含镜头色调时，按[片段存读档与镜头核对](preview-and-build.md#fragment-save-load-checks)同时检查状态和实际画面。重复预览／卸载后清理订阅、输入和 UI。演出重播见[演出段](performance.md)，兼容旧宿主时复测对应存档路径。
 
 ## Steam 接入
 

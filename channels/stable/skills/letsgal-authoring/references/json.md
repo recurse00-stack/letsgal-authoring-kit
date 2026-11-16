@@ -45,6 +45,8 @@ callFragment 指向同章已存在片段，结束返回；当前契约在转换�
 
 只读检查 JSON、有限布局／索引／ID／片段引用、conditions 与 setver／varOps 操作数，以及嵌套结构配对、分支字段、else 顺序和演出跨界；接受合法旧格式和未知字段。
 
+Stable 另检查 r7 已出现的循环组 JSON 结构、唯一组 ID、start／count 类型，以及暂停／继续动作的必要标识。空循环组保持合法；未知附加字段保留。周期、成员归属和目标是否实际存在仍由宿主与读回验证，检查通过不替代播放。
+
 - auto 识别已维护布局；fragments 检查相同有限约定；json-only 只解析语法。
 - 退出码 0：检查范围无错误，仍读 warning；1：约定错误；2：无法检查或格式未覆盖。
 - main_call_version_sensitive、fragment_cycle、fragment_depth、preprocessing_in_linear_order、if_reuse_decision_risk 交给宿主复核。
