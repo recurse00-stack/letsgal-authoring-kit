@@ -1,5 +1,7 @@
 # 宿主验证范围
 
+Windows Studio 3.5.0 独立工程已验证[插图、音频片段、换曲和自动存档](docs/wiki/04-performance.md)及[动态片段黑白读档对照](docs/wiki/07-recovery.md#studio-350-grayscale)。插图、声音与黑白取自内嵌预览，自动档的保存、覆盖及读取取自调试运行。其余 r7 样本保留原版本范围。
+
 这里说明已取得的运行证据，便于判断某项任务还需要核对什么。问题现象与自测说明统一见 [Wiki：本项目自测问题历史](docs/wiki/07-recovery.md#本项目自测问题历史)。
 
 ## Studio 3.0.0：基础覆盖

@@ -10,7 +10,7 @@ metadata:
 
   channel: beta
 
-  revision: 20261116-workbench
+  revision: 20261123-authoring-docs
 
 ---
 

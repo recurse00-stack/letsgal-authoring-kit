@@ -52,7 +52,7 @@
     },
     {
       "path": "references/json.md",
-      "sha256": "c1feba4a1d556c3392c35b6761158a10cafe4b2083ec1687a4625828fdd8994a"
+      "sha256": "e81bf7fffe6237d58a5c434b0abf9cf14d65d92e99298c441da7765451fe01fc"
     },
     {
       "path": "references/mcp-workflow.md",
@@ -128,7 +128,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "8d809bf65e5d1557d27b7e57047251639cf8bb5fdd62cf7cc47ec97bfcc92c87"
+      "sha256": "430730baf2b1c78d4e1c9b9e7514f8ccdd4727a8562a94c45f67afbda04b47fd"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -143,5 +143,5 @@
       "sha256": "2541584dc3943ebec9ba3689b9d6c02a9066208de2195409be6e6601a35a2084"
     }
   ],
-  "revision": "20261116-workbench"
+  "revision": "20261123-authoring-docs"
 }

@@ -1,144 +1,16 @@
 """Read explicit local Wiki manifests and build a NEW personal workbench outside the public source."""
 import argparse
 import hashlib
-import html
 import json
-from pathlib import Path, PurePosixPath
-import re
-import stat
-from urllib.parse import unquote, urlsplit
-import markdown
-from workbench_runtime import collect as collect_managed
-from build_manual import ROOT, render, slugify
+from pathlib import Path
+from build_manual import ROOT, render
+from workbench_mounts import ordinary
+from workbench_packages import library as managed_library
 
-MAX_BYTES=1000000
-
-def ordinary(path):
-    path=Path(path).absolute()
-    for part in (path,*path.parents):
-        if part.exists() or part.is_symlink():
-            info=part.lstat()
-            if stat.S_ISLNK(info.st_mode) or getattr(info,'st_file_attributes',0)&0x400:
-                raise ValueError('Linked input/output paths are not supported')
-    return path.resolve()
-
-def unique_object(pairs):
-    result={}
-    for key,value in pairs:
-        if key in result: raise ValueError('Duplicate JSON key: '+key)
-        result[key]=value
-    return result
-
-def string(value, field, max_length=200):
-    if not isinstance(value,str) or not value.strip() or len(value)>max_length: raise ValueError('Invalid '+field)
-    return value
-
-def read_json(path):
-    ordinary(path)
-    if path.stat().st_size>MAX_BYTES: raise ValueError('Manifest too large')
-    return json.loads(path.read_text('utf-8-sig'),object_pairs_hook=unique_object)
-
-def document_path(base, relative):
-    if not isinstance(relative,str) or '\\' in relative or ':' in relative: raise ValueError('Invalid document path')
-    parts=PurePosixPath(relative).parts
-    if not parts or relative.startswith('/') or '..' in parts or '/'.join(parts)!=relative: raise ValueError('Document path must stay within its package')
-    path=ordinary(base.joinpath(*parts))
-    if not path.is_relative_to(base.resolve()) or not path.is_file() or path.suffix.lower()!='.md': raise ValueError('Expected a Markdown file inside the package')
-    if path.stat().st_size>MAX_BYTES: raise ValueError('Document too large')
-    return path
-
-def read_item(path, kind, expected_id=None, expected_version=None, document_base=None):
-    value=read_json(path)
-    if not isinstance(value,dict) or value.get('schema')!=1 or value.get('kind')!=kind: raise ValueError('Manifest schema/kind does not match its location')
-    for name,limit in [('id',200),('version',80),('revision',100),('title',200)]: string(value.get(name),name,limit)
-    if not isinstance(value.get('summary',''),str) or len(value.get('summary',''))>1000: raise ValueError('Invalid summary')
-    if expected_id is not None and value['id']!=expected_id: raise ValueError('Package ID differs from its directory')
-    if expected_version is not None and value['version']!=expected_version: raise ValueError('Package version differs from its directory')
-    if value.get('status') not in ('available','paused'): raise ValueError('Explicit available/paused status is required')
-    section={'plugin':'skills','reference':'references','personal':'personal'}[kind]
-    identity=[section,value['id'],value['version'],value['revision']]
-    uid='ext-'+hashlib.sha256(json.dumps(identity,ensure_ascii=False).encode('utf-8')).hexdigest()[:16]
-    item={key:value[key] for key in ('id','version','revision','title','status')}
-    item.update(uid=uid,section=section,summary=value.get('summary',''),documents=[])
-    # Paused packages are metadata-only: do not open, validate or hash their documents.
-    if value['status']=='paused': return item
-    base=ordinary(document_base or path.parent)
-    docs=value.get('documents')
-    if not isinstance(docs,list) or not 1<=len(docs)<=50: raise ValueError('Available entries need 1-50 documents')
-    paths={}; seen=set()
-    for doc in docs:
-        if not isinstance(doc,dict) or not isinstance(doc.get('id'),str) or not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,60}',doc['id']): raise ValueError('Invalid document id')
-        if doc['id'] in seen: raise ValueError('Duplicate document id')
-        seen.add(doc['id']); string(doc.get('title'),'document title')
-        file=document_path(base,doc.get('path'))
-        if file in paths: raise ValueError('Duplicate document path')
-        paths[file]=doc['id']
-    for doc in docs:
-        file=document_path(base,doc['path'])
-        source=file.read_text('utf-8-sig')
-        if file.name=='SKILL.md' and source.startswith('---\n'):
-            parts=source.split('\n---\n',1)
-            if len(parts)==2 and re.search(r'^name:\s',parts[0],re.M): source=parts[1].lstrip('\n')
-        body=markdown.markdown(source,extensions=['tables','fenced_code','toc'],extension_configs={'toc':{'slugify':slugify}})
-        def rewrite(match):
-            href=html.unescape(match[1]); u=urlsplit(href)
-            if u.scheme or u.netloc or not u.path: return match[0]
-            target=(file.parent/unquote(u.path)).resolve()
-            if target in paths:
-                return 'href="#'+uid+'-'+paths[target]+('--'+html.escape(unquote(u.fragment),quote=True) if u.fragment else '')+'"'
-            return ''  # A standalone library includes only its declared documents.
-        body=re.sub(r'href="([^"]*)"',rewrite,body)
-        item['documents'].append({'id':doc['id'],'title':doc['title'],'html':body})
-    if 'navigation' in value:
-        from workbench_runtime import validate_navigation
-        validate_navigation(value['navigation'],item['documents'])
-        item['navigation']=value['navigation']
-    return item
 
 def collect(user_area):
-    area=ordinary(user_area)
-    if not area.is_dir(): raise ValueError('User area does not exist')
-    items=[]; identities=set()
-    plugins=area/'plugins'
-    if plugins.exists():
-        ordinary(plugins)
-        for plugin in sorted(plugins.iterdir()):
-            ordinary(plugin)
-            if not plugin.is_dir(): continue
-            for version in sorted(plugin.iterdir()):
-                ordinary(version)
-                if not version.is_dir(): continue
-                manifest=version/'wiki.json'
-                if manifest.exists(): items.append(read_item(manifest,'plugin',plugin.name,version.name))
-    addons=area/'addons'
-    if addons.exists():
-        ordinary(addons)
-        for addon in sorted(addons.iterdir()):
-            ordinary(addon)
-            if not addon.is_dir(): continue
-            if (addon/'state.json').exists(): continue
-            catalog=addon/'wiki'
-            if not catalog.exists(): continue
-            ordinary(catalog)
-            if not catalog.is_dir(): raise ValueError('Expected an addon Wiki directory')
-            for manifest in sorted(catalog.glob('*.json')):
-                # Adapter lives outside the checked version payload. It reads only
-                # the selected package's declared Markdown; no install or activation.
-                version=manifest.stem
-                if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,79}',version) or version.endswith('.'):
-                    raise ValueError('Invalid addon version directory')
-                items.append(read_item(manifest,'reference',addon.name,version,addon/version))
-    personal=area/'preferences/wiki.json'
-    if personal.exists(): items.append(read_item(personal,'personal'))
-    items.extend(collect_managed(area)['items'])
-    if len(items)>200: raise ValueError('Too many Wiki packages')
-    for item in items:
-        identity=(item['section'],item['id'],item['version'],item['revision'])
-        if identity in identities: raise ValueError('Duplicate Wiki identity')
-        identities.add(identity)
-    for item in items:
-        item.setdefault('enabled',item['status']=='available');item.setdefault('wiki_visible',item['status']=='available')
-    return {'schema':2,'kind':'letsgal-wiki-library','items':items}
+    return managed_library(ordinary(user_area), render_html=True)
+
 
 def build(user_area, output=None, data_output=None, check=False):
     library=collect(user_area)

@@ -108,5 +108,15 @@
   window.addEventListener('hashchange',()=>{if(location.hash==='#packages')refresh();});
   window.addEventListener('focus',()=>{if(connected&&location.hash==='#packages'&&!busy)refresh();});
   window.addEventListener('letsgal-library-updated',event=>{library=event.detail;if(!connected){items=offlineItems();render();}});
+  if(connected){
+    $('load-library').textContent='挂载资料';
+    window.LetsGalMountLibrary=async value=>{
+      if(!connected)throw Error('请从 Open-Workbench.cmd 重新打开工作台。');
+      const result=await api('/api/wiki/mount',value);
+      if(loading)await loading;
+      await load();
+      return result;
+    };
+  }
   items=offlineItems();render();if(connected)refresh();
 })();

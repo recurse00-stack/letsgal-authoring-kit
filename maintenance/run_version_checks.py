@@ -15,17 +15,17 @@ def run(scratch):
     def record(name,ok,detail=None):
         checks.append({'name':name,'passed':bool(ok),'detail':detail})
         assert ok,(name,detail)
-    versions=['3.0.0','3.0.1','3.0.99+build.9','3.0.0-beta.1','3.1.0','4.0.0',
+    versions=['3.5.0','3.5.12+build.9','3.5.0-beta.1','3.6.0','3.0.0','3.0.1','3.0.99+build.9','3.0.0-beta.1','3.1.0','4.0.0',
               '2.9.0-beta.1','2.9.0-beta.2','2.9.17-beta.99+build.1','2.8.0-beta.1','2.8.2-beta.4',
               '2.9.0','2.8.0','2.10.0-beta.1','2.7.0-beta.1','2.5.0','3.0.0-rc.1']
     for ch in ['stable','beta']:
         scripts=payload(kit,ch)/'scripts';sys.path.insert(0,str(scripts))
         spec=importlib.util.spec_from_file_location('inspector_'+ch,scripts/'inspect_version.py')
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
-        host='3.0.0' if ch=='stable' else '2.9.0-beta.1'
-        newer='3.0.17+build.9' if ch=='stable' else '2.9.17-beta.99+build.9'
+        host='3.5.0' if ch=='stable' else '2.9.0-beta.1'
+        newer='3.5.17+build.9' if ch=='stable' else '2.9.17-beta.99+build.9'
         for version in versions:
-            expected=(version in ['3.0.0','3.0.1','3.0.99+build.9']) if ch=='stable' else (version in ['2.9.0-beta.1','2.9.0-beta.2','2.9.17-beta.99+build.1','2.8.0-beta.1','2.8.2-beta.4'])
+            expected=(version in ['3.5.0','3.5.12+build.9','3.0.0','3.0.1','3.0.99+build.9']) if ch=='stable' else (version in ['2.9.0-beta.1','2.9.0-beta.2','2.9.17-beta.99+build.1','2.8.0-beta.1','2.8.2-beta.4'])
             d=module.inspect(studio_version=version)
             record(ch+' route '+version,d['status']==('reference_selected' if expected else 'UNKNOWN') and d['operation_gate']['state']==('matched' if expected else 'confirmation_required') and d['read_only'] and d['runtime_compatibility']=='not_verified')
             record(ch+' reference '+version,(scripts.parent/d['reference']).is_file())

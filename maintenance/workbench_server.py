@@ -84,7 +84,7 @@ class Handler(BaseHTTPRequestHandler):
                     href=html.unescape(match[1]);url=urlsplit(href);source=url._replace(fragment='',query='').geturl()
                     if source not in links:return match[0]
                     return 'href="'+s.entry+'docs/'+links[source]+'"'
-                page=re.sub(r'href="([^"]*)"',rewrite,page)
+                page=w.rewrite_document_links(page,rewrite)
                 self.send(200,page.encode('utf-8'),'text/html; charset=utf-8')
             elif document:
                 key=self.path[len(s.entry+'docs/'):]
@@ -116,7 +116,7 @@ class Handler(BaseHTTPRequestHandler):
         try:
             if self.headers.get('Transfer-Encoding'):raise ValueError('Chunked requests are not accepted')
             length=int(self.headers.get('Content-Length','0'))
-            limit=6500000 if self.path=='/api/personal/save' else 8192
+            limit={'/api/wiki/mount':12000000,'/api/personal/save':6500000}.get(self.path,8192)
             if not 0<length<=limit:raise ValueError('Invalid request size')
             value=json.loads(self.rfile.read(length).decode('utf-8'),object_pairs_hook=w.unique)
             if not isinstance(value,dict):raise ValueError('Expected an object')
@@ -127,6 +127,10 @@ class Handler(BaseHTTPRequestHandler):
             elif self.path=='/api/personal/save':
                 if set(value)!={'document','content','expected'}:raise ValueError('Expected document, content and fingerprint')
                 with s.transaction:result=personal.save(s.area,value['document'],value['content'],value['expected'])
+                self.send(200,result)
+            elif self.path=='/api/wiki/mount':
+                from workbench_mounts import mount
+                with s.transaction: result=mount(s.area,value)
                 self.send(200,result)
             elif self.path=='/api/shutdown' and not value:
                 self.send(200,{'status':'stopping'})
