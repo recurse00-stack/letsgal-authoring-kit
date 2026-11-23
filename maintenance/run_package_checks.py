@@ -168,6 +168,52 @@ class Contracts(unittest.TestCase):
         self.register();old=w.collect_legacy(self.area)
         path=self.area/'workbench/MANUAL.html';path.write_text(w.inject((self.area/'workbench/MANUAL.base.html').read_text('utf-8'),old),'utf-8')
         w.refresh(self.area);self.assertIn('example.weather',path.read_text('utf-8'))
+    def test_update_rebuilds_old_manifests_and_mounted_reading_editions(self):
+        from workbench_mounts import mount
+        self.register()
+        p.change(self.area,self.key,{'enabled':False,'show_when_paused':False})
+        legacy=self.area/'plugins/example.legacy/1'
+        legacy.mkdir(parents=True)
+        (legacy/'guide.md').write_text('# Old guide','utf-8')
+        manifest={'schema':1,'kind':'plugin','id':'example.legacy','version':'1','revision':'v1',
+                  'title':'Legacy','status':'available','documents':[{'id':'guide','title':'Guide','path':'guide.md'}]}
+        (legacy/'wiki.json').write_bytes(w.encode(manifest))
+        imported=wiki('example.notes','1')
+        self.assertEqual(mount(self.area,imported)['added'],1)
+        self.assertEqual(mount(self.area,imported)['added'],0)
+        self.assertEqual(mount(self.area,wiki('example.weather','1.0.0'))['added'],0)
+        before=w.file_map(self.area/'workbench/packages')
+        snapshot=p.library(self.area)
+        w.setup(ROOT,self.area)
+        self.assertEqual(p.library(self.area),snapshot)
+        self.assertEqual(w.file_map(self.area/'workbench/packages'),before)
+        ready={i['id']:i for i in snapshot['items'] if i['wiki_visible']}
+        self.assertEqual(ready['example.legacy']['documents'][0]['markdown'],'# Old guide')
+        self.assertEqual(ready['example.notes']['uid'],imported['items'][0]['uid'])
+        self.assertNotIn('example.weather',ready)
+        self.assertEqual(p.resolve(self.area,'plugin-guide/example.notes')['status'],'unregistered')
+
+    def test_setup_preserves_embedded_markdown_renderer(self):
+        source=(ROOT/'MANUAL.html').read_text('utf-8-sig')
+        installed=(self.area/'workbench/MANUAL.base.html').read_text('utf-8')
+        script='<script id="wiki-data"'
+        self.assertEqual(installed[installed.index(script):],source[source.index(script):])
+
+    def test_invalid_mount_keeps_last_readable_wiki(self):
+        from workbench_mounts import mount
+        original=wiki('example.notes','1')
+        mount(self.area,original)
+        output=self.area/'workbench/MANUAL.html'
+        before=output.read_bytes()
+        different=copy.deepcopy(original)
+        different['items'][0]['documents'][0]['title']='Changed edition'
+        with self.assertRaises(ValueError):mount(self.area,different)
+        self.assertEqual(output.read_bytes(),before)
+        broken=self.area/'workbench/libraries/broken.json'
+        broken.write_bytes(b'{}')
+        with self.assertRaises(ValueError):w.setup(ROOT,self.area)
+        self.assertEqual(output.read_bytes(),before)
+
     def test_main_setup_preserves_package_choices(self):
         self.register();p.change(self.area,self.key,{'enabled':False,'show_when_paused':True});before=self.state()
         w.setup(ROOT,self.area);self.assertEqual(before,self.state())

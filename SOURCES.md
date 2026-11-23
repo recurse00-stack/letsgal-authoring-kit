@@ -1,5 +1,7 @@
 # 资料来源与适用范围
 
+3.5 正式系列更新依据为 [Windows 官方正式清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)与[引擎发布历史](https://static-lg-studio.cn-gd.ufileos.com/studio/releases-history.json)中的 3.5.0 条目。
+
 2026-11-15 再次核对[正式清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-stable.json)为 3.0.0，[Beta 清单](https://static-lg-studio.cn-gd.ufileos.com/studio/latest-beta.json)为 2.9.0-beta.1。清单会随发行更新，实际操作以目标实例的身份核对为准。
 
 Stable 依据[3.0 更新说明](https://docs.avg-engine.com/updates/3-0-0)、该版宿主返回的 68 项工具 schema、quickstart／剧情／UI／扩展／预览参考，以及官方 init_program 生成的 SDK 3.0.0、llms.txt 和 Studio 组件类型。Beta 依据 2.9 的 67 项 schema、对应参考及 2.8 SDK／宿主资料。各项运行覆盖见[宿主验证范围](HOST-VALIDATION.md)。

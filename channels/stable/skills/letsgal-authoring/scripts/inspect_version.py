@@ -22,13 +22,13 @@ VERSION = re.compile(r'(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]
 
 SKILL_CHANNEL = 'stable'
 
-PROFILES = {'3.0': 'references/current-capabilities.md'}
+PROFILES = {'3.5': 'references/studio-3-5.md', '3.0': 'references/current-capabilities.md'}
 
 # Supported release series; third components and renderer revisions are diagnostic only.
 
-HOST_BASELINES = {'3.0': {'channel': 'stable'}}
+HOST_BASELINES = {series: {'channel': SKILL_CHANNEL} for series in PROFILES}
 
-GATE_REVISION = '20261113-optional-wiki'
+GATE_REVISION = '20261123-studio350'
 
 SDK_FILES = ('constants.ts','index.ts','sdk-context.ts','extension-module.ts','extension-method.ts',
 

@@ -37,7 +37,7 @@
       const seen=new Set();
       for(const d of i.documents){if(!d||!/^[a-z0-9][a-z0-9-]{0,60}$/.test(d.id)||!safeString(d.title)||seen.has(d.id))throw Error('资料文档无效或重复。');
         const htmlOK=typeof d.html==='string'&&d.html.length<=1000000&&d.markdown===undefined;
-        const mdOK=i.section==='personal'&&typeof d.markdown==='string'&&d.markdown.length<=1000000&&d.html===undefined;
+        const mdOK=typeof d.markdown==='string'&&d.markdown.length<=1000000&&d.html===undefined;
         if(!htmlOK&&!mdOK)throw Error('资料文档正文无效。');seen.add(d.id);}
       if(i.package_key?.startsWith('personal/')&&(i.package_key!==personalKey||i.section!=='personal'))throw Error('个人资料身份无效。');
       validateNavigation(i.navigation,i.documents);
@@ -81,11 +81,29 @@
   }
 
 
-  function markdownBody(source,prefix,itemPrefix){
+  function markdownBody(source,prefix,itemPrefix,doc,documents){
     const template=document.createElement('template');template.innerHTML=window.marked.parse(source,{async:false});
     const counts=new Map();
     for(const h of template.content.querySelectorAll('h1,h2,h3,h4,h5,h6')){const stem=h.textContent.toLowerCase().replace(/[^\p{L}\p{N}_\s-]/gu,'').trim().replace(/ /g,'-')||'section',count=counts.get(stem)||0;counts.set(stem,count+1);h.id=stem+(count?'_'+count:'');}
-    for(const a of template.content.querySelectorAll('a[href]')){const raw=a.getAttribute('href'),parts=raw.split('#'),map={'user.md':'requirements','memory.md':'memory','guide.md':'guide'};if(map[parts[0]])a.setAttribute('href','#'+itemPrefix+'-'+map[parts[0]]+(parts[1]?'--'+parts[1]:''));}
+    const base='https://wiki.invalid/';
+    const documentUrl=path=>new URL(path.split('/').map(encodeURIComponent).join('/'),base);
+    const paths=new Map((documents||[]).filter(d=>d.path).map(d=>[documentUrl(d.path).href,d.id]));
+    for(const a of template.content.querySelectorAll('a[href]')){
+      const raw=a.getAttribute('href');
+      if(!raw||raw.startsWith('#')||/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(raw))continue;
+      if(doc?.path){
+        let target,fragment;
+        try{target=new URL(raw,documentUrl(doc.path));fragment=decodeURIComponent(target.hash.slice(1));}
+        catch{a.removeAttribute('href');continue;}
+        target.hash='';target.search='';
+        const id=paths.get(target.href);
+        if(id)a.setAttribute('href','#'+itemPrefix+'-'+id+(fragment?'--'+fragment:''));
+        else a.removeAttribute('href');
+      }else{
+        const [path,fragment]=raw.split('#'), map={'user.md':'requirements','memory.md':'memory','guide.md':'guide'};
+        if(Object.hasOwn(map,path))a.setAttribute('href','#'+itemPrefix+'-'+map[path]+(fragment?'--'+fragment:''));
+      }
+    }
     return readableContent(template.innerHTML,prefix,itemPrefix);
   }
   function groupsFor(edition){
@@ -101,7 +119,7 @@
       const id=i.uid+'-'+d.id,a=text('article',undefined,'article');a.id=id;a.dataset.area=i.section;a.dataset.external='true';
       a.append(text('p',i.title+(i.package_key===personalKey?'':(' · '+i.version)),'eyebrow'));
       if(i.package_key!==personalKey&&i.revision){const details=text('details',undefined,'article-details');details.append(text('summary','资料版本详情'),text('code',i.revision));a.append(details);}
-      const body=d.markdown!==undefined?markdownBody(d.markdown,id,i.uid):readableContent(d.html,id,i.uid);if(!body.querySelector('h1'))a.append(text('h1',d.title));a.append(body);
+      const body=d.markdown!==undefined?markdownBody(d.markdown,id,i.uid,d,i.documents):readableContent(d.html,id,i.uid);if(!body.querySelector('h1'))a.append(text('h1',d.title));a.append(body);
       articles.push(a);descriptors.push({id,docId:d.id,area:i.section,title:d.title,summary:'',external:true,spaceKey:itemKey(i),editionUid:i.uid});
     }
     const builtin=data.pages.map(p=>({...p,docId:p.id,spaceKey:helpIds.has(p.id)?null:'core',editionUid:helpIds.has(p.id)?null:'core',area:helpIds.has(p.id)?p.area:'main'}));
@@ -296,7 +314,24 @@
   $('print-manual').addEventListener('click',()=>window.print());
   document.querySelectorAll('a[href="#home"]').forEach(a=>a.addEventListener('click',()=>{$('search').value='';search();report('');if(location.hash==='#home')route();}));
   $('load-library').addEventListener('click',()=>$('library-file').click());
-  $('library-file').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>12000000)throw Error('资料文件超过 12 MB。');const r=registerLibrary(JSON.parse(await file.text()));report(`已载入 ${r.items} 份资料、${r.documents} 篇正文；仅在当前页面展示，未改动原文件。`);}catch(error){report('未载入：'+error.message);}e.target.value='';});
+  $('library-file').addEventListener('change',async e=>{
+    const file=e.target.files[0];if(!file)return;
+    try{
+      if(file.size>12000000)throw Error('资料文件超过 12 MB。');
+      const value=JSON.parse(await file.text()), incoming=validateLibrary(value);
+      if(data.manager){
+        const result=await window.LetsGalMountLibrary(value);
+        report('已挂载 '+result.added+' 个新版本，已有资料保留在本机工作台。');
+      }else{
+        const editions=new Set(library.map(i=>i.uid));
+        const managed=new Set(library.filter(i=>i.package_key).map(i=>JSON.stringify([i.section,i.id])));
+        const extra=incoming.filter(i=>!editions.has(i.uid)&&!managed.has(JSON.stringify([i.section,i.id])));
+        registerLibrary({schema:2,kind:'letsgal-wiki-library',items:[...library,...extra]});
+        report('已载入 '+incoming.length+' 份资料供本页预览。永久挂载请从 Open-Workbench.cmd 打开本机工作台。');
+      }
+    }catch(error){report('资料载入未完成。'+error.message);}
+    e.target.value='';
+  });
   window.LetsGalWiki=Object.freeze({schema:2,register:registerLibrary,preview:(source)=>markdownBody(source,'personal-preview','personal-preview')});document.body.classList.add('js');
   // A tab-local ledger bounds the buttons to this workbench's routes.
   const historyKey='letsgal-wiki-history:'+location.pathname;

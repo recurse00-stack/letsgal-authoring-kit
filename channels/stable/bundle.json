@@ -2,13 +2,13 @@
   "schema": 1,
   "owner": "letsgal-authoring-kit",
   "skill": "letsgal-authoring",
-  "version": "3.0.5",
+  "version": "3.5.0",
   "channel": "stable",
   "profile_schema": 1,
   "files": [
     {
       "path": "agents/openai.yaml",
-      "sha256": "a87850c1fad22e8a165b6d81b074dd2c61e7a0271b23cbba58ec9887a232a79d"
+      "sha256": "b1de4a17e325e6cb66b7a0f5838a14e9a9eff62a3fdd64ebb9eb703dbce189d4"
     },
     {
       "path": "examples/选择练习.json",
@@ -52,7 +52,7 @@
     },
     {
       "path": "references/json.md",
-      "sha256": "0fe0f85bc8ccd848cd0d1b05471afde3931fccdc7d33128a934f19f614b73d38"
+      "sha256": "12eced4020ee596f1845b0e546e2ed60dfc19b284ad5595e42352f01c69972b8"
     },
     {
       "path": "references/mcp-workflow.md",
@@ -103,6 +103,10 @@
       "sha256": "c863794f876d9fcc4ab313a01fe24f045bce0a47fcd492daca59d68b15f277d1"
     },
     {
+      "path": "references/studio-3-5.md",
+      "sha256": "9f68332b33ca9e8a58cb52e7dd617bc81f89e5171817568c0fc40c4c4a9e2bf9"
+    },
+    {
       "path": "references/studio-editor-ui.md",
       "sha256": "ff025133103bcba83bf415cf02f0c3e673d8d2ceff91cf1ba8e6dbf30f2be003"
     },
@@ -116,7 +120,7 @@
     },
     {
       "path": "references/version-compatibility.md",
-      "sha256": "ace97a05ddd1ab1eaf2b3e4d6927d2fdf20f03d163d52a0939c415ac931afbe3"
+      "sha256": "877c4ac3a599c81a174b04569ca075a7a4f1e3ad31d84fcc5561f518861f3e1a"
     },
     {
       "path": "scripts/check_project.py",
@@ -124,11 +128,11 @@
     },
     {
       "path": "scripts/inspect_version.py",
-      "sha256": "f366a551388625cc1635ea087ceb97b30151d427d00fcf275c90b7f5dff1f1ae"
+      "sha256": "da337fc5ea791ec9bb4b3b7f53054eaa942956c827f45f12cd81084432165836"
     },
     {
       "path": "SKILL.md",
-      "sha256": "31f3a3c18a277b46660901e18076a554e4778c1d38a9171787197f3a22e26d89"
+      "sha256": "cb58a3de9a306d58b76e9bf3d75e8cf618f9f13e578ad4e7a1ecdab199a31e9d"
     },
     {
       "path": "templates/LETSGAL.example.md",
@@ -143,5 +147,5 @@
       "sha256": "2541584dc3943ebec9ba3689b9d6c02a9066208de2195409be6e6601a35a2084"
     }
   ],
-  "revision": "20261116-r7-workbench"
+  "revision": "20261123-studio350"
 }

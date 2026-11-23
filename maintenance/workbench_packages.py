@@ -138,7 +138,7 @@ def catalog(area):
     return {'schema':1, 'kind':'letsgal-package-catalog', 'items':items}
 
 
-def library(area, overrides=None, staged=None):
+def library(area, overrides=None, staged=None, render_html=False):
     items = []
     for key, (path, state, adapted) in records(area, overrides).items():
         visible = state['enabled'] or state.get('show_when_paused', False)
@@ -166,7 +166,8 @@ def library(area, overrides=None, staged=None):
     identities = [x['uid'] for x in items]
     if len(set(identities)) != len(identities):
         raise ValueError('Duplicate Wiki identities')
-    return {'schema':2, 'kind':'letsgal-wiki-library', 'items':items}
+    from workbench_mounts import complete
+    return complete(area,items,staged,render_html)
 
 
 def change(area, key, patch, expected=None):

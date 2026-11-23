@@ -252,6 +252,7 @@ def refresh_changes(area, base=None, overrides=None, staged=None):
         base=read_bytes(base_path)
     library=collect(area,overrides,staged)
     page=inject(base.decode('utf-8-sig'),library).encode('utf-8')
+    if len(page)>MAX_BYTES: raise ValueError('Combined Wiki exceeds the 20 MB reading limit')
     return {relative(area,'workbench/MANUAL.html'):page},{'status':'ready','items':len(library['items']),'documents':sum(len(i['documents']) for i in library['items']),'path':str(area/'workbench/MANUAL.html')}
 
 def refresh(area):
@@ -259,6 +260,15 @@ def refresh(area):
         changes,report=refresh_changes(area)
         report['write']=commit_files(area,changes,'wiki') if changes else None
         return report
+
+def rewrite_document_links(page, replace):
+    """Rewrite generated document anchors without changing embedded data or JavaScript."""
+    def rewrite(match):
+        if match.group('script') is not None:
+            return match.group()
+        return re.sub(r'\bhref="([^"]*)"',replace,match.group(),flags=re.I)
+    return re.sub(r'(?P<script><script\b[^>]*>.*?</script\s*>)|<a\b[^>]*>',rewrite,page,flags=re.I|re.S)
+
 
 def setup(source,area):
     source=ordinary(source)
@@ -275,7 +285,7 @@ def setup(source,area):
             linked[destination]=key
             document_changes[relative(area,'workbench/documents/'+key+'.txt')]=read_bytes(file)
         return 'href="'+html.escape(destination+('?' + u.query if u.query else '')+('#'+u.fragment if u.fragment else ''),quote=True)+'"'
-    base=re.sub(r'href="([^"]*)"',link,base.decode('utf-8-sig')).encode('utf-8')
+    base=rewrite_document_links(base.decode('utf-8-sig'),link).encode('utf-8')
     runtime=read_bytes(source/'maintenance/workbench_runtime.py')
     # setup receives the full main bundle, even when invoked through an add-on's
     # copied runtime. Resolve its helpers from that bundle before collecting data.
@@ -289,7 +299,7 @@ def setup(source,area):
         changes.update({relative(area,'workbench/MANUAL.base.html'):base,relative(area,'workbench/workbench_runtime.py'):runtime})
         changes.update(document_changes)
         changes[relative(area,'workbench/document-links.json')]=encode(linked)
-        for name in ('workbench_packages.py','workbench_server.py','workbench_personal.py'):
+        for name in ('workbench_packages.py','workbench_server.py','workbench_personal.py','workbench_mounts.py'):
             file=source/'maintenance'/name
             if file.exists():changes[relative(area,'workbench/'+name)]=read_bytes(file)
         launcher=source/'Open-Workbench.cmd'

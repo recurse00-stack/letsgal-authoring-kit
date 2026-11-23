@@ -6,17 +6,17 @@ description: 制作和修改 LetsGal Studio 的剧情、分支、演出、UI 与
 
 metadata:
 
-  version: 3.0.5
+  version: 3.5.0
 
   channel: stable
 
-  revision: 20261116-r7-workbench
+  revision: 20261123-studio350
 
 ---
 
 # LetsGal Studio 创作
 
-适用 **3.0 系列正式版**。2.9／2.8 工程选 Beta 载荷；2.5 资料从[历史发行](https://github.com/recurse00-stack/letsgal-authoring-kit/releases)取得。优先官方 MCP；连接异常按[恢复流程](references/troubleshooting.md#工具消失或断连)处理，界面托底须有当前任务的明确许可。
+面向 **Studio 3.5 正式系列**。涉及演出插图、音频剪辑、历史回退、默认游戏壳或导出资源时，先读 [3.5 创作用法](references/studio-3-5.md)。3.0 正式版保留[原系列资料](references/current-capabilities.md)。2.9／2.8 Beta 工程选 Beta 载荷。优先官方 MCP；连接异常按[恢复流程](references/troubleshooting.md#工具消失或断连)处理，界面托底须有当前任务的明确许可。
 
 ## 按当前任务读取
 
@@ -66,4 +66,4 @@ metadata:
 
 - 遵守宿主确认、只读及拒绝。独有内容删除、不可逆覆盖和外部发布按具体授权执行；需要判断范围时查[安全边界](references/safety.md)。
 
-交付结果、必要验证和未决项。作品决定归工程，偏好及插件知识归用户区；主 Skill 自身使用主包安装入口。
+交付结果、必要验证和未决项。作品决定归工程，偏好及插件知识归用户区；主 Skill 自身使用主包安装入口。更新主包或总 Wiki 时按[保留已挂载的资料](references/studio-3-5.md#更新工作台并保留挂载)核对原阅读入口。
